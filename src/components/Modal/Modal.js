@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useCallback } from 'react'
 import styled from 'styled-components'
 import { MdClose } from 'react-icons/md'
 import { motion, AnimatePresence } from 'framer-motion'
-import LoginForm from './LoginForm'
+import ModalForm from './ModalForm'
 
 const Background = styled(motion.div)`
   width: 100%;
@@ -16,11 +16,12 @@ const Background = styled(motion.div)`
 
 const ModalContainer = styled(motion.div)`
   min-width: 400px;
-  height: 600px;
+  height: fit-content;
+  padding-bottom: 50px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   display: grid;
-  grid-template-rows: 1fr 3fr;
+  grid-template-rows: 1fr 4fr;
   position: relative;
   z-index: 10;
   border-radius: 10px;
@@ -42,17 +43,17 @@ const ModalLogo = styled.div`
 const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  //justify-content: center;
+  margin-top: 25px;
   align-items: center;
   line-height: 1.8;
-  color: #141414;
 `
 
 const ModalCloseBtn = styled(MdClose)`
   cursor: pointer;
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
   width: 32px;
   height: 32px;
   padding: 0;
@@ -65,7 +66,7 @@ const modalVariant = {
   exit: { opacity: 0 },
 }
 
-const Modal = ({ showModal, setShowModal }) => {
+const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
   const BgRef = useRef()
   const closeModal = (e) => {
     if (BgRef.current === e.target) {
@@ -106,7 +107,11 @@ const Modal = ({ showModal, setShowModal }) => {
           <ModalContainer>
             <ModalLogo>서강신청 로고</ModalLogo>
             <ModalContent>
-              <LoginForm handleLogin={handleLogin}></LoginForm>
+              <ModalForm
+                handleLogin={handleLogin}
+                modalType={modalType}
+                setModalType={setModalType}
+              ></ModalForm>
             </ModalContent>
             <ModalCloseBtn
               onClick={() => setShowModal(!showModal)}

@@ -13,16 +13,16 @@ const OpenModalBtn = styled(motion.button)`
   cursor: pointer;
 `
 
-const LoginBtn = ({ onClick }) => {
+const SignBtn = ({ onClick, signBtnType }) => {
   return (
     <OpenModalBtn
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      onClick={onClick}
+      onClick={() => onClick(signBtnType)}
     >
-      로그인
+      {signBtnType === 'login' ? '로그인' : '회원가입'}
     </OpenModalBtn>
   )
 }
 
-export default LoginBtn
+export default SignBtn

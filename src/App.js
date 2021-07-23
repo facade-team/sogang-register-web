@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import GlobalStyle from './styles/GlobalStyle'
 import Modal from './components/Modal/Modal'
-import LoginBtn from './components/LoginBtn'
+import SignBtn from './components/SignBtn'
 
 const Container = styled.div`
   display: flex;
@@ -13,15 +13,25 @@ const Container = styled.div`
 
 const App = () => {
   const [showModal, setShowModal] = useState(false)
-  const openModal = () => {
+  const [modalType, setModalType] = useState('')
+
+  const openModal = (signBtnType) => {
+    console.log(signBtnType)
     setShowModal((prev) => !prev)
+    setModalType(signBtnType)
   }
   return (
     <>
       <GlobalStyle></GlobalStyle>
       <Container>
-        <LoginBtn onClick={openModal}></LoginBtn>
-        <Modal showModal={showModal} setShowModal={setShowModal}></Modal>
+        <SignBtn onClick={openModal} signBtnType={'login'}></SignBtn>
+        <SignBtn onClick={openModal} signBtnType={'signup'}></SignBtn>
+        <Modal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          modalType={modalType}
+          setModalType={setModalType}
+        ></Modal>
       </Container>
     </>
   )
