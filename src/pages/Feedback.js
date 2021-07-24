@@ -18,15 +18,6 @@ const Feedback = () => {
     <>
       <TopBar>
         <Font2>피드백 / 문의</Font2>
-        <div style={{ display: 'inline' }}>
-          <LogInBtn
-            onClick={() => {
-              console.log('loginbtn!');
-            }}
-          >
-            로그인
-          </LogInBtn>
-        </div>
       </TopBar>
 
       <MainPage>
