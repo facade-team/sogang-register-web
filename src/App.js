@@ -7,8 +7,8 @@ import Sidebar from './components/Sidebar/Sidebar';
 import ToggleBtn from './components/ToggleBtn/ToggleBtn';
 import Profile from './components/Profile/Profile';
 import Feedback from './pages/Feedback';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MyPage from './pages/MyPage';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const NavbarWidth = 15;
 
@@ -57,17 +57,19 @@ const App = () => {
     <>
       <BrowserRouter>
         <GlobalStyle></GlobalStyle>
-        <Container ref={containerRef} onClick={closeSidebar}>
+
+        <Container ref={containerRef}>
+          {/* 사용자프로필 & 로그인 버튼 */}
+          <SignBtn onClick={openModal} signBtnType={'login'}></SignBtn>
+          <SignBtn onClick={openModal} signBtnType={'signup'}></SignBtn>
+          <Profile userName="최현수" userMajor="컴퓨터공학과"></Profile>
           <ToggleBtn
             widthVW={width + NavbarWidth}
             toggleOpen={toggleSidebar}
-            onClick={openSidebar}
+            openSidebar={openSidebar}
+            closeSidebar={closeSidebar}
           ></ToggleBtn>
           <Sidebar widthVW={width} toggleOpen={toggleSidebar}></Sidebar>
-
-          {/* 로그인 버튼 */}
-          <SignBtn onClick={openModal} signBtnType={'login'}></SignBtn>
-          <SignBtn onClick={openModal} signBtnType={'signup'}></SignBtn>
 
           {/* 로그인 모달 */}
           <Modal
@@ -76,7 +78,7 @@ const App = () => {
             modalType={modalType}
             setModalType={setModalType}
           ></Modal>
-          <Profile userName="최현수" userMajor="컴퓨터공학과"></Profile>
+
           <Switch>
             <Route path="/feedback" exact component={Feedback}></Route>
             <Route path="/mypage" exact component={MyPage} />

@@ -2,14 +2,14 @@ import React from 'react';
 import { MdMenu, MdCancel } from 'react-icons/md';
 import { ImgBox } from './ToggleBtn.element';
 
-const ToggleBtn = ({ toggleOpen, widthVW, onClick }) => {
+const ToggleBtn = ({ toggleOpen, widthVW, openSidebar, closeSidebar }) => {
   return (
     <>
-      <ImgBox onClick={onClick} toggleSidebar={toggleOpen} widthVW={widthVW}>
+      <ImgBox toggleSidebar={toggleOpen} widthVW={widthVW}>
         {!toggleOpen ? (
-          <MdMenu size="25"></MdMenu>
+          <MdMenu onClick={openSidebar} size="25"></MdMenu>
         ) : (
-          <MdCancel size="25"></MdCancel>
+          <MdCancel onClick={closeSidebar} size="25"></MdCancel>
         )}
       </ImgBox>
     </>

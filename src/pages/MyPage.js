@@ -98,7 +98,7 @@ const MyPage = () => {
     <div className="App">
       <Topbar>
         <Font2>마이페이지</Font2>
-        <div style={{ display: 'inline' }}>
+        {/* <div style={{ display: 'inline' }}>
           <Loginbtn
             onClick={() => {
               console.log('loginbtn!');
@@ -106,7 +106,7 @@ const MyPage = () => {
           >
             로그인
           </Loginbtn>
-        </div>
+        </div> */}
       </Topbar>
 
       <Mainpage>
