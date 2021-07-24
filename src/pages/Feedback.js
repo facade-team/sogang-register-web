@@ -17,15 +17,6 @@ const Font2 = styled.div`
   display: inline;
 `;
 
-const LogInBtn = styled.button`
-  height: 30px;
-  width: 130px;
-  background-color: rgba(182, 6, 0, 0.6);
-  border-radius: 10px;
-  color: #ffffff;
-  border: none;
-`;
-
 const MainPage = styled.div`
   background: #ffffff;
   margin-left: 30px;
@@ -91,15 +82,6 @@ const Feedback = () => {
     <>
       <TopBar>
         <Font2>피드백 / 문의</Font2>
-        <div style={{ display: 'inline' }}>
-          <LogInBtn
-            onClick={() => {
-              console.log('loginbtn!');
-            }}
-          >
-            로그인
-          </LogInBtn>
-        </div>
       </TopBar>
 
       <MainPage>

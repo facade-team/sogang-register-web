@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const ProfileContainer = styled.div`
-  position: absolute;
+  /* position: absolute;
   top: 1vh;
-  right: 3vw;
+  right: 3vw; */
   padding: 5px;
-  width: 14vw;
+  width: 160px;
   display: flex;
 
   &:hover {

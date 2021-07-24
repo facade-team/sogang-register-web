@@ -3,30 +3,31 @@ import { Route, Switch } from 'react-router-dom';
 
 //Components
 import Modal from '../Modal/Modal';
-import SignBtn from '../SignBtn';
+import SignBtn from '../SignBtn/SignBtn';
 import Profile from '../Profile/Profile';
 import Feedback from '../../pages/Feedback';
 import MyPage from '../../pages/MyPage';
 
 //styled
-import { Container } from './MainContainer.element';
+import { Container, BtnContainer } from './MainContainer.element';
 
 const MainContainer = ({ widthVW, toggleOpen, onClick }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
 
-  // const openModal = (signBtnType) => {
-  //   setShowModal((prev) => !prev);
-  //   setModalType(signBtnType);
-  // };
+  const openModal = (signBtnType) => {
+    setShowModal((prev) => !prev);
+    setModalType(signBtnType);
+  };
 
   return (
     <Container widthVW={widthVW} toggleOpen={toggleOpen} onClick={onClick}>
-      <Profile userName="최현수" userMajor="컴퓨터공학과"></Profile>
-
       {/* 로그인 버튼 */}
-      {/* <SignBtn onClick={openModal} signBtnType={'login'}></SignBtn>
-      <SignBtn onClick={openModal} signBtnType={'signup'}></SignBtn> */}
+      <BtnContainer>
+        <SignBtn onClick={openModal} signBtnType={'login'}></SignBtn>
+        <SignBtn onClick={openModal} signBtnType={'signup'}></SignBtn>
+        <Profile userName="최현수" userMajor="컴퓨터공학과"></Profile>
+      </BtnContainer>
 
       {/* 로그인 모달 */}
       <Modal
