@@ -1,13 +1,14 @@
 import React, { useState, useRef } from 'react';
-import { DefaultContext } from 'react-icons/lib';
 import GlobalStyle from './styles/GlobalStyle';
 import Modal from './components/Modal/Modal';
 import SignBtn from './components/SignBtn';
 import styled from 'styled-components';
-import Navbar from './components/Navbar/Navbar';
+import Sidebar from './components/Sidebar/Sidebar';
 import ToggleBtn from './components/ToggleBtn/ToggleBtn';
 import Profile from './components/Profile/Profile';
 import Feedback from './pages/Feedback';
+import { BrowserRouter, Route, HashRouter } from 'react-router-dom';
+import MyPage from './pages/MyPage';
 
 const NavbarWidth = 15;
 
@@ -54,29 +55,33 @@ const App = () => {
 
   return (
     <>
-      <GlobalStyle></GlobalStyle>
-      <Container ref={containerRef} onClick={closeSidebar}>
-        <Profile userName="최현수" userMajor="컴퓨터공학과"></Profile>
-        <ToggleBtn
-          widthVW={width + NavbarWidth}
-          toggleOpen={toggleSidebar}
-          onClick={openSidebar}
-        ></ToggleBtn>
-        <Navbar widthVW={width} toggleOpen={toggleSidebar}></Navbar>
+      <HashRouter>
+        <GlobalStyle></GlobalStyle>
+        <Container ref={containerRef} onClick={closeSidebar}>
+          <Profile userName="최현수" userMajor="컴퓨터공학과"></Profile>
+          <ToggleBtn
+            widthVW={width + NavbarWidth}
+            toggleOpen={toggleSidebar}
+            onClick={openSidebar}
+          ></ToggleBtn>
+          <Sidebar widthVW={width} toggleOpen={toggleSidebar}></Sidebar>
 
-        {/* 로그인 버튼 */}
-        <SignBtn onClick={openModal} signBtnType={'login'}></SignBtn>
-        <SignBtn onClick={openModal} signBtnType={'signup'}></SignBtn>
+          {/* 로그인 버튼 */}
+          <SignBtn onClick={openModal} signBtnType={'login'}></SignBtn>
+          <SignBtn onClick={openModal} signBtnType={'signup'}></SignBtn>
 
-        {/* 로그인 모달 */}
-        <Modal
-          showModal={showModal}
-          setShowModal={setShowModal}
-          modalType={modalType}
-          setModalType={setModalType}
-        ></Modal>
-        <Feedback></Feedback>
-      </Container>
+          {/* 로그인 모달 */}
+          <Modal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            modalType={modalType}
+            setModalType={setModalType}
+          ></Modal>
+
+          <Route path="/feedback" exact component={Feedback} />
+          <Route path="/mypage" exact component={MyPage} />
+        </Container>
+      </HashRouter>
     </>
   );
 };
