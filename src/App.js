@@ -7,7 +7,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import ToggleBtn from './components/ToggleBtn/ToggleBtn';
 import Profile from './components/Profile/Profile';
 import Feedback from './pages/Feedback';
-import { BrowserRouter, Route, HashRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MyPage from './pages/MyPage';
 
 const NavbarWidth = 15;
@@ -55,10 +55,9 @@ const App = () => {
 
   return (
     <>
-      <HashRouter>
+      <BrowserRouter>
         <GlobalStyle></GlobalStyle>
         <Container ref={containerRef} onClick={closeSidebar}>
-          <Profile userName="최현수" userMajor="컴퓨터공학과"></Profile>
           <ToggleBtn
             widthVW={width + NavbarWidth}
             toggleOpen={toggleSidebar}
@@ -77,11 +76,13 @@ const App = () => {
             modalType={modalType}
             setModalType={setModalType}
           ></Modal>
-
-          <Route path="/feedback" exact component={Feedback} />
-          <Route path="/mypage" exact component={MyPage} />
+          <Profile userName="최현수" userMajor="컴퓨터공학과"></Profile>
+          <Switch>
+            <Route path="/feedback" exact component={Feedback}></Route>
+            <Route path="/mypage" exact component={MyPage} />
+          </Switch>
         </Container>
-      </HashRouter>
+      </BrowserRouter>
     </>
   );
 };

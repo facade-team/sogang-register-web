@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { MdMenu, MdCancel } from 'react-icons/md';
 import { ImgBox } from './ToggleBtn.element';
 
