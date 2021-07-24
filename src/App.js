@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Navbar from './components/Navbar/Navbar';
 import ToggleBtn from './components/ToggleBtn/ToggleBtn';
 import Profile from './components/Profile/Profile';
+import Feedback from './pages/Feedback';
 
 const NavbarWidth = 15;
 
@@ -74,6 +75,7 @@ const App = () => {
           modalType={modalType}
           setModalType={setModalType}
         ></Modal>
+        <Feedback></Feedback>
       </Container>
     </>
   );
