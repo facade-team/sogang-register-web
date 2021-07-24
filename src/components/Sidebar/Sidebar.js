@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { MdSearch, MdContacts } from 'react-icons/md';
 import {
-  NavbarComponent,
-  NavbarContent,
+  SidebarComponent,
+  SidebarContent,
   ServiceName,
   NavigationList,
   Navigation,
@@ -13,8 +13,8 @@ const SideBar = ({ widthVW, toggleOpen }) => {
   return (
     <>
       <HashRouter>
-        <NavbarComponent widthVW={widthVW} toggleOpen={toggleOpen}>
-          <NavbarContent>
+        <SidebarComponent widthVW={widthVW} toggleOpen={toggleOpen}>
+          <SidebarContent>
             <ServiceName>
               <Link to="/">서강신청</Link>
             </ServiceName>
@@ -28,8 +28,8 @@ const SideBar = ({ widthVW, toggleOpen }) => {
                 <Link to="/feedback">피드백/문의</Link>
               </Navigation>
             </NavigationList>
-          </NavbarContent>
-        </NavbarComponent>
+          </SidebarContent>
+        </SidebarComponent>
       </HashRouter>
     </>
   );

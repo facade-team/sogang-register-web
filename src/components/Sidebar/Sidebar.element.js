@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const NavbarComponent = styled.div`
+export const SidebarComponent = styled.div`
   position: absolute;
   left: ${(props) => (props.toggleOpen ? `${-props.widthVW}vw` : 0)};
   text-align: center;
@@ -16,7 +16,7 @@ export const NavbarComponent = styled.div`
   z-index: 1;
 `;
 
-export const NavbarContent = styled.div`
+export const SidebarContent = styled.div`
   display: flex;
   flex-direction: column;
 `;
