@@ -12,9 +12,7 @@ const Profile = ({ userName, userMajor }) => {
   return (
     <ProfileContainer>
       <ProfileIMG>
-        <MdSentimentNeutral
-          style={{ width: '50px', height: '50px' }}
-        ></MdSentimentNeutral>
+        <MdSentimentNeutral size="50px"></MdSentimentNeutral>
       </ProfileIMG>
       <NameMajorWrapper>
         <Name>
