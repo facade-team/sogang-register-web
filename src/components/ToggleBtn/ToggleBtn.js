@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { MdMenu, MdCancel } from 'react-icons/md';
+
+//styled
 import { ImgBox } from './ToggleBtn.element';
 
 const ToggleBtn = ({ toggleOpen, widthVW, onClick }) => {

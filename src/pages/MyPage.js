@@ -29,7 +29,7 @@ const Loginbtn = styled.button`
 const Mainpage = styled.div`
   background: #ffffff;
   margin-left: 30px;
-  width: 90vw;
+  width: 100%;
   height: 876px;
   max-height: 85vh;
   border-radius: 10px;
@@ -95,10 +95,10 @@ const MyPage = () => {
   const [EmailSend, setEmailSend] = useState('no');
 
   return (
-    <div className="App">
+    <div className="App" style={{ width: '90%' }}>
       <Topbar>
         <Font2>마이페이지</Font2>
-        <div style={{ display: 'inline' }}>
+        {/* <div style={{ display: 'inline' }}>
           <Loginbtn
             onClick={() => {
               console.log('loginbtn!');
@@ -106,7 +106,7 @@ const MyPage = () => {
           >
             로그인
           </Loginbtn>
-        </div>
+        </div> */}
       </Topbar>
 
       <Mainpage>

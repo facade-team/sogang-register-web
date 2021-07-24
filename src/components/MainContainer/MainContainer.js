@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 //Components
 import Modal from '../Modal/Modal';
@@ -15,18 +15,18 @@ const MainContainer = ({ widthVW, toggleOpen, onClick }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
 
-  const openModal = (signBtnType) => {
-    setShowModal((prev) => !prev);
-    setModalType(signBtnType);
-  };
+  // const openModal = (signBtnType) => {
+  //   setShowModal((prev) => !prev);
+  //   setModalType(signBtnType);
+  // };
 
   return (
     <Container widthVW={widthVW} toggleOpen={toggleOpen} onClick={onClick}>
       <Profile userName="최현수" userMajor="컴퓨터공학과"></Profile>
 
       {/* 로그인 버튼 */}
-      <SignBtn onClick={openModal} signBtnType={'login'}></SignBtn>
-      <SignBtn onClick={openModal} signBtnType={'signup'}></SignBtn>
+      {/* <SignBtn onClick={openModal} signBtnType={'login'}></SignBtn>
+      <SignBtn onClick={openModal} signBtnType={'signup'}></SignBtn> */}
 
       {/* 로그인 모달 */}
       <Modal
@@ -36,8 +36,10 @@ const MainContainer = ({ widthVW, toggleOpen, onClick }) => {
         setModalType={setModalType}
       ></Modal>
 
-      <Route path="/feedback" exact component={Feedback} />
-      <Route path="/mypage" exact component={MyPage} />
+      <Switch>
+        <Route path="/feedback" exact component={Feedback}></Route>
+        <Route path="/mypage" exact component={MyPage} />
+      </Switch>
     </Container>
   );
 };

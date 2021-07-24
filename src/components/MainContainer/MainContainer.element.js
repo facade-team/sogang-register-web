@@ -5,7 +5,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: ${({ widthVW }) => `(100 - ${widthVW})vw`};
+  width: ${({ widthVW }) => `${100 - widthVW}vw`};
   transition: 0.8s ease;
   margin-left: ${({ widthVW }) => `${widthVW}vw`};
 `;

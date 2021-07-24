@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { HashRouter } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
 // GlobalStyle
@@ -21,8 +21,6 @@ const App = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [width, setWidth] = useState(-SidebarWidth);
 
-  const sidebarRef = useRef();
-
   const toggleSidebarFunc = (e) => {
     setToggleSidebar(!toggleSidebar);
     width !== 0 ? setWidth(0) : setWidth(-SidebarWidth);
@@ -42,7 +40,7 @@ const App = () => {
 
   return (
     <>
-      <HashRouter>
+      <BrowserRouter>
         <GlobalStyle></GlobalStyle>
         <Container>
           <MainContainer
@@ -55,13 +53,9 @@ const App = () => {
             toggleOpen={toggleSidebar}
             onClick={toggleSidebarFunc}
           ></ToggleBtn>
-          <Sidebar
-            widthVW={width}
-            toggleOpen={toggleSidebar}
-            ref={sidebarRef}
-          ></Sidebar>
+          <Sidebar widthVW={width} toggleOpen={toggleSidebar}></Sidebar>
         </Container>
-      </HashRouter>
+      </BrowserRouter>
     </>
   );
 };

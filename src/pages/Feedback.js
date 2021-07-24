@@ -88,7 +88,7 @@ const SubmitBtn = styled.button`
 
 const Feedback = () => {
   return (
-    <div className="App">
+    <>
       <TopBar>
         <Font2>피드백 / 문의</Font2>
         <div style={{ display: 'inline' }}>
@@ -122,7 +122,7 @@ const Feedback = () => {
           </SubmitBtn>
         </div>
       </MainPage>
-    </div>
+    </>
   );
 };
 
