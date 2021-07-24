@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { DefaultContext } from 'react-icons/lib';
 import styled from 'styled-components';
-import SideBar from './components/Sidebar';
-import ToggleBtn from './components/ToggleBtn';
+import Navbar from './components/Navbar/Navbar';
+import ToggleBtn from './components/ToggleBtn/ToggleBtn';
+import Profile from './components/Profile/Profile';
 
-const SidebarWidth = 15;
+const NavbarWidth = 15;
 
 const Container = styled.div`
   height: 100%;
@@ -13,13 +14,13 @@ const Container = styled.div`
 
 const App = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  const [width, setWidth] = useState(-SidebarWidth);
+  const [width, setWidth] = useState(-NavbarWidth);
 
   const containerRef = useRef();
 
   const openSidebar = (e) => {
     setToggleSidebar(true);
-    width !== 0 ? setWidth(0) : setWidth(-SidebarWidth);
+    width !== 0 ? setWidth(0) : setWidth(-NavbarWidth);
   };
 
   const closeSidebar = (e) => {
@@ -27,22 +28,23 @@ const App = () => {
     if (toggleSidebar === false) {
       return;
     }
-    // console.log(e);
+    console.log(e);
 
-    // if (e.target.className !== 'sidebar') {
-    //   setToggleSidebar(!toggleSidebar);
-    //   width !== 0 ? setWidth(0) : setWidth(-SidebarWidth);
-    // }
+    if (e.target.className !== 'sidebar') {
+      setToggleSidebar(!toggleSidebar);
+      width !== 0 ? setWidth(0) : setWidth(-NavbarWidth);
+    }
   };
 
   return (
     <Container ref={containerRef} onClick={closeSidebar}>
+      <Profile userName="최현수" userMajor="컴퓨터공학과"></Profile>
       <ToggleBtn
-        widthVW={width + SidebarWidth}
+        widthVW={width + NavbarWidth}
         toggleOpen={toggleSidebar}
         onClick={openSidebar}
       ></ToggleBtn>
-      <SideBar widthVW={width} toggleOpen={toggleSidebar}></SideBar>
+      <Navbar widthVW={width} toggleOpen={toggleSidebar}></Navbar>
     </Container>
   );
 };
