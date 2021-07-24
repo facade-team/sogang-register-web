@@ -14,7 +14,7 @@ const Profile = ({ userName, userMajor }) => {
     <Link to="/mypage">
       <ProfileContainer>
         <ProfileIMG>
-          <MdSentimentNeutral size="50px"></MdSentimentNeutral>
+          {/* <MdSentimentNeutral size="50px"></MdSentimentNeutral> */}
         </ProfileIMG>
         <NameMajorWrapper>
           <Name>
