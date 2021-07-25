@@ -3,13 +3,12 @@ import { Route, Switch } from 'react-router-dom';
 
 //Components
 import Modal from '../Modal/Modal';
-import SignBtn from '../SignBtn';
 import Profile from '../Profile/Profile';
 import Feedback from '../../pages/Feedback';
 import MyPage from '../../pages/MyPage';
 
 //styled
-import { Container } from './MainContainer.element';
+import { Container, Content } from './MainContainer.element';
 
 const MainContainer = ({ widthVW, toggleOpen, onClick }) => {
   const [showModal, setShowModal] = useState(false);
