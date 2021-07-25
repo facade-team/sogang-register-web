@@ -1,8 +1,8 @@
-import React, { useRef, useEffect, useCallback } from 'react'
-import styled from 'styled-components'
-import { MdClose } from 'react-icons/md'
-import { motion, AnimatePresence } from 'framer-motion'
-import ModalForm from './ModalForm'
+import React, { useRef, useEffect, useCallback } from 'react';
+import styled from 'styled-components';
+import { MdClose } from 'react-icons/md';
+import { motion, AnimatePresence } from 'framer-motion';
+import ModalForm from './ModalForm';
 
 const Background = styled(motion.div)`
   width: 100%;
@@ -12,7 +12,7 @@ const Background = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const ModalContainer = styled(motion.div)`
   min-width: 400px;
@@ -25,7 +25,7 @@ const ModalContainer = styled(motion.div)`
   position: relative;
   z-index: 10;
   border-radius: 10px;
-`
+`;
 
 const ModalLogo = styled.div`
   display: flex;
@@ -38,7 +38,7 @@ const ModalLogo = styled.div`
   color: white;
   font-size: 30px;
   border-radius: 10px 10px 0 0;
-`
+`;
 
 const ModalContent = styled.div`
   display: flex;
@@ -47,7 +47,7 @@ const ModalContent = styled.div`
   margin-top: 25px;
   align-items: center;
   line-height: 1.8;
-`
+`;
 
 const ModalCloseBtn = styled(MdClose)`
   cursor: pointer;
@@ -58,40 +58,40 @@ const ModalCloseBtn = styled(MdClose)`
   height: 32px;
   padding: 0;
   color: white;
-`
+`;
 
 const modalVariant = {
   initial: { opacity: 0 },
   isOpen: { opacity: 1 },
   exit: { opacity: 0 },
-}
+};
 
 const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
-  const BgRef = useRef()
+  const BgRef = useRef();
   const closeModal = (e) => {
     if (BgRef.current === e.target) {
-      setShowModal(false)
+      setShowModal(false);
     }
-  }
+  };
   const keyPress = useCallback(
     (e) => {
       if (e.key === 'Escape' && showModal) {
-        setShowModal(false)
+        setShowModal(false);
       }
     },
     [setShowModal, showModal]
-  )
+  );
 
   useEffect(() => {
-    document.addEventListener('keydown', keyPress)
+    document.addEventListener('keydown', keyPress);
     return () => {
-      document.removeEventListener('keydown', keyPress)
-    }
-  }, [keyPress])
+      document.removeEventListener('keydown', keyPress);
+    };
+  }, [keyPress]);
 
   const handleLogin = (user) => {
-    console.log(user)
-  }
+    console.log(user);
+  };
 
   return (
     <AnimatePresence>
@@ -120,7 +120,7 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
         </Background>
       )}
     </AnimatePresence>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;
