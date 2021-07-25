@@ -4,7 +4,6 @@ export const Container = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   height: 100%;
   width: ${({ widthVW }) => `${100 - widthVW}vw`};
@@ -12,12 +11,11 @@ export const Container = styled.div`
   margin-left: ${({ widthVW }) => `${widthVW}vw`};
 `;
 
-export const BtnContainer = styled.div`
-  width: 350px;
-  display: flex;
-  position: absolute;
-  right: 30px;
-  top: 20px;
-  justify-content: space-around;
-  align-items: center;
+export const Content = styled.div`
+  width: 90%;
+  background: #ffffff;
+  /* margin-left: 50px; */
+  height: 800px;
+  max-height: 800px;
+  border-radius: 10px;
 `;

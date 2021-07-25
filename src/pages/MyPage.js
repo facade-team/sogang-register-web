@@ -22,19 +22,6 @@ const MyPage = () => {
 
   return (
     <div className="App" style={{ width: '90%' }}>
-      {/* <Topbar>
-        <Font2>마이페이지</Font2>
-        <div style={{ display: 'inline' }}>
-          <LoginBtn
-            onClick={() => {
-              console.log('loginbtn!');
-            }}
-          >
-            로그인
-          </LoginBtn>
-        </div>
-      </Topbar> */}
-
       <Mainpage>
         <ProfileInfo>
           <ProfilePic />

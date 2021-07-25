@@ -1,10 +1,9 @@
 import React from 'react';
 import '../styles/Feedback.css';
 import {
-  TopBar,
   Font2,
   LogInBtn,
-  MainPage,
+  Container,
   Introduce,
   Font3,
   Font4,
@@ -26,11 +25,7 @@ const Feedback = () => {
 
   return (
     <>
-      {/* <TopBar>
-        <TextIn name="피드백 / 문의" type="2" />
-      </TopBar> */}
-
-      <MainPage>
+      <Container>
         <Introduce>
           <TextIn name="안녕하세요! 팀소개 어쩌구저쩌구" type="3" />
         </Introduce>
@@ -49,7 +44,7 @@ const Feedback = () => {
             submit
           </SubmitBtn>
         </div>
-      </MainPage>
+      </Container>
     </>
   );
 };

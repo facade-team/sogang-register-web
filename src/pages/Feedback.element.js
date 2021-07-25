@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 
-export const TopBar = styled.div`
-  justify-content: space-between;
-  margin-left: 46px;
-  height: 65px;
-  width: inherit;
-`;
-
 export const Font2 = styled.div`
   font-size: 28px;
   font-weight: bold;
@@ -24,20 +17,17 @@ export const LogInBtn = styled.button`
   border: none;
 `;
 
-export const MainPage = styled.div`
-  background: #ffffff;
-  margin-left: 30px;
-  width: 90vw;
-  height: 876px;
-  max-height: 85vh;
+export const Container = styled.div`
   padding-left: 36px;
+  padding-right: 36px;
   padding-top: 20px;
-  border-radius: 10px;
+  padding-bottom: 20px;
 `;
 
 export const Introduce = styled.div`
-  height: 10vh;
+  height: 20px;
   min-height: 60px;
+  margin-bottom: 20px;
 `;
 
 export const Font3 = styled.div`
@@ -54,27 +44,29 @@ export const Font4 = styled.div`
 export const OneLineInput = styled.input`
   background-color: #f1ebeb;
   height: 35px;
-  width: 80vw;
-  margin-bottom: 30px;
+  width: 100%;
+  margin-bottom: 40px;
   min-width: 200px;
   border: none;
   border-radius: 5px;
+  padding: 3px 5px;
 `;
 
 export const MultiLineInput = styled.textarea`
   background-color: #f1ebeb;
   min-width: 200px;
-  width: 80vw;
-  min-height: 20vh;
+  width: 100%;
+  min-height: 20px;
   height: 280px;
   border-radius: 5px;
   border: none;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   resize: none;
+  padding: 8px 5px;
 `;
 
 export const SubmitBtn = styled.button`
-  width: 80vw;
+  width: 100%;
   min-width: 200px;
   height: 40px;
   background-color: rgba(182, 6, 0, 0.6);
