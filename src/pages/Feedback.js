@@ -14,21 +14,31 @@ import {
 } from './Feedback.element';
 
 const Feedback = () => {
+  const TextIn = (props) => {
+    return props.type === '2' ? (
+      <Font2>{props.name}</Font2>
+    ) : props.type === '3' ? (
+      <Font3>{props.name}</Font3>
+    ) : (
+      <Font4>{props.name}</Font4>
+    );
+  };
+
   return (
     <>
-      <TopBar>
-        <Font2>피드백 / 문의</Font2>
-      </TopBar>
+      {/* <TopBar>
+        <TextIn name="피드백 / 문의" type="2" />
+      </TopBar> */}
 
       <MainPage>
         <Introduce>
-          <Font3>안녕하세요! 팀소개 어쩌구저쩌구</Font3>
+          <TextIn name="안녕하세요! 팀소개 어쩌구저쩌구" type="3" />
         </Introduce>
-        <Font4>✉️ 이메일</Font4>
+        <TextIn name="✉️ 이메일" type="4" />
         <OneLineInput />
-        <Font4>📄 제목</Font4>
+        <TextIn name="📄 제목" type="4" />
         <OneLineInput />
-        <Font4>✏️ 내용</Font4>
+        <TextIn name="✏️ 내용" type="4" />
         <MultiLineInput />
         <div>
           <SubmitBtn

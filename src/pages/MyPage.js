@@ -22,9 +22,9 @@ const MyPage = () => {
 
   return (
     <div className="App" style={{ width: '90%' }}>
-      <Topbar>
+      {/* <Topbar>
         <Font2>마이페이지</Font2>
-        {/* <div style={{ display: 'inline' }}>
+        <div style={{ display: 'inline' }}>
           <LoginBtn
             onClick={() => {
               console.log('loginbtn!');
@@ -32,8 +32,8 @@ const MyPage = () => {
           >
             로그인
           </LoginBtn>
-        </div> */}
-      </Topbar>
+        </div>
+      </Topbar> */}
 
       <Mainpage>
         <ProfileInfo>
