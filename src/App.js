@@ -18,8 +18,8 @@ const Container = styled.div`
 `;
 
 const App = () => {
-  const [toggleSidebar, setToggleSidebar] = useState(false);
-  const [width, setWidth] = useState(-SidebarWidth);
+  const [toggleSidebar, setToggleSidebar] = useState(true);
+  const [width, setWidth] = useState(toggleSidebar ? 0 : -SidebarWidth);
 
   const toggleSidebarFunc = (e) => {
     setToggleSidebar(!toggleSidebar);
