@@ -11,7 +11,7 @@ export const Bar = styled.nav`
 
 export const BarContainer = styled.div`
   width: inherit;
-  padding: 0px 30px 0px 90px;
+  padding: 0px 0px 0px 90px;
   height: 80px;
   display: flex;
   justify-content: space-between;

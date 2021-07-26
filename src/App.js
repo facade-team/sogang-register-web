@@ -12,7 +12,7 @@ import ToggleBtn from './components/ToggleBtn/ToggleBtn';
 import Modal from './components/Modal/Modal';
 
 const openedSidebarWidth = 250;
-const closedSidebarWidth = 70;
+const closedSidebarWidth = 90;
 
 const Container = styled.div`
   height: 100%;
@@ -37,16 +37,6 @@ const App = () => {
       : setWidth(-openedSidebarWidth);
   };
 
-  const closeSidebar = (e) => {
-    if (!toggleSidebar) {
-      return;
-    }
-
-    if (e.clientX > openedSidebarWidth) {
-      toggleSidebarFunc();
-    }
-  };
-
   const openModal = (signBtnType) => {
     setShowModal((prev) => !prev);
     setModalType(signBtnType);
@@ -60,7 +50,6 @@ const App = () => {
           <MainContainer
             width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
             toggleOpen={toggleSidebar}
-            onClick={closeSidebar}
             openModal={openModal}
           ></MainContainer>
           <ToggleBtn

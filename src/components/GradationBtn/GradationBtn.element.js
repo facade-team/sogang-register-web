@@ -11,13 +11,15 @@ export const GradationBtnComp = styled.button`
   );
   /* border: none; */
   border: 1px;
-  border-radius: 20px 20px 20px 20px;
-  box-shadow: 0px 3px 5px rgba(0, 0, 0, 25%);
+  border-radius: ${({ borderRadius }) =>
+    `${borderRadius}px ${borderRadius}px ${borderRadius}px ${borderRadius}px`};
+  box-shadow: 0px 3px 6px 2px rgba(0, 0, 0, 0.34);
   color: #ffffff;
-  width: 50%;
+  width: ${({ widthPx }) => `${widthPx}px`};
   padding: 10px 1px;
-  position: absolute;
-  top: 12vh;
+  position: relative;
+  /* top: 12vh; */
+  top: ${({ top }) => `${top}vh`};
 
   &:hover {
     cursor: pointer;

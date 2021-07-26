@@ -34,10 +34,11 @@ const SideBar = ({ width, toggleOpen, openModal }) => {
       setToggleText(!toggleText);
     }, 200);
   }, [toggleOpen]);
+
   return (
     <>
       <SidebarComponent widthPx={width} toggleOpen={toggleOpen}>
-        <SidebarContent>
+        <SidebarContent toggleOpen={toggleOpen}>
           <ServiceName>
             <Link to="/">
               <MainLogo src={Logo}></MainLogo>
@@ -54,6 +55,9 @@ const SideBar = ({ width, toggleOpen, openModal }) => {
               <GradationBtn
                 onClick={openModal}
                 signBtnType={'login'}
+                width={150}
+                top={12}
+                borderRadius={20}
               ></GradationBtn>
             </>
           ) : null}

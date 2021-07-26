@@ -34,6 +34,16 @@ export const SidebarContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 5px;
+  /* ${({ toggleOpen }) =>
+    toggleOpen
+      ? css`
+          align-items: center;
+        `
+      : css`
+          align-items: flex-end;
+          margin-right: 5px;
+        `}; */
   height: inherit;
 `;
 
@@ -61,6 +71,7 @@ export const NavigationList = styled.div`
 `;
 
 export const Navigation = styled.div`
+  position: relative;
   color: #bfbfbf;
   display: flex;
   flex-direction: row;

@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  position: absolute;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+`;
+
+export const MainContainerComp = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,7 +17,7 @@ export const Container = styled.div`
   margin-left: ${({ widthPx }) => `${widthPx}px`};
 `;
 
-export const Content = styled.div`
+export const MainContent = styled.div`
   width: 90%;
   background: #ffffff;
   /* margin-left: 50px; */

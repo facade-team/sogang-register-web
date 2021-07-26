@@ -14,7 +14,7 @@ const TopBar = ({ name, openModal }) => {
           <BtnContainer>
             <SignBtn onClick={openModal} signBtnType={'login'}></SignBtn>
             <SignBtn onClick={openModal} signBtnType={'signup'}></SignBtn>
-            <Profile userName="최현수" userMajor="컴퓨터공학과"></Profile>
+            {/* <Profile userName="최현수" userMajor="컴퓨터공학과"></Profile> */}
           </BtnContainer>
         </BarContainer>
       </Bar>
