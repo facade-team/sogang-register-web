@@ -12,30 +12,6 @@ const SelectSubject = ({ number, subtitle }) => {
         {data.map((subject) => (
           <Card subject={subject}></Card>
         ))}
-        {data.map((subject) => (
-          <Card subject={subject}></Card>
-        ))}
-        {data.map((subject) => (
-          <Card subject={subject}></Card>
-        ))}
-        {data.map((subject) => (
-          <Card subject={subject}></Card>
-        ))}
-        {data.map((subject) => (
-          <Card subject={subject}></Card>
-        ))}
-        {data.map((subject) => (
-          <Card subject={subject}></Card>
-        ))}
-        {data.map((subject) => (
-          <Card subject={subject}></Card>
-        ))}
-        {data.map((subject) => (
-          <Card subject={subject}></Card>
-        ))}
-        {data.map((subject) => (
-          <Card subject={subject}></Card>
-        ))}
       </CardList>
     </>
   );

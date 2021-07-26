@@ -1,5 +1,3 @@
-import react from 'react';
-
 //components
 import GradationBtn from '../GradationBtn/GradationBtn';
 import { Tag, TagContainer } from '../Card/Card.element';
