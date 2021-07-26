@@ -17,10 +17,11 @@ export const GradationBtnComp = styled.button`
   width: 50%;
   padding: 10px 1px;
   position: absolute;
-  top: 12vh;
+  top: 160px;
 
   &:hover {
     cursor: pointer;
     transform: scale(1.05) translateZ(0px);
+    transition: all 0.1s ease-in;
   }
 `;

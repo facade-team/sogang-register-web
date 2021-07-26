@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const SidebarComponent = styled.div`
   position: absolute;
@@ -39,25 +40,19 @@ export const SidebarContent = styled.div`
 
 export const ServiceName = styled.div`
   position: relative;
-  top: 4vh;
+  top: 40px;
   font-size: 1.5rem;
   font-weight: 800;
-  color: #b60004;
 `;
 
 export const NavigationList = styled.div`
   position: relative;
-  top: 25vh;
-  height: 20vh;
+  top: 250px;
+  /* height: 20vh; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: start;
-
-  &:nth-child(${(props) => props.active}) {
-    font-weight: 700;
-    color: rgba(182, 0, 4, 1);
-  }
 `;
 
 export const Navigation = styled.div`
@@ -67,8 +62,20 @@ export const Navigation = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding: 10px 0px;
+  margin-bottom: 20px;
+  font-weight: 500;
 `;
 
-export const Icon = styled.div`
-  margin-right: 15px;
+export const Icon = styled.div``;
+
+export const CustomLink = styled(Link)`
+  display: flex;
+  &:hover {
+    color: white;
+    font-weight: 700;
+  }
+`;
+
+export const NavMenu = styled.span`
+  margin-left: 40px;
 `;

@@ -18,6 +18,8 @@ import {
   NavigationList,
   Navigation,
   Icon,
+  CustomLink,
+  NavMenu,
 } from './Sidebar.element';
 
 const SideBar = ({ width, toggleOpen, openModal }) => {
@@ -62,54 +64,60 @@ const SideBar = ({ width, toggleOpen, openModal }) => {
             <Navigation>
               {toggleOpen && !toggleText ? (
                 <>
-                  <Icon>
-                    <MdSearch></MdSearch>
-                  </Icon>
-                  <Link to="/">개설교과목 검색</Link>
-                </>
-              ) : (
-                <>
-                  <Link to="/">
+                  <CustomLink to="/">
                     <Icon>
                       <MdSearch></MdSearch>
                     </Icon>
-                  </Link>
+                    <NavMenu>개설교과목 검색</NavMenu>
+                  </CustomLink>
+                </>
+              ) : (
+                <>
+                  <CustomLink to="/">
+                    <Icon>
+                      <MdSearch></MdSearch>
+                    </Icon>
+                  </CustomLink>
                 </>
               )}
             </Navigation>
             <Navigation>
               {toggleOpen && !toggleText ? (
                 <>
-                  <Icon>
-                    <BsGrid></BsGrid>
-                  </Icon>
-                  <Link to="/Mypage">마이페이지</Link>
-                </>
-              ) : (
-                <>
-                  <Link to="/Mypage">
+                  <CustomLink to="/Mypage">
                     <Icon>
                       <BsGrid></BsGrid>
                     </Icon>
-                  </Link>
+                    <NavMenu>마이페이지</NavMenu>
+                  </CustomLink>
+                </>
+              ) : (
+                <>
+                  <CustomLink to="/Mypage">
+                    <Icon>
+                      <BsGrid></BsGrid>
+                    </Icon>
+                  </CustomLink>
                 </>
               )}
             </Navigation>
             <Navigation>
               {toggleOpen && !toggleText ? (
                 <>
-                  <Icon>
-                    <MdChatBubbleOutline></MdChatBubbleOutline>
-                  </Icon>
-                  <Link to="/feedback">피드백/문의</Link>
-                </>
-              ) : (
-                <>
-                  <Link to="/feedback">
+                  <CustomLink to="/feedback">
                     <Icon>
                       <MdChatBubbleOutline></MdChatBubbleOutline>
                     </Icon>
-                  </Link>
+                    <NavMenu>피드백/문의</NavMenu>
+                  </CustomLink>
+                </>
+              ) : (
+                <>
+                  <CustomLink to="/feedback">
+                    <Icon>
+                      <MdChatBubbleOutline></MdChatBubbleOutline>
+                    </Icon>
+                  </CustomLink>
                 </>
               )}
             </Navigation>
