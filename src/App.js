@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -12,7 +12,7 @@ import ToggleBtn from './components/ToggleBtn/ToggleBtn';
 import Modal from './components/Modal/Modal';
 
 const openedSidebarWidth = 250;
-const closedSidebarWidth = 70;
+const closedSidebarWidth = 90;
 
 const Container = styled.div`
   height: 100%;
@@ -29,22 +29,39 @@ const App = () => {
   const [width, setWidth] = useState(
     toggleSidebar ? -openedSidebarWidth : -closedSidebarWidth
   );
+  const [height, setHeight] = useState(document.documentElement.scrollHeight);
+
+  useEffect(() => {
+    // window.onload = () => {
+    //   setHeight(document.documentElement.scrollHei)
+    // }
+    const limit = Math.max(
+      document.body.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.clientHeight,
+      document.documentElement.scrollHeight,
+      document.documentElement.offsetHeight
+    );
+
+    setHeight(limit);
+    window.addEventListener('resize', () => {
+      const limit = Math.max(
+        document.body.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.clientHeight,
+        document.documentElement.scrollHeight,
+        document.documentElement.offsetHeight
+      );
+
+      setHeight(limit);
+    });
+  }, []);
 
   const toggleSidebarFunc = (e) => {
     setToggleSidebar(!toggleSidebar);
     width !== -closedSidebarWidth
       ? setWidth(-closedSidebarWidth)
       : setWidth(-openedSidebarWidth);
-  };
-
-  const closeSidebar = (e) => {
-    if (!toggleSidebar) {
-      return;
-    }
-
-    if (e.clientX > openedSidebarWidth) {
-      toggleSidebarFunc();
-    }
   };
 
   const openModal = (signBtnType) => {
@@ -59,8 +76,8 @@ const App = () => {
         <Container>
           <MainContainer
             width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
+            height={height}
             toggleOpen={toggleSidebar}
-            onClick={closeSidebar}
             openModal={openModal}
           ></MainContainer>
           <ToggleBtn
@@ -70,6 +87,7 @@ const App = () => {
           ></ToggleBtn>
           <Sidebar
             width={width}
+            height={height}
             toggleOpen={toggleSidebar}
             openModal={openModal}
           ></Sidebar>

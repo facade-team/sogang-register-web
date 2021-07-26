@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 //Pages
@@ -7,11 +7,16 @@ import Feedback from '../../pages/Feedback';
 import MyPage from '../../pages/MyPage';
 
 //styled
-import { Container, Content } from './MainContainer.element';
+import { Container } from './MainContainer.element';
 
 const MainContainer = ({ width, toggleOpen, onClick, openModal }) => {
   return (
-    <Container widthPx={width} toggleOpen={toggleOpen} onClick={onClick}>
+    <Container
+      widthPx={width}
+      toggleOpen={toggleOpen}
+      onClick={onClick}
+      openModal={openModal}
+    >
       {/* 메인 렌더링 페이지 */}
       <Switch>
         <Route path="/" exact component={Home}></Route>
