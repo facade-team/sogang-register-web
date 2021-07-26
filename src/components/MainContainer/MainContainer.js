@@ -10,10 +10,13 @@ import MyPage from '../../pages/MyPage';
 import { Container } from './MainContainer.element';
 
 const MainContainer = ({ width, toggleOpen, onClick, openModal }) => {
-  const [detailbarWidth, setDetailbarWidth] = useState(350);
-
   return (
-    <Container widthPx={width} toggleOpen={toggleOpen} onClick={onClick}>
+    <Container
+      widthPx={width}
+      toggleOpen={toggleOpen}
+      onClick={onClick}
+      openModal={openModal}
+    >
       {/* 메인 렌더링 페이지 */}
       <Switch>
         <Route path="/" exact component={Home}></Route>

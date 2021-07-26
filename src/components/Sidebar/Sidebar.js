@@ -20,7 +20,7 @@ import {
   Icon,
 } from './Sidebar.element';
 
-const SideBar = ({ width, toggleOpen, openModal }) => {
+const SideBar = ({ width, height, toggleOpen, openModal }) => {
   const [initial, setInitial] = useState(true);
   const [toggleText, setToggleText] = useState(true);
   useEffect(() => {
@@ -37,7 +37,11 @@ const SideBar = ({ width, toggleOpen, openModal }) => {
 
   return (
     <>
-      <SidebarComponent widthPx={width} toggleOpen={toggleOpen}>
+      <SidebarComponent
+        heightPx={height}
+        widthPx={width}
+        toggleOpen={toggleOpen}
+      >
         <SidebarContent toggleOpen={toggleOpen}>
           <ServiceName>
             <Link to="/">

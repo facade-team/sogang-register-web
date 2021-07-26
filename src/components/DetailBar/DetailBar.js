@@ -2,11 +2,13 @@ import react from 'react';
 
 //components
 import GradationBtn from '../GradationBtn/GradationBtn';
+import { Tag, TagContainer } from '../Card/Card.element';
 
 //styled
 import {
   DetailbarComponent,
   DetailbarContent,
+  StackContent,
   DetailContainer,
   SubjectName,
   SubjectTable,
@@ -16,7 +18,7 @@ import {
   TableData,
 } from './DetailBar.element';
 
-const DetailBar = ({ width, openModal }) => {
+const DetailBar = ({ width, openModal, subject }) => {
   return (
     <DetailbarComponent widthPx={width}>
       <DetailContainer>
@@ -29,7 +31,16 @@ const DetailBar = ({ width, openModal }) => {
           로그인/회원가입
         </GradationBtn>
         <DetailbarContent>
-          <SubjectName>마케팅원론</SubjectName>
+          <SubjectName>{subject.과목명}</SubjectName>
+          <TagContainer>
+            {subject.비대면여부 ? (
+              <Tag untact>비대면</Tag>
+            ) : (
+              <Tag ontact>대면</Tag>
+            )}
+            {subject.영어강의 && <Tag eng>영어강의</Tag>}
+            {subject.중국어강의 && <Tag china>중국어강의</Tag>}
+          </TagContainer>
           <SubjectTable>
             <TableBody>
               <TableRow>
@@ -42,7 +53,7 @@ const DetailBar = ({ width, openModal }) => {
                 <TableHead scope="row" corner={false}>
                   과목번호
                 </TableHead>
-                <TableData corner={false}>MGT3006-01</TableData>
+                <TableData corner={false}>{subject.subject_id}</TableData>
               </TableRow>
               <TableRow>
                 <TableHead scope="row" corner={false}>
@@ -54,19 +65,19 @@ const DetailBar = ({ width, openModal }) => {
                 <TableHead scope="row" corner={false}>
                   학점
                 </TableHead>
-                <TableData corner={false}>3.0</TableData>
+                <TableData corner={false}>{subject.학점}</TableData>
               </TableRow>
               <TableRow>
                 <TableHead scope="row" corner={false}>
                   강의시간
                 </TableHead>
-                <TableData corner={false}>화목 13:30~14:45</TableData>
+                <TableData corner={false}>{subject.수업시간_강의실}</TableData>
               </TableRow>
               <TableRow>
                 <TableHead scope="row" corner={false}>
                   교수
                 </TableHead>
-                <TableData corner={false}>임채운</TableData>
+                <TableData corner={false}>{subject.교수진}</TableData>
               </TableRow>
               <TableRow>
                 <TableHead scope="row" corner={false}>
@@ -78,20 +89,18 @@ const DetailBar = ({ width, openModal }) => {
                 <TableHead scope="row" corner={false}>
                   권장학년
                 </TableHead>
-                <TableData corner={false}>2~4학년</TableData>
+                <TableData corner={false}>{subject.권장학년}</TableData>
               </TableRow>
               <TableRow>
                 <TableHead scope="row" corner={true}>
                   수간신청 참조사항
                 </TableHead>
-                <TableData corner={true}>
-                  경영학부, 스포츠경영 연계전공, 스타트업 연계전공 가능
-                </TableData>
+                <TableData corner={true}>{subject.비고}</TableData>
               </TableRow>
             </TableBody>
           </SubjectTable>
         </DetailbarContent>
-        <DetailbarContent></DetailbarContent>
+        <StackContent></StackContent>
       </DetailContainer>
     </DetailbarComponent>
   );

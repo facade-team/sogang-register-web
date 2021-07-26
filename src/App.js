@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -29,6 +29,13 @@ const App = () => {
   const [width, setWidth] = useState(
     toggleSidebar ? -openedSidebarWidth : -closedSidebarWidth
   );
+  const [height, setHeight] = useState(document.documentElement.scrollHeight);
+
+  useEffect(() => {
+    window.onload = () => {
+      setHeight(document.documentElement.scrollHeight);
+    };
+  }, []);
 
   const toggleSidebarFunc = (e) => {
     setToggleSidebar(!toggleSidebar);
@@ -49,6 +56,7 @@ const App = () => {
         <Container>
           <MainContainer
             width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
+            height={height}
             toggleOpen={toggleSidebar}
             openModal={openModal}
           ></MainContainer>
@@ -59,6 +67,7 @@ const App = () => {
           ></ToggleBtn>
           <Sidebar
             width={width}
+            height={height}
             toggleOpen={toggleSidebar}
             openModal={openModal}
           ></Sidebar>
