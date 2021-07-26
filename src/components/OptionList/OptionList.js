@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import GradationBtn from '../GradationBtn/GradationBtn';
 import { SectionContainer, ListContainer, ListBtn } from './OptionList.element';
 
 const OptionList = () => {

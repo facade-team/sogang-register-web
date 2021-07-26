@@ -2,6 +2,7 @@ import React from 'react';
 import { HomeContainer } from '../styles/HomeContainer';
 import Title from '../components/Title/Title';
 import SearchOption from '../components/SearchOption/SearchOption';
+import DetailOption from '../components/DetailOption/DetailOption';
 import SelectSubject from '../components/SelectSubject/SelectSubject';
 
 const Home = () => {
@@ -13,7 +14,7 @@ const Home = () => {
         subtitle="검색옵션"
         submessage="*복수선택 가능"
       ></SearchOption>
-      {/* <DetailOption number="02" subtitle="세부옵션"></DetailOption> */}
+      <DetailOption number="02" subtitle="세부옵션"></DetailOption>
       <SelectSubject number="03" subtitle="과목선택"></SelectSubject>
     </HomeContainer>
   );
