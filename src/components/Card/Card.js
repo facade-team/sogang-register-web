@@ -5,6 +5,7 @@ import {
   TagContainer,
   Tag,
   Detail,
+  P,
 } from './Card.element';
 
 const Card = ({ subject }) => {
@@ -17,7 +18,7 @@ const Card = ({ subject }) => {
         {subject.중국어강의 && <Tag china>중국어강의</Tag>}
       </TagContainer>
       <Detail>
-        <p>{subject.교수진} 교수</p>
+        <P text={subject.교수진}>{subject.교수진} 교수</P>
         <p>{subject.수업시간_강의실}</p>
       </Detail>
     </CardContainer>
