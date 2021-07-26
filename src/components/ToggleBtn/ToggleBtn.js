@@ -4,10 +4,10 @@ import { MdMenu, MdCancel } from 'react-icons/md';
 //styled
 import { ImgBox } from './ToggleBtn.element';
 
-const ToggleBtn = ({ toggleOpen, widthVW, onClick }) => {
+const ToggleBtn = ({ toggleOpen, width, onClick }) => {
   return (
     <>
-      <ImgBox onClick={onClick} toggleSidebar={toggleOpen} widthVW={widthVW}>
+      <ImgBox onClick={onClick} toggleSidebar={toggleOpen} widthPx={width}>
         {!toggleOpen ? (
           <MdMenu size="25"></MdMenu>
         ) : (

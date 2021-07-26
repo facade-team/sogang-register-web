@@ -9,8 +9,10 @@ import GlobalStyle from './styles/GlobalStyle';
 import MainContainer from './components/MainContainer/MainContainer';
 import Sidebar from './components/Sidebar/Sidebar';
 import ToggleBtn from './components/ToggleBtn/ToggleBtn';
+import Modal from './components/Modal/Modal';
 
-const SidebarWidth = 15;
+const openedSidebarWidth = 250;
+const closedSidebarWidth = 70;
 
 const Container = styled.div`
   height: 100%;
@@ -18,12 +20,21 @@ const Container = styled.div`
 `;
 
 const App = () => {
+  //모달
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState('');
+
+  //사이드바
   const [toggleSidebar, setToggleSidebar] = useState(true);
-  const [width, setWidth] = useState(toggleSidebar ? 0 : -SidebarWidth);
+  const [width, setWidth] = useState(
+    toggleSidebar ? -openedSidebarWidth : -closedSidebarWidth
+  );
 
   const toggleSidebarFunc = (e) => {
     setToggleSidebar(!toggleSidebar);
-    width !== 0 ? setWidth(0) : setWidth(-SidebarWidth);
+    width !== -closedSidebarWidth
+      ? setWidth(-closedSidebarWidth)
+      : setWidth(-openedSidebarWidth);
   };
 
   const closeSidebar = (e) => {
@@ -31,11 +42,14 @@ const App = () => {
       return;
     }
 
-    const { innerWidth } = window;
-    const sidebarX = (innerWidth * SidebarWidth) / 100;
-    if (e.clientX > sidebarX) {
+    if (e.clientX > openedSidebarWidth) {
       toggleSidebarFunc();
     }
+  };
+
+  const openModal = (signBtnType) => {
+    setShowModal((prev) => !prev);
+    setModalType(signBtnType);
   };
 
   return (
@@ -44,16 +58,28 @@ const App = () => {
         <GlobalStyle></GlobalStyle>
         <Container>
           <MainContainer
-            widthVW={width + SidebarWidth}
+            width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
             toggleOpen={toggleSidebar}
             onClick={closeSidebar}
+            openModal={openModal}
           ></MainContainer>
           <ToggleBtn
-            widthVW={width + SidebarWidth}
+            width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
             toggleOpen={toggleSidebar}
             onClick={toggleSidebarFunc}
           ></ToggleBtn>
-          <Sidebar widthVW={width} toggleOpen={toggleSidebar}></Sidebar>
+          <Sidebar
+            width={width}
+            toggleOpen={toggleSidebar}
+            openModal={openModal}
+          ></Sidebar>
+
+          <Modal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            modalType={modalType}
+            setModalType={setModalType}
+          ></Modal>
         </Container>
       </BrowserRouter>
     </>

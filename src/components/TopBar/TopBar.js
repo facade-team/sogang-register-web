@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Bar, BarContainer, BarName, BtnContainer } from './TopBar.element';
 import SignBtn from '../SignBtn/SignBtn';
 import Profile from '../Profile/Profile';
-import Modal from '../Modal/Modal';
 
 const TopBar = ({ name, openModal }) => {
   const [LoginStatus, setLoginStatus] = useState('');

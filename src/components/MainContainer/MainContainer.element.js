@@ -6,9 +6,9 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100%;
-  width: ${({ widthVW }) => `${100 - widthVW}vw`};
+  width: ${({ widthPx }) => `${window.innerWidth - widthPx}px`};
   transition: 0.8s ease;
-  margin-left: ${({ widthVW }) => `${widthVW}vw`};
+  margin-left: ${({ widthPx }) => `${widthPx}px`};
 `;
 
 export const Content = styled.div`

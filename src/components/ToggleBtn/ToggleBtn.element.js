@@ -7,7 +7,9 @@ export const ImgBox = styled.div`
   padding: 10px;
   outline: none;
   transition: 0.8s ease;
-  transform: ${(props) => `translatex(${props.widthVW}vw)`};
+  transform: ${(props) => {
+    return `translatex(${props.widthPx}px)`;
+  }};
 
   &:hover {
     cursor: pointer;
