@@ -17,12 +17,12 @@ export const GradationBtnComp = styled.button`
   color: #ffffff;
   width: ${({ widthPx }) => `${widthPx}px`};
   padding: 10px 1px;
-  position: relative;
-  /* top: 12vh; */
-  top: ${({ top }) => `${top}vh`};
+  position: absolute;
+  top: ${({ top }) => `${top}px`};
 
   &:hover {
     cursor: pointer;
     transform: scale(1.05) translateZ(0px);
+    transition: all 0.1s ease-in;
   }
 `;

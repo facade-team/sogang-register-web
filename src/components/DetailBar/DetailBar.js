@@ -27,6 +27,7 @@ const DetailBar = ({ width, openModal, subject }) => {
           onClick={openModal}
           signBtnType={'login'}
           borderRadius={10}
+          top={40}
         >
           로그인/회원가입
         </GradationBtn>

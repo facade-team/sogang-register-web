@@ -11,7 +11,7 @@ export const CardContainer = styled.div`
 
   border-radius: 8px;
   margin: 5px 3px 5px 3px;
-  padding: 20px 24px;
+  padding: 20px 14px 20px 21px;
   color: #61527f;
   font-weight: 800;
   letter-spacing: 0.3px;
@@ -49,8 +49,10 @@ export const Tag = styled.div`
 `;
 
 export const Detail = styled.div`
-  font-size: 12px;
-  p:first-child {
-    margin-bottom: 8px;
-  }
+  font-size: 14px;
+`;
+
+export const P = styled.p`
+  ${({ text }) => text.length > 20 && `font-size: 11px; letter-spacing:0.01px;`}
+  margin-bottom: 8px;
 `;
