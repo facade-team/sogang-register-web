@@ -77,3 +77,14 @@ export const TableData = styled.td`
   border-left: 1px solid #f2f2f2;
   border-bottom: ${({ corner }) => !corner && `1px solid #f2f2f2;`};
 `;
+
+export const FavoriteBtn = styled.div`
+  position: absolute;
+  left: 80%;
+  top: -1px;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+  }
+`;

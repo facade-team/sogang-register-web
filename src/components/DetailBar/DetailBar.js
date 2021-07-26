@@ -1,4 +1,5 @@
 import react from 'react';
+import { RiBookmarkFill, RiBookmark2Fill } from 'react-icons/ri';
 
 //components
 import GradationBtn from '../GradationBtn/GradationBtn';
@@ -16,9 +17,12 @@ import {
   TableRow,
   TableHead,
   TableData,
+  FavoriteBtn,
 } from './DetailBar.element';
 
 const DetailBar = ({ width, openModal, subject }) => {
+  const toFavorite = () => {};
+
   return (
     <DetailbarComponent widthPx={width}>
       <DetailContainer>
@@ -100,6 +104,18 @@ const DetailBar = ({ width, openModal, subject }) => {
               </TableRow>
             </TableBody>
           </SubjectTable>
+          <FavoriteBtn>
+            <RiBookmarkFill
+              size="20"
+              color="#4414A4"
+              onClick={toFavorite}
+            ></RiBookmarkFill>
+            <RiBookmark2Fill
+              size="20"
+              color="#4414A4"
+              onClick={toFavorite}
+            ></RiBookmark2Fill>
+          </FavoriteBtn>
         </DetailbarContent>
         <StackContent></StackContent>
       </DetailContainer>
