@@ -64,6 +64,7 @@ const SideBar = ({ width, height, toggleOpen, openModal }) => {
                 width={150}
                 top={160}
                 borderRadius={20}
+                active
               ></GradationBtn>
             </>
           ) : null}
