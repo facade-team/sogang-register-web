@@ -1,9 +1,11 @@
 import styled, { css } from 'styled-components';
 
 export const DetailbarComponent = styled.div`
-  position: relative;
+  position: absolute;
+  top: 0;
+  display: ${({ widthPx }) => (widthPx === 0 ? 'none' : 'block')};
+  right: ${({ widthPx }) => `${widthPx - 350}px`};
   min-width: 350px;
-  width: ${({ widthPx }) => `${widthPx}px`};
   height: 100vh;
   background-color: #f6faff;
 `;
