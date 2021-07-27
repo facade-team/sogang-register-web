@@ -9,9 +9,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
-  width: 100%;
-  height: 100%;
-}
+    width: 100%;
+    height: 100%;
+  }
 
   body {
     width: 100%;
@@ -20,6 +20,11 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Spoqa Han Sans Neo', 'sans-serif';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    width: 100%;
+    height: 100%;
   }
 
   code {

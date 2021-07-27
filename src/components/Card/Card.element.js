@@ -38,7 +38,7 @@ export const Tag = styled.div`
   padding: 4px 10px;
   margin-right: 4px;
   border: none;
-
+  font-weight: 800;
   color: white;
   border-radius: 8px;
   font-size: 10px;

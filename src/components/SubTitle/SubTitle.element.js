@@ -19,3 +19,11 @@ export const SubTitleComp = styled.span`
   font-weight: 500;
   line-height: 50px;
 `;
+
+export const SubMessage = styled.span`
+  margin-left: 18px;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 50px;
+  align-self: end;
+`;

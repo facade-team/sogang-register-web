@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 import react, { useState, useEffect } from 'react';
 import { BookmarkCheckFill } from '@styled-icons/bootstrap/BookmarkCheckFill';
 import { Bookmark } from '@styled-icons/bootstrap/Bookmark';
 
+=======
+>>>>>>> 12fe5493ba4c0b685e60846e5988d1ea8b0e1752
 //components
 import GradationBtn from '../GradationBtn/GradationBtn';
 import { Tag, TagContainer } from '../Card/Card.element';
