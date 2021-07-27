@@ -20,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Spoqa Han Sans Neo', 'sans-serif';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-weight: 500;
   }
 
   #root {
@@ -36,6 +37,14 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: inherit;
   }
+
+  button {
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+
 `;
 
 export default GlobalStyle;

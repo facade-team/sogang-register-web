@@ -6,7 +6,6 @@ export const CardContainer = styled.div`
   justify-content: space-between;
   width: 240px;
   height: 140px;
-  /* border: 1px solid #707070; */
   background-color: #efecf8;
 
   border-radius: 8px;
@@ -20,7 +19,6 @@ export const CardContainer = styled.div`
     transition: all 0.2s ease-out;
     box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
     top: -4px;
-    /* border: 1px solid #cccccc; */
   }
 `;
 

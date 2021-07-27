@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const DetailbarComponent = styled.div`
-  position: absolute;
+  position: relative;
   top: 0;
   display: ${({ widthPx }) => (widthPx === 0 ? 'none' : 'block')};
   right: ${({ widthPx }) => `${widthPx - 350}px`};
@@ -51,13 +51,16 @@ export const SubjectName = styled.div`
   color: #61547f;
   width: 100%;
   font-size: ${({ font }) => `${font}px`};
+  font-weight: 600;
   text-align: left;
   height: fit-content;
+  margin-top: 8px;
 `;
 
 export const SubjectTable = styled.table`
   border-collapse: collapse;
   height: auto;
+  font-size: 14px;
 `;
 
 export const TableBody = styled.tbody``;
@@ -127,6 +130,16 @@ export const SubejctList = styled.ul`
 
 export const Subject = styled.li`
   margin-left: 10px;
+  background-color: #efecf8;
+  border-radius: 8px;
+  margin: 5px 8px 5px 3px;
+  padding: 10px 7px 10px 10px;
+
+  &:hover {
+    transition: all 0.2s ease-out;
+    box-shadow: 0px 4px 4px rgba(38, 38, 38, 0.2);
+    top: -4px;
+  }
 `;
 
 export const SubjectNameInList = styled.div`
@@ -135,11 +148,13 @@ export const SubjectNameInList = styled.div`
   font-size: ${({ font }) => `${font}px`};
   text-align: left;
   height: fit-content;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+  font-weight: 600;
 `;
 
 export const Detail = styled.div`
   font-size: 6px;
+  margin-top: 8px;
 `;
 
 export const P = styled.p`
@@ -154,5 +169,6 @@ export const P = styled.p`
 
 export const Divider = styled.hr`
   border-top: 2px solid #bfbfbf;
-  margin-right: 20px;
+  margin-right: 6px;
+  margin-left: 6px;
 `;

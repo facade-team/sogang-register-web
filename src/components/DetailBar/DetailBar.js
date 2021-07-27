@@ -123,7 +123,7 @@ const DetailBar = ({ width, openModal, subject, latestSubject }) => {
             ''
           ) : (
             <>
-              <SubjectName font={14}>{subject.과목명}</SubjectName>
+              <SubjectName font={16}>{subject.과목명}</SubjectName>
               <TagContainer>
                 {subject.비대면여부 && <Tag untact>비대면</Tag>}
                 {!subject.비대면여부 && <Tag ontact>대면</Tag>}
@@ -184,7 +184,7 @@ const DetailBar = ({ width, openModal, subject, latestSubject }) => {
                   </TableRow>
                   <TableRow>
                     <TableHead scope="row" corner={true}>
-                      수간신청 참조사항
+                      비고
                     </TableHead>
                     <TableData corner={true}>{subject.비고}</TableData>
                   </TableRow>
