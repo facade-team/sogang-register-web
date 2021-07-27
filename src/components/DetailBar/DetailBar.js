@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 import react, { useState, useEffect } from 'react';
 import { BookmarkCheckFill } from '@styled-icons/bootstrap/BookmarkCheckFill';
 import { Bookmark } from '@styled-icons/bootstrap/Bookmark';
 
-=======
->>>>>>> 12fe5493ba4c0b685e60846e5988d1ea8b0e1752
 //components
 import GradationBtn from '../GradationBtn/GradationBtn';
 import { Tag, TagContainer } from '../Card/Card.element';
@@ -31,7 +28,7 @@ import {
   Divider,
 } from './DetailBar.element';
 
-const DetailBar = ({ width, openModal, subject }) => {
+const DetailBar = ({ width, openModal, subject, latestSubject }) => {
   //최근 본과목 -> true, 즐겨찾기 -> false
   const [latestAndFavoritesToggle, setLatestAndFavoritesToggle] =
     useState(true);
@@ -39,25 +36,44 @@ const DetailBar = ({ width, openModal, subject }) => {
   const [favoriteList, setFavoriteList] = useState([]);
   const [checkBookmark, setCheckBookmark] = useState(false);
 
+  //해당과목 즐겨찾기 여부, 즐겨찾기 추가, 삭제
   useEffect(() => {
     const existInFavoriteList = favoriteList.find(
       (favorite) => favorite.subject_id === subject.subject_id
     );
 
     existInFavoriteList ? setCheckBookmark(true) : setCheckBookmark(false);
-  }, [subject]);
+  }, [subject, favoriteList]);
 
   useEffect(() => {
-    const existInFavoriteList = favoriteList.find(
-      (favorite) => favorite.subject_id === subject.subject_id
+    if (JSON.stringify(latestSubject) === '{}') {
+      return;
+    }
+
+    const latestListIndex = latestList.findIndex(
+      (latest) => latest.subject_id === latestSubject.subject_id
     );
+    console.log(latestSubject);
 
-    existInFavoriteList ? setCheckBookmark(true) : setCheckBookmark(false);
-  }, [favoriteList]);
+    if (latestListIndex === -1) {
+      // 최근 본 과목 리스트에 없을 때
+      const list = latestList.concat(latestSubject);
 
-  // useEffect(() => {
-  //   console.log(key);
-  // }, [key]);
+      if (list > 10) {
+        list.shift();
+      }
+
+      setLatestList(list);
+    } else if (latestListIndex > 0) {
+      // 이미 최근 본 과목 리스트에 있을 때
+      const list = [...latestList];
+
+      //latestSubject를 맨 앞으로
+      list.unshift(list.splice(latestListIndex, 1)[0]);
+
+      setLatestList(list);
+    }
+  }, [latestSubject]);
 
   const toFavorite = () => {
     // 즐겨찾기 버튼 눌렀을 때 해당 과목 즐겨찾기 리스트로 이동. 한 번 더 누르면 즐겨찾기 리스트에서 삭제
@@ -69,7 +85,7 @@ const DetailBar = ({ width, openModal, subject }) => {
     if (sub === undefined) {
       list = favoriteList.concat(subject);
 
-      if (list.length === 10) {
+      if (list.length > 10) {
         list.shift();
       }
 
@@ -231,7 +247,7 @@ const DetailBar = ({ width, openModal, subject }) => {
                         <P>{sub.수업시간_강의실}</P>
                       </Detail>
                     </Subject>
-                    {index !== favoriteList.length - 1 && <Divider></Divider>}
+                    {index !== latestList.length - 1 && <Divider></Divider>}
                   </>
                 ))
               : favoriteList.map((sub, index) => (

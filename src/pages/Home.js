@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { data } from '../pages/DummyData';
 
@@ -16,6 +16,7 @@ const Home = ({ openModal }) => {
   const [detailbarWidth, setDetailbarWidth] = useState(0);
   const [cardKey, setCardKey] = useState('');
   const [detailSubject, setDetailSubject] = useState({});
+  const [latestSubject, setLatestSubject] = useState({});
 
   const clickCard = (key) => {
     if (detailbarWidth === 0) {
@@ -28,6 +29,12 @@ const Home = ({ openModal }) => {
     setCardKey(key);
     setDetailSubject(detailData);
   };
+
+  useEffect(() => {
+    return () => {
+      setLatestSubject(detailSubject);
+    };
+  }, [cardKey]);
 
   return (
     <Container>
@@ -48,6 +55,7 @@ const Home = ({ openModal }) => {
         signBtnType="login"
         openModal={openModal}
         subject={detailSubject}
+        latestSubject={latestSubject}
       ></DetailBar>
     </Container>
   );
