@@ -5,11 +5,12 @@ export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 40px 30px;
+  padding: 80px 40px 30px;
 `;
 
 export const FormGroup = styled.div`
-  width: fit-content;
+  width: 100%;
+  max-width: 800px;
   font-weight: 600;
   &:not(:last-child) {
     margin-bottom: 30px;
@@ -29,7 +30,7 @@ export const FormGroup = styled.div`
   input,
   textarea {
     padding: 12px 12px;
-    width: 750px;
+    width: 100%;
     font-size: 16px;
     border-radius: 4px;
     border: 1px solid #c7c7c7;
@@ -51,4 +52,13 @@ export const FormGroup = styled.div`
 export const CustomGradationBtnComp = styled(GradationBtnComp)`
   position: inherit;
   font-weight: 800;
+  width: 100%;
+  max-width: 800px;
+  margin: 0;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.02) translateZ(0px);
+    transition: all 0.1s ease-in;
+  }
 `;
