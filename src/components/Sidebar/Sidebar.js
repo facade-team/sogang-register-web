@@ -4,7 +4,7 @@ import { MdSearch, MdChatBubbleOutline } from 'react-icons/md';
 import { BsGrid } from 'react-icons/bs';
 
 //components
-import Logo from '../../img/logo.png';
+import Logo from '../../assets/img/logo.png';
 import GradationBtn from '../GradationBtn/GradationBtn';
 
 //styled

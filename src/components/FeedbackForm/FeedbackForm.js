@@ -45,6 +45,7 @@ const FeedbackForm = () => {
         widthPx={750}
         top={null}
         borderRadius={12}
+        active
       >
         제출
       </CustomGradationBtnComp>
