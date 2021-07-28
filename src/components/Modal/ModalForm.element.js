@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 import { GradationBtnComp } from '../GradationBtn/GradationBtn.element';
 
 export const FormContainer = styled.form`

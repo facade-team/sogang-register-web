@@ -3,6 +3,9 @@ import React from 'react';
 //styled
 import { GradationBtnComp } from './GradationBtn.element';
 
+// Auth Context API
+import { useAuthContext } from '../../contexts/AuthContext';
+
 const GradationBtn = ({
   onClick,
   signBtnType,
@@ -12,11 +15,15 @@ const GradationBtn = ({
   borderRadius,
   active,
 }) => {
+  const { isLoggedIn, logout } = useAuthContext();
+
   return (
     <GradationBtnComp
       onClick={(e) => {
-        if (signBtnType) {
+        if (signBtnType && !isLoggedIn) {
           onClick(signBtnType);
+        } else if (signBtnType && isLoggedIn) {
+          logout();
         } else {
           onClick(e);
         }
@@ -26,7 +33,8 @@ const GradationBtn = ({
       borderRadius={borderRadius}
       active={active}
     >
-      {children || (signBtnType === 'login' ? '로그인' : '회원가입')}
+      {/* {children || (signBtnType === 'login' ? '로그인' : '회원가입')} */}
+      {children || (isLoggedIn ? '로그아웃' : '로그인')}
     </GradationBtnComp>
   );
 };

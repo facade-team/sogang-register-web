@@ -1,4 +1,4 @@
-import react, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BookmarkCheckFill } from '@styled-icons/bootstrap/BookmarkCheckFill';
 import { Bookmark } from '@styled-icons/bootstrap/Bookmark';
 

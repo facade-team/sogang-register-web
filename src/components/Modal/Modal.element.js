@@ -16,7 +16,7 @@ export const Background = styled(motion.div)`
 export const ModalContainer = styled(motion.div)`
   min-width: 400px;
   height: fit-content;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.3);
   background: #fff;
   display: grid;
@@ -27,7 +27,7 @@ export const ModalContainer = styled(motion.div)`
 `;
 
 export const ModalLogo = styled.div`
-  margin-top: 30px;
+  margin-top: ${({ modalType }) => (modalType === 'login' ? `40px` : `20px`)};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,8 +53,7 @@ export const LogoText2 = styled.span`
 export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
-  //justify-content: center;
-  margin-top: 40px;
+  margin-top: ${({ modalType }) => (modalType === 'login' ? `40px` : `10px`)};
   align-items: center;
   line-height: 1.8;
 `;

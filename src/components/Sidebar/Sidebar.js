@@ -93,7 +93,7 @@ const SideBar = ({ width, height, toggleOpen, openModal, navigation }) => {
             <Navigation>
               {toggleOpen && !toggleText ? (
                 <>
-                  <CustomLink to="/Mypage">
+                  <CustomLink to="/mypage">
                     <Icon>
                       <BsGrid></BsGrid>
                     </Icon>
@@ -102,7 +102,7 @@ const SideBar = ({ width, height, toggleOpen, openModal, navigation }) => {
                 </>
               ) : (
                 <>
-                  <CustomLink to="/Mypage">
+                  <CustomLink to="/mypage">
                     <Icon>
                       <BsGrid></BsGrid>
                     </Icon>

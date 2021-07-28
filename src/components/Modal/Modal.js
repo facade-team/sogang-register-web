@@ -1,6 +1,10 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import ModalForm from './ModalForm';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+import { useAuthContext } from '../../contexts/AuthContext';
 
 import logo from '../../assets/img/logo2.png';
 
@@ -15,6 +19,10 @@ import {
   ModalContent,
   ModalCloseBtn,
 } from './Modal.element';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
   const BgRef = useRef();
@@ -39,8 +47,33 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
     };
   }, [keyPress]);
 
-  const handleLogin = (user) => {
-    console.log(user);
+  const testUser = {
+    email: '123@gmail.com',
+    password: '123',
+  };
+
+  const [state, setState] = useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
+
+  const { vertical, horizontal, open } = state;
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+  const { login } = useAuthContext();
+
+  const loginLogic = (user) => {
+    if (user.email === testUser.email && user.password === testUser.password) {
+      login(user);
+      setShowModal(false);
+    } else {
+      console.log('Login Error!');
+      setState({ ...state, open: true });
+    }
   };
 
   return (
@@ -55,22 +88,35 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
           variants={modalVariant}
         >
           <ModalContainer>
-            <ModalLogo>
+            <ModalLogo modalType={modalType}>
               <LogoImg src={logo}></LogoImg>
               <LogoText1>서강</LogoText1>
               <LogoText2>신청</LogoText2>
             </ModalLogo>
-            <ModalContent>
+            <ModalContent modalType={modalType}>
               <ModalForm
-                handleLogin={handleLogin}
+                loginLogic={loginLogic}
                 modalType={modalType}
                 setModalType={setModalType}
               ></ModalForm>
             </ModalContent>
+
             <ModalCloseBtn
               onClick={() => setShowModal(!showModal)}
             ></ModalCloseBtn>
           </ModalContainer>
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={open}
+            onClose={handleClose}
+            message="I love snacks"
+            key={vertical + horizontal}
+            autoHideDuration={2000}
+          >
+            <Alert onClose={handleClose} severity="error">
+              로그인에 실패하였습니다
+            </Alert>
+          </Snackbar>
         </Background>
       )}
     </AnimatePresence>

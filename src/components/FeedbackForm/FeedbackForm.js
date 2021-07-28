@@ -7,8 +7,6 @@ import {
   CustomGradationBtnComp,
 } from './Feedback.element';
 
-import { GradationBtnComp } from '../GradationBtn/GradationBtn.element';
-
 const FeedbackForm = () => {
   const [form, onChangeForm] = useInput({
     email: '',

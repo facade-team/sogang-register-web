@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import { AuthProvider } from './contexts/AuthContext';
 
 // GlobalStyle
 import GlobalStyle from './styles/GlobalStyle';
@@ -71,35 +72,36 @@ const App = () => {
 
   return (
     <>
-      <BrowserRouter>
-        <GlobalStyle></GlobalStyle>
-        <Container>
-          <MainContainer
-            width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
-            height={height}
-            toggleOpen={toggleSidebar}
-            openModal={openModal}
-          ></MainContainer>
-          <ToggleBtn
-            width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
-            toggleOpen={toggleSidebar}
-            onClick={toggleSidebarFunc}
-          ></ToggleBtn>
-          <Sidebar
-            width={width}
-            height={height}
-            toggleOpen={toggleSidebar}
-            openModal={openModal}
-          ></Sidebar>
-
-          <Modal
-            showModal={showModal}
-            setShowModal={setShowModal}
-            modalType={modalType}
-            setModalType={setModalType}
-          ></Modal>
-        </Container>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <GlobalStyle></GlobalStyle>
+          <Container>
+            <MainContainer
+              width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
+              height={height}
+              toggleOpen={toggleSidebar}
+              openModal={openModal}
+            ></MainContainer>
+            <ToggleBtn
+              width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
+              toggleOpen={toggleSidebar}
+              onClick={toggleSidebarFunc}
+            ></ToggleBtn>
+            <Sidebar
+              width={width}
+              height={height}
+              toggleOpen={toggleSidebar}
+              openModal={openModal}
+            ></Sidebar>
+            <Modal
+              showModal={showModal}
+              setShowModal={setShowModal}
+              modalType={modalType}
+              setModalType={setModalType}
+            ></Modal>
+          </Container>
+        </BrowserRouter>
+      </AuthProvider>
     </>
   );
 };

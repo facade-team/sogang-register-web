@@ -5,12 +5,11 @@ import useInput from '../../hooks/useInput';
 import {
   FormContainer,
   FormGroup,
-  SubmitBtn,
   MailAllow,
   CustomGradationBtnComp,
 } from './ModalForm.element';
 
-const ModalForm = ({ handleLogin, modalType, setModalType }) => {
+const ModalForm = ({ loginLogic, modalType, setModalType }) => {
   const [user, onChangeInput] = useInput({
     name: '',
     email: '',
@@ -19,9 +18,10 @@ const ModalForm = ({ handleLogin, modalType, setModalType }) => {
   const { name, email, password } = user;
   const passwordTest = '';
   const [checkboxValue, setCheckboxValue] = useState(true);
+
   const submitHandler = (e) => {
     e.preventDefault();
-    handleLogin(user);
+    loginLogic(user);
   };
   return (
     <FormContainer onSubmit={submitHandler}>
