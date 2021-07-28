@@ -50,7 +50,6 @@ const DetailBar = ({ width, openModal, subject, latestSubject, clickCard }) => {
     const latestListIndex = latestList.findIndex(
       (latest) => latest.subject_id === latestSubject.subject_id
     );
-    console.log(latestSubject);
 
     if (latestListIndex === -1) {
       // 최근 본 과목 리스트에 없을 때

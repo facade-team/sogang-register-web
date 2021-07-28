@@ -19,7 +19,9 @@ const MainContainer = ({ width, toggleOpen, onClick, openModal }) => {
     >
       {/* 메인 렌더링 페이지 */}
       <Switch>
-        <Route path="/" exact component={Home}></Route>
+        <Route path="/" exact>
+          <Home openModal={openModal} />
+        </Route>
         <Route path="/feedback" exact component={Feedback}></Route>
         <Route path="/mypage" exact component={MyPage} />
       </Switch>
