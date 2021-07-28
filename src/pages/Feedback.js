@@ -13,7 +13,7 @@ import {
 const Feedback = () => {
   return (
     <Container>
-      <FeedbackContainer>
+      <FeedbackContainer navigation="Feedback">
         <Title title="피드백/문의"></Title>
         <FeedbackForm></FeedbackForm>
       </FeedbackContainer>

@@ -11,7 +11,7 @@ import {
 const MyPage = () => {
   return (
     <Container>
-      <MyPageContainer>
+      <MyPageContainer navigation="Mypage">
         <Title title="마이페이지"></Title>
       </MyPageContainer>
     </Container>

@@ -7,7 +7,16 @@ export const Container = styled.div`
 `;
 
 export const HomeContainer = styled.div`
-  width: ${({ widthPx }) => `calc( 100% - ${widthPx}px);`};
+  /* width: ${({ widthPx }) => `calc( 100% - ${widthPx}px);`}; */
+  ${({ widthPx, navigation }) => {
+    if (navigation) {
+      if (navigation === 'Home') {
+        return `width: calc(100% - ${widthPx}px);`;
+      } else {
+        return 'width: 100%;';
+      }
+    }
+  }}
   height: 100%;
   display: flex;
   flex-direction: column;
