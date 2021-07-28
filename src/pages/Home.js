@@ -31,9 +31,7 @@ const Home = ({ openModal }) => {
   };
 
   useEffect(() => {
-    return () => {
-      setLatestSubject(detailSubject);
-    };
+    setLatestSubject(detailSubject);
   }, [cardKey]);
 
   return (
