@@ -17,6 +17,7 @@ export const HomeContainer = styled.div`
       }
     }
   }}
+  min-width: 600px;
   height: 100%;
   display: flex;
   flex-direction: column;

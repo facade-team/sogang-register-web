@@ -5,6 +5,7 @@ export const CardContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 240px;
+  min-width: 240px;
   height: 140px;
   background-color: #efecf8;
 
