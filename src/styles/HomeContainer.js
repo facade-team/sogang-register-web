@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div``;
 
 export const HomeContainer = styled.div`
-  width: 100%;
+  width: ${({ widthPx }) => `calc( 100% - ${widthPx}px);`};
   display: flex;
 
   flex-direction: column;

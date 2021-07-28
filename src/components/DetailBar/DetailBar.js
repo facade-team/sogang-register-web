@@ -4,7 +4,7 @@ import { Bookmark } from '@styled-icons/bootstrap/Bookmark';
 
 //components
 import GradationBtn from '../GradationBtn/GradationBtn';
-import SubjectList from '../SubjectList/SubjectList';
+import Subject from '../SubjectCard/SubjectCard';
 
 //styled
 import {
@@ -20,10 +20,12 @@ import {
   TableData,
   OptionBtnContainer,
   FavoriteBtn,
+  SubjectList,
+  Divider,
 } from './DetailBar.element';
 import { Tag, TagContainer } from '../Card/Card.element';
 
-const DetailBar = ({ width, openModal, subject, latestSubject }) => {
+const DetailBar = ({ width, openModal, subject, latestSubject, clickCard }) => {
   //최근 본과목 -> true, 즐겨찾기 -> false
   const [latestAndFavoritesToggle, setLatestAndFavoritesToggle] =
     useState(true);
@@ -223,11 +225,29 @@ const DetailBar = ({ width, openModal, subject, latestSubject }) => {
               즐겨찾기
             </GradationBtn>
           </OptionBtnContainer>
-          <SubjectList
-            latestAndFavoritesToggle={latestAndFavoritesToggle}
-            latestList={latestList}
-            favoriteList={favoriteList}
-          ></SubjectList>
+          <SubjectList>
+            {latestAndFavoritesToggle
+              ? latestList.map((sub, index) => (
+                  <>
+                    <Subject
+                      key={sub.subject_id}
+                      subject={sub}
+                      onClick={clickCard}
+                    ></Subject>
+                    {index !== latestList.length - 1 && <Divider></Divider>}
+                  </>
+                ))
+              : favoriteList.map((sub, index) => (
+                  <>
+                    <Subject
+                      key={sub.subject_id}
+                      subject={sub}
+                      onClick={clickCard}
+                    ></Subject>
+                    {index !== favoriteList.length - 1 && <Divider></Divider>}
+                  </>
+                ))}
+          </SubjectList>
         </StackContent>
       </DetailContainer>
     </DetailbarComponent>
