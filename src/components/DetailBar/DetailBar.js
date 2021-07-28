@@ -4,7 +4,7 @@ import { Bookmark } from '@styled-icons/bootstrap/Bookmark';
 
 //components
 import GradationBtn from '../GradationBtn/GradationBtn';
-import { Tag, TagContainer } from '../Card/Card.element';
+import SubjectList from '../SubjectList/SubjectList';
 
 //styled
 import {
@@ -20,13 +20,8 @@ import {
   TableData,
   OptionBtnContainer,
   FavoriteBtn,
-  SubejctList,
-  Subject,
-  SubjectNameInList,
-  Detail,
-  P,
-  Divider,
 } from './DetailBar.element';
+import { Tag, TagContainer } from '../Card/Card.element';
 
 const DetailBar = ({ width, openModal, subject, latestSubject }) => {
   //최근 본과목 -> true, 즐겨찾기 -> false
@@ -228,49 +223,11 @@ const DetailBar = ({ width, openModal, subject, latestSubject }) => {
               즐겨찾기
             </GradationBtn>
           </OptionBtnContainer>
-          <SubejctList>
-            {latestAndFavoritesToggle
-              ? latestList.map((sub, index) => (
-                  <>
-                    <Subject key={sub.subject_id}>
-                      <SubjectNameInList font={14}>
-                        {sub.과목명}
-                      </SubjectNameInList>
-                      <TagContainer>
-                        {sub.비대면여부 && <Tag untact>비대면</Tag>}
-                        {!sub.비대면여부 && <Tag ontact>대면</Tag>}
-                        {sub.영어강의 && <Tag eng>영어강의</Tag>}
-                        {sub.중국어강의 && <Tag china>중국어강의</Tag>}
-                      </TagContainer>
-                      <Detail>
-                        <P text={sub.교수진}>{sub.교수진}</P>
-                        <P>{sub.수업시간_강의실}</P>
-                      </Detail>
-                    </Subject>
-                    {index !== latestList.length - 1 && <Divider></Divider>}
-                  </>
-                ))
-              : favoriteList.map((sub, index) => (
-                  <>
-                    <Subject key={sub.subject_id}>
-                      <SubjectNameInList font={14}>
-                        {sub.과목명}
-                      </SubjectNameInList>
-                      <TagContainer>
-                        {sub.비대면여부 && <Tag untact>비대면</Tag>}
-                        {!sub.비대면여부 && <Tag ontact>대면</Tag>}
-                        {sub.영어강의 && <Tag eng>영어강의</Tag>}
-                        {sub.중국어강의 && <Tag china>중국어강의</Tag>}
-                      </TagContainer>
-                      <Detail>
-                        <P text={sub.교수진}>{sub.교수진}</P>
-                        <P>{sub.수업시간_강의실}</P>
-                      </Detail>
-                    </Subject>
-                    {index !== favoriteList.length - 1 && <Divider></Divider>}
-                  </>
-                ))}
-          </SubejctList>
+          <SubjectList
+            latestAndFavoritesToggle={latestAndFavoritesToggle}
+            latestList={latestList}
+            favoriteList={favoriteList}
+          ></SubjectList>
         </StackContent>
       </DetailContainer>
     </DetailbarComponent>
