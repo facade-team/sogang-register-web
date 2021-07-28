@@ -22,7 +22,7 @@ import {
   NavMenu,
 } from './Sidebar.element';
 
-const SideBar = ({ width, height, toggleOpen, openModal }) => {
+const SideBar = ({ width, height, toggleOpen, openModal, navigation }) => {
   const [initial, setInitial] = useState(true);
   const [toggleText, setToggleText] = useState(true);
   useEffect(() => {
@@ -61,7 +61,7 @@ const SideBar = ({ width, height, toggleOpen, openModal }) => {
               <GradationBtn
                 onClick={openModal}
                 signBtnType={'login'}
-                width={150}
+                width={100}
                 top={160}
                 borderRadius={20}
                 active

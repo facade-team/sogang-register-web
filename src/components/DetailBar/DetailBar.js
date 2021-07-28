@@ -104,7 +104,7 @@ const DetailBar = ({ width, openModal, subject, latestSubject, clickCard }) => {
   return (
     <DetailbarComponent widthPx={width}>
       <DetailContainer>
-        <GradationBtn
+        {/* <GradationBtn
           width={280}
           onClick={openModal}
           signBtnType={'login'}
@@ -113,7 +113,7 @@ const DetailBar = ({ width, openModal, subject, latestSubject, clickCard }) => {
           active
         >
           로그인/회원가입
-        </GradationBtn>
+        </GradationBtn> */}
         <DetailbarContent>
           {JSON.stringify(subject) === '{}' ? (
             ''

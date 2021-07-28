@@ -8,6 +8,26 @@ export const DetailbarComponent = styled.div`
   min-width: 350px;
   height: 100vh;
   background-color: #f6faff;
+
+  overflow-y: hidden;
+  scrollbar-width: none;
+  &:hover {
+    overflow-y: auto;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+    background-clip: content-box;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #a481eb;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    width: 1px;
+  }
 `;
 
 export const DetailContainer = styled.div`
@@ -42,6 +62,7 @@ export const StackContent = styled.div`
   min-height: 380px;
   border-radius: 15px 15px 15px 15px;
   padding: 15px 20px;
+  margin-bottom: 500px;
   display: flex;
   flex-direction: column;
   box-shadow: 3px 3px 6px 3px rgba(0, 0, 0, 0.34);
