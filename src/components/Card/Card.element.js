@@ -4,9 +4,9 @@ export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 240px;
-  min-width: 240px;
-  height: 140px;
+  width: 230px;
+  min-width: 220px;
+  height: 130px;
   background-color: #efecf8;
 
   border-radius: 8px;

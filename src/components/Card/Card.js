@@ -18,7 +18,7 @@ const Card = ({ subject, onClick }) => {
         {subject.중국어강의 && <Tag china>중국어강의</Tag>}
       </TagContainer>
       <Detail>
-        <P text={subject.교수진}>{subject.교수진} 교수</P>
+        <P text={subject.교수진}>{subject.교수진}</P>
         <p>{subject.수업시간_강의실}</p>
       </Detail>
     </CardContainer>
