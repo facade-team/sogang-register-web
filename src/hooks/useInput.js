@@ -1,19 +1,19 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 const useInput = (initialForm) => {
-  const [form, setForm] = useState(initialForm)
+  const [form, setForm] = useState(initialForm);
   const onChange = (e) => {
     const newForm = {
       ...form,
       [e.target.name]: e.target.value,
-    }
-    setForm(newForm)
-  }
+    };
+    setForm(newForm);
+  };
 
-  return [form, onChange]
-}
+  return [form, onChange, setForm];
+};
 
-export default useInput
+export default useInput;
 
 /* 사용법
 

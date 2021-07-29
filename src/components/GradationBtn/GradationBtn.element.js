@@ -28,9 +28,9 @@ export const GradationBtnComp = styled.button`
     `${borderRadius}px ${borderRadius}px ${borderRadius}px ${borderRadius}px`};
   width: ${({ widthPx }) => `${widthPx}px`};
   padding: 10px 1px;
-  position: relative;
+  position: ${({ position }) => `${position}`};
   top: ${({ top }) => `${top}px`};
-  margin-right: -16px;
+  margin-right: ${({ marginRight }) => `${marginRight}px`};
 
   &:hover {
     cursor: pointer;

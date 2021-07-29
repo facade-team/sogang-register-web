@@ -37,7 +37,11 @@ const Home = ({ openModal }) => {
   return (
     <Container>
       <HomeContainer widthPx={detailbarWidth} navigation="Home">
-        <Title title="개설교과목 검색"></Title>
+        <Title
+          title="개설교과목 검색"
+          openModal={openModal}
+          widthPx={detailbarWidth}
+        ></Title>
         <SearchOption number="01" subtitle="검색옵션"></SearchOption>
         <DetailOption number="02" subtitle="세부옵션"></DetailOption>
         <SelectSubject

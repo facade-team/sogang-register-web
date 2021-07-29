@@ -22,8 +22,12 @@ const MainContainer = ({ width, toggleOpen, onClick, openModal }) => {
         <Route path="/" exact>
           <Home openModal={openModal} />
         </Route>
-        <Route path="/feedback" exact component={Feedback}></Route>
-        <Route path="/mypage" exact component={MyPage} />
+        <Route path="/feedback" exact>
+          <Feedback openModal={openModal} />
+        </Route>
+        <Route path="/mypage" exact>
+          <MyPage openModal={openModal} />
+        </Route>
       </Switch>
     </Container>
   );

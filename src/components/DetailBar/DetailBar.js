@@ -5,6 +5,7 @@ import { Bookmark } from '@styled-icons/bootstrap/Bookmark';
 //components
 import GradationBtn from '../GradationBtn/GradationBtn';
 import Subject from '../SubjectCard/SubjectCard';
+import ProfileBar from '../ProfileBar/ProfileBar';
 
 //styled
 import {
@@ -104,16 +105,7 @@ const DetailBar = ({ width, openModal, subject, latestSubject, clickCard }) => {
   return (
     <DetailbarComponent widthPx={width}>
       <DetailContainer>
-        {/* <GradationBtn
-          width={280}
-          onClick={openModal}
-          signBtnType={'login'}
-          borderRadius={10}
-          top={40}
-          active
-        >
-          로그인/회원가입
-        </GradationBtn> */}
+        <ProfileBar openModal={openModal} detailbar></ProfileBar>
         <DetailbarContent>
           {JSON.stringify(subject) === '{}' ? (
             ''
@@ -212,6 +204,7 @@ const DetailBar = ({ width, openModal, subject, latestSubject, clickCard }) => {
               borderRadius={20}
               active={latestAndFavoritesToggle}
               onClick={switchLatestAndFavorites}
+              marginRight={-16}
             >
               최근 본 과목
             </GradationBtn>
@@ -220,6 +213,7 @@ const DetailBar = ({ width, openModal, subject, latestSubject, clickCard }) => {
               borderRadius={20}
               active={!latestAndFavoritesToggle}
               onClick={switchLatestAndFavorites}
+              marginRight={-16}
             >
               즐겨찾기
             </GradationBtn>

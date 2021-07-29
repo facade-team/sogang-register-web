@@ -8,11 +8,11 @@ import {
   HomeContainer as MyPageContainer,
 } from '../styles/HomeContainer';
 
-const MyPage = () => {
+const MyPage = ({ openModal }) => {
   return (
     <Container>
       <MyPageContainer navigation="Mypage">
-        <Title title="마이페이지"></Title>
+        <Title title="마이페이지" openModal={openModal}></Title>
       </MyPageContainer>
     </Container>
   );

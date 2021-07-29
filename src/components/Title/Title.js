@@ -1,11 +1,13 @@
 import React from 'react';
-import { TitleComp } from './Title.element';
+import { Container, TitleComp } from './Title.element';
+import ProfileBar from '../ProfileBar/ProfileBar';
 
-const Title = ({ title }) => {
+const Title = ({ title, openModal, widthPx }) => {
   return (
-    <>
+    <Container>
       <TitleComp>{title}</TitleComp>
-    </>
+      {!widthPx ? <ProfileBar openModal={openModal}></ProfileBar> : null}
+    </Container>
   );
 };
 

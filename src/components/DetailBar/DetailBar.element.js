@@ -62,7 +62,6 @@ export const StackContent = styled.div`
   min-height: 380px;
   border-radius: 15px 15px 15px 15px;
   padding: 15px 20px;
-  margin-bottom: 500px;
   display: flex;
   flex-direction: column;
   box-shadow: 3px 3px 6px 3px rgba(0, 0, 0, 0.34);

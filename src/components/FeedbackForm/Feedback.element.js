@@ -52,7 +52,7 @@ export const FormGroup = styled.div`
 export const CustomGradationBtnComp = styled(GradationBtnComp)`
   position: inherit;
   font-weight: 800;
-  width: 100%;
+  width: ${({ widthPx }) => (widthPx ? `${widthPx}px` : `100%`)};
   max-width: 800px;
   margin: 0;
 

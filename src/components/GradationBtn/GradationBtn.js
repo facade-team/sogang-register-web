@@ -14,15 +14,17 @@ const GradationBtn = ({
   top,
   borderRadius,
   active,
+  position,
+  marginRight,
 }) => {
-  const { isLoggedIn, logout } = useAuthContext();
+  const { isAuth, logout } = useAuthContext();
 
   return (
     <GradationBtnComp
       onClick={(e) => {
-        if (signBtnType && !isLoggedIn) {
+        if (signBtnType && !isAuth) {
           onClick(signBtnType);
-        } else if (signBtnType && isLoggedIn) {
+        } else if (signBtnType && isAuth) {
           logout();
         } else {
           onClick(e);
@@ -32,9 +34,11 @@ const GradationBtn = ({
       top={top}
       borderRadius={borderRadius}
       active={active}
+      position={position}
+      marginRight={marginRight}
     >
       {/* {children || (signBtnType === 'login' ? '로그인' : '회원가입')} */}
-      {children || (isLoggedIn ? '로그아웃' : '로그인')}
+      {children || (isAuth ? '로그아웃' : '로그인')}
     </GradationBtnComp>
   );
 };

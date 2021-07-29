@@ -63,7 +63,8 @@ const SideBar = ({ width, height, toggleOpen, openModal, navigation }) => {
                 signBtnType={'login'}
                 width={100}
                 top={160}
-                borderRadius={20}
+                borderRadius={15}
+                position={'relative'}
                 active
               ></GradationBtn>
             </>
