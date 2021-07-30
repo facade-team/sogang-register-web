@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  /*  */
+`;
+
 export const CardList = styled.div`
   display: flex;
+  min-height: 160px;
   flex-direction: row;
   flex-wrap: wrap;
   overflow-y: auto;
