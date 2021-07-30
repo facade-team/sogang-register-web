@@ -74,8 +74,7 @@ const SubList = () => {
               props.name === '대면수업'
                 ? ZoomSubOption === false
                   ? setZoomSubOption(true)
-                  : //console.log(data.map((subject) => subject.권장학년))
-                    setZoomSubOption(false)
+                  : setZoomSubOption(false)
                 : setZoomSubOption(false);
             }
           }}
