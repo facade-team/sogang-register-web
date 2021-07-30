@@ -8,9 +8,9 @@ import {
   P,
 } from './Card.element';
 
-const Card = ({ subject }) => {
+const Card = ({ subject, onClick }) => {
   return (
-    <CardContainer>
+    <CardContainer onClick={onClick}>
       <SubjectName>{subject.과목명}</SubjectName>
       <TagContainer>
         {subject.비대면여부 ? <Tag untact>비대면</Tag> : <Tag ontact>대면</Tag>}
@@ -18,7 +18,7 @@ const Card = ({ subject }) => {
         {subject.중국어강의 && <Tag china>중국어강의</Tag>}
       </TagContainer>
       <Detail>
-        <P text={subject.교수진}>{subject.교수진} 교수</P>
+        <P text={subject.교수진}>{subject.교수진}</P>
         <p>{subject.수업시간_강의실}</p>
       </Detail>
     </CardContainer>

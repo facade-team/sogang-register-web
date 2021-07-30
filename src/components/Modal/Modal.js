@@ -1,70 +1,28 @@
-import React, { useRef, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
-import { MdClose } from 'react-icons/md';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import ModalForm from './ModalForm';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
-const Background = styled(motion.div)`
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+import { useAuthContext } from '../../contexts/AuthContext';
 
-const ModalContainer = styled(motion.div)`
-  min-width: 400px;
-  height: fit-content;
-  padding-bottom: 50px;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-  background: #fff;
-  display: grid;
-  grid-template-rows: 1fr 4fr;
-  position: relative;
-  z-index: 10;
-  border-radius: 10px;
-`;
+import logo from '../../assets/img/logo2.png';
 
-const ModalLogo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  background-color: #b60004;
-  color: white;
-  font-size: 30px;
-  border-radius: 10px 10px 0 0;
-`;
+import {
+  Background,
+  modalVariant,
+  ModalContainer,
+  ModalLogo,
+  LogoImg,
+  LogoText1,
+  LogoText2,
+  ModalContent,
+  ModalCloseBtn,
+} from './Modal.element';
 
-const ModalContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  //justify-content: center;
-  margin-top: 25px;
-  align-items: center;
-  line-height: 1.8;
-`;
-
-const ModalCloseBtn = styled(MdClose)`
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  color: white;
-`;
-
-const modalVariant = {
-  initial: { opacity: 0 },
-  isOpen: { opacity: 1 },
-  exit: { opacity: 0 },
-};
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
   const BgRef = useRef();
@@ -89,8 +47,33 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
     };
   }, [keyPress]);
 
-  const handleLogin = (user) => {
-    console.log(user);
+  const testUser = {
+    email: '123@gmail.com',
+    password: '123',
+  };
+
+  const [state, setState] = useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
+
+  const { vertical, horizontal, open } = state;
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+  const { login } = useAuthContext();
+
+  const loginLogic = (user) => {
+    if (user.email === testUser.email && user.password === testUser.password) {
+      login(user);
+      setShowModal(false);
+    } else {
+      console.log('Login Error!');
+      setState({ ...state, open: true });
+    }
   };
 
   return (
@@ -105,18 +88,35 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
           variants={modalVariant}
         >
           <ModalContainer>
-            <ModalLogo>서강신청 로고</ModalLogo>
-            <ModalContent>
+            <ModalLogo modalType={modalType}>
+              <LogoImg src={logo}></LogoImg>
+              <LogoText1>서강</LogoText1>
+              <LogoText2>신청</LogoText2>
+            </ModalLogo>
+            <ModalContent modalType={modalType}>
               <ModalForm
-                handleLogin={handleLogin}
+                loginLogic={loginLogic}
                 modalType={modalType}
                 setModalType={setModalType}
               ></ModalForm>
             </ModalContent>
+
             <ModalCloseBtn
               onClick={() => setShowModal(!showModal)}
             ></ModalCloseBtn>
           </ModalContainer>
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={open}
+            onClose={handleClose}
+            message="I love snacks"
+            key={vertical + horizontal}
+            autoHideDuration={2000}
+          >
+            <Alert onClose={handleClose} severity="error">
+              로그인에 실패하였습니다
+            </Alert>
+          </Snackbar>
         </Background>
       )}
     </AnimatePresence>

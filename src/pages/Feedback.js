@@ -10,11 +10,11 @@ import {
   HomeContainer as FeedbackContainer,
 } from '../styles/HomeContainer';
 
-const Feedback = () => {
+const Feedback = ({ openModal }) => {
   return (
     <Container>
-      <FeedbackContainer>
-        <Title title="피드백/문의"></Title>
+      <FeedbackContainer navigation="Feedback">
+        <Title title="피드백/문의" openModal={openModal}></Title>
         <FeedbackForm></FeedbackForm>
       </FeedbackContainer>
     </Container>

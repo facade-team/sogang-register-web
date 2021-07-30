@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 // import { data } from '../../pages/DummyData';
 import SubTitle from '../SubTitle/SubTitle';
 import { OptionBar } from './SearchOption.element';

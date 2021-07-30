@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useInput from '../../hooks/useInput';
+
+// auth context
+import { useAuthContext } from '../../contexts/AuthContext';
 
 import {
   FormContainer,
@@ -7,15 +10,19 @@ import {
   CustomGradationBtnComp,
 } from './Feedback.element';
 
-import { GradationBtnComp } from '../GradationBtn/GradationBtn.element';
-
 const FeedbackForm = () => {
-  const [form, onChangeForm] = useInput({
+  const { userData } = useAuthContext();
+  const [form, onChangeForm, setForm] = useInput({
     email: '',
     title: '',
     content: '',
   });
   const { email, title, content } = form;
+
+  useEffect(() => {
+    setForm({ ...form, email: userData.email });
+  }, [userData]);
+
   return (
     <FormContainer>
       <FormGroup>
@@ -42,9 +49,9 @@ const FeedbackForm = () => {
       </FormGroup>
       <CustomGradationBtnComp
         onClick={null}
-        widthPx={750}
         top={null}
         borderRadius={12}
+        active
       >
         제출
       </CustomGradationBtnComp>

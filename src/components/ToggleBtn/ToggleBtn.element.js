@@ -13,6 +13,5 @@ export const ImgBox = styled.div`
 
   &:hover {
     cursor: pointer;
-    background-color: #b60004;
   }
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 //Pages
@@ -19,9 +19,15 @@ const MainContainer = ({ width, toggleOpen, onClick, openModal }) => {
     >
       {/* 메인 렌더링 페이지 */}
       <Switch>
-        <Route path="/" exact component={Home}></Route>
-        <Route path="/feedback" exact component={Feedback}></Route>
-        <Route path="/mypage" exact component={MyPage} />
+        <Route path="/" exact>
+          <Home openModal={openModal} />
+        </Route>
+        <Route path="/feedback" exact>
+          <Feedback openModal={openModal} />
+        </Route>
+        <Route path="/mypage" exact>
+          <MyPage openModal={openModal} />
+        </Route>
       </Switch>
     </Container>
   );

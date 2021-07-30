@@ -4,7 +4,7 @@ import { MdSearch, MdChatBubbleOutline } from 'react-icons/md';
 import { BsGrid } from 'react-icons/bs';
 
 //components
-import Logo from '../../img/logo.png';
+import Logo from '../../assets/img/logo.png';
 import GradationBtn from '../GradationBtn/GradationBtn';
 
 //styled
@@ -22,7 +22,7 @@ import {
   NavMenu,
 } from './Sidebar.element';
 
-const SideBar = ({ width, height, toggleOpen, openModal }) => {
+const SideBar = ({ width, height, toggleOpen, openModal, navigation }) => {
   const [initial, setInitial] = useState(true);
   const [toggleText, setToggleText] = useState(true);
   useEffect(() => {
@@ -61,9 +61,11 @@ const SideBar = ({ width, height, toggleOpen, openModal }) => {
               <GradationBtn
                 onClick={openModal}
                 signBtnType={'login'}
-                width={150}
+                width={100}
                 top={160}
-                borderRadius={20}
+                borderRadius={15}
+                position={'relative'}
+                active
               ></GradationBtn>
             </>
           ) : null}
@@ -92,7 +94,7 @@ const SideBar = ({ width, height, toggleOpen, openModal }) => {
             <Navigation>
               {toggleOpen && !toggleText ? (
                 <>
-                  <CustomLink to="/Mypage">
+                  <CustomLink to="/mypage">
                     <Icon>
                       <BsGrid></BsGrid>
                     </Icon>
@@ -101,7 +103,7 @@ const SideBar = ({ width, height, toggleOpen, openModal }) => {
                 </>
               ) : (
                 <>
-                  <CustomLink to="/Mypage">
+                  <CustomLink to="/mypage">
                     <Icon>
                       <BsGrid></BsGrid>
                     </Icon>

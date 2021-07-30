@@ -1,116 +1,31 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import useInput from '../../hooks/useInput'
-import { motion } from 'framer-motion'
+import React, { useState } from 'react';
 
-const FormContainer = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-`
+import useInput from '../../hooks/useInput';
 
-const Title = styled.p`
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: #666;
-`
+import {
+  FormContainer,
+  FormGroup,
+  MailAllow,
+  CustomGradationBtnComp,
+} from './ModalForm.element';
 
-const FormGroup = styled.div`
-  display: block;
-  width: 100%;
-  margin-bottom: 15px;
-
-  label {
-    display: block;
-    color: #666;
-    font-size: 16px;
-    margin-bottom: 5px;
-    transition: 0.4s;
-  }
-  &:focus-within label {
-    color: #b60004;
-  }
-
-  input {
-    padding: 12px 12px;
-    width: 100%;
-    font-size: 16px;
-    border-radius: 4px;
-    border: 1px solid #c7c7c7;
-    outline: none;
-    transition: 0.4s;
-  }
-
-  &:focus-within input {
-    border-color: #b60004;
-  }
-`
-
-const SubmitBtn = styled(motion.button).attrs({
-  type: 'submit',
-})`
-  width: 100%;
-  height: 45px;
-  padding: 10px 15px;
-  color: #fff;
-  background-color: #b60004;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  margin-top: 15px;
-  font-size: 16px;
-
-  & + div {
-    text-align: center;
-    margin-top: 24px;
-    text-decoration: underline;
-    span {
-      cursor: pointer;
-    }
-  }
-`
-
-const Seperator = styled.div`
-  margin-top: 30px;
-  display: flex;
-  align-items: center;
-
-  p {
-    padding: 0 15px;
-    color: #c7c7c7;
-  }
-
-  div {
-    flex: 1;
-    height: 1px;
-    background-color: #c7c7c7;
-  }
-`
-
-const MailAllow = styled.p`
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  justify-content: center;
-`
-
-const ModalForm = ({ handleLogin, modalType, setModalType }) => {
+const ModalForm = ({ loginLogic, modalType, setModalType }) => {
   const [user, onChangeInput] = useInput({
     name: '',
     email: '',
     password: '',
-  })
-  const { name, email, password } = user
-  const passwordTest = ''
-  const [checkboxValue, setCheckboxValue] = useState(true)
+  });
+  const { name, email, password } = user;
+  const passwordTest = '';
+  const [checkboxValue, setCheckboxValue] = useState(true);
+
   const submitHandler = (e) => {
-    e.preventDefault()
-    handleLogin(user)
-  }
+    e.preventDefault();
+    loginLogic(user);
+  };
   return (
     <FormContainer onSubmit={submitHandler}>
-      {modalType === 'login' ? <Title>LOGIN</Title> : <Title>SIGN UP</Title>}
+      {/* {modalType === 'login' ? <Title>LOGIN</Title> : <Title>SIGN UP</Title>} */}
       {modalType === 'signup' && (
         <FormGroup>
           <label htmlFor="name">이름</label>
@@ -153,19 +68,15 @@ const ModalForm = ({ handleLogin, modalType, setModalType }) => {
       )}
       {modalType === 'login' ? (
         <>
-          <SubmitBtn
-            whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-          >
-            로그인
-          </SubmitBtn>
+          <CustomGradationBtnComp active>로그인</CustomGradationBtnComp>
           <div>
             <span onClick={() => setModalType('signup')}>회원가입</span>
           </div>
-          <Seperator>
+          {/* <Seperator>
             <div></div>
             <p>또는 간편로그인</p>
             <div></div>
-          </Seperator>
+          </Seperator> */}
         </>
       ) : (
         <>
@@ -182,15 +93,11 @@ const ModalForm = ({ handleLogin, modalType, setModalType }) => {
             />
           </MailAllow>
 
-          <SubmitBtn
-            whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-          >
-            회원가입
-          </SubmitBtn>
+          <CustomGradationBtnComp active>회원가입</CustomGradationBtnComp>
         </>
       )}
     </FormContainer>
-  )
-}
+  );
+};
 
-export default ModalForm
+export default ModalForm;

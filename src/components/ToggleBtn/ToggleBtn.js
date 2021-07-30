@@ -1,6 +1,6 @@
 import React from 'react';
-import { MdMenu, MdCancel } from 'react-icons/md';
-
+import { BsChevronDoubleLeft } from 'react-icons/bs';
+import { RiMenuFill } from 'react-icons/ri';
 //styled
 import { ImgBox } from './ToggleBtn.element';
 
@@ -9,9 +9,9 @@ const ToggleBtn = ({ toggleOpen, width, onClick }) => {
     <>
       <ImgBox onClick={onClick} toggleSidebar={toggleOpen} widthPx={width}>
         {!toggleOpen ? (
-          <MdMenu size="25"></MdMenu>
+          <RiMenuFill size="25"></RiMenuFill>
         ) : (
-          <MdCancel size="25"></MdCancel>
+          <BsChevronDoubleLeft size="25"></BsChevronDoubleLeft>
         )}
       </ImgBox>
     </>
