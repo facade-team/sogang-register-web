@@ -23,12 +23,12 @@ const Home = ({ openModal }) => {
         <SelectSubject number="03" subtitle="과목선택"></SelectSubject>
       </HomeContainer>
       {/* 오른쪽 사이드바 */}
-      <DetailBar
+      {/* <DetailBar
         width={detailbarWidth}
         signBtnType="login"
         openModal={openModal}
         subject={data[0]}
-      ></DetailBar>
+      ></DetailBar> */}
     </Container>
   );
 };

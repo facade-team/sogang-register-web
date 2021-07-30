@@ -12,20 +12,25 @@ export const SectionContainer = styled.div`
 export const OptionContainer = styled.div`
   display: flex;
   width: 100%;
+  margin-bottom: 15px;
 `;
 
 export const CheckboxContainer = styled.div`
   display: flex;
+  place-self: flex-start;
+  // font-size: 20px;
+  position: relative;
+  left: 0px; // 세부옵션 버튼 아래 나오도록 가능?
 `;
 
 export const ListContainer = styled.div`
   display: flex;
   width: 140px;
   height: 40px;
-  align-items: center; //세로
-  justify-content: center; //가로
+  align-items: center; // 세로
+  justify-content: start; // 가로
   background-color: transparent;
-  margin-right: 20px;
+  margin-right: -40px; // 겹침
 `;
 
 export const ListBtn = styled.button`
@@ -40,13 +45,17 @@ export const ListBtn = styled.button`
   border: 1px none;
   border-radius: 20px;
   color: #ffffff;
+  min-width: 80px;
+  max-width: 120px;
   width: 100%;
   height: 100%;
   padding: 10px 1px;
+  z-index: unset;
 
   &:hover {
     cursor: pointer;
     transform: scale(1.05);
+    z-index: 2;
   }
 
   ${(props) =>
@@ -60,5 +69,6 @@ export const ListBtn = styled.button`
     props.focused === true &&
     css`
       border: 1px;
+      z-index: 1;
     `};
 `;
