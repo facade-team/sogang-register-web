@@ -52,7 +52,7 @@ const Home = ({ openModal }) => {
         ></SelectSubject>
       </HomeContainer>
       {/* 오른쪽 사이드바 */}
-      <DetailBar
+      {/* <DetailBar
         width={detailbarWidth}
         signBtnType="login"
         openModal={openModal}

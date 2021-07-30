@@ -15,7 +15,7 @@ export const ListContainer = styled.div`
   align-items: center; //세로
   justify-content: center; //가로
   background-color: transparent;
-  margin-right: 20px;
+  margin-right: -20px;
 `;
 
 export const ListBtn = styled.button`
@@ -31,12 +31,14 @@ export const ListBtn = styled.button`
   border-radius: 20px;
   color: #ffffff;
   width: 100%;
+  min-width: 80px;
   height: 100%;
   padding: 10px 1px;
 
   &:hover {
     cursor: pointer;
     transform: scale(1.05);
+    z-index: 2;
   }
 
   ${(props) =>
@@ -50,5 +52,6 @@ export const ListBtn = styled.button`
     props.focused === true &&
     css`
       border: 1px;
+      z-index: 1;
     `};
 `;
