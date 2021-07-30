@@ -7,9 +7,8 @@ const ToggleBtn = ({ toggleOpen, width, onClick }) => {
   return (
     <>
       <ImgBox onClick={onClick} toggleSidebar={toggleOpen} widthPx={width}>
-        {!toggleOpen ? (
-          <OpenBtn size="25"></OpenBtn>
-        ) : (
+        {!toggleOpen ? // <OpenBtn size="25"></OpenBtn>
+        null : (
           <CloseBtn size="25"></CloseBtn>
         )}
       </ImgBox>

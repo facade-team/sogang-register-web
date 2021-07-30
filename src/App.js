@@ -86,6 +86,7 @@ const App = () => {
               width={width}
               height={height}
               toggleOpen={toggleSidebar}
+              openSidebar={toggleSidebarFunc}
               openModal={openModal}
             ></Sidebar>
             <Modal

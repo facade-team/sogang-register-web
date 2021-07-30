@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MdSearch, MdChatBubbleOutline } from 'react-icons/md';
 import { BsGrid } from 'react-icons/bs';
+import { RiMenuFill } from 'react-icons/ri';
 
 //components
 import Logo from '../../assets/img/logo.png';
@@ -22,7 +23,7 @@ import {
   NavMenu,
 } from './Sidebar.element';
 
-const SideBar = ({ width, height, toggleOpen, openModal }) => {
+const SideBar = ({ width, height, toggleOpen, openModal, openSidebar }) => {
   const [initial, setInitial] = useState(true);
   const [toggleText, setToggleText] = useState(true);
   useEffect(() => {
@@ -45,17 +46,21 @@ const SideBar = ({ width, height, toggleOpen, openModal }) => {
         toggleOpen={toggleOpen}
       >
         <SidebarContent toggleOpen={toggleOpen}>
-          <ServiceName>
-            <Link to="/">
-              <MainLogo src={Logo}></MainLogo>
-              {toggleOpen && !toggleText ? (
-                <>
-                  <Sogang toggleOpen={toggleOpen}>서강</Sogang>
-                  <Register toggleOpen={toggleOpen}>신청</Register>
-                </>
-              ) : null}
-            </Link>
-          </ServiceName>
+          {toggleOpen && !toggleText ? (
+            <ServiceName>
+              <Link to="/">
+                <MainLogo src={Logo}></MainLogo>
+                <Sogang toggleOpen={toggleOpen}>서강</Sogang>
+                <Register toggleOpen={toggleOpen}>신청</Register>
+              </Link>
+            </ServiceName>
+          ) : (
+            <ServiceName onClick={openSidebar}>
+              <Link to="/">
+                <RiMenuFill color="white"></RiMenuFill>
+              </Link>
+            </ServiceName>
+          )}
           {toggleOpen && !toggleText ? (
             <>
               <GradationBtn

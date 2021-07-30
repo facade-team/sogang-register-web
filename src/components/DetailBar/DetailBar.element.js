@@ -8,7 +8,6 @@ export const DetailbarComponent = styled.div`
   min-width: 350px;
   /* height: 100%; */
   height: ${(props) => {
-    console.log('detail ' + props.heightPx);
     return `${props.heightPx}px`;
   }};
   background-color: #f6faff;

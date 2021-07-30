@@ -7,7 +7,6 @@ export const SidebarComponent = styled.div`
   text-align: center;
   /* height: 100%; */
   height: ${(props) => {
-    console.log('sidebar ' + props.heightPx);
     return `${props.heightPx}px`;
   }};
   width: ${(props) => `${-props.widthPx}px`};
@@ -50,6 +49,10 @@ export const ServiceName = styled.div`
   top: 40px;
   font-size: 1.5rem;
   font-weight: 800;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 export const NavigationList = styled.div`
