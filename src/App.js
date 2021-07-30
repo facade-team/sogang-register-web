@@ -33,27 +33,22 @@ const App = () => {
   const [height, setHeight] = useState(document.documentElement.scrollHeight);
 
   useEffect(() => {
-    // window.onload = () => {
-    //   setHeight(document.documentElement.scrollHei)
-    // }
-    const limit = Math.max(
+    let limit = Math.max(
       document.body.scrollHeight,
       document.body.offsetHeight,
       document.documentElement.clientHeight,
       document.documentElement.scrollHeight,
       document.documentElement.offsetHeight
     );
-
     setHeight(limit);
     window.addEventListener('resize', () => {
-      const limit = Math.max(
+      limit = Math.max(
         document.body.scrollHeight,
         document.body.offsetHeight,
         document.documentElement.clientHeight,
         document.documentElement.scrollHeight,
         document.documentElement.offsetHeight
       );
-
       setHeight(limit);
     });
   }, []);

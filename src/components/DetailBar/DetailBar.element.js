@@ -6,7 +6,11 @@ export const DetailbarComponent = styled.div`
   display: ${({ widthPx }) => (widthPx === 0 ? 'none' : 'block')};
   right: ${({ widthPx }) => `${widthPx - 350}px`};
   min-width: 350px;
-  height: 100vh;
+  /* height: 100%; */
+  height: ${(props) => {
+    console.log('detail ' + props.heightPx);
+    return `${props.heightPx}px`;
+  }};
   background-color: #f6faff;
 
   overflow-y: hidden;

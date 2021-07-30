@@ -22,7 +22,7 @@ import {
   NavMenu,
 } from './Sidebar.element';
 
-const SideBar = ({ width, height, toggleOpen, openModal, navigation }) => {
+const SideBar = ({ width, height, toggleOpen, openModal }) => {
   const [initial, setInitial] = useState(true);
   const [toggleText, setToggleText] = useState(true);
   useEffect(() => {
@@ -70,7 +70,7 @@ const SideBar = ({ width, height, toggleOpen, openModal, navigation }) => {
             </>
           ) : null}
 
-          <NavigationList active={0}>
+          <NavigationList>
             <Navigation>
               {toggleOpen && !toggleText ? (
                 <>

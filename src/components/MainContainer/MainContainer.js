@@ -9,7 +9,7 @@ import MyPage from '../../pages/MyPage';
 //styled
 import { Container } from './MainContainer.element';
 
-const MainContainer = ({ width, toggleOpen, onClick, openModal }) => {
+const MainContainer = ({ width, height, toggleOpen, onClick, openModal }) => {
   return (
     <Container
       widthPx={width}
@@ -20,7 +20,7 @@ const MainContainer = ({ width, toggleOpen, onClick, openModal }) => {
       {/* 메인 렌더링 페이지 */}
       <Switch>
         <Route path="/" exact>
-          <Home openModal={openModal} />
+          <Home openModal={openModal} height={height} />
         </Route>
         <Route path="/feedback" exact>
           <Feedback openModal={openModal} />

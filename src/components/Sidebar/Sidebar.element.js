@@ -5,12 +5,14 @@ export const SidebarComponent = styled.div`
   position: absolute;
   left: 0%;
   text-align: center;
+  /* height: 100%; */
   height: ${(props) => {
+    console.log('sidebar ' + props.heightPx);
     return `${props.heightPx}px`;
   }};
   width: ${(props) => `${-props.widthPx}px`};
   border-radius: 0px 10px 10px 0px;
-  background-color: rgb(106, 49, 223, 0.9);
+  background-color: rgba(106, 49, 223, 0.9);
   transition: 0.8s ease;
   display: flex;
   flex-direction: column;
@@ -52,7 +54,7 @@ export const ServiceName = styled.div`
 
 export const NavigationList = styled.div`
   position: relative;
-  top: 250px;
+  top: 200px;
   /* height: 20vh; */
   display: flex;
   flex-direction: column;

@@ -12,7 +12,7 @@ import DetailBar from '../components/DetailBar/DetailBar';
 //styled
 import { Container, HomeContainer } from '../styles/HomeContainer';
 
-const Home = ({ openModal }) => {
+const Home = ({ openModal, height }) => {
   const [detailbarWidth, setDetailbarWidth] = useState(0);
   const [cardKey, setCardKey] = useState('');
   const [detailSubject, setDetailSubject] = useState({});
@@ -54,6 +54,7 @@ const Home = ({ openModal }) => {
       {/* 오른쪽 사이드바 */}
       <DetailBar
         width={detailbarWidth}
+        height={height}
         signBtnType="login"
         openModal={openModal}
         subject={detailSubject}
