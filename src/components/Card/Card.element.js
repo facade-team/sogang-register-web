@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { MdStars } from 'react-icons/md';
 
 export const CardContainer = styled.div`
   display: flex;
@@ -6,7 +7,6 @@ export const CardContainer = styled.div`
   justify-content: space-between;
   width: 230px;
   min-width: 220px;
-  height: 130px;
   background-color: #efecf8;
 
   border-radius: 8px;
@@ -15,6 +15,7 @@ export const CardContainer = styled.div`
   color: #61527f;
   font-weight: 800;
   letter-spacing: 0.3px;
+  cursor: pointer;
 
   &:hover {
     transition: all 0.2s ease-out;
