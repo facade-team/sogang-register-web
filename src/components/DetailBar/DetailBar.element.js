@@ -67,6 +67,13 @@ export const StackContent = styled.div`
   box-shadow: 3px 3px 6px 3px rgba(0, 0, 0, 0.34);
 `;
 
+export const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+`;
+
 export const SubjectName = styled.div`
   color: #61547f;
   width: 100%;
@@ -74,7 +81,17 @@ export const SubjectName = styled.div`
   font-weight: 600;
   text-align: left;
   height: fit-content;
-  margin-top: 8px;
+`;
+
+export const BtnContainer = styled.div`
+  display: flex;
+  margin-right: 5px;
+  width: 45px;
+  justify-content: space-around;
+
+  & > svg:first-child {
+    margin-right: 5px;
+  }
 `;
 
 export const SubjectTable = styled.table`

@@ -6,6 +6,8 @@ import { Bookmark } from '@styled-icons/bootstrap/Bookmark';
 import GradationBtn from '../GradationBtn/GradationBtn';
 import Subject from '../SubjectCard/SubjectCard';
 import ProfileBar from '../ProfileBar/ProfileBar';
+import StarBtn from './StarBtn';
+import CompleteBtn from './CompleteBtn';
 
 //styled
 import {
@@ -13,7 +15,9 @@ import {
   DetailbarContent,
   StackContent,
   DetailContainer,
+  Top,
   SubjectName,
+  BtnContainer,
   SubjectTable,
   TableBody,
   TableRow,
@@ -111,7 +115,18 @@ const DetailBar = ({ width, openModal, subject, latestSubject, clickCard }) => {
             ''
           ) : (
             <>
-              <SubjectName font={16}>{subject.과목명}</SubjectName>
+              <Top>
+                <SubjectName font={19}>{subject.과목명}</SubjectName>
+                <BtnContainer>
+                  <StarBtn
+                    size={22}
+                    checkBookmark={checkBookmark}
+                    onClick={toFavorite}
+                  ></StarBtn>
+                  {/* 수강완료 버튼 로직은 아직 생성안했음 */}
+                  <CompleteBtn size={22}></CompleteBtn>
+                </BtnContainer>
+              </Top>
               <TagContainer>
                 {subject.비대면여부 && <Tag untact>비대면</Tag>}
                 {!subject.비대면여부 && <Tag ontact>대면</Tag>}
@@ -178,21 +193,6 @@ const DetailBar = ({ width, openModal, subject, latestSubject, clickCard }) => {
                   </TableRow>
                 </TableBody>
               </SubjectTable>
-              <FavoriteBtn>
-                {checkBookmark ? (
-                  <BookmarkCheckFill
-                    size="20"
-                    color="#4414A4"
-                    onClick={toFavorite}
-                  ></BookmarkCheckFill>
-                ) : (
-                  <Bookmark
-                    size="20"
-                    color="#4414A4"
-                    onClick={toFavorite}
-                  ></Bookmark>
-                )}
-              </FavoriteBtn>
             </>
           )}
         </DetailbarContent>
