@@ -25,7 +25,7 @@ export const Detail = styled.div`
   font-size: 20px;
   font-weight: 600;
   color: #61527f;
-  margin-left: 30px;
+  margin-left: 16px;
 `;
 
 export const Name = styled.p`
