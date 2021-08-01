@@ -1,4 +1,4 @@
-const subjects = [
+let subjects = [
   '전인교육원(전체)',
   '전인교육원(공통필수)',
   '전인교육원(공통선택)',
@@ -55,5 +55,9 @@ const subjects = [
   '타대학',
   '특별수강',
 ];
+
+subjects = subjects.map((subject) => {
+  return { value: subject, label: subject };
+});
 
 export default subjects;
