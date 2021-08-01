@@ -30,7 +30,14 @@ import {
 } from './DetailBar.element';
 import { Tag, TagContainer } from '../Card/Card.element';
 
-const DetailBar = ({ width, openModal, subject, latestSubject, clickCard }) => {
+const DetailBar = ({
+  width,
+  height,
+  openModal,
+  subject,
+  latestSubject,
+  clickCard,
+}) => {
   //최근 본과목 -> true, 즐겨찾기 -> false
   const [latestAndFavoritesToggle, setLatestAndFavoritesToggle] =
     useState(true);
@@ -107,7 +114,7 @@ const DetailBar = ({ width, openModal, subject, latestSubject, clickCard }) => {
   };
 
   return (
-    <DetailbarComponent widthPx={width}>
+    <DetailbarComponent widthPx={width} heightPx={height}>
       <DetailContainer>
         <ProfileBar openModal={openModal} detailbar></ProfileBar>
         <DetailbarContent>
@@ -226,6 +233,7 @@ const DetailBar = ({ width, openModal, subject, latestSubject, clickCard }) => {
                       key={sub.subject_id}
                       subject={sub}
                       onClick={clickCard}
+                      active={true}
                     ></Subject>
                     {index !== latestList.length - 1 && <Divider></Divider>}
                   </>
@@ -236,6 +244,7 @@ const DetailBar = ({ width, openModal, subject, latestSubject, clickCard }) => {
                       key={sub.subject_id}
                       subject={sub}
                       onClick={clickCard}
+                      active={true}
                     ></Subject>
                     {index !== favoriteList.length - 1 && <Divider></Divider>}
                   </>

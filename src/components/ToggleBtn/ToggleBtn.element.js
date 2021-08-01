@@ -1,17 +1,26 @@
 import styled from 'styled-components';
+import { PaneOpen } from '@styled-icons/fluentui-system-filled/PaneOpen';
+import { PaneClose } from '@styled-icons/fluentui-system-filled/PaneClose';
 
 export const ImgBox = styled.div`
   position: absolute;
   top: 0vh;
-  left: 0vh;
-  padding: 10px;
+  left: -30px;
+  /* padding: 10px; */
+  padding-top: 5px;
   outline: none;
-  transition: 0.8s ease;
+  transition: 0.9s ease;
   transform: ${(props) => {
     return `translatex(${props.widthPx}px)`;
   }};
+  z-index: 1;
+  /* width: 25px; */
 
   &:hover {
     cursor: pointer;
   }
 `;
+
+export const OpenBtn = styled(PaneClose)``;
+
+export const CloseBtn = styled(PaneOpen)``;

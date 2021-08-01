@@ -13,7 +13,7 @@ import { Container } from './MainContainer.element';
 // auth context
 import { useAuthContext } from '../../contexts/AuthContext';
 
-const MainContainer = ({ width, toggleOpen, onClick, openModal }) => {
+const MainContainer = ({ width, height, toggleOpen, onClick, openModal }) => {
   const { isAuth } = useAuthContext();
   // Todo : Protected Routing
   return (
@@ -26,7 +26,7 @@ const MainContainer = ({ width, toggleOpen, onClick, openModal }) => {
       {/* 메인 렌더링 페이지 */}
       <Switch>
         <Route path="/" exact>
-          <Home openModal={openModal} />
+          <Home openModal={openModal} height={height} />
         </Route>
         <Route path="/feedback" exact>
           <Feedback openModal={openModal} />

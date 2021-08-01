@@ -16,12 +16,17 @@ const GradationBtn = ({
   active,
   position,
   marginRight,
+  mouseover,
 }) => {
   const { isAuth, logout } = useAuthContext();
 
   return (
     <GradationBtnComp
       onClick={(e) => {
+        if (mouseover === false) {
+          return;
+        }
+
         if (signBtnType && !isAuth) {
           onClick(signBtnType);
         } else if (signBtnType && isAuth) {
@@ -36,6 +41,7 @@ const GradationBtn = ({
       active={active}
       position={position}
       marginRight={marginRight}
+      mouseover={mouseover}
     >
       {/* {children || (signBtnType === 'login' ? '로그인' : '회원가입')} */}
       {children || (isAuth ? '로그아웃' : '로그인')}
