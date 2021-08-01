@@ -24,7 +24,6 @@ import {
   TableHead,
   TableData,
   OptionBtnContainer,
-  FavoriteBtn,
   SubjectList,
   Divider,
 } from './DetailBar.element';

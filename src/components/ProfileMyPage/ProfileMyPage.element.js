@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import Select from 'react-select';
 
 export const Container = styled.div`
   display: flex;
@@ -59,12 +60,10 @@ export const FormGroup = styled.div`
   margin-bottom: 15px;
 `;
 
-export const Select = styled.select`
-  padding: 12px 12px;
+export const SelectForm = styled(Select)`
+  z-index: 10;
   width: 80%;
   font-size: 16px;
-  border-radius: 4px;
-  border: 1px solid #c7c7c7;
   outline: none;
   transition: all 0.4s ease;
 `;

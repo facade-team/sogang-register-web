@@ -1,8 +1,9 @@
 import react, { useState } from 'react';
+
 import { IoPersonCircleOutline } from 'react-icons/io5';
 import useInput from '../../hooks/useInput';
 
-import subjects from '../../assets/Subject/Subject';
+import majors from '../../assets/Major/Major';
 
 import {
   Container,
@@ -14,14 +15,14 @@ import {
   Detail,
   Name,
   Major,
-  Select,
-  Option,
+  SelectForm,
   Label,
   Input,
   MailAllow,
 } from './ProfileMyPage.element.js';
 
 const ProfileMyPage = () => {
+  const [major, setMajor] = useState(false);
   const [form, onChangeForm] = useInput({
     email: '', // api로 초기값 설정
   });
@@ -29,6 +30,15 @@ const ProfileMyPage = () => {
   const { email } = form;
 
   const [checkBoxValue, setCheckBoxValue] = useState(false); //api로 초기값 설정
+
+  const onChange = (e) => {
+    const selectedMajor = e.map((items) => items.value); // 배열형태
+    if (selectedMajor.length === 0) {
+      setMajor(false);
+    } else {
+      setMajor(selectedMajor);
+    }
+  };
 
   return (
     <Container>
@@ -62,15 +72,14 @@ const ProfileMyPage = () => {
 
         <FormGroup>
           <Label htmlFor="majors">전공 </Label>
-          <Select name="majors" id="majors">
-            {subjects.map((subject) => {
-              return (
-                <Option value={subject} key={subject}>
-                  {subject}
-                </Option>
-              );
-            })}
-          </Select>
+          <SelectForm
+            options={majors}
+            isSearchable
+            isClearable
+            isMulti
+            placeholder=""
+            onChange={onChange}
+          ></SelectForm>
         </FormGroup>
 
         <MailAllow>
