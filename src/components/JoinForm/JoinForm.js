@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
-import axios from 'axios';
+import axios from '../../utils/axios';
 import { FaCheckSquare } from 'react-icons/fa';
 
 // Styled
@@ -75,7 +75,7 @@ const JoinForm = () => {
     e.preventDefault();
     if (isValidEmail) {
       axios
-        .post('http://18.119.13.125:5000/user/canuse', {
+        .post('/user/canuse', {
           email: email,
         })
         .then((res) => {
