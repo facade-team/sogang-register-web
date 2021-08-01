@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { PaneOpen } from '@styled-icons/fluentui-system-filled/PaneOpen';
-import { PaneClose } from '@styled-icons/fluentui-system-filled/PaneClose';
 
 export const ImgBox = styled.div`
   position: absolute;
@@ -20,7 +18,3 @@ export const ImgBox = styled.div`
     cursor: pointer;
   }
 `;
-
-export const OpenBtn = styled(PaneClose)``;
-
-export const CloseBtn = styled(PaneOpen)``;
