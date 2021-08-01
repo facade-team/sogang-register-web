@@ -4,6 +4,8 @@ import { MdSearch, MdChatBubbleOutline } from 'react-icons/md';
 import { BsGrid } from 'react-icons/bs';
 import { RiMenuFill } from 'react-icons/ri';
 
+import { useMenuContext } from '../../contexts/MenuContext';
+
 //components
 import Logo from '../../assets/img/logo.png';
 import GradationBtn from '../GradationBtn/GradationBtn';
@@ -37,6 +39,8 @@ const SideBar = ({ width, height, toggleOpen, openModal, openSidebar }) => {
       setToggleText(!toggleText);
     }, 200);
   }, [toggleOpen]);
+
+  const { menu } = useMenuContext();
 
   return (
     <>
@@ -80,16 +84,16 @@ const SideBar = ({ width, height, toggleOpen, openModal, openSidebar }) => {
               {toggleOpen && !toggleText ? (
                 <>
                   <CustomLink to="/">
-                    <Icon>
+                    <Icon search={menu}>
                       <MdSearch></MdSearch>
                     </Icon>
-                    <NavMenu>개설교과목 검색</NavMenu>
+                    <NavMenu search={menu}>개설교과목 검색</NavMenu>
                   </CustomLink>
                 </>
               ) : (
                 <>
                   <CustomLink to="/">
-                    <Icon>
+                    <Icon search={menu}>
                       <MdSearch></MdSearch>
                     </Icon>
                   </CustomLink>
@@ -100,16 +104,16 @@ const SideBar = ({ width, height, toggleOpen, openModal, openSidebar }) => {
               {toggleOpen && !toggleText ? (
                 <>
                   <CustomLink to="/mypage">
-                    <Icon>
+                    <Icon mypage={menu}>
                       <BsGrid></BsGrid>
                     </Icon>
-                    <NavMenu>마이페이지</NavMenu>
+                    <NavMenu mypage={menu}>마이페이지</NavMenu>
                   </CustomLink>
                 </>
               ) : (
                 <>
                   <CustomLink to="/mypage">
-                    <Icon>
+                    <Icon mypage={menu}>
                       <BsGrid></BsGrid>
                     </Icon>
                   </CustomLink>
@@ -120,16 +124,16 @@ const SideBar = ({ width, height, toggleOpen, openModal, openSidebar }) => {
               {toggleOpen && !toggleText ? (
                 <>
                   <CustomLink to="/feedback">
-                    <Icon>
+                    <Icon feedback={menu}>
                       <MdChatBubbleOutline></MdChatBubbleOutline>
                     </Icon>
-                    <NavMenu>피드백/문의</NavMenu>
+                    <NavMenu feedback={menu}>피드백/문의</NavMenu>
                   </CustomLink>
                 </>
               ) : (
                 <>
                   <CustomLink to="/feedback">
-                    <Icon>
+                    <Icon feedback={menu}>
                       <MdChatBubbleOutline></MdChatBubbleOutline>
                     </Icon>
                   </CustomLink>

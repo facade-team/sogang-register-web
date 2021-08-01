@@ -77,7 +77,14 @@ export const Navigation = styled.div`
   font-weight: 500;
 `;
 
-export const Icon = styled.div``;
+export const Icon = styled.div`
+  ${({ search }) =>
+    search === 'search' ? `color: white; font-weight:800;` : null}
+  ${({ mypage }) =>
+    mypage === 'mypage' ? `color: white; font-weight:800;` : null}
+  ${({ feedback }) =>
+    feedback === 'feedback' ? `color: white; font-weight:800;` : null}
+`;
 
 export const CustomLink = styled(Link)`
   display: flex;
@@ -89,4 +96,10 @@ export const CustomLink = styled(Link)`
 
 export const NavMenu = styled.span`
   margin-left: 40px;
+  ${({ search }) =>
+    search === 'search' ? `color: white; font-weight:800;` : null}
+  ${({ mypage }) =>
+    mypage === 'mypage' ? `color: white; font-weight:800;` : null}
+  ${({ feedback }) =>
+    feedback === 'feedback' ? `color: white; font-weight:800;` : null}
 `;

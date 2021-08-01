@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, useEffect } from 'react';
+import axios from 'axios';
 
 const AuthContext = createContext({});
 
@@ -6,15 +7,18 @@ const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [userData, setUserData] = useState({});
 
+  // user : 사용자가 입력한 id, password 객체
   const login = (user) => {
-    setIsAuth(true);
-    //setUserData(user);
-    // 임시로 설정
-    setUserData({
-      ...user,
-      name: '최현수',
-      major: '컴퓨터공학',
-    });
+    // setIsAuth(true);
+    axios
+      .post('/auth/login', user)
+      .then((res) => {
+        console.log(1, res);
+        // if(res.status) {
+        //   setIsAuth(true)
+        //    localStorage.setItem('token', )
+      })
+      .catch((err) => console.log(err));
   };
 
   // useEffect(() => {

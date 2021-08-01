@@ -4,7 +4,7 @@ export const JoinFormContainer = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 80px 40px 0px;
+  padding: 30px 40px 40px;
   width: 500px;
   margin: 0 auto;
 `;

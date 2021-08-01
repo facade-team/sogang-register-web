@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { AuthProvider } from './contexts/AuthContext';
+import { MenuProvider } from './contexts/MenuContext';
 
 // GlobalStyle
 import GlobalStyle from './styles/GlobalStyle';
@@ -68,35 +69,37 @@ const App = () => {
   return (
     <>
       <AuthProvider>
-        <BrowserRouter>
-          <GlobalStyle></GlobalStyle>
-          <Container>
-            <MainContainer
-              width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
-              height={height}
-              toggleOpen={toggleSidebar}
-              openModal={openModal}
-            ></MainContainer>
-            <ToggleBtn
-              width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
-              toggleOpen={toggleSidebar}
-              onClick={toggleSidebarFunc}
-            ></ToggleBtn>
-            <Sidebar
-              width={width}
-              height={height}
-              toggleOpen={toggleSidebar}
-              openSidebar={toggleSidebarFunc}
-              openModal={openModal}
-            ></Sidebar>
-            <Modal
-              showModal={showModal}
-              setShowModal={setShowModal}
-              modalType={modalType}
-              setModalType={setModalType}
-            ></Modal>
-          </Container>
-        </BrowserRouter>
+        <MenuProvider>
+          <BrowserRouter>
+            <GlobalStyle></GlobalStyle>
+            <Container>
+              <MainContainer
+                width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
+                height={height}
+                toggleOpen={toggleSidebar}
+                openModal={openModal}
+              ></MainContainer>
+              <ToggleBtn
+                width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
+                toggleOpen={toggleSidebar}
+                onClick={toggleSidebarFunc}
+              ></ToggleBtn>
+              <Sidebar
+                width={width}
+                height={height}
+                toggleOpen={toggleSidebar}
+                openSidebar={toggleSidebarFunc}
+                openModal={openModal}
+              ></Sidebar>
+              <Modal
+                showModal={showModal}
+                setShowModal={setShowModal}
+                modalType={modalType}
+                setModalType={setModalType}
+              ></Modal>
+            </Container>
+          </BrowserRouter>
+        </MenuProvider>
       </AuthProvider>
     </>
   );

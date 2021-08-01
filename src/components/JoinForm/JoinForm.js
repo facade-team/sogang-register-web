@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
-import axios from '../../utils/axios';
+import axios from 'axios';
 import { FaCheckSquare } from 'react-icons/fa';
 
 // Styled
@@ -80,6 +80,9 @@ const JoinForm = () => {
         })
         .then((res) => {
           console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
   };

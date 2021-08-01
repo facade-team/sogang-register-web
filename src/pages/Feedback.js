@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useMenuContext } from '../contexts/MenuContext';
 
 // components
 import Title from '../components/Title/Title';
@@ -11,6 +12,12 @@ import {
 } from '../styles/HomeContainer';
 
 const Feedback = ({ openModal }) => {
+  // 네비게이션 바에 현재 페이지 표시를 위한 상태
+  const { setMenu } = useMenuContext();
+
+  useEffect(() => {
+    setMenu('feedback');
+  }, [setMenu]);
   return (
     <Container>
       <FeedbackContainer navigation="Feedback">

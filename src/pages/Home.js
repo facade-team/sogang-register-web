@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { useMenuContext } from '../contexts/MenuContext';
+
 import { data } from '../pages/DummyData';
 
 //components
@@ -33,6 +35,13 @@ const Home = ({ openModal, height }) => {
   useEffect(() => {
     setLatestSubject(detailSubject);
   }, [cardKey]);
+
+  // 네비게이션 바에 현재 페이지 표시를 위한 상태
+  const { setMenu } = useMenuContext();
+
+  useEffect(() => {
+    setMenu('search');
+  }, [setMenu]);
 
   return (
     <Container>

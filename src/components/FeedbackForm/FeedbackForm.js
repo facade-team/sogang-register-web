@@ -21,7 +21,7 @@ const FeedbackForm = () => {
 
   useEffect(() => {
     setForm({ ...form, email: userData.email });
-  }, [userData]);
+  }, [userData, form, setForm]);
 
   return (
     <FormContainer>
