@@ -18,6 +18,9 @@ import { CustomGradationBtnComp } from '../FeedbackForm/Feedback.element';
 // Validator (정규식)
 import { isEmail, isPassword } from '../../utils/validator';
 
+// 전공 리스트
+import majorsPair from '../../utils/major';
+
 const JoinForm = () => {
   const [name, setName] = useState('');
   const [major, setMajor] = useState(false);
@@ -118,14 +121,6 @@ const JoinForm = () => {
     }
   }, [passwordTest, password]);
 
-  // 전공 선택 (=> 나중에 DB 에서 받아와야 함)
-  const options = [
-    { value: '컴퓨터공학', label: '컴퓨터공학' },
-    { value: '경제학', label: '경제학' },
-    { value: '경영학', label: '경영학' },
-    { value: '국어국문학', label: '국어국문학' },
-    { value: '수학', label: '수학' },
-  ];
   return (
     <JoinFormContainer onSubmit={submitHandler}>
       <FormGroup>
@@ -151,7 +146,7 @@ const JoinForm = () => {
           ) : null}
         </Div>
         <Select
-          options={options}
+          options={majorsPair}
           isSearchable
           isClearable
           isMulti
