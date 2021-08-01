@@ -5,11 +5,17 @@ import { Route, Switch } from 'react-router-dom';
 import Home from '../../pages/Home';
 import Feedback from '../../pages/Feedback';
 import MyPage from '../../pages/MyPage';
+import Join from '../../pages/Join';
 
 //styled
 import { Container } from './MainContainer.element';
 
+// auth context
+import { useAuthContext } from '../../contexts/AuthContext';
+
 const MainContainer = ({ width, toggleOpen, onClick, openModal }) => {
+  const { isAuth } = useAuthContext();
+  // Todo : Protected Routing
   return (
     <Container
       widthPx={width}
@@ -27,6 +33,9 @@ const MainContainer = ({ width, toggleOpen, onClick, openModal }) => {
         </Route>
         <Route path="/mypage" exact>
           <MyPage openModal={openModal} />
+        </Route>
+        <Route path="/join" exact>
+          <Join openModal={openModal} />
         </Route>
       </Switch>
     </Container>
