@@ -90,10 +90,3 @@ export const Seperator = styled.div`
     background-color: #c7c7c7;
   }
 `;
-
-export const MailAllow = styled.p`
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  justify-content: center;
-`;

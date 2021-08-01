@@ -6,16 +6,18 @@ export const CheckContainer = styled.div`
   justify-contents: center;
   align-items: center;
   place-self: flex-start;
+  margin-left: 5px;
+  margin-top: 5px;
 `;
 
 export const SubContainer = styled.span`
-  margin-right: 15px;
+  width: 100px;
+  margin-bottom: 5px;
 `;
 
 export const ChkBox = styled.input`
   width: 15px;
   height: 15px;
-  margin-right: 8px;
 `;
 
 export const ChkLabel = styled.label`

@@ -98,6 +98,7 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
                 loginLogic={loginLogic}
                 modalType={modalType}
                 setModalType={setModalType}
+                setShowModal={setShowModal}
               ></ModalForm>
             </ModalContent>
 

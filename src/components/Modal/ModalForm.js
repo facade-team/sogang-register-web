@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import useInput from '../../hooks/useInput';
 
 import {
   FormContainer,
   FormGroup,
-  MailAllow,
   CustomGradationBtnComp,
 } from './ModalForm.element';
 
-const ModalForm = ({ loginLogic, modalType, setModalType }) => {
+const ModalForm = ({ loginLogic, modalType, setModalType, setShowModal }) => {
   const [user, onChangeInput] = useInput({
     name: '',
     email: '',
@@ -66,36 +66,21 @@ const ModalForm = ({ loginLogic, modalType, setModalType }) => {
           />
         </FormGroup>
       )}
-      {modalType === 'login' ? (
-        <>
-          <CustomGradationBtnComp active>로그인</CustomGradationBtnComp>
-          <div>
-            <span onClick={() => setModalType('signup')}>회원가입</span>
-          </div>
-          {/* <Seperator>
+
+      <>
+        <CustomGradationBtnComp active>로그인</CustomGradationBtnComp>
+        <div>
+          {/* <span onClick={() => setModalType('signup')}>회원가입</span> */}
+          <Link to="/join" onClick={() => setShowModal(false)}>
+            <span>회원가입</span>
+          </Link>
+        </div>
+        {/* <Seperator>
             <div></div>
             <p>또는 간편로그인</p>
             <div></div>
           </Seperator> */}
-        </>
-      ) : (
-        <>
-          <MailAllow>
-            <label for="allow" style={{ fontSize: '10px' }}>
-              즐겨찾기한 교과목의 정보 업데이트 시 이메일 수신에 동의합니다.
-            </label>
-            <input
-              type="checkbox"
-              name="admit"
-              id="allow"
-              checked={checkboxValue}
-              onChange={() => setCheckboxValue(!checkboxValue)}
-            />
-          </MailAllow>
-
-          <CustomGradationBtnComp active>회원가입</CustomGradationBtnComp>
-        </>
-      )}
+      </>
     </FormContainer>
   );
 };
