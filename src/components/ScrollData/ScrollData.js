@@ -1,10 +1,23 @@
-import React from 'react';
-import { ScrollArea } from './ScrollData.element';
+import React,{ useState } from 'react';
+import { ScrollArea, FoldBtn, ScrollBarArea } from './ScrollData.element';
+import Checkbox from '../Checkbox/Checkbox';
 
-const ScrollData = () => {
+
+const ScrollData = ({ subject, subnum }) => {
+  const [FoldActivated,setFoldActivated] = useState(true);
+  
   return (
     <>
-      <ScrollArea></ScrollArea>
+        {FoldActivated === true ?(
+      <ScrollArea>
+        <ScrollBarArea>
+          <Checkbox subject={subject} subnum={subnum} />
+        </ScrollBarArea>
+        <FoldBtn onClick = {()=>{setFoldActivated(!FoldActivated)}}>접기 ∧</FoldBtn>
+      </ScrollArea>
+      )
+        :<br/>
+        }
     </>
   );
 };

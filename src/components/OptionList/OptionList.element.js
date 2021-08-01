@@ -2,10 +2,19 @@ import styled, { css } from 'styled-components';
 
 export const SectionContainer = styled.div`
   display: flex;
-  height: 80px;
   width: 100%;
   background-color: transparent;
   align-items: center;
+  justify-content: flex-start;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  flex-wrap: wrap;
+`;
+export const OptionContainer = styled.div`
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
 `;
 
 export const ListContainer = styled.div`
@@ -15,7 +24,13 @@ export const ListContainer = styled.div`
   align-items: center; //세로
   justify-content: center; //가로
   background-color: transparent;
-  margin-right: -20px;
+  margin-bottom: 5px;
+`;
+
+export const SearchContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 export const ListBtn = styled.button`
@@ -30,7 +45,7 @@ export const ListBtn = styled.button`
   border: 1px none;
   border-radius: 20px;
   color: #ffffff;
-  width: 100%;
+  width: 120px;
   min-width: 80px;
   height: 100%;
   padding: 10px 1px;
