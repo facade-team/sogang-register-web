@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
 
   // user : 사용자가 입력한 id, password 객체
   const login = (user) => {
-    // setIsAuth(true);
+    setIsAuth(true);
     axios
       .post('/auth/login', user)
       .then((res) => {

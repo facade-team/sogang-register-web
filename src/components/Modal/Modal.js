@@ -67,23 +67,23 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
 
   const { login } = useAuthContext();
 
-  // const loginLogic = (user) => {
-  //   if (user.email === testUser.email && user.password === testUser.password) {
-  //     login(user);
-  //     setShowModal(false);
-  //   } else {
-  //     console.log('Login Error!');
-  //     setState({ ...state, open: true });
-  //   }
-  // };
-
   const loginLogic = (user) => {
-    // login({ email: user.email, password: user.password });
-    console.log(user);
-    axios
-      .post('/auth/login', { email: user.email, password: user.password })
-      .then((res) => console.log(res));
+    if (user.email === testUser.email && user.password === testUser.password) {
+      login(user);
+      setShowModal(false);
+    } else {
+      console.log('Login Error!');
+      setState({ ...state, open: true });
+    }
   };
+
+  // const loginLogic = (user) => {
+  //   // login({ email: user.email, password: user.password });
+  //   console.log(user);
+  //   axios
+  //     .post('/auth/login', { email: user.email, password: user.password })
+  //     .then((res) => console.log(res));
+  // };
 
   return (
     <AnimatePresence>
