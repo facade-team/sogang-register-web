@@ -233,6 +233,7 @@ const DetailBar = ({
                       key={sub.subject_id}
                       subject={sub}
                       onClick={clickCard}
+                      active={true}
                     ></Subject>
                     {index !== latestList.length - 1 && <Divider></Divider>}
                   </>
@@ -243,6 +244,7 @@ const DetailBar = ({
                       key={sub.subject_id}
                       subject={sub}
                       onClick={clickCard}
+                      active={true}
                     ></Subject>
                     {index !== favoriteList.length - 1 && <Divider></Divider>}
                   </>

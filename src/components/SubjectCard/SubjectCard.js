@@ -7,9 +7,9 @@ import {
 } from './SubjectCard.element.js';
 import { Tag, TagContainer } from '../Card/Card.element';
 
-const SubjectCard = ({ subject, onClick }) => {
+const SubjectCard = ({ subject, onClick, active }) => {
   return (
-    <Subject onClick={() => onClick(subject.subject_id)}>
+    <Subject onClick={() => (active ? onClick(subject.subject_id) : null)}>
       <SubjectNameInList font={14}>{subject.과목명}</SubjectNameInList>
       <TagContainer>
         {subject.비대면여부 && <Tag untact>비대면</Tag>}
