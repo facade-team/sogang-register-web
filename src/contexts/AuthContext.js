@@ -7,9 +7,11 @@ const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [userData, setUserData] = useState({});
   const [error, setError] = useState(0); // 일부러 숫자로 설정한 이유가 있음
+  const [loading, setLoading] = useState(false);
 
   // user : 사용자가 입력한 id, password 객체
   const login = (user) => {
+    setLoading(true);
     axios
       .post('/auth/login', user)
       .then((res) => {
@@ -25,6 +27,10 @@ const AuthProvider = ({ children }) => {
           localStorage.setItem('userData', JSON.stringify(ud));
           localStorage.setItem('token', res.data.data.Authorization);
         }
+      })
+      .then(() => {
+        console.log(232323);
+        setLoading(false);
       })
       .catch((err) => {
         // if (err.response.status === 403) {
@@ -48,8 +54,10 @@ const AuthProvider = ({ children }) => {
     logout,
     userData,
     error,
+    loading,
     setUserData,
     setIsAuth,
+    setLoading,
   };
   return (
     <AuthContext.Provider value={authContextValue}>

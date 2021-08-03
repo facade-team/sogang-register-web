@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import { AuthProvider, useAuthContext } from './contexts/AuthContext';
-import { MenuProvider } from './contexts/MenuContext';
+import { useAuthContext } from './contexts/AuthContext';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // GlobalStyle
 import GlobalStyle from './styles/GlobalStyle';
@@ -17,8 +17,22 @@ const openedSidebarWidth = 250;
 const closedSidebarWidth = 90;
 
 const Container = styled.div`
+  position: relative;
   height: 100%;
   width: 100%;
+`;
+
+const Spinner = styled(CircularProgress)`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 1000;
+  & svg {
+    color: #7945e2;
+  }
 `;
 
 const App = () => {
@@ -66,17 +80,19 @@ const App = () => {
     setModalType(signBtnType);
   };
 
-  const { setUserData, setIsAuth } = useAuthContext();
+  const { setUserData, setIsAuth, loading, setLoading } = useAuthContext();
 
   const initializeUserInfo = () => {
     const ud = JSON.parse(localStorage.getItem('userData'));
-    console.log(ud);
+    if (!ud) return;
     setUserData(ud);
     setIsAuth(true);
   };
 
   useEffect(() => {
+    setLoading(true);
     initializeUserInfo();
+    setLoading(false);
   }, []);
 
   return (
@@ -86,17 +102,24 @@ const App = () => {
       <BrowserRouter>
         <GlobalStyle></GlobalStyle>
         <Container>
-          <MainContainer
-            width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
-            height={height}
-            toggleOpen={toggleSidebar}
-            openModal={openModal}
-          ></MainContainer>
-          <ToggleBtn
-            width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
-            toggleOpen={toggleSidebar}
-            onClick={toggleSidebarFunc}
-          ></ToggleBtn>
+          {loading ? (
+            <Spinner />
+          ) : (
+            <>
+              <MainContainer
+                width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
+                height={height}
+                toggleOpen={toggleSidebar}
+                openModal={openModal}
+              ></MainContainer>
+              <ToggleBtn
+                width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
+                toggleOpen={toggleSidebar}
+                onClick={toggleSidebarFunc}
+              ></ToggleBtn>
+            </>
+          )}
+
           <Sidebar
             width={width}
             height={height}
