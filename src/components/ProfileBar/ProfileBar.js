@@ -20,6 +20,7 @@ import { useAuthContext } from '../../contexts/AuthContext';
 
 const ProfileBar = ({ openModal, detailbar }) => {
   const { isAuth, logout, userData } = useAuthContext();
+
   return (
     <BarContainer detailbar={detailbar}>
       {isAuth ? (
@@ -27,10 +28,12 @@ const ProfileBar = ({ openModal, detailbar }) => {
           <Avatar>
             <IoPersonCircleOutline size="40"></IoPersonCircleOutline>
           </Avatar>
-          <Detail>
-            <Name>{userData.name}</Name>
-            <Major>{userData.major} 전공</Major>
-          </Detail>
+          {userData.major ? (
+            <Detail>
+              <Name>{userData.username}</Name>
+              <Major>{userData.major[0]} 전공</Major>
+            </Detail>
+          ) : null}
         </ProfileContainer>
       ) : (
         <GradationBtn

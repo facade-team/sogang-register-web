@@ -3,11 +3,9 @@ import { AnimatePresence } from 'framer-motion';
 import ModalForm from './ModalForm';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import axios from 'axios';
-
-import { useAuthContext } from '../../contexts/AuthContext';
 
 import logo from '../../assets/img/logo2.png';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 import {
   Background,
@@ -48,11 +46,6 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
     };
   }, [keyPress]);
 
-  const testUser = {
-    email: '123@gmail.com',
-    password: '123',
-  };
-
   const [state, setState] = useState({
     open: false,
     vertical: 'top',
@@ -65,25 +58,19 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
     setState({ ...state, open: false });
   };
 
-  const { login } = useAuthContext();
+  const { isAuth, error } = useAuthContext();
 
-  const loginLogic = (user) => {
-    if (user.email === testUser.email && user.password === testUser.password) {
-      login(user);
+  useEffect(() => {
+    if (isAuth) {
       setShowModal(false);
-    } else {
-      console.log('Login Error!');
+    }
+  }, [isAuth]);
+
+  useEffect(() => {
+    if (error) {
       setState({ ...state, open: true });
     }
-  };
-
-  // const loginLogic = (user) => {
-  //   // login({ email: user.email, password: user.password });
-  //   console.log(user);
-  //   axios
-  //     .post('/auth/login', { email: user.email, password: user.password })
-  //     .then((res) => console.log(res));
-  // };
+  }, [error]);
 
   return (
     <AnimatePresence>
@@ -104,7 +91,6 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
             </ModalLogo>
             <ModalContent modalType={modalType}>
               <ModalForm
-                loginLogic={loginLogic}
                 modalType={modalType}
                 setModalType={setModalType}
                 setShowModal={setShowModal}

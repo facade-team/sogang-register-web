@@ -26,7 +26,7 @@ const FeedbackForm = () => {
   return (
     <FormContainer>
       <FormGroup>
-        <label htmlFor="email">이메일</label>
+        <label htmlFor="email">본인 이메일</label>
         <input
           type="email"
           name="email"

@@ -50,8 +50,6 @@ const MyPage = ({ openModal }) => {
 
   return (
     <Container>
-      {/* 
-        *******************삭제 금지 ********************
       {isAuth ? (
         <MyPageContainer navigation="Mypage">
           <Title title="마이페이지" openModal={openModal}></Title>
@@ -71,12 +69,12 @@ const MyPage = ({ openModal }) => {
             로그인이 필요합니다
           </Alert>
         </Snackbar>
-      )} */}
-      <MyPageContainer navigation="Mypage">
+      )}
+      {/* <MyPageContainer navigation="Mypage">
         <Title title="마이페이지" openModal={openModal}></Title>
         <Profile></Profile>
         <SubjectList></SubjectList>
-      </MyPageContainer>
+      </MyPageContainer> */}
     </Container>
   );
 };

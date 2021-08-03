@@ -232,7 +232,7 @@ const JoinForm = () => {
         />
       </FormGroup>
       <MailAllow>
-        <label for="allow" style={{ fontSize: '10px' }}>
+        <label htmlFor="allow" style={{ fontSize: '10px' }}>
           즐겨찾기한 교과목의 정보 업데이트 시 이메일 수신에 동의합니다.
         </label>
         <input

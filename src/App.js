@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider, useAuthContext } from './contexts/AuthContext';
 import { MenuProvider } from './contexts/MenuContext';
 
 // GlobalStyle
@@ -66,41 +66,54 @@ const App = () => {
     setModalType(signBtnType);
   };
 
+  const { setUserData, setIsAuth } = useAuthContext();
+
+  const initializeUserInfo = () => {
+    const ud = JSON.parse(localStorage.getItem('userData'));
+    console.log(ud);
+    setUserData(ud);
+    setIsAuth(true);
+  };
+
+  useEffect(() => {
+    initializeUserInfo();
+  }, []);
+
   return (
     <>
-      <AuthProvider>
-        <MenuProvider>
-          <BrowserRouter>
-            <GlobalStyle></GlobalStyle>
-            <Container>
-              <MainContainer
-                width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
-                height={height}
-                toggleOpen={toggleSidebar}
-                openModal={openModal}
-              ></MainContainer>
-              <ToggleBtn
-                width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
-                toggleOpen={toggleSidebar}
-                onClick={toggleSidebarFunc}
-              ></ToggleBtn>
-              <Sidebar
-                width={width}
-                height={height}
-                toggleOpen={toggleSidebar}
-                openSidebar={toggleSidebarFunc}
-                openModal={openModal}
-              ></Sidebar>
-              <Modal
-                showModal={showModal}
-                setShowModal={setShowModal}
-                modalType={modalType}
-                setModalType={setModalType}
-              ></Modal>
-            </Container>
-          </BrowserRouter>
-        </MenuProvider>
-      </AuthProvider>
+      {/* <AuthProvider>
+        <MenuProvider> */}
+      <BrowserRouter>
+        <GlobalStyle></GlobalStyle>
+        <Container>
+          <MainContainer
+            width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
+            height={height}
+            toggleOpen={toggleSidebar}
+            openModal={openModal}
+          ></MainContainer>
+          <ToggleBtn
+            width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
+            toggleOpen={toggleSidebar}
+            onClick={toggleSidebarFunc}
+          ></ToggleBtn>
+          <Sidebar
+            width={width}
+            height={height}
+            toggleOpen={toggleSidebar}
+            openSidebar={toggleSidebarFunc}
+            openModal={openModal}
+          ></Sidebar>
+          <Modal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            modalType={modalType}
+            setModalType={setModalType}
+          ></Modal>
+        </Container>
+      </BrowserRouter>
+      {/* </MenuProvider>
+      </AuthProvider> */}
     </>
   );
 };

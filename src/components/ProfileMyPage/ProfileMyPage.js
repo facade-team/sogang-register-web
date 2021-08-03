@@ -1,9 +1,10 @@
-import react, { useState } from 'react';
+import { useState } from 'react';
 
 import { IoPersonCircleOutline } from 'react-icons/io5';
 import useInput from '../../hooks/useInput';
 
 import majors from '../../assets/Major/Major';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 import {
   Container,
@@ -40,6 +41,8 @@ const ProfileMyPage = () => {
     }
   };
 
+  const { userData } = useAuthContext();
+
   return (
     <Container>
       <Profile>
@@ -50,12 +53,12 @@ const ProfileMyPage = () => {
               color="#7F7F7F"
             ></IoPersonCircleOutline>
           </Avatar>
-          <Detail>
-            {/* <Name>{userData.name}</Name>
-            <Major>{userData.major} 전공</Major> */}
-            <Name>오상훈</Name>
-            <Major>컴퓨터공학 전공</Major>
-          </Detail>
+          {userData.major ? (
+            <Detail>
+              <Name>{userData.username}</Name>
+              <Major>{userData.major[0]} 전공</Major>
+            </Detail>
+          ) : null}
         </ProfileContainer>
       </Profile>
       <FormContainer>
