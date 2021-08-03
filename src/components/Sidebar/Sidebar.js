@@ -5,6 +5,7 @@ import { BsGrid } from 'react-icons/bs';
 import { RiMenuFill } from 'react-icons/ri';
 
 import { useMenuContext } from '../../contexts/MenuContext';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 //components
 import Logo from '../../assets/img/logo.png';
@@ -41,6 +42,7 @@ const SideBar = ({ width, height, toggleOpen, openModal, openSidebar }) => {
   }, [toggleOpen]);
 
   const { menu } = useMenuContext();
+  const { isAuth } = useAuthContext();
 
   return (
     <>
@@ -65,7 +67,7 @@ const SideBar = ({ width, height, toggleOpen, openModal, openSidebar }) => {
               </Link>
             </ServiceName>
           )}
-          {toggleOpen && !toggleText ? (
+          {toggleOpen && !toggleText && isAuth ? (
             <>
               <GradationBtn
                 onClick={openModal}

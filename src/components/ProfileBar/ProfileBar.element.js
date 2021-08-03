@@ -17,7 +17,9 @@ export const ProfileContainer = styled.div`
   align-items: center;
 `;
 
-export const Avatar = styled.div``;
+export const Avatar = styled.div`
+  cursor: pointer;
+`;
 
 export const Detail = styled.div`
   display: flex;

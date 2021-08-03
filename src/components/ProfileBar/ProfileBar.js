@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // icon
 import { IoPersonCircleOutline } from 'react-icons/io5';
@@ -25,9 +26,14 @@ const ProfileBar = ({ openModal, detailbar }) => {
     <BarContainer detailbar={detailbar}>
       {isAuth ? (
         <ProfileContainer>
-          <Avatar>
-            <IoPersonCircleOutline size="40"></IoPersonCircleOutline>
-          </Avatar>
+          <Link to="/mypage">
+            <Avatar>
+              <IoPersonCircleOutline
+                size="40"
+                color="#7F7F7F"
+              ></IoPersonCircleOutline>
+            </Avatar>
+          </Link>
           {userData.major ? (
             <Detail>
               <Name>{userData.username}</Name>

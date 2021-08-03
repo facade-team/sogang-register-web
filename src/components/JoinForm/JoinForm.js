@@ -19,7 +19,7 @@ import { CustomGradationBtnComp } from '../FeedbackForm/Feedback.element';
 import { isEmail, isPassword } from '../../utils/validator';
 
 // 전공 리스트
-import majorsPair from '../../utils/major';
+import majorsPair from '../../utils/majorPair';
 
 const JoinForm = () => {
   const [name, setName] = useState('');

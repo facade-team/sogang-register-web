@@ -12,16 +12,12 @@ import {
 
 const FeedbackForm = () => {
   const { userData } = useAuthContext();
-  const [form, onChangeForm, setForm] = useInput({
-    email: '',
+  const [form, onChangeForm] = useInput({
+    email: userData.email,
     title: '',
     content: '',
   });
   const { email, title, content } = form;
-
-  useEffect(() => {
-    setForm({ ...form, email: userData.email });
-  }, [userData]);
 
   return (
     <FormContainer>
