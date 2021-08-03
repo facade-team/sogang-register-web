@@ -29,10 +29,9 @@ const MyPage = ({ openModal }) => {
 
   const { isAuth } = useAuthContext();
 
-  // 배포 시 주석해제
-  // useEffect(() => {
-  //   if (!isAuth) openModal();
-  // }, [isAuth]);
+  useEffect(() => {
+    if (!isAuth) openModal();
+  }, [isAuth]);
 
   // snackbar
 
@@ -70,11 +69,6 @@ const MyPage = ({ openModal }) => {
           </Alert>
         </Snackbar>
       )}
-      {/* <MyPageContainer navigation="Mypage">
-        <Title title="마이페이지" openModal={openModal}></Title>
-        <Profile></Profile>
-        <SubjectList></SubjectList>
-      </MyPageContainer> */}
     </Container>
   );
 };
