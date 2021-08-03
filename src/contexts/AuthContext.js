@@ -15,7 +15,6 @@ const AuthProvider = ({ children }) => {
     axios
       .post('/auth/login', user)
       .then((res) => {
-        console.log(1, res);
         if (res.status === 201) {
           setIsAuth(true);
           const ud = {
@@ -29,7 +28,6 @@ const AuthProvider = ({ children }) => {
         }
       })
       .then(() => {
-        console.log(232323);
         setLoading(false);
       })
       .catch((err) => {

@@ -25,6 +25,7 @@ const JoinForm = () => {
   const [name, setName] = useState('');
   const [major, setMajor] = useState(false);
   const [email, setEmail] = useState('');
+  const [canUseEmail, setCanUseEmail] = useState(false);
   const [verifyCode, setVerifyCode] = useState();
   const [password, setPassword] = useState('');
   const [passwordTest, setPasswordTest] = useState('');
@@ -43,6 +44,9 @@ const JoinForm = () => {
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
+  };
+  const onChangeVerifyCode = (e) => {
+    setVerifyCode(e.target.value);
   };
   const onChangePassword = (e) => {
     setPassword(e.target.value);
@@ -79,10 +83,12 @@ const JoinForm = () => {
     if (isValidEmail) {
       axios
         .post('/user/canuse', {
-          email: email,
+          email,
         })
         .then((res) => {
-          console.log(res);
+          if (res.status === 201) {
+            setCanUseEmail(true);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -105,10 +111,6 @@ const JoinForm = () => {
   // 이메일 수신 동의 체크박스
   const [checkboxValue, setCheckboxValue] = useState(true);
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-  };
-
   // 비밀번호 일치여부 확인
 
   const [isMatchPassword, setIsMatchPassword] = useState(false);
@@ -120,6 +122,17 @@ const JoinForm = () => {
       setIsMatchPassword(false);
     }
   }, [passwordTest, password]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const form = {
+      name,
+      major,
+      email,
+      verifyCode,
+      password,
+    };
+  };
 
   return (
     <JoinFormContainer onSubmit={submitHandler}>
@@ -186,7 +199,7 @@ const JoinForm = () => {
           type="text"
           name="verifyCode"
           value={verifyCode}
-          onChange={onChangeEmail}
+          onChange={onChangeVerifyCode}
         />
       </FormGroup>
       <FormGroup>
