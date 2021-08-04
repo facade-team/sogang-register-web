@@ -42,27 +42,24 @@ const SubList = () => {
   const [LangSubOption, setLangSubOption] = useState(false); //강의언어
   const [ZoomSubOption, setZoomSubOption] = useState(false); //비대면
 
-  const [FoldActivated, setFoldActivated] = useState(true);
-  const [selectedOption, setSelectedOption] = useState([]);
-
   const [yearFoldActivated, setYearFoldActivated] = useState(true);
-  const [yearSelectedOption, setYearSelectedOption] = useState([]);
+  const [yearSelectedOption, setYearSelectedOption] = useState([]); // 수강대상 선택한 필터 담긴 배열
   const [yearFlag, setYearFlag] = useState(false);
 
   const [profFoldActivated, setProfFoldActivated] = useState(true);
-  const [profSelectedOption, setProfSelectedOption] = useState([]);
+  const [profSelectedOption, setProfSelectedOption] = useState([]); // 교수 선택한 필터 담긴 배열
   const [profFlag, setProfFlag] = useState(false);
 
   const [timeFoldActivated, setTimeFoldActivated] = useState(true);
-  const [timeSelectedOption, setTimeSelectedOption] = useState([]);
+  const [timeSelectedOption, setTimeSelectedOption] = useState([]); // 수업교시 선택한 필터 담긴 배열
   const [timeFlag, setTimeFlag] = useState(false);
 
   const [langFoldActivated, setLangFoldActivated] = useState(true);
-  const [langSelectedOption, setLangSelectedOption] = useState([]);
+  const [langSelectedOption, setLangSelectedOption] = useState([]); // 강의언어 선택한 필터 담긴 배열
   const [langFlag, setLangFlag] = useState(false);
 
   const [zoomFoldActivated, setZoomFoldActivated] = useState(true);
-  const [zoomSelectedOption, setZoomSelectedOption] = useState([]);
+  const [zoomSelectedOption, setZoomSelectedOption] = useState([]); // 대면수업 선택한 필터 담긴 배열
   const [zoomFlag, setZoomFlag] = useState(false);
 
   useEffect(() => {
