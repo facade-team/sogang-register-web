@@ -49,11 +49,12 @@ export const ListBtn = styled.button`
   min-width: 80px;
   height: 100%;
   padding: 10px 1px;
+  z-index: 2;
 
   &:hover {
     cursor: pointer;
     transform: scale(1.05);
-    z-index: 2;
+    z-index: 3;
   }
 
   ${(props) =>
@@ -67,6 +68,83 @@ export const ListBtn = styled.button`
     props.focused === true &&
     css`
       border: 1px;
-      z-index: 1;
+      z-index: 2;
     `};
+`;
+
+export const ChkLabel = styled.label`
+  color: gray;
+`;
+
+export const ScrollArea = styled.div`
+  display: flex;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 3px 6px 2px rgba(0, 0, 0, 0.34);
+  width: 120px;
+  border: 2px solid #9387af;
+  border-radius: 20px;
+  font-size: 14px;
+
+  z-index: 1;
+  flex-direction: column;
+  padding-top: 35px;
+  align-items: center;
+  max-height: 200px;
+  left: ${(props) => {
+    return `${-80 + 140 * props.number}px`;
+  }};
+  top: ${(props) => {
+    return `${150 + 0 * props.section}px`;
+  }};
+`;
+
+export const ScrollBarArea = styled.div`
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 90%;
+
+  &::-webkit-scrollbar {
+    width: 7px;
+    background-clip: content-box;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #a481eb;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+  }
+`;
+
+export const CheckContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-contents: center;
+  align-items: center;
+  place-self: flex-start;
+  margin-left: 5px;
+  margin-top: 5px;
+`;
+
+export const FoldBtn = styled.button`
+  display: flex;
+  color: gray;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  width: 90%;
+  justify-content: center;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
 `;

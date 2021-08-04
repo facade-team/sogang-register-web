@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const CheckContainer = styled.div`
   display: flex;
@@ -21,5 +21,14 @@ export const ChkBox = styled.input`
 `;
 
 export const ChkLabel = styled.label`
-  color: gray;
+  ${(props) =>
+    props.checked === -1 &&
+    css`
+      color: gray;
+    `};
+  ${(props) =>
+    props.checked !== -1 &&
+    css`
+      color: #6a31df;
+    `};
 `;

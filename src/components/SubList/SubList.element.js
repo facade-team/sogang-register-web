@@ -3,8 +3,7 @@ import styled, { css } from 'styled-components';
 export const SectionContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  
+  align-items: flex-start;
 `;
 
 export const OptionContainer = styled.div`
@@ -68,4 +67,20 @@ export const ListBtn = styled.button`
       border: 1px;
       z-index: 1;
     `};
+`;
+
+export const FilterArea = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 20px;
+  align-items: center;
+`;
+
+export const CurrentFilterList = styled.button`
+  background: rgb(164, 129, 235);
+  border: 1px none;
+  margin-left: 10px;
+  border-radius: 10px;
+  padding: 3px 10px;
+  color: white;
 `;
