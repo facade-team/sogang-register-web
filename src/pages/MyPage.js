@@ -29,10 +29,9 @@ const MyPage = ({ openModal }) => {
 
   const { isAuth } = useAuthContext();
 
-  // 배포 시 주석해제
-  // useEffect(() => {
-  //   if (!isAuth) openModal();
-  // }, [isAuth]);
+  useEffect(() => {
+    if (!isAuth) openModal();
+  }, [isAuth]);
 
   // snackbar
 
@@ -50,8 +49,6 @@ const MyPage = ({ openModal }) => {
 
   return (
     <Container>
-      {/* 
-        *******************삭제 금지 ********************
       {isAuth ? (
         <MyPageContainer navigation="Mypage">
           <Title title="마이페이지" openModal={openModal}></Title>
@@ -71,12 +68,7 @@ const MyPage = ({ openModal }) => {
             로그인이 필요합니다
           </Alert>
         </Snackbar>
-      )} */}
-      <MyPageContainer navigation="Mypage">
-        <Title title="마이페이지" openModal={openModal}></Title>
-        <Profile></Profile>
-        <SubjectList></SubjectList>
-      </MyPageContainer>
+      )}
     </Container>
   );
 };

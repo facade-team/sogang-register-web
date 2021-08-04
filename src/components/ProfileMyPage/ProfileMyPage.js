@@ -1,9 +1,13 @@
-import react, { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { IoPersonCircleOutline } from 'react-icons/io5';
 import useInput from '../../hooks/useInput';
 
-import majors from '../../assets/Major/Major';
+// 전공리스트
+import majorsPair from '../../utils/majorPair';
+
+// context API
+import { useAuthContext } from '../../contexts/AuthContext';
 
 import {
   Container,
@@ -22,9 +26,10 @@ import {
 } from './ProfileMyPage.element.js';
 
 const ProfileMyPage = () => {
+  const { userData } = useAuthContext();
   const [major, setMajor] = useState(false);
   const [form, onChangeForm] = useInput({
-    email: '', // api로 초기값 설정
+    email: userData.email, // api로 초기값 설정
   });
 
   const { email } = form;
@@ -50,11 +55,10 @@ const ProfileMyPage = () => {
               color="#7F7F7F"
             ></IoPersonCircleOutline>
           </Avatar>
+
           <Detail>
-            {/* <Name>{userData.name}</Name>
-            <Major>{userData.major} 전공</Major> */}
-            <Name>오상훈</Name>
-            <Major>컴퓨터공학 전공</Major>
+            <Name>{userData.username}</Name>
+            <Major>{userData.major[0]} 전공</Major>
           </Detail>
         </ProfileContainer>
       </Profile>
@@ -73,7 +77,7 @@ const ProfileMyPage = () => {
         <FormGroup>
           <Label htmlFor="majors">전공 </Label>
           <SelectForm
-            options={majors}
+            options={majorsPair}
             isSearchable
             isClearable
             isMulti

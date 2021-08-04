@@ -12,21 +12,17 @@ import {
 
 const FeedbackForm = () => {
   const { userData } = useAuthContext();
-  const [form, onChangeForm, setForm] = useInput({
-    email: '',
+  const [form, onChangeForm] = useInput({
+    email: userData.email,
     title: '',
     content: '',
   });
   const { email, title, content } = form;
 
-  useEffect(() => {
-    setForm({ ...form, email: userData.email });
-  }, [userData, form, setForm]);
-
   return (
     <FormContainer>
       <FormGroup>
-        <label htmlFor="email">이메일</label>
+        <label htmlFor="email">본인 이메일</label>
         <input
           type="email"
           name="email"

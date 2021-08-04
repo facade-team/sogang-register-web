@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { GradationBtnComp } from '../GradationBtn/GradationBtn.element';
 
-export const FormContainer = styled.form`
+export const FormContainer = styled.form.attrs({ method: 'POST' })`
   display: flex;
   flex-direction: column;
   width: 80%;

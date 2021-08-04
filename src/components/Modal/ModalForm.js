@@ -9,9 +9,10 @@ import {
   CustomGradationBtnComp,
 } from './ModalForm.element';
 
-const ModalForm = ({ loginLogic, modalType, setModalType, setShowModal }) => {
+import { useAuthContext } from '../../contexts/AuthContext';
+
+const ModalForm = ({ modalType, setModalType, setShowModal }) => {
   const [user, onChangeInput] = useInput({
-    name: '',
     email: '',
     password: '',
   });
@@ -19,24 +20,14 @@ const ModalForm = ({ loginLogic, modalType, setModalType, setShowModal }) => {
   const passwordTest = '';
   const [checkboxValue, setCheckboxValue] = useState(true);
 
+  const { login } = useAuthContext();
+
   const submitHandler = (e) => {
     e.preventDefault();
-    loginLogic(user);
+    login(user);
   };
   return (
     <FormContainer onSubmit={submitHandler}>
-      {/* {modalType === 'login' ? <Title>LOGIN</Title> : <Title>SIGN UP</Title>} */}
-      {modalType === 'signup' && (
-        <FormGroup>
-          <label htmlFor="name">이름</label>
-          <input
-            type="name"
-            name="name"
-            value={name}
-            onChange={onChangeInput}
-          />
-        </FormGroup>
-      )}
       <FormGroup>
         <label htmlFor="email">이메일</label>
         <input
@@ -55,32 +46,18 @@ const ModalForm = ({ loginLogic, modalType, setModalType, setShowModal }) => {
           onChange={onChangeInput}
         />
       </FormGroup>
-      {modalType === 'signup' && (
-        <FormGroup>
-          <label htmlFor="password">비밀번호 재입력</label>
-          <input
-            type="password"
-            name="passwordTest"
-            value={passwordTest}
-            onChange={onChangeInput}
-          />
-        </FormGroup>
-      )}
 
-      <>
-        <CustomGradationBtnComp active>로그인</CustomGradationBtnComp>
-        <div>
-          {/* <span onClick={() => setModalType('signup')}>회원가입</span> */}
-          <Link to="/join" onClick={() => setShowModal(false)}>
-            <span>회원가입</span>
-          </Link>
-        </div>
-        {/* <Seperator>
+      <CustomGradationBtnComp active>로그인</CustomGradationBtnComp>
+      <div>
+        <Link to="/join" onClick={() => setShowModal(false)}>
+          <span>회원가입</span>
+        </Link>
+      </div>
+      {/* <Seperator>
             <div></div>
             <p>또는 간편로그인</p>
             <div></div>
           </Seperator> */}
-      </>
     </FormContainer>
   );
 };

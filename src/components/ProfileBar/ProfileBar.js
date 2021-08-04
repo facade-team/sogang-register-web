@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // icon
 import { IoPersonCircleOutline } from 'react-icons/io5';
@@ -20,17 +21,25 @@ import { useAuthContext } from '../../contexts/AuthContext';
 
 const ProfileBar = ({ openModal, detailbar }) => {
   const { isAuth, logout, userData } = useAuthContext();
+
   return (
     <BarContainer detailbar={detailbar}>
       {isAuth ? (
         <ProfileContainer>
-          <Avatar>
-            <IoPersonCircleOutline size="40"></IoPersonCircleOutline>
-          </Avatar>
-          <Detail>
-            <Name>{userData.name}</Name>
-            <Major>{userData.major} 전공</Major>
-          </Detail>
+          <Link to="/mypage">
+            <Avatar>
+              <IoPersonCircleOutline
+                size="40"
+                color="#7F7F7F"
+              ></IoPersonCircleOutline>
+            </Avatar>
+          </Link>
+          {userData.major ? (
+            <Detail>
+              <Name>{userData.username}</Name>
+              <Major>{userData.major[0]} 전공</Major>
+            </Detail>
+          ) : null}
         </ProfileContainer>
       ) : (
         <GradationBtn
