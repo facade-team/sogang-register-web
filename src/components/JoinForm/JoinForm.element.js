@@ -57,11 +57,27 @@ export const Div = styled.div`
   align-items: flex-start;
 `;
 
+export const BtnDiv = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: flex-start;
+
+  & button {
+    margin-left: 5px;
+  }
+`;
+
 export const EmailCheckBtn = styled.button`
   cursor: pointer;
   border-radius: 8px;
   border: none;
   padding: 5px;
-  background-color: #9c88ff;
+  background-color: ${({ bgColor }) => `${bgColor}`};
   color: white;
+`;
+
+export const Sup = styled.span`
+  vertical-align: super;
+  font-size: 7px;
+  color: #ff7675;
 `;

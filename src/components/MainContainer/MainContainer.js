@@ -10,12 +10,7 @@ import Join from '../../pages/Join';
 //styled
 import { Container } from './MainContainer.element';
 
-// auth context
-import { useAuthContext } from '../../contexts/AuthContext';
-
 const MainContainer = ({ width, height, toggleOpen, onClick, openModal }) => {
-  const { isAuth } = useAuthContext();
-  // Todo : Protected Routing
   return (
     <Container
       widthPx={width}

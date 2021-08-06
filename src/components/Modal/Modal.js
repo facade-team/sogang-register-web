@@ -105,7 +105,6 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
             anchorOrigin={{ vertical, horizontal }}
             open={open}
             onClose={handleClose}
-            message="I love snacks"
             key={vertical + horizontal}
             autoHideDuration={2000}
           >

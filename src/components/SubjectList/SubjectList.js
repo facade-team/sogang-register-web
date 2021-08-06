@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import GradationBtn from '../GradationBtn/GradationBtn';
 import Subject from '../SubjectCard/SubjectCard';

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { IoPersonCircleOutline } from 'react-icons/io5';
 import useInput from '../../hooks/useInput';

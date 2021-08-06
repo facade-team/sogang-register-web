@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 import { FaCheckSquare } from 'react-icons/fa';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+import { useLoadingContext } from '../../contexts/LoadingContext';
 
 // Styled
 import {
@@ -9,7 +13,9 @@ import {
   FormGroup,
   MailAllow,
   Div,
+  BtnDiv,
   EmailCheckBtn,
+  Sup,
 } from './JoinForm.element';
 
 // Components
@@ -30,6 +36,9 @@ const JoinForm = () => {
   const [password, setPassword] = useState('');
   const [passwordTest, setPasswordTest] = useState('');
 
+  // 로딩스피너 띄우기
+  const { loading, setLoading } = useLoadingContext();
+
   const onChangeName = (e) => {
     setName(e.target.value);
   };
@@ -45,9 +54,9 @@ const JoinForm = () => {
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
   };
-  const onChangeVerifyCode = (e) => {
-    setVerifyCode(e.target.value);
-  };
+  // const onChangeVerifyCode = (e) => {
+  //   setVerifyCode(e.target.value);
+  // };
   const onChangePassword = (e) => {
     setPassword(e.target.value);
   };
@@ -67,34 +76,79 @@ const JoinForm = () => {
     }
   }, [email]);
 
-  // email 중복 여부상태
-  const [isUsed, setIsUsed] = useState(false);
-
-  /* Todo : 중복확인 버튼 누르고 나서, 결과에 따라서 사용할 수 없는 이메일인지 사용가능한 이메일인지 표시
-  사용할 수 있는 이메일이면, 인증코드 input 생기면서 인증코드 전송 버튼 렌더링
-  (중간중간 토스트메시지 삽입)
-  전송버튼 눌렀을 때 확인버튼 생성 -> 코드 일치 여부 확인 api 보내기
-  인증 완료되면 인증코드 인풋 없어지면서 이메일 인풋은 disabled 상태로 변경
-  */
-
   // email 중복 확인 함수
   const checkUsedEmail = (e) => {
     e.preventDefault();
     if (isValidEmail) {
+      setLoading(true);
       axios
         .post('/user/canuse', {
           email,
         })
         .then((res) => {
+          setLoading(false);
           if (res.status === 201) {
             setCanUseEmail(true);
+            setState({
+              ...state,
+              open: true,
+              msg: '사용가능한 이메일입니다',
+              type: 'success',
+            });
           }
         })
         .catch((err) => {
+          setLoading(false);
+          if (err.response.status === 401) {
+            setCanUseEmail(false);
+            setState({
+              ...state,
+              open: true,
+              msg: '중복된 이메일입니다',
+              type: 'error',
+            });
+          } else {
+            setState({
+              ...state,
+              open: true,
+              msg: '다시 시도해주십시오',
+              type: 'error',
+            });
+          }
           console.log(err);
         });
     }
   };
+
+  // 인증코드 발송 함수
+  // const sendVerifyCode = (e) => {
+  //   e.preventDefault();
+  //   if (canUseEmail) {
+  //     setLoading(true);
+  //     axios
+  //       .post('/user/gensecret', {
+  //         email,
+  //       })
+  //       .then((res) => {
+  //         setLoading(false);
+  //         if (res.status === 201) {
+  //           setState({
+  //             ...state,
+  //             open: true,
+  //             msg: '인증코드가 이메일로 발송되었습니다.',
+  //             type: 'success',
+  //           });
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         setLoading(false);
+  //         console.log(err);
+  //       });
+  //   }
+  // };
+
+  // 인증코드 일치확인 함수
+  // const checkVerifyCode
 
   // password 유효성 확인
   const [isValidPassword, setIsValidPassword] = useState(false);
@@ -123,22 +177,104 @@ const JoinForm = () => {
     }
   }, [passwordTest, password]);
 
+  // 회원가입 핸들러
   const submitHandler = (e) => {
     e.preventDefault();
-    const form = {
-      name,
-      major,
-      email,
-      verifyCode,
-      password,
-    };
+    setLoading(true);
+    if (name && canUseEmail && isValidPassword && isMatchPassword) {
+      axios
+        .post('/user/register', {
+          email: email,
+          username: name,
+          password: password,
+          major: major,
+          allowEmailAlert: checkboxValue,
+        })
+        .then((res) => {
+          setLoading(false);
+          if (res.status === 201) {
+            setState({
+              ...state,
+              open: true,
+              msg: '환영합니다',
+              type: 'success',
+            });
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+          if (err.response.status === 401) {
+            setState({
+              ...state,
+              open: true,
+              msg: '이미 가입된 email 주소입니다',
+              type: 'error',
+            });
+          } else if (err.response.status === 402) {
+            setState({
+              ...state,
+              open: true,
+              msg: 'email 형식이 맞지 않습니다.',
+              type: 'error',
+            });
+          }
+        });
+    } else if (!canUseEmail) {
+      setLoading(false);
+      setState({
+        ...state,
+        open: true,
+        msg: '이메일 중복확인을 해주세요',
+        type: 'error',
+      });
+    } else {
+      setLoading(false);
+      setState({
+        ...state,
+        open: true,
+        msg: '입력항목을 다시 확인해주세요',
+        type: 'error',
+      });
+    }
   };
+
+  // 스낵바
+  const [state, setState] = useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+    msg: '',
+    type: '',
+  });
+
+  const { vertical, horizontal, open, msg, type } = state;
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
   return (
     <JoinFormContainer onSubmit={submitHandler}>
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleClose}
+        key={vertical + horizontal}
+        autoHideDuration={2000}
+      >
+        <Alert onClose={handleClose} severity={type}>
+          {msg}
+        </Alert>
+      </Snackbar>
       <FormGroup>
         <Div>
-          <label htmlFor="name">이름</label>
+          <label htmlFor="name">
+            이름<Sup>*필수</Sup>
+          </label>
           {name ? (
             <FaCheckSquare size="20" color="#10ac84"></FaCheckSquare>
           ) : null}
@@ -169,16 +305,26 @@ const JoinForm = () => {
       </FormGroup>
       <FormGroup>
         <Div>
-          <label htmlFor="email">이메일</label>
-          {email ? (
-            isValidEmail ? (
-              <EmailCheckBtn onClick={checkUsedEmail}>중복확인</EmailCheckBtn>
-            ) : (
-              <span style={{ color: '#d63031' }}>
-                이메일 형식이 올바르지 않습니다.
-              </span>
-            )
-          ) : null}
+          <label htmlFor="email">
+            이메일<Sup>*필수</Sup>
+          </label>
+          <BtnDiv>
+            {email ? (
+              isValidEmail ? (
+                canUseEmail ? (
+                  <FaCheckSquare size="20" color="#10ac84"></FaCheckSquare>
+                ) : (
+                  <EmailCheckBtn onClick={checkUsedEmail} bgColor="#9c88ff">
+                    중복확인
+                  </EmailCheckBtn>
+                )
+              ) : (
+                <span style={{ color: '#d63031' }}>
+                  이메일 형식이 올바르지 않습니다.
+                </span>
+              )
+            ) : null}
+          </BtnDiv>
         </Div>
 
         <input
@@ -187,10 +333,11 @@ const JoinForm = () => {
           name="email"
           value={email}
           onChange={onChangeEmail}
+          disabled={canUseEmail}
         />
       </FormGroup>
 
-      <FormGroup>
+      {/* <FormGroup>
         <Div>
           <label htmlFor="verifyCode">인증코드</label>
         </Div>
@@ -201,10 +348,12 @@ const JoinForm = () => {
           value={verifyCode}
           onChange={onChangeVerifyCode}
         />
-      </FormGroup>
+      </FormGroup> */}
       <FormGroup>
         <Div>
-          <label htmlFor="password">비밀번호</label>
+          <label htmlFor="password">
+            비밀번호<Sup>*필수</Sup>
+          </label>
           {password ? (
             isValidPassword ? (
               <FaCheckSquare size="20" color="#10ac84"></FaCheckSquare>
@@ -225,7 +374,9 @@ const JoinForm = () => {
       </FormGroup>
       <FormGroup>
         <Div>
-          <label htmlFor="passwordTest">비밀번호 확인</label>
+          <label htmlFor="passwordTest">
+            비밀번호 확인<Sup>*필수</Sup>
+          </label>
           {passwordTest ? (
             isMatchPassword ? (
               <FaCheckSquare size="20" color="#10ac84"></FaCheckSquare>

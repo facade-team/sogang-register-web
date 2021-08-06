@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { MdStars } from 'react-icons/md';
 
 export const CardContainer = styled.div`
   display: flex;

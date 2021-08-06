@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import useInput from '../../hooks/useInput';
@@ -16,9 +16,7 @@ const ModalForm = ({ modalType, setModalType, setShowModal }) => {
     email: '',
     password: '',
   });
-  const { name, email, password } = user;
-  const passwordTest = '';
-  const [checkboxValue, setCheckboxValue] = useState(true);
+  const { email, password } = user;
 
   const { login } = useAuthContext();
 
