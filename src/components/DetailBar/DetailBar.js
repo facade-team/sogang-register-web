@@ -45,11 +45,12 @@ const DetailBar = ({
 
   //해당과목 즐겨찾기 여부, 즐겨찾기 추가, 삭제
   useEffect(() => {
-    const existInFavoriteList = favoriteList.find(
-      (favorite) => favorite.subject_id === subject.subject_id
-    );
-
-    existInFavoriteList ? setCheckBookmark(true) : setCheckBookmark(false);
+    if (favoriteList.length > 0) {
+      const existInFavoriteList = favoriteList.find(
+        (favorite) => favorite.subject_id === subject.subject_id
+      );
+      existInFavoriteList ? setCheckBookmark(true) : setCheckBookmark(false);
+    }
   }, [subject, favoriteList]);
 
   useEffect(() => {
