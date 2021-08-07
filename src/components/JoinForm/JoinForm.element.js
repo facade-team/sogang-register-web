@@ -74,6 +74,7 @@ export const EmailCheckBtn = styled.button`
   padding: 5px;
   background-color: ${({ bgColor }) => `${bgColor}`};
   color: white;
+  margin-bottom: ${({ mb }) => `${mb}px`};
 `;
 
 export const Sup = styled.span`

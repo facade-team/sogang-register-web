@@ -131,18 +131,7 @@ const App = () => {
       <BrowserRouter>
         <GlobalStyle></GlobalStyle>
         <Container>
-          <Snackbar
-            anchorOrigin={{ vertical, horizontal }}
-            open={open}
-            onClose={handleClose}
-            key={vertical + horizontal}
-            autoHideDuration={2000}
-          >
-            <Alert onClose={handleClose} severity={snackBar.type}>
-              {snackBar.msg}
-            </Alert>
-          </Snackbar>
-          {/* {loading ? <Spinner /> : null} */}
+          {loading ? <Spinner /> : null}
           {authLoading ? (
             <Spinner />
           ) : (
@@ -174,6 +163,17 @@ const App = () => {
             modalType={modalType}
             setModalType={setModalType}
           ></Modal>
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={open}
+            onClose={handleClose}
+            key={vertical + horizontal}
+            autoHideDuration={2000}
+          >
+            <Alert onClose={handleClose} severity={snackBar.type}>
+              {snackBar.msg}
+            </Alert>
+          </Snackbar>
         </Container>
       </BrowserRouter>
     </>
