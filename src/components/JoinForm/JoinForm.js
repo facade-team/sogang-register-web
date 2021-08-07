@@ -188,7 +188,7 @@ const JoinForm = () => {
           username: name,
           password: password,
           major: major,
-          allowEmailAlert: checkboxValue,
+          allow_email: checkboxValue,
         })
         .then((res) => {
           setLoading(false);

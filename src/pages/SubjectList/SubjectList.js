@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import GradationBtn from '../../components/GradationBtn/GradationBtn';
 import Subject from '../../components/SubjectCard/SubjectCard';
@@ -16,46 +17,37 @@ import {
 } from './SubjectList.element.js';
 
 const SubjectListComp = () => {
-  const [latestList, setLatestList] = useState(data);
-  const [favoriteList, setFavoriteList] = useState(data);
-
-  const clearLatestList = (e) => {
-    setLatestList([]);
-  };
+  const [favoriteList, setFavoriteList] = useState([]);
 
   const clearFavoriteList = (e) => {
     setFavoriteList([]);
   };
 
+  useEffect(() => {
+    axios.get('/join/favorites').then((res) => {
+      console.log(res);
+      setFavoriteList(res.data);
+    });
+
+    return () => {
+      console.log(favoriteList);
+      axios
+        .post('/join/favorite/update', {
+          sub_id: favoriteList,
+        })
+        .then((res) => {
+          if (res.status === 201) {
+            console.log(res);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+  }, []);
+
   return (
     <Container>
-      {/* 최근 본 과목 */}
-      <StackContent>
-        <TrashBtn size={20} onClick={clearLatestList}></TrashBtn>
-        <OptionBtnContainer>
-          <GradationBtn
-            width={120}
-            borderRadius={20}
-            active={true}
-            mouseover={false}
-          >
-            최근 본 과목
-          </GradationBtn>
-        </OptionBtnContainer>
-        <SubjectList>
-          {latestList.map((sub, index) => (
-            <>
-              <Subject
-                key={sub.subject_id}
-                subject={sub}
-                active={false}
-              ></Subject>
-              {index !== latestList.length - 1 && <Divider></Divider>}
-            </>
-          ))}
-        </SubjectList>
-      </StackContent>
-
       {/* 즐겨찾기 */}
       <StackContent>
         <TrashBtn size={20} onClick={clearFavoriteList}></TrashBtn>
@@ -77,7 +69,7 @@ const SubjectListComp = () => {
                 subject={sub}
                 active={false}
               ></Subject>
-              {index !== latestList.length - 1 && <Divider></Divider>}
+              {index !== favoriteList.length - 1 && <Divider></Divider>}
             </>
           ))}
         </SubjectList>

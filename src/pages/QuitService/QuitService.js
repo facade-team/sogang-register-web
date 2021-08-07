@@ -15,7 +15,7 @@ import {
   FormContainer,
   FormGroup,
   Label,
-} from './ChangePassword.element';
+} from '../ChangePassword/ChangePassword.element';
 import {
   Container,
   HomeContainer as MyPageContainer,
@@ -37,7 +37,7 @@ const ChangePassword = ({ openModal }) => {
       axios
         .post('/privacy/passwordchange', {
           old_password: currentPassword,
-          new_password: newPassword,
+          new_password: currentPassword,
         })
         .then((res) => {
           if (res.status === 201) {

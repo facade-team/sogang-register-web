@@ -9,6 +9,8 @@ import Join from '../../pages/Join';
 import MypageProfile from '../../pages/ChangeProfile/ChangeProfile';
 import MypageSubjectList from '../../pages/SubjectList/SubjectList';
 import MyPagePassword from '../../pages/ChangePassword/ChangePassword';
+import MyPageAuthCode from '../../pages/AuthCode/AuthCode';
+import MyPageQuitService from '../../pages/QuitService/QuitService';
 
 //styled
 import { Container } from './MainContainer.element';
@@ -46,8 +48,12 @@ const MainContainer = ({ width, height, toggleOpen, onClick, openModal }) => {
         <Route path="/mypage/favoritelist" exact>
           <MypageSubjectList openModal={openModal} />
         </Route>
-        <Route path="/mypage/authemail" exact></Route>
-        <Route path="/mypage/quit" exact></Route>
+        <Route path="/mypage/authemail" exact>
+          <MyPageAuthCode openModal={openModal}></MyPageAuthCode>
+        </Route>
+        <Route path="/mypage/quit" exact>
+          <MyPageQuitService openModal={openModal}></MyPageQuitService>
+        </Route>
       </Switch>
     </Container>
   );

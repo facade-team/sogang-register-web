@@ -6,7 +6,7 @@ export const ContainerBox = styled.div`
   align-items: center;
   justify-content: center;
   height: 100%;
-  width: 90%;
+  width: 100%;
   min-width: 600px;
   min-height: 300px;
 `;
@@ -40,6 +40,8 @@ export const FormContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 40%;
+  min-height: 300px;
+  max-height: 600px;
   min-width: 400px;
 `;
 

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 //components
 import GradationBtn from '../GradationBtn/GradationBtn';
@@ -50,6 +51,29 @@ const DetailBar = ({
 
     existInFavoriteList ? setCheckBookmark(true) : setCheckBookmark(false);
   }, [subject, favoriteList]);
+
+  useEffect(() => {
+    axios.get('/join/favorites').then((res) => {
+      console.log(res);
+      setFavoriteList(res.data);
+    });
+
+    return () => {
+      console.log(favoriteList);
+      axios
+        .post('/join/favorite/update', {
+          sub_id: favoriteList,
+        })
+        .then((res) => {
+          if (res.status === 201) {
+            console.log(res);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+  }, []);
 
   useEffect(() => {
     if (JSON.stringify(latestSubject) === '{}') {
@@ -127,8 +151,6 @@ const DetailBar = ({
                     checkBookmark={checkBookmark}
                     onClick={toFavorite}
                   ></StarBtn>
-                  {/* 수강완료 버튼 로직은 아직 생성안했음 */}
-                  <CompleteBtn size={22}></CompleteBtn>
                 </BtnContainer>
               </Top>
               <TagContainer>
