@@ -32,9 +32,11 @@ const MyPage = (props) => {
 
   const { isAuth } = useAuthContext();
 
-  useEffect(() => {
-    if (!isAuth) props.openModal();
-  }, [isAuth]);
+  // wip
+
+  // useEffect(() => {
+  //   if (!isAuth) props.openModal();
+  // }, [isAuth]);
 
   // snackbar
 
