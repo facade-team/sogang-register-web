@@ -30,6 +30,8 @@ const MyPage = (props) => {
 
   const { isAuth } = useAuthContext();
 
+  // wip
+
   // useEffect(() => {
   //   if (!isAuth) props.openModal();
   // }, [isAuth]);
