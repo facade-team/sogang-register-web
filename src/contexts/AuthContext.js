@@ -6,7 +6,7 @@ const AuthContext = createContext({});
 const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [userData, setUserData] = useState({});
-  const [error, setError] = useState(0); // 일부러 숫자로 설정한 이유가 있음
+  const [snackBar, setSnackBar] = useState(false);
   const [authLoading, setAuthLoading] = useState(false);
 
   // user : 사용자가 입력한 id, password 객체
@@ -16,16 +16,34 @@ const AuthProvider = ({ children }) => {
       .post('/auth/login', user)
       .then((res) => {
         if (res.status === 201) {
-          // console.log(res);
+          console.log(res);
+          setIsAuth(true);
+          const ud = {
+            email: res.data.email,
+            username: res.data.username,
+            major: res.data.major,
+            allowEmail: res.data.allow_email,
+            isVerified: res.data.verify_on,
+          };
+          setUserData(ud);
+          localStorage.setItem('userData', JSON.stringify(ud));
+          localStorage.setItem('token', res.data.Authorization);
+        }
+        // 이메일 인증은 안됐지만 로그인 성공
+        if (res.status === 202) {
+          console.log(res);
           setIsAuth(true);
           const ud = {
             email: res.data.data.email,
             username: res.data.data.username,
             major: res.data.data.major,
+            allowEmail: res.data.data.allow_email,
+            isVerified: res.data.data.verify_on,
           };
           setUserData(ud);
           localStorage.setItem('userData', JSON.stringify(ud));
-          localStorage.setItem('token', res.data.Authorization);
+          localStorage.setItem('token', res.data.data.Authorization);
+          setSnackBar({ type: 'success', msg: '이메일 인증이 필요합니다' });
         }
       })
       .then((res) => {
@@ -37,13 +55,19 @@ const AuthProvider = ({ children }) => {
 
         // Timeout 에러핸들링
         if (err.code === 'ECONNABORTED') {
-          setError('다시 시도해주세요');
+          setSnackBar({ type: 'error', msg: '다시 시도해주세요' });
         }
         // 이메일이나 패스워드 잘못 입력
         else if (err.response.status === 403) {
-          setError('이메일이나 패스워드가 맞지 않습니다.');
+          setSnackBar({
+            type: 'error',
+            msg: '이메일이나 패스워드가 맞지 않습니다.',
+          });
         } else {
-          setError('로그인에 실패했습니다.');
+          setSnackBar({
+            type: 'error',
+            msg: '로그인에 실패했습니다.',
+          });
         }
       });
   };
@@ -58,7 +82,7 @@ const AuthProvider = ({ children }) => {
     login,
     logout,
     userData,
-    error,
+    snackBar,
     authLoading,
     setUserData,
     setIsAuth,

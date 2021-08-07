@@ -58,7 +58,7 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
     setState({ ...state, open: false });
   };
 
-  const { isAuth, error } = useAuthContext();
+  const { isAuth, snackBar } = useAuthContext();
 
   useEffect(() => {
     if (isAuth) {
@@ -67,10 +67,10 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
   }, [isAuth]);
 
   useEffect(() => {
-    if (error) {
+    if (snackBar) {
       setState({ ...state, open: true });
     }
-  }, [error]);
+  }, [snackBar]);
 
   return (
     <AnimatePresence>
@@ -108,8 +108,8 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
             key={vertical + horizontal}
             autoHideDuration={2000}
           >
-            <Alert onClose={handleClose} severity="error">
-              {error}
+            <Alert onClose={handleClose} severity={snackBar.type}>
+              {snackBar.msg}
             </Alert>
           </Snackbar>
         </Background>
