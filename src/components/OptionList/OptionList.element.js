@@ -33,6 +33,11 @@ export const SearchContainer = styled.div`
   flex-wrap: wrap;
 `;
 
+export const SubContainer = styled.span`
+  width: 100px;
+  margin-bottom: 5px;
+`;
+
 export const ListBtn = styled.button`
   background: rgb(164, 129, 235);
   background: linear-gradient(
@@ -49,7 +54,6 @@ export const ListBtn = styled.button`
   min-width: 80px;
   height: 100%;
   padding: 10px 1px;
-  z-index: 2;
 
   &:hover {
     cursor: pointer;
@@ -68,12 +72,23 @@ export const ListBtn = styled.button`
     props.focused === true &&
     css`
       border: 1px;
-      z-index: 2;
+      z-index: 3;
     `};
 `;
 
 export const ChkLabel = styled.label`
-  color: gray;
+  font-size: 14px;
+  margin-bottom: 5px;
+  ${(props) =>
+    props.checked === -1 &&
+    css`
+      color: gray;
+    `};
+  ${(props) =>
+    props.checked !== -1 &&
+    css`
+      color: #6a31df;
+    `};
 `;
 
 export const ScrollArea = styled.div`
@@ -86,7 +101,7 @@ export const ScrollArea = styled.div`
   border-radius: 20px;
   font-size: 14px;
 
-  z-index: 1;
+  z-index: 2;
   flex-direction: column;
   padding-top: 35px;
   align-items: center;
@@ -127,7 +142,7 @@ export const CheckContainer = styled.div`
   justify-contents: center;
   align-items: center;
   place-self: flex-start;
-  margin-left: 5px;
+  margin-left: 0px;
   margin-top: 5px;
 `;
 
@@ -147,4 +162,20 @@ export const FoldBtn = styled.button`
     cursor: pointer;
     transform: scale(1.1);
   }
+`;
+
+export const FilterArea = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 20px;
+  align-items: center;
+`;
+
+export const CurrentFilterList = styled.button`
+  background: rgb(164, 129, 235);
+  border: 1px none;
+  margin-left: 10px;
+  border-radius: 10px;
+  padding: 3px 10px;
+  color: white;
 `;
