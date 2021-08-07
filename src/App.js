@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuthContext } from './contexts/AuthContext';
+import { useLoadingContext } from './contexts/LoadingContext';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // GlobalStyle
@@ -82,7 +83,7 @@ const App = () => {
 
   const { setUserData, setIsAuth, authLoading, setAuthLoading } =
     useAuthContext();
-  // const { loading, setLoading } = useLoadingContext();
+  const { loading, setLoading } = useLoadingContext();
 
   const initializeUserInfo = () => {
     const ud = JSON.parse(localStorage.getItem('userData'));
@@ -100,7 +101,7 @@ const App = () => {
       <BrowserRouter>
         <GlobalStyle></GlobalStyle>
         <Container>
-          {/* {loading ? <Spinner /> : null} */}
+          {loading ? <Spinner /> : null}
           {authLoading ? (
             <Spinner />
           ) : (
