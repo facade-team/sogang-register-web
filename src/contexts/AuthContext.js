@@ -19,15 +19,15 @@ const AuthProvider = ({ children }) => {
           console.log(res);
           setIsAuth(true);
           const ud = {
-            email: res.data.email,
-            username: res.data.username,
-            major: res.data.major,
-            allowEmail: res.data.allow_email,
-            isVerified: res.data.verify_on,
+            email: res.data.data.email,
+            username: res.data.data.username,
+            major: res.data.data.major,
+            allowEmail: res.data.data.allow_email,
+            isVerified: res.data.data.verify_on,
           };
           setUserData(ud);
           localStorage.setItem('userData', JSON.stringify(ud));
-          localStorage.setItem('token', res.data.Authorization);
+          localStorage.setItem('token', res.data.data.Authorization);
         }
         // 이메일 인증은 안됐지만 로그인 성공
         if (res.status === 202) {
