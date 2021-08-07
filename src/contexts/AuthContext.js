@@ -39,9 +39,8 @@ const AuthProvider = ({ children }) => {
         if (err.code === 'ECONNABORTED') {
           setError('다시 시도해주세요');
         }
-
         // 이메일이나 패스워드 잘못 입력
-        if (err.response.status === 403) {
+        else if (err.response.status === 403) {
           setError('이메일이나 패스워드가 맞지 않습니다.');
         } else {
           setError('로그인에 실패했습니다.');
