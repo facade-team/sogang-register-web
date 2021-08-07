@@ -1,12 +1,14 @@
 import styled, { css } from 'styled-components';
 import Select from 'react-select';
 
-export const Container = styled.div`
+export const ContainerBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 45%;
+  justify-content: center;
+  height: 100%;
   width: 90%;
+  min-width: 600px;
   min-height: 300px;
 `;
 
@@ -48,8 +50,8 @@ export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50%;
-  min-width: 420px;
+  width: 40%;
+  min-width: 400px;
 `;
 
 export const FormGroup = styled.div`

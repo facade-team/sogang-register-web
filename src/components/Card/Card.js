@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  CardTop,
-  BtnContainer,
   CardContainer,
   SubjectName,
   TagContainer,

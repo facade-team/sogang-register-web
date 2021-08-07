@@ -20,7 +20,7 @@ import {
 import { useAuthContext } from '../../contexts/AuthContext';
 
 const ProfileBar = ({ openModal, detailbar }) => {
-  const { isAuth, logout, userData } = useAuthContext();
+  const { isAuth, userData } = useAuthContext();
 
   return (
     <BarContainer detailbar={detailbar}>

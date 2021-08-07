@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import useInput from '../../hooks/useInput';
 
 // auth context

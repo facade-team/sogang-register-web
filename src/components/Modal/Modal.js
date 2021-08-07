@@ -58,7 +58,7 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
     setState({ ...state, open: false });
   };
 
-  const { isAuth, error } = useAuthContext();
+  const { isAuth, snackBar } = useAuthContext();
 
   useEffect(() => {
     if (isAuth) {
@@ -67,10 +67,10 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
   }, [isAuth]);
 
   useEffect(() => {
-    if (error) {
+    if (snackBar) {
       setState({ ...state, open: true });
     }
-  }, [error]);
+  }, [snackBar]);
 
   return (
     <AnimatePresence>
@@ -105,12 +105,11 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
             anchorOrigin={{ vertical, horizontal }}
             open={open}
             onClose={handleClose}
-            message="I love snacks"
             key={vertical + horizontal}
             autoHideDuration={2000}
           >
-            <Alert onClose={handleClose} severity="error">
-              로그인에 실패하였습니다
+            <Alert onClose={handleClose} severity={snackBar.type}>
+              {snackBar.msg}
             </Alert>
           </Snackbar>
         </Background>

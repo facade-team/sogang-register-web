@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuthContext } from './contexts/AuthContext';
+import { useLoadingContext } from './contexts/LoadingContext';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // GlobalStyle
@@ -80,7 +81,9 @@ const App = () => {
     setModalType(signBtnType);
   };
 
-  const { setUserData, setIsAuth, loading, setLoading } = useAuthContext();
+  const { setUserData, setIsAuth, authLoading, setAuthLoading } =
+    useAuthContext();
+  const { loading, setLoading } = useLoadingContext();
 
   const initializeUserInfo = () => {
     const ud = JSON.parse(localStorage.getItem('userData'));
@@ -90,19 +93,16 @@ const App = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
     initializeUserInfo();
-    setLoading(false);
   }, []);
 
   return (
     <>
-      {/* <AuthProvider>
-        <MenuProvider> */}
       <BrowserRouter>
         <GlobalStyle></GlobalStyle>
         <Container>
-          {loading ? (
+          {loading ? <Spinner /> : null}
+          {authLoading ? (
             <Spinner />
           ) : (
             <>
@@ -135,8 +135,6 @@ const App = () => {
           ></Modal>
         </Container>
       </BrowserRouter>
-      {/* </MenuProvider>
-      </AuthProvider> */}
     </>
   );
 };
