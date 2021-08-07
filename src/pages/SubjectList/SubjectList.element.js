@@ -1,11 +1,14 @@
 import styled from 'styled-components';
+import { BsFillTrashFill } from 'react-icons/bs';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  height: 45%;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
   width: 90%;
+  min-width: 600px;
   min-height: 300px;
 `;
 
@@ -22,7 +25,9 @@ export const StackContent = styled.div`
   position: relative;
   width: 30%;
   min-width: 250px;
-  max-width: 400px;
+  max-width: 450px;
+  max-height: 500px;
+  min-height: 600px;
   border-radius: 15px 15px 15px 15px;
   padding: 15px 20px;
   display: flex;
@@ -57,4 +62,16 @@ export const Divider = styled.hr`
   border-top: 2px solid #bfbfbf;
   margin-right: 6px;
   margin-left: 6px;
+`;
+
+export const TrashBtn = styled(BsFillTrashFill)`
+  position: absolute;
+  top: 5px;
+  right: 30px;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05) translateZ(0px);
+    transition: all 0.1s ease-in;
+  }
 `;
