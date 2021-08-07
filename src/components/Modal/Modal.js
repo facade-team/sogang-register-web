@@ -109,7 +109,7 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
             autoHideDuration={2000}
           >
             <Alert onClose={handleClose} severity="error">
-              로그인에 실패하였습니다
+              {error}
             </Alert>
           </Snackbar>
         </Background>

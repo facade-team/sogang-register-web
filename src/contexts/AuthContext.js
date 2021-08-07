@@ -16,36 +16,38 @@ const AuthProvider = ({ children }) => {
       .post('/auth/login', user)
       .then((res) => {
         if (res.status === 201) {
-          console.log(res);
+          // console.log(res);
           setIsAuth(true);
-          // const ud = {
-          //   email: res.data.data.email,
-          //   username: res.data.data.username,
-          //   major: res.data.data.major,
-          // };
-          // setUserData(ud);
-          // localStorage.setItem('userData', JSON.stringify(ud));
+          const ud = {
+            email: res.data.data.email,
+            username: res.data.data.username,
+            major: res.data.data.major,
+          };
+          setUserData(ud);
+          localStorage.setItem('userData', JSON.stringify(ud));
           localStorage.setItem('token', res.data.Authorization);
         }
       })
       .then((res) => {
-        axios
-          .get('/user')
-          .then((res) => console.log(res))
-          .catch((err) => console.log(err));
         setAuthLoading(false);
       })
       .catch((err) => {
-        // if (err.response.status === 403) {
-        // 이메일이나 패스워드 잘못 입력
-        setError(error + 1);
+        console.log(err);
         setAuthLoading(false);
+
+        // Timeout 에러핸들링
+        if (err.code === 'ECONNABORTED') {
+          setError('다시 시도해주세요');
+        }
+
+        // 이메일이나 패스워드 잘못 입력
+        if (err.response.status === 403) {
+          setError('이메일이나 패스워드가 맞지 않습니다.');
+        } else {
+          setError('로그인에 실패했습니다.');
+        }
       });
   };
-
-  // useEffect(() => {
-  //   console.log(userData);
-  // }, [userData]);
 
   const logout = () => {
     setIsAuth(false);

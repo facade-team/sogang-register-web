@@ -12,6 +12,7 @@ axios.defaults.baseURL = 'http://18.119.13.125:5000';
 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem(
   'token'
 )}`;
+axios.defaults.timeout = 3000;
 
 ReactDOM.render(
   <LoadingProvider>
