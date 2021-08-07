@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuthContext } from './contexts/AuthContext';
 import { useLoadingContext } from './contexts/LoadingContext';
+import { useSnackBarContext } from './contexts/SnackBarContext';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // GlobalStyle
@@ -13,6 +14,14 @@ import MainContainer from './components/MainContainer/MainContainer';
 import Sidebar from './components/Sidebar/Sidebar';
 import ToggleBtn from './components/ToggleBtn/ToggleBtn';
 import Modal from './components/Modal/Modal';
+
+// Snackbar
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const openedSidebarWidth = 250;
 const closedSidebarWidth = 90;
@@ -96,12 +105,44 @@ const App = () => {
     initializeUserInfo();
   }, []);
 
+  // 스낵바
+  const [state, setState] = useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
+
+  const { vertical, horizontal, open } = state;
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+  const { snackBar } = useSnackBarContext();
+
+  useEffect(() => {
+    if (snackBar) {
+      setState({ ...state, open: true });
+    }
+  }, [snackBar]);
+
   return (
     <>
       <BrowserRouter>
         <GlobalStyle></GlobalStyle>
         <Container>
-          {loading ? <Spinner /> : null}
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={open}
+            onClose={handleClose}
+            key={vertical + horizontal}
+            autoHideDuration={2000}
+          >
+            <Alert onClose={handleClose} severity={snackBar.type}>
+              {snackBar.msg}
+            </Alert>
+          </Snackbar>
+          {/* {loading ? <Spinner /> : null} */}
           {authLoading ? (
             <Spinner />
           ) : (

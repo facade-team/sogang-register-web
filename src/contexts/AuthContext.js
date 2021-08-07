@@ -1,13 +1,16 @@
 import { createContext, useState, useContext } from 'react';
 import axios from 'axios';
+import { useSnackBarContext } from './SnackBarContext';
 
 const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [userData, setUserData] = useState({});
-  const [snackBar, setSnackBar] = useState(false);
+  // const [snackBar, setSnackBar] = useState(false);
   const [authLoading, setAuthLoading] = useState(false);
+
+  const { setSnackBar } = useSnackBarContext();
 
   // user : 사용자가 입력한 id, password 객체
   const login = (user) => {
@@ -32,6 +35,10 @@ const AuthProvider = ({ children }) => {
         // 이메일 인증은 안됐지만 로그인 성공
         if (res.status === 202) {
           console.log(res);
+          setSnackBar({
+            type: 'success',
+            msg: '이메일 인증이 필요합니다',
+          });
           setIsAuth(true);
           const ud = {
             email: res.data.data.email,
@@ -43,7 +50,6 @@ const AuthProvider = ({ children }) => {
           setUserData(ud);
           localStorage.setItem('userData', JSON.stringify(ud));
           localStorage.setItem('token', res.data.data.Authorization);
-          setSnackBar({ type: 'success', msg: '이메일 인증이 필요합니다' });
         }
       })
       .then((res) => {
@@ -82,7 +88,7 @@ const AuthProvider = ({ children }) => {
     login,
     logout,
     userData,
-    snackBar,
+    // snackBar,
     authLoading,
     setUserData,
     setIsAuth,

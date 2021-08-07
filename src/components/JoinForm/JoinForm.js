@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 import { FaCheckSquare } from 'react-icons/fa';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
 
 import { useLoadingContext } from '../../contexts/LoadingContext';
+import { useSnackBarContext } from '../../contexts/SnackBarContext';
 
 // Styled
 import {
@@ -37,7 +36,10 @@ const JoinForm = () => {
   const [passwordTest, setPasswordTest] = useState('');
 
   // 로딩스피너 띄우기
-  const { loading, setLoading } = useLoadingContext();
+  const { setLoading } = useLoadingContext();
+
+  // 스낵바 context
+  const { setSnackBar } = useSnackBarContext();
 
   const onChangeName = (e) => {
     setName(e.target.value);
@@ -89,9 +91,7 @@ const JoinForm = () => {
           setLoading(false);
           if (res.status === 201) {
             setCanUseEmail(true);
-            setState({
-              ...state,
-              open: true,
+            setSnackBar({
               msg: '사용가능한 이메일입니다',
               type: 'success',
             });
@@ -101,16 +101,12 @@ const JoinForm = () => {
           setLoading(false);
           if (err.response.status === 401) {
             setCanUseEmail(false);
-            setState({
-              ...state,
-              open: true,
+            setSnackBar({
               msg: '중복된 이메일입니다',
               type: 'error',
             });
           } else {
-            setState({
-              ...state,
-              open: true,
+            setSnackBar({
               msg: '다시 시도해주십시오',
               type: 'error',
             });
@@ -193,9 +189,7 @@ const JoinForm = () => {
         .then((res) => {
           setLoading(false);
           if (res.status === 201) {
-            setState({
-              ...state,
-              open: true,
+            setSnackBar({
               msg: '환영합니다',
               type: 'success',
             });
@@ -204,16 +198,12 @@ const JoinForm = () => {
         .catch((err) => {
           setLoading(false);
           if (err.response.status === 401) {
-            setState({
-              ...state,
-              open: true,
+            setSnackBar({
               msg: '이미 가입된 email 주소입니다',
               type: 'error',
             });
           } else if (err.response.status === 402) {
-            setState({
-              ...state,
-              open: true,
+            setSnackBar({
               msg: 'email 형식이 맞지 않습니다.',
               type: 'error',
             });
@@ -221,55 +211,21 @@ const JoinForm = () => {
         });
     } else if (!canUseEmail) {
       setLoading(false);
-      setState({
-        ...state,
-        open: true,
+      setSnackBar({
         msg: '이메일 중복확인을 해주세요',
         type: 'error',
       });
     } else {
       setLoading(false);
-      setState({
-        ...state,
-        open: true,
+      setSnackBar({
         msg: '입력항목을 다시 확인해주세요',
         type: 'error',
       });
     }
   };
 
-  // 스낵바
-  const [state, setState] = useState({
-    open: false,
-    vertical: 'top',
-    horizontal: 'center',
-    msg: '',
-    type: '',
-  });
-
-  const { vertical, horizontal, open, msg, type } = state;
-
-  const handleClose = () => {
-    setState({ ...state, open: false });
-  };
-
-  function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
-
   return (
     <JoinFormContainer onSubmit={submitHandler}>
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={open}
-        onClose={handleClose}
-        key={vertical + horizontal}
-        autoHideDuration={2000}
-      >
-        <Alert onClose={handleClose} severity={type}>
-          {msg}
-        </Alert>
-      </Snackbar>
       <FormGroup>
         <Div>
           <label htmlFor="name">
