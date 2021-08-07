@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import GradationBtn from '../GradationBtn/GradationBtn';
-import Subject from '../SubjectCard/SubjectCard';
+import GradationBtn from '../../components/GradationBtn/GradationBtn';
+import Subject from '../../components/SubjectCard/SubjectCard';
 
-import { data } from '../../pages/DummyData';
+import { data } from '../DummyData';
 
 //styled
 import {
@@ -12,17 +12,26 @@ import {
   StackContent,
   SubjectList,
   Divider,
+  TrashBtn,
 } from './SubjectList.element.js';
 
 const SubjectListComp = () => {
   const [latestList, setLatestList] = useState(data);
   const [favoriteList, setFavoriteList] = useState(data);
-  const [completedList, setCompletedList] = useState(data);
+
+  const clearLatestList = (e) => {
+    setLatestList([]);
+  };
+
+  const clearFavoriteList = (e) => {
+    setFavoriteList([]);
+  };
 
   return (
     <Container>
       {/* 최근 본 과목 */}
       <StackContent>
+        <TrashBtn size={20} onClick={clearLatestList}></TrashBtn>
         <OptionBtnContainer>
           <GradationBtn
             width={120}
@@ -49,6 +58,7 @@ const SubjectListComp = () => {
 
       {/* 즐겨찾기 */}
       <StackContent>
+        <TrashBtn size={20} onClick={clearFavoriteList}></TrashBtn>
         <OptionBtnContainer>
           <GradationBtn
             width={120}
@@ -61,32 +71,6 @@ const SubjectListComp = () => {
         </OptionBtnContainer>
         <SubjectList>
           {favoriteList.map((sub, index) => (
-            <>
-              <Subject
-                key={sub.subject_id}
-                subject={sub}
-                active={false}
-              ></Subject>
-              {index !== latestList.length - 1 && <Divider></Divider>}
-            </>
-          ))}
-        </SubjectList>
-      </StackContent>
-
-      {/* 수강한 과목 */}
-      <StackContent>
-        <OptionBtnContainer>
-          <GradationBtn
-            width={120}
-            borderRadius={20}
-            active={true}
-            mouseover={false}
-          >
-            수강한 과목
-          </GradationBtn>
-        </OptionBtnContainer>
-        <SubjectList>
-          {completedList.map((sub, index) => (
             <>
               <Subject
                 key={sub.subject_id}

@@ -62,9 +62,7 @@ const SideBar = ({ width, height, toggleOpen, openModal, openSidebar }) => {
             </ServiceName>
           ) : (
             <ServiceName onClick={openSidebar}>
-              <Link to="/">
-                <RiMenuFill color="white"></RiMenuFill>
-              </Link>
+              <RiMenuFill color="white"></RiMenuFill>
             </ServiceName>
           )}
           {toggleOpen && !toggleText && isAuth ? (
