@@ -1,9 +1,6 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import ModalForm from './ModalForm';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-
 import logo from '../../assets/img/logo2.png';
 import { useAuthContext } from '../../contexts/AuthContext';
 
@@ -18,10 +15,6 @@ import {
   ModalContent,
   ModalCloseBtn,
 } from './Modal.element';
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
   const BgRef = useRef();
@@ -46,31 +39,13 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
     };
   }, [keyPress]);
 
-  const [state, setState] = useState({
-    open: false,
-    vertical: 'top',
-    horizontal: 'center',
-  });
-
-  const { vertical, horizontal, open } = state;
-
-  const handleClose = () => {
-    setState({ ...state, open: false });
-  };
-
-  const { isAuth, snackBar } = useAuthContext();
+  const { isAuth } = useAuthContext();
 
   useEffect(() => {
     if (isAuth) {
       setShowModal(false);
     }
   }, [isAuth]);
-
-  useEffect(() => {
-    if (snackBar) {
-      setState({ ...state, open: true });
-    }
-  }, [snackBar]);
 
   return (
     <AnimatePresence>
@@ -101,17 +76,6 @@ const Modal = ({ showModal, setShowModal, modalType, setModalType }) => {
               onClick={() => setShowModal(!showModal)}
             ></ModalCloseBtn>
           </ModalContainer>
-          <Snackbar
-            anchorOrigin={{ vertical, horizontal }}
-            open={open}
-            onClose={handleClose}
-            key={vertical + horizontal}
-            autoHideDuration={2000}
-          >
-            <Alert onClose={handleClose} severity={snackBar.type}>
-              {snackBar.msg}
-            </Alert>
-          </Snackbar>
         </Background>
       )}
     </AnimatePresence>
