@@ -9,7 +9,7 @@ import { MenuProvider } from './contexts/MenuContext';
 import { LoadingProvider } from './contexts/LoadingContext';
 import { SnackBarProvider } from './contexts/SnackBarContext';
 
-axios.defaults.baseURL = 'http://3.134.86.34:5000/';
+axios.defaults.baseURL = 'http://3.130.245.129:5000/';
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
 axios.defaults.timeout = 3000;
 

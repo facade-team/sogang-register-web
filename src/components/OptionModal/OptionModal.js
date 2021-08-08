@@ -59,32 +59,47 @@ export default function OptionModal({ open, setOpen, option }) {
     setOpen(false);
   };
 
+  const handleListClick = (item) => {
+    option[1]({ ...option[0], selected: item });
+    setOpen(false);
+  };
+
   return (
-    <div>
-      <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          {option.type}
-        </DialogTitle>
-        <DialogContent style={{ width: '300px', maxHeight: '500px' }} dividers>
-          <ul>
-            {option.data &&
-              option.data.map((d, index) => (
-                <Typography gutterBottom>
-                  <OptionList key={`${index}d`}>- {d}</OptionList>
-                </Typography>
-              ))}
-          </ul>
-        </DialogContent>
-        {/* <DialogActions>
+    <>
+      {option[0] ? (
+        <Dialog
+          onClose={handleClose}
+          aria-labelledby="customized-dialog-title"
+          open={open}
+        >
+          <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+            {option[0].type}
+          </DialogTitle>
+          <DialogContent
+            style={{ width: '300px', maxHeight: '500px' }}
+            dividers
+          >
+            <ul>
+              {option[0] &&
+                option[0].data.map((item, index) => (
+                  <Typography gutterBottom>
+                    <OptionList
+                      onClick={() => handleListClick(item)}
+                      key={`${index}item`}
+                    >
+                      - {item}
+                    </OptionList>
+                  </Typography>
+                ))}
+            </ul>
+          </DialogContent>
+          {/* <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
             Save changes
           </Button>
         </DialogActions> */}
-      </Dialog>
-    </div>
+        </Dialog>
+      ) : null}
+    </>
   );
 }

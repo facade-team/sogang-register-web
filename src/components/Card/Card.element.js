@@ -44,6 +44,10 @@ export const Tag = styled.div`
   ${({ ontact }) => ontact && `background: #ED6E69;`}
   ${({ eng }) => eng && `background: #60B9CB;`}
   ${({ china }) => china && `background: #7936E2;`}
+  ${({ bgColor }) => bgColor && `background: ${bgColor};`}
+
+  // font-size
+  ${({ fontSize }) => fontSize && `font-size: ${fontSize}px;`}
 `;
 
 export const Detail = styled.div`
