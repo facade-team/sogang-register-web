@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import { useMenuContext } from '../contexts/MenuContext';
+import { useSubjectContext } from '../contexts/SubjectContext';
 
-import { data } from '../pages/DummyData';
+// import { data } from '../pages/DummyData';
 
 //components
 import Title from '../components/Title/Title';
@@ -19,6 +20,9 @@ const Home = ({ openModal, height }) => {
   const [cardKey, setCardKey] = useState('');
   const [detailSubject, setDetailSubject] = useState({});
   const [latestSubject, setLatestSubject] = useState({});
+
+  const { subjects } = useSubjectContext();
+  const data = subjects;
 
   const clickCard = (key) => {
     if (detailbarWidth === 0) {
@@ -55,7 +59,7 @@ const Home = ({ openModal, height }) => {
         <DetailOption number="02" subtitle="세부옵션"></DetailOption>
         <SelectSubject
           number="03"
-          subtitle="과목선택"
+          subtitle="과목조회"
           data={data}
           onClickCard={clickCard}
         ></SelectSubject>

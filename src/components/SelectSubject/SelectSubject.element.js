@@ -7,6 +7,7 @@ export const Container = styled.div`
 export const CardList = styled.div`
   display: flex;
   min-height: 160px;
+  justify-content: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
   overflow-y: auto;

@@ -60,7 +60,15 @@ export default function OptionModal({ open, setOpen, option }) {
   };
 
   const handleListClick = (item) => {
+    console.log(item);
     option[1]({ ...option[0], selected: item });
+    setOpen(false);
+  };
+
+  // 전공은 배열 안 객체가 또 존재해서 함수를 다르게 써야함
+  const handleMajorListClick = (item) => {
+    console.log(item); // ex) {text: '컴퓨터공학', id: 'WD1111'}
+    option[1]({ ...option[0], selected: item.text, code: item.id });
     setOpen(false);
   };
 
@@ -80,17 +88,23 @@ export default function OptionModal({ open, setOpen, option }) {
             dividers
           >
             <ul>
-              {option[0] &&
-                option[0].data.map((item, index) => (
-                  <Typography gutterBottom>
-                    <OptionList
-                      onClick={() => handleListClick(item)}
-                      key={`${index}item`}
-                    >
-                      - {item}
-                    </OptionList>
-                  </Typography>
-                ))}
+              {option[0].type !== '전공/영역' && option[0].type !== '검색어'
+                ? option[0] &&
+                  option[0].data.map((item, index) => (
+                    <Typography gutterBottom key={item}>
+                      <OptionList onClick={() => handleListClick(item)}>
+                        - {item}
+                      </OptionList>
+                    </Typography>
+                  ))
+                : option[0] &&
+                  option[0].data.map((item, index) => (
+                    <Typography gutterBottom key={item.id}>
+                      <OptionList onClick={() => handleMajorListClick(item)}>
+                        - {item.text}
+                      </OptionList>
+                    </Typography>
+                  ))}
             </ul>
           </DialogContent>
           {/* <DialogActions>
