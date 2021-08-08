@@ -43,7 +43,7 @@ export const ListBtn = styled.button`
     rgba(53, 95, 169, 1) 98%
   );
   border: 1px none;
-  border-radius: 20px;
+  border-radius: 12px;
   color: #ffffff;
   width: 120px;
   min-width: 80px;
