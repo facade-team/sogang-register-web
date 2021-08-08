@@ -22,7 +22,7 @@ import { FormGroup, Input } from './AuthCode.element.js';
 
 const AuthCode = ({ openModal }) => {
   const [codeFail, setCodeFail] = useState({ value: false, message: '' });
-  const [email, setEmail] = useState('sdfsdf');
+  const [email, setEmail] = useState('');
   const [form, onChangeForm] = useInput({
     code: '',
   });
@@ -50,8 +50,7 @@ const AuthCode = ({ openModal }) => {
 
   useEffect(() => {
     axios.get('/user').then((res) => {
-      console.log(res.data);
-      setEmail(res.data.email);
+      setEmail(res.data.data.email);
     });
   }, []);
 
@@ -64,19 +63,27 @@ const AuthCode = ({ openModal }) => {
             <p>이메일 인증코드를 입력해주세요</p>
             <br></br>
             <FormGroup>
-              <Input
-                tyle="email"
-                value={email}
-                onChange={onChangeForm}
-                ReadOnly
-              ></Input>
+              {email ? (
+                <Input
+                  tyle="email"
+                  value={email}
+                  onChange={onChangeForm}
+                  readOnly
+                ></Input>
+              ) : (
+                <Input tyle="email" onChange={onChangeForm} readOnly></Input>
+              )}
             </FormGroup>
             <FormGroup>
-              <Input
-                value={code}
-                placeholder="인증코드"
-                onChange={onChangeForm}
-              />
+              {code ? (
+                <Input
+                  value={code}
+                  placeholder="인증코드"
+                  onChange={onChangeForm}
+                />
+              ) : (
+                <Input placeholder="인증코드" onChange={onChangeForm} />
+              )}
             </FormGroup>
             {codeFail.value ? (
               <>

@@ -25,8 +25,11 @@ const SubjectListComp = () => {
 
   useEffect(() => {
     axios.get('/join/favorites').then((res) => {
-      console.log(res);
-      setFavoriteList(res.data);
+      if (res.data.data === undefined) {
+        setFavoriteList([]);
+      } else {
+        setFavoriteList(res.dat);
+      }
     });
 
     return () => {

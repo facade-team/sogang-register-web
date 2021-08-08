@@ -40,7 +40,7 @@ const ChangePassword = ({ openModal }) => {
           new_password: newPassword,
         })
         .then((res) => {
-          if (res.status === 201) {
+          if (res.status === 'success') {
             console.log(res);
           } else if (res.status === 401) {
             setPasswordFail({ value: true, message: res.message });
