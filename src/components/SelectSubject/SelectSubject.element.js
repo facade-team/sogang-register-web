@@ -28,3 +28,8 @@ export const CardList = styled.div`
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
   }
 `;
+
+export const ImgContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;

@@ -32,12 +32,7 @@ const FeedbackForm = () => {
       </FormGroup>
       <FormGroup>
         <label htmlFor="title">제목</label>
-        <input
-          type="title"
-          name="title"
-          value={title}
-          onChange={onChangeForm}
-        />
+        <input type="text" name="title" value={title} onChange={onChangeForm} />
       </FormGroup>
       <FormGroup>
         <label htmlFor="email">내용</label>

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
+import useInput from '../../hooks/useInput';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import { Button } from '@material-ui/core';
@@ -16,7 +17,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-import { OptionList } from './OptionModal.element';
+import { OptionList, KeywordInputContainer } from './OptionModal.element';
 
 const styles = (theme) => ({
   root: {
@@ -65,6 +66,8 @@ const DialogContent = withStyles((theme) => ({
 
 const DialogActions = withStyles((theme) => ({
   root: {
+    display: 'flex',
+    justifyContent: 'space-between',
     margin: 0,
     padding: theme.spacing(1),
   },
@@ -90,11 +93,64 @@ export default function OptionModal({ open, setOpen, option }) {
   };
 
   // 검색어(과목명,과목코드..) state
-  const [value, setValue] = React.useState('과목명');
+  const [searchBy, setSearchBy] = React.useState('과목명');
+
+  // keyword 인풋
+  const [keyword, onChangeKeyword, setKeyword] = useInput({
+    subjectName: '',
+    subjectCode: '',
+    profName: '',
+    classRoom: '',
+  });
+
+  const { subjectName, subjectCode, profName, classRoom } = keyword;
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    // 기존 입력 초기화
+    setKeyword({
+      subjectName: '',
+      subjectCode: '',
+      profName: '',
+      classRoom: '',
+    });
+    setSearchBy(event.target.value);
   };
+
+  const handleSearch = () => {
+    console.log(searchBy, keyword);
+    if (searchBy === '과목명') {
+      option[1]({ ...option[0], searchBy, selected: keyword.subjectName });
+    } else if (searchBy === '과목번호') {
+      option[1]({ ...option[0], searchBy, selected: keyword.subjectCode });
+    } else if (searchBy === '교수명') {
+      option[1]({ ...option[0], searchBy, selected: keyword.profName });
+    } else if (searchBy === '강의실') {
+      option[1]({ ...option[0], searchBy, selected: keyword.classRoom });
+    }
+
+    setOpen(false);
+  };
+
+  const keyPress = useCallback(
+    (e) => {
+      if (e.key === 'Escape' && open) {
+        e.preventDefault();
+        setOpen(false);
+      } else if (e.key === 'Enter' && open && option[0].type === '검색어') {
+        e.preventDefault();
+        handleSearch();
+        // setOpen(false);
+      }
+    },
+    [setOpen, open, handleSearch]
+  );
+
+  useEffect(() => {
+    document.addEventListener('keypress', keyPress);
+    return () => {
+      document.removeEventListener('keypress', keyPress);
+    };
+  }, [keyPress]);
 
   return (
     <>
@@ -139,7 +195,7 @@ export default function OptionModal({ open, setOpen, option }) {
             ) : (
               <>
                 <FormControl component="fieldset" style={{ margin: '0 auto' }}>
-                  <RadioGroup value={value} onChange={handleChange} row>
+                  <RadioGroup value={searchBy} onChange={handleChange} row>
                     <FormControlLabel
                       className={classes.radioLabel}
                       value="과목명"
@@ -168,7 +224,45 @@ export default function OptionModal({ open, setOpen, option }) {
                 </FormControl>
 
                 <DialogActions>
-                  <Button autoFocus onClick={handleClose} color="primary">
+                  <KeywordInputContainer>
+                    {searchBy === '과목명' ? (
+                      <input
+                        type="text"
+                        name="subjectName"
+                        value={subjectName}
+                        onChange={onChangeKeyword}
+                        placeholder="ex) 미적분학1"
+                      ></input>
+                    ) : null}
+                    {searchBy === '과목번호' ? (
+                      <input
+                        type="text"
+                        name="subjectCode"
+                        value={subjectCode}
+                        onChange={onChangeKeyword}
+                        placeholder="ex) CSE2035"
+                      ></input>
+                    ) : null}
+                    {searchBy === '교수명' ? (
+                      <input
+                        type="text"
+                        name="profName"
+                        value={profName}
+                        onChange={onChangeKeyword}
+                        placeholder="교수명"
+                      ></input>
+                    ) : null}
+                    {searchBy === '강의실' ? (
+                      <input
+                        type="text"
+                        name="classRoom"
+                        value={classRoom}
+                        onChange={onChangeKeyword}
+                        placeholder="ex) J, J관, J107..."
+                      ></input>
+                    ) : null}
+                  </KeywordInputContainer>
+                  <Button type="submit" onClick={handleSearch} color="primary">
                     검색
                   </Button>
                 </DialogActions>

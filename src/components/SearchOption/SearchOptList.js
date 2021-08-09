@@ -49,7 +49,8 @@ const SearchOptList = () => {
   const [searchOption, setSearchOption] = useState({
     type: '검색어',
     data: ['test'],
-    selected: '',
+    searchBy: '', // 검색 타입
+    selected: '', // 검색 키워드
   });
 
   // api 요청보내는 option 값을 저장하기 위한 state
@@ -115,6 +116,7 @@ const SearchOptList = () => {
 
   const findSubjectByOption = (opt) => {
     if (semesterOption.selected) {
+      // TODO: 버튼누를때 다른버튼 비활성화
       setLoading(true);
       // 1. 학년도 학기를 바탕으로 해당 학기의 전공/영역 불러오기
       axios
@@ -153,6 +155,7 @@ const SearchOptList = () => {
     } else setSubjects([]);
   };
 
+  /***** 학년도/학기 옵션 선택 시 ****/
   useEffect(() => {
     if (semesterOption.selected) {
       const [fullYear, fullSemester] = semesterOption.selected.split('-'); // ex) [2021,2학기]
@@ -263,6 +266,31 @@ const SearchOptList = () => {
     }
   }, [creditOption.selected]);
 
+  /*************검색어 검색옵션 선택 시 ******************/
+  useEffect(() => {
+    if (searchOption.selected) {
+      const cleanSaveOption = removeFalseMember({
+        ...saveOption,
+        searchby: searchOption.searchBy,
+        keyword: searchOption.selected,
+      });
+      console.log('검색어 골랐을때', cleanSaveOption);
+      // findSubjectByOption(cleanSaveOption);
+      // setSaveOption(cleanSaveOption);
+    }
+    // 검색어 옵션 태그 제거했을때
+    else {
+      const cleanSaveOption = removeFalseMember({
+        ...saveOption,
+        searchBy: '',
+        selected: '',
+      });
+      console.log('검색어 태그 제거 시', cleanSaveOption);
+      // findSubjectByOption(cleanSaveOption);
+      // setSaveOption(cleanSaveOption);
+    }
+  }, [searchOption.selected]);
+
   return (
     <SectionContainer>
       <OptionContainer>
@@ -311,68 +339,70 @@ const SearchOptList = () => {
           검색어
         </OptBtn>
       </OptionContainer>
-      <TagContainer2>
-        {semesterOption.selected ? (
-          <Tag2
-            fontSize="13"
-            bgColor="#f0932b"
-            onClick={() => handleTagRemove(semesterOption, setSemesterOption)}
-          >
-            {semesterOption.selected}
-            <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
-          </Tag2>
-        ) : null}
-        {majorOption.selected ? (
-          <Tag2
-            fontSize="13"
-            bgColor="#ff7979"
-            onClick={() => handleTagRemove(majorOption, setMajorOption)}
-          >
-            {majorOption.selected}
-            <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
-          </Tag2>
-        ) : null}
-        {timeOption.selected ? (
-          <Tag2
-            fontSize="13"
-            bgColor="#22a6b3"
-            onClick={() => handleTagRemove(timeOption, setTimeOption)}
-          >
-            {timeOption.selected}
-            <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
-          </Tag2>
-        ) : null}
-        {gradeOption.selected ? (
-          <Tag2
-            fontSize="13"
-            bgColor="#badc58"
-            onClick={() => handleTagRemove(gradeOption, setGradeOption)}
-          >
-            {gradeOption.selected}
-            <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
-          </Tag2>
-        ) : null}
-        {creditOption.selected ? (
-          <Tag2
-            fontSize="13"
-            bgColor="#95afc0"
-            onClick={() => handleTagRemove(creditOption, setCreditOption)}
-          >
-            {creditOption.selected}
-            <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
-          </Tag2>
-        ) : null}
-        {searchOption.selected ? (
-          <Tag2
-            fontSize="13"
-            bgColor="#2e86de"
-            onClick={() => handleTagRemove(searchOption, setSearchOption)}
-          >
-            {searchOption.selected}
-            <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
-          </Tag2>
-        ) : null}
-      </TagContainer2>
+      {semesterOption.selected ? (
+        <TagContainer2>
+          {semesterOption.selected ? (
+            <Tag2
+              fontSize="13"
+              bgColor="#f0932b"
+              onClick={() => handleTagRemove(semesterOption, setSemesterOption)}
+            >
+              {semesterOption.selected}
+              <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
+            </Tag2>
+          ) : null}
+          {majorOption.selected ? (
+            <Tag2
+              fontSize="13"
+              bgColor="#ff7979"
+              onClick={() => handleTagRemove(majorOption, setMajorOption)}
+            >
+              {majorOption.selected}
+              <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
+            </Tag2>
+          ) : null}
+          {timeOption.selected ? (
+            <Tag2
+              fontSize="13"
+              bgColor="#22a6b3"
+              onClick={() => handleTagRemove(timeOption, setTimeOption)}
+            >
+              {timeOption.selected}
+              <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
+            </Tag2>
+          ) : null}
+          {gradeOption.selected ? (
+            <Tag2
+              fontSize="13"
+              bgColor="#badc58"
+              onClick={() => handleTagRemove(gradeOption, setGradeOption)}
+            >
+              {gradeOption.selected}
+              <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
+            </Tag2>
+          ) : null}
+          {creditOption.selected ? (
+            <Tag2
+              fontSize="13"
+              bgColor="#95afc0"
+              onClick={() => handleTagRemove(creditOption, setCreditOption)}
+            >
+              {creditOption.selected}
+              <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
+            </Tag2>
+          ) : null}
+          {searchOption.selected ? (
+            <Tag2
+              fontSize="13"
+              bgColor="#2e86de"
+              onClick={() => handleTagRemove(searchOption, setSearchOption)}
+            >
+              {searchOption.searchBy} : {searchOption.selected}
+              <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
+            </Tag2>
+          ) : null}
+        </TagContainer2>
+      ) : null}
 
       <OptionModal open={open} setOpen={setOpen} option={option}></OptionModal>
     </SectionContainer>

@@ -6,8 +6,8 @@ export const SectionContainer = styled.div`
   width: 100%;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   flex-wrap: wrap;
 `;
 
@@ -64,11 +64,20 @@ export const OptBtn = styled.button`
       /* background: #747d8c; */
       ${({ bgColor }) => bgColor && `background: ${bgColor};`}
     `}
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      cursor: default,
+      color: white;
+      background: #747d8c;
+      /* ${({ bgColor }) => bgColor && `background: ${bgColor};`} */
+    `}
 `;
 
 export const TagContainer2 = styled(TagContainer)`
   align-items: center;
-  padding: 10px;
+  padding: 8px;
   flex-wrap: wrap;
   cursor: pointer;
 `;
