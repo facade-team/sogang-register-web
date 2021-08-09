@@ -65,21 +65,25 @@ const SubList = () => {
   useEffect(() => {
     if (yearFlag === true) {
       yearFoldControler();
-      console.log('here!');
+      // console.log('here!');
     }
   }, [yearFlag]);
 
   const yearControler = () => {
     if (YearSubOption === true) {
       if (yearSelectedOption.length !== 0) {
-        setYearFoldActivated(false);
+        if (yearFoldActivated === true) {
+          setYearFoldActivated(false);
+        } else {
+          setYearFoldActivated(true);
+        }
       } else {
         setYearSubOption(false);
       }
     } else {
       setYearSubOption(true);
       setYearFoldActivated(true);
-      console.log('here!!!!!');
+      // console.log('here!!!!!');
     }
   };
 
@@ -126,7 +130,7 @@ const SubList = () => {
         yearlist.splice(idx, 1);
         if (yearlist.length === 0) {
           setYearFlag(true);
-          console.log(yearFlag);
+          // console.log(yearFlag);
         }
       }
       yearlist.sort();
@@ -137,21 +141,25 @@ const SubList = () => {
   useEffect(() => {
     if (profFlag === true) {
       profFoldControler();
-      console.log('here!');
+      // console.log('here!');
     }
   }, [profFlag]);
 
   const profControler = () => {
     if (ProfSubOption === true) {
       if (profSelectedOption.length !== 0) {
-        setProfFoldActivated(false);
+        if (profFoldActivated === true) {
+          setProfFoldActivated(false);
+        } else {
+          setProfFoldActivated(true);
+        }
       } else {
         setProfSubOption(false);
       }
     } else {
       setProfSubOption(true);
       setProfFoldActivated(true);
-      console.log('here!!!!!');
+      // console.log('here!!!!!');
     }
   };
 
@@ -198,7 +206,7 @@ const SubList = () => {
         proflist.splice(idx, 1);
         if (proflist.length === 0) {
           setProfFlag(true);
-          console.log(profFlag);
+          // console.log(profFlag);
         }
       }
       proflist.sort();
@@ -209,21 +217,25 @@ const SubList = () => {
   useEffect(() => {
     if (timeFlag === true) {
       timeFoldControler();
-      console.log('here!');
+      // console.log('here!');
     }
   }, [timeFlag]);
 
   const timeControler = () => {
     if (TimeSubOption === true) {
       if (timeSelectedOption.length !== 0) {
-        setTimeFoldActivated(false);
+        if (timeFoldActivated === true) {
+          setTimeFoldActivated(false);
+        } else {
+          setTimeFoldActivated(true);
+        }
       } else {
         setTimeSubOption(false);
       }
     } else {
       setTimeSubOption(true);
       setTimeFoldActivated(true);
-      console.log('here!!!!!');
+      // console.log('here!!!!!');
     }
   };
 
@@ -270,7 +282,7 @@ const SubList = () => {
         timelist.splice(idx, 1);
         if (timelist.length === 0) {
           setTimeFlag(true);
-          console.log(timeFlag);
+          // console.log(timeFlag);
         }
       }
       timelist.sort();
@@ -281,21 +293,25 @@ const SubList = () => {
   useEffect(() => {
     if (langFlag === true) {
       langFoldControler();
-      console.log('here!');
+      // console.log('here!');
     }
   }, [langFlag]);
 
   const langControler = () => {
     if (LangSubOption === true) {
       if (langSelectedOption.length !== 0) {
-        setLangFoldActivated(false);
+        if (langFoldActivated === true) {
+          setLangFoldActivated(false);
+        } else {
+          setLangFoldActivated(true);
+        }
       } else {
         setLangSubOption(false);
       }
     } else {
       setLangSubOption(true);
       setLangFoldActivated(true);
-      console.log('here!!!!!');
+      // console.log('here!!!!!');
     }
   };
 
@@ -342,7 +358,7 @@ const SubList = () => {
         langlist.splice(idx, 1);
         if (langlist.length === 0) {
           setLangFlag(true);
-          console.log(langFlag);
+          // console.log(langFlag);
         }
       }
       langlist.sort();
@@ -353,21 +369,25 @@ const SubList = () => {
   useEffect(() => {
     if (zoomFlag === true) {
       zoomFoldControler();
-      console.log('here!');
+      // console.log('here!');
     }
   }, [zoomFlag]);
 
   const zoomControler = () => {
     if (ZoomSubOption === true) {
       if (zoomSelectedOption.length !== 0) {
-        setZoomFoldActivated(false);
+        if (zoomFoldActivated === true) {
+          setZoomFoldActivated(false);
+        } else {
+          setZoomFoldActivated(true);
+        }
       } else {
         setZoomSubOption(false);
       }
     } else {
       setZoomSubOption(true);
       setZoomFoldActivated(true);
-      console.log('here!!!!!');
+      // console.log('here!!!!!');
     }
   };
 
@@ -414,7 +434,7 @@ const SubList = () => {
         zoomlist.splice(idx, 1);
         if (zoomlist.length === 0) {
           setZoomFlag(true);
-          console.log(zoomFlag);
+          // console.log(zoomFlag);
         }
       }
       zoomlist.sort();
@@ -457,7 +477,7 @@ const SubList = () => {
   return (
     <SectionContainer>
       <OptionContainer>
-        <List name="수강대상" focused={YearSubOption}></List>
+        {/* <List name="수강대상" focused={YearSubOption}></List> */}
         <List name="교수" focused={ProfSubOption}></List>
         <List name="수업교시" focused={TimeSubOption}></List>
         <List name="강의언어" focused={LangSubOption}></List>
@@ -527,7 +547,7 @@ const SubList = () => {
         ? subOptionData.map((subject) =>
             profFoldActivated === true ? (
               <CheckboxContainer>
-                <ScrollArea section={2} number={2}>
+                <ScrollArea section={2} number={1}>
                   <ScrollBarArea>
                     {subject.ProfArray.map((subdata, num) => (
                       <CheckContainer>
@@ -585,7 +605,7 @@ const SubList = () => {
         ? subOptionData.map((subject) =>
             timeFoldActivated === true ? (
               <CheckboxContainer>
-                <ScrollArea section={2} number={3}>
+                <ScrollArea section={2} number={2}>
                   <ScrollBarArea>
                     {subject.TimeArray.map((subdata, num) => (
                       <CheckContainer>
@@ -643,7 +663,7 @@ const SubList = () => {
         ? subOptionData.map((subject) =>
             langFoldActivated === true ? (
               <CheckboxContainer>
-                <ScrollArea section={2} number={4}>
+                <ScrollArea section={2} number={3}>
                   <ScrollBarArea>
                     {subject.LangArray.map((subdata, num) => (
                       <CheckContainer>
@@ -701,7 +721,7 @@ const SubList = () => {
         ? subOptionData.map((subject) =>
             zoomFoldActivated === true ? (
               <CheckboxContainer>
-                <ScrollArea section={2} number={5}>
+                <ScrollArea section={2} number={4}>
                   <ScrollBarArea>
                     {subject.ZoomArray.map((subdata, num) => (
                       <CheckContainer>

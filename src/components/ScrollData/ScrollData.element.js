@@ -6,7 +6,7 @@ export const ScrollArea = styled.div`
   background-color: white;
   box-shadow: 0px 3px 6px 2px rgba(0, 0, 0, 0.34);
   width: 120px;
-  border: 2px solid #9387AF;
+  border: 2px solid #9387af;
   border-radius: 20px;
   font-size: 14px;
 
@@ -15,13 +15,25 @@ export const ScrollArea = styled.div`
   padding-top: 35px;
   align-items: center;
   max-height: 200px;
-  left: ${(props)=>{
-    return `${-130+140*props.number}px`;
+  left: ${(props) => {
+    return `${-130 + 140 * props.number}px`;
   }};
-  top: ${(props)=>{
-    return `${-50+0*props.section}px`
+  top: ${(props) => {
+    return `${-50 + 0 * props.section}px`;
   }};
 
+  @media screen and (max-width: 909px) {
+    left: ${(props) => {
+      if (props.number === 4) {
+        return `10px`;
+      }
+    }};
+    top: ${(props) => {
+      if (props.number !== 4) {
+        return `-90px`;
+      }
+    }};
+  }
 `;
 
 export const FoldBtn = styled.button`
@@ -38,19 +50,19 @@ export const FoldBtn = styled.button`
 
   &:hover {
     cursor: pointer;
-    transform: scale(1.10);
+    transform: scale(1.1);
   }
 `;
 
 export const ScrollBarArea = styled.div`
-overflow-y: auto;
-overflow-x: hidden;
-display: flex;
-flex-wrap : wrap;
-justify-content: center;
-width: 90%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 90%;
 
-&::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 7px;
     background-clip: content-box;
   }
@@ -62,4 +74,4 @@ width: 90%;
     background-color: #f2f2f2;
     border-radius: 10px;
   }
-`
+`;
