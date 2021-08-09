@@ -41,7 +41,7 @@ export const SidebarContent = styled.div`
   flex-direction: column;
   align-items: center;
   margin-left: 5px;
-  height: inherit;
+  height: 100%;
 `;
 
 export const ServiceName = styled.div`

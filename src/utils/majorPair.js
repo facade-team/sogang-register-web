@@ -55,4 +55,8 @@ const majorsPair = majors.map((subject) => {
   return { value: subject, label: subject };
 });
 
+export const getOptionIndex = (major) => {
+  const m = major.map((subject) => majors.findIndex((e) => e === subject));
+};
+
 export default majorsPair;

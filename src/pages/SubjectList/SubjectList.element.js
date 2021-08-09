@@ -7,9 +7,9 @@ export const Container = styled.div`
   justify-content: space-around;
   align-items: center;
   height: 100%;
-  width: 90%;
+  width: 50%;
   min-width: 600px;
-  min-height: 300px;
+  min-height: 400px;
 `;
 
 export const OptionBtnContainer = styled.div`
@@ -23,11 +23,12 @@ export const OptionBtnContainer = styled.div`
 export const StackContent = styled.div`
   background-color: #ffffff;
   position: relative;
-  width: 30%;
+  width: 60%;
+  height: 80%;
   min-width: 250px;
   max-width: 450px;
-  max-height: 500px;
-  min-height: 600px;
+  max-height: 600px;
+  min-height: 300px;
   border-radius: 15px 15px 15px 15px;
   padding: 15px 20px;
   display: flex;

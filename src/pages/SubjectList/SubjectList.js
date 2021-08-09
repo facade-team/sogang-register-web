@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import GradationBtn from '../../components/GradationBtn/GradationBtn';
 import Subject from '../../components/SubjectCard/SubjectCard';
 
-import { data } from '../DummyData';
+//context
+import { useAuthContext } from '../../contexts/AuthContext';
 
 //styled
 import {
@@ -16,46 +18,42 @@ import {
 } from './SubjectList.element.js';
 
 const SubjectListComp = () => {
-  const [latestList, setLatestList] = useState(data);
-  const [favoriteList, setFavoriteList] = useState(data);
-
-  const clearLatestList = (e) => {
-    setLatestList([]);
-  };
+  const { isAuth, userData } = useAuthContext();
+  const [favoriteList, setFavoriteList] = useState([]);
 
   const clearFavoriteList = (e) => {
     setFavoriteList([]);
   };
 
+  useEffect(() => {
+    if (isAuth) {
+      axios.get('/favorites/').then((res) => {
+        if (res.data.data === undefined) {
+          setFavoriteList([]);
+        } else {
+          setFavoriteList(res.dat);
+        }
+      });
+
+      return () => {
+        axios
+          .post('/favorites/update', {
+            sub_id: favoriteList,
+          })
+          .then((res) => {
+            if (res.status === 201) {
+              console.log(res);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+    }
+  }, []);
+
   return (
     <Container>
-      {/* 최근 본 과목 */}
-      <StackContent>
-        <TrashBtn size={20} onClick={clearLatestList}></TrashBtn>
-        <OptionBtnContainer>
-          <GradationBtn
-            width={120}
-            borderRadius={20}
-            active={true}
-            mouseover={false}
-          >
-            최근 본 과목
-          </GradationBtn>
-        </OptionBtnContainer>
-        <SubjectList>
-          {latestList.map((sub, index) => (
-            <>
-              <Subject
-                key={sub.subject_id}
-                subject={sub}
-                active={false}
-              ></Subject>
-              {index !== latestList.length - 1 && <Divider></Divider>}
-            </>
-          ))}
-        </SubjectList>
-      </StackContent>
-
       {/* 즐겨찾기 */}
       <StackContent>
         <TrashBtn size={20} onClick={clearFavoriteList}></TrashBtn>
@@ -77,7 +75,7 @@ const SubjectListComp = () => {
                 subject={sub}
                 active={false}
               ></Subject>
-              {index !== latestList.length - 1 && <Divider></Divider>}
+              {index !== favoriteList.length - 1 && <Divider></Divider>}
             </>
           ))}
         </SubjectList>

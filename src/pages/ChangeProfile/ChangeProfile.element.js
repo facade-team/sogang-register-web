@@ -7,7 +7,7 @@ export const ContainerBox = styled.div`
   align-items: center;
   justify-content: center;
   height: 100%;
-  width: 90%;
+  width: 100%;
   min-width: 600px;
   min-height: 300px;
 `;

@@ -9,7 +9,10 @@ import { Tag, TagContainer } from '../Card/Card.element';
 
 const SubjectCard = ({ subject, onClick, active }) => {
   return (
-    <Subject onClick={() => (active ? onClick(subject.subject_id) : null)}>
+    <Subject
+      key={subject.subject_id}
+      onClick={() => (active ? onClick(subject.subject_id) : null)}
+    >
       <SubjectNameInList font={14}>{subject.과목명}</SubjectNameInList>
       <TagContainer>
         {subject.비대면여부 && <Tag untact>비대면</Tag>}

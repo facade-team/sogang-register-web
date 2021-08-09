@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import { useAuthContext } from '../../contexts/AuthContext';
+import { useSnackBarContext } from '../../contexts/SnackBarContext';
+
 //hooks
 import useInput from '../../hooks/useInput';
-
-//context
-import { useSnackBarContext } from '../../contexts/SnackBarContext';
-import { useAuthContext } from '../../contexts/AuthContext';
 
 //component
 import GradationBtn from '../../components/GradationBtn/GradationBtn';
@@ -15,24 +14,28 @@ import Title from '../../components/Title/Title';
 //styled
 import {
   ContainerBox,
-  Input,
   FormContainer,
-  FormGroup,
-  Label,
-} from './ChangePassword.element';
+} from '../ChangePassword/ChangePassword.element';
 import {
   Container,
   HomeContainer as MyPageContainer,
 } from '../../styles/HomeContainer';
+import { FormGroup, Input } from './AuthCode.element.js';
 
-const ChangePassword = ({ openModal }) => {
+const AuthCode = ({ openModal }) => {
   const { setSnackBar } = useSnackBarContext();
   const { isAuth, userData } = useAuthContext();
   const [form, onChangeForm] = useInput({
-    currentPassword: '',
-    newPassword: '',
-    checkPassword: '',
+    code: '',
   });
+  const [state, setState] = useState({
+    open: true,
+    vertical: 'top',
+    horizontal: 'center',
+  });
+
+  const { vertical, horizontal, open } = state;
+  const { code } = form;
 
   //useEffect
   useEffect(() => {
@@ -45,25 +48,29 @@ const ChangePassword = ({ openModal }) => {
     }
   }, [isAuth]);
 
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
   const onClick = (e) => {
-    if (newPassword === checkPassword) {
+    if (isAuth) {
       axios
-        .post('/privacy/passwordchange', {
-          old_password: currentPassword,
-          new_password: newPassword,
+        .post('/user/confirmsecret', {
+          email: userData.email,
+          script: code,
         })
         .then((res) => {
           setSnackBar({
             type: 'success',
-            msg: '새로운 비밀번호로 변경되었습니다.',
+            msg: '이메일 인증에 성공하였습니다.',
           });
         })
         .catch((err) => {
-          console.log(err);
-          if (err.response.status === 401) {
+          if (err.response.status === 401 || err.response.status === 402) {
+            console.log(err);
             setSnackBar({
               type: 'error',
-              msg: '이전 비밀번호가 일치하지 않습니다.',
+              msg: '123',
             });
           } else {
             setSnackBar({
@@ -75,47 +82,32 @@ const ChangePassword = ({ openModal }) => {
     } else {
       setSnackBar({
         type: 'error',
-        msg: '새 비밀번호와 비밀번호 확인이 일치하지 않습니다',
+        msg: '로그인해주세요',
       });
     }
   };
 
-  const { currentPassword, newPassword, checkPassword } = form;
-
   return (
     <Container>
       <MyPageContainer navigation="Mypage">
-        <Title title="마이페이지/비밀번호 변경" openModal={openModal}></Title>
+        <Title title="마이페이지/이메일 인증" openModal={openModal}></Title>
         {isAuth ? (
           <ContainerBox>
             <FormContainer>
+              <p>이메일 인증코드를 입력해주세요</p>
+              <br></br>
               <FormGroup>
-                <Label htmlFor="currentPassword">현재 비밀번호</Label>
                 <Input
-                  type="password"
-                  name="currentPassword"
-                  id="currentPassword"
-                  value={currentPassword}
+                  tyle="email"
+                  value={userData.email}
                   onChange={onChangeForm}
-                />
+                  readOnly
+                ></Input>
               </FormGroup>
               <FormGroup>
-                <Label htmlFor="newPassword">새 비밀번호</Label>
                 <Input
-                  type="password"
-                  name="newPassword"
-                  id="newPassword"
-                  value={newPassword}
-                  onChange={onChangeForm}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="checkPassword">새 비밀번호 확인</Label>
-                <Input
-                  type="password"
-                  name="checkPassword"
-                  id="checkPassword"
-                  value={checkPassword}
+                  value={code}
+                  placeholder="인증코드"
                   onChange={onChangeForm}
                 />
               </FormGroup>
@@ -136,4 +128,4 @@ const ChangePassword = ({ openModal }) => {
   );
 };
 
-export default ChangePassword;
+export default AuthCode;

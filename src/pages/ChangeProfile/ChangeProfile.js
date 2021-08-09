@@ -8,10 +8,11 @@ import GradationBtn from '../../components/GradationBtn/GradationBtn';
 import Title from '../../components/Title/Title';
 
 // 전공리스트
-import majorsPair from '../../utils/majorPair';
+import majorsPair, { getOptionIndex } from '../../utils/majorPair';
 
 // context API
 import { useAuthContext } from '../../contexts/AuthContext';
+import { useSnackBarContext } from '../../contexts/SnackBarContext';
 
 import {
   ContainerBox,
@@ -32,18 +33,42 @@ import {
   Container,
   HomeContainer as MyPageContainer,
 } from '../../styles/HomeContainer';
-import { setCacheNameDetails } from 'workbox-core';
 
 const ChangeProfile = ({ openModal }) => {
-  const { userData } = useAuthContext();
+  const { isAuth, userData, setUserData } = useAuthContext();
+  const { setSnackBar } = useSnackBarContext();
   const [major, setMajor] = useState(false);
+  const [defaultMajorOption, setDefaultMajorOption] = useState([]);
   const [form, onChangeForm] = useInput({
     email: userData.email, // api로 초기값 설정
   });
 
   const { email } = form;
 
-  const [checkBoxValue, setCheckBoxValue] = useState(false); //api로 초기값 설정
+  const [checkBoxValue, setCheckBoxValue] = useState(userData.allowEmail); //api로 초기값 설정
+
+  //useEffect
+  // useEffect(() => {
+  //   if (userData) {
+  //     console.log(userData.major);
+  //     const m = userData.major;
+  //     setDefaultMajorOption(
+  //       m.map((subject) => {
+  //         return { value: subject, label: subject };
+  //       })
+  //     );
+  //   }
+  // }, [userData]);
+
+  useEffect(() => {
+    if (!isAuth) {
+      openModal();
+      setSnackBar({
+        type: 'error',
+        msg: '로그인이 필요합니다.',
+      });
+    }
+  }, [userData]);
 
   const onChange = (e) => {
     const selectedMajor = e.map((items) => items.value); // 배열형태
@@ -56,94 +81,101 @@ const ChangeProfile = ({ openModal }) => {
 
   const onClick = (e) => {
     e.preventDefault();
-    // TODO: api가 없네..?
-    // axios
-    //   .post('/', {
-    //     email,
-    //     major
-    //   })
-    //   .then((res) => {
-    //     if (res.status === 201) {
-    //       // setMajor();
-    //       // onChangeForm();
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    if (isAuth) {
+      axios
+        .post('/user/majoremail', {
+          major: major,
+          allow_email: checkBoxValue,
+        })
+        .then((res) => {
+          console.log(res);
+          console.log(major, checkBoxValue);
+          setUserData({
+            major: major,
+            allow_email: checkBoxValue,
+            ...userData,
+          });
+          setSnackBar({
+            type: 'success',
+            msg: '프로필 수정에 성공하였습니다.',
+          });
+        })
+        .catch((err) => {
+          // setSnackBar({
+          //   type: 'error',
+          //   msg: '이전 비밀번호가 일치하지 않습니다.',
+          // });
+        });
+    } else {
+      setSnackBar({
+        value: true,
+        message: '새 비밀번호와 비밀번호 확인이 일치하지 않습니다',
+      });
+    }
   };
 
   return (
     <Container>
       <MyPageContainer navigation="Mypage">
         <Title title="마이페이지/프로필 수정" openModal={openModal}></Title>
-        <ContainerBox>
-          {/* <Profile>
-        <ProfileContainer>
-          <Avatar>
-            <IoPersonCircleOutline
-              size="80"
-              color="#7F7F7F"
-            ></IoPersonCircleOutline>
-          </Avatar>
+        {isAuth ? (
+          <>
+            <ContainerBox>
+              <FormContainer>
+                <FormGroup>
+                  <Label htmlFor="email">이메일</Label>
+                  <Input
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={userData.email}
+                    onChange={onChangeForm}
+                    readOnly
+                  />
+                </FormGroup>
 
-          <Detail>
-            <Name>{userData.username}</Name>
-            <Major>{userData.major[0]} 전공</Major>
-            <Major>컴퓨터공학 전공</Major>
-          </Detail>
-        </ProfileContainer>
-      </Profile> */}
-          <FormContainer>
-            <FormGroup>
-              <Label htmlFor="email">이메일</Label>
-              <Input
-                type="email"
-                name="email"
-                id="email"
-                value={email}
-                onChange={onChangeForm}
-              />
-            </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="majors">전공 </Label>
+                  <SelectForm
+                    // value={{ label: '컴퓨터공학' }} TODO: default value -> state
+                    // value={}
+                    options={majorsPair}
+                    isSearchable
+                    isClearable
+                    isMulti
+                    placeholder=""
+                    onChange={onChange}
+                  ></SelectForm>
+                </FormGroup>
 
-            <FormGroup>
-              <Label htmlFor="majors">전공 </Label>
-              <SelectForm
-                // value={{ label: '컴퓨터공학' }} TODO: default value -> state
-                options={majorsPair}
-                isSearchable
-                isClearable
-                isMulti
-                placeholder=""
-                onChange={onChange}
-              ></SelectForm>
-            </FormGroup>
-
-            <MailAllow>
-              <Label htmlFor="allow">
-                <p>
-                  즐겨찾기한 교과목의 정보 업데이트 시 이메일 수신에 동의합니다.
-                </p>
-              </Label>
-              <Input
-                type="checkbox"
-                name="admit"
-                id="allow"
-                checked={checkBoxValue}
-                onChange={() => setCheckBoxValue(!checkBoxValue)}
-              />
-            </MailAllow>
-            <br></br>
-            <GradationBtn
-              width={200}
-              borderRadius={20}
-              active
-              onClick={onClick}
-            >
-              수정
-            </GradationBtn>
-          </FormContainer>
-        </ContainerBox>
+                <MailAllow>
+                  <Label htmlFor="allow">
+                    <p>
+                      즐겨찾기한 교과목의 정보 업데이트 시 이메일 수신에
+                      동의합니다.
+                    </p>
+                  </Label>
+                  <Input
+                    type="checkbox"
+                    name="admit"
+                    id="allow"
+                    checked={checkBoxValue}
+                    onChange={() => setCheckBoxValue(!checkBoxValue)}
+                  />
+                </MailAllow>
+                <br></br>
+                <GradationBtn
+                  width={200}
+                  borderRadius={20}
+                  active
+                  onClick={onClick}
+                >
+                  수정
+                </GradationBtn>
+              </FormContainer>
+            </ContainerBox>
+          </>
+        ) : null}
       </MyPageContainer>
     </Container>
   );

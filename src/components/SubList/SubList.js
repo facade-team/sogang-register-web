@@ -484,300 +484,298 @@ const SubList = () => {
         <List name="대면수업" focused={ZoomSubOption}></List>
       </OptionContainer>
 
-      {YearSubOption === true ? (
-        subOptionData.map((subject) =>
-          yearFoldActivated === true ? (
-            <CheckboxContainer>
-              <ScrollArea section={2} number={1}>
-                <ScrollBarArea>
-                  {subject.YearArray.map((subdata, num) => (
-                    <CheckContainer>
-                      <SubContainer>
-                        <input
-                          type="checkbox"
-                          id={num}
-                          style={{
-                            width: '15px',
-                            height: '15px',
-                            marginRight: '8px',
-                          }}
-                          checked={
-                            yearSelectedOption.indexOf(subdata) === -1
-                              ? false
-                              : true
-                          }
-                          onChange={() => yearAddSelected(subdata)}
-                        />
-                        <ChkLabel
-                          for={num}
-                          checked={yearSelectedOption.indexOf(subdata)}
-                        >
-                          {subdata}
-                        </ChkLabel>
-                      </SubContainer>
-                    </CheckContainer>
-                  ))}
-                </ScrollBarArea>
-                <FoldBtn
-                  onClick={() => {
-                    yearFoldControler();
-                  }}
-                >
-                  접기 ∧
-                </FoldBtn>
-              </ScrollArea>
-              <div></div>
-            </CheckboxContainer>
-          ) : (
-            <FilterArea>
-              현재 선택된 필터 :
-              {yearSelectedOption.map((subject) => (
-                <CurrentFilterList
-                  onClick={() => {
-                    yearMinusSelected(subject);
-                  }}
-                >
-                  {subject} x
-                </CurrentFilterList>
-              ))}
-            </FilterArea>
+      {YearSubOption === true
+        ? subOptionData.map((subject) =>
+            yearFoldActivated === true ? (
+              <CheckboxContainer>
+                <ScrollArea section={2} number={1}>
+                  <ScrollBarArea>
+                    {subject.YearArray.map((subdata, num) => (
+                      <CheckContainer>
+                        <SubContainer>
+                          <input
+                            type="checkbox"
+                            id={num}
+                            style={{
+                              width: '15px',
+                              height: '15px',
+                              marginRight: '8px',
+                            }}
+                            checked={
+                              yearSelectedOption.indexOf(subdata) === -1
+                                ? false
+                                : true
+                            }
+                            onChange={() => yearAddSelected(subdata)}
+                          />
+                          <ChkLabel
+                            for={num}
+                            checked={yearSelectedOption.indexOf(subdata)}
+                          >
+                            {subdata}
+                          </ChkLabel>
+                        </SubContainer>
+                      </CheckContainer>
+                    ))}
+                  </ScrollBarArea>
+                  <FoldBtn
+                    onClick={() => {
+                      yearFoldControler();
+                    }}
+                  >
+                    접기 ∧
+                  </FoldBtn>
+                </ScrollArea>
+                <div></div>
+              </CheckboxContainer>
+            ) : (
+              <FilterArea>
+                현재 선택된 필터 :
+                {yearSelectedOption.map((subject) => (
+                  <CurrentFilterList
+                    onClick={() => {
+                      yearMinusSelected(subject);
+                    }}
+                  >
+                    {subject} x
+                  </CurrentFilterList>
+                ))}
+              </FilterArea>
+            )
           )
-        )
-      ) : ProfSubOption === true ? (
-        subOptionData.map((subject) =>
-          profFoldActivated === true ? (
-            <CheckboxContainer>
-              <ScrollArea section={2} number={1}>
-                <ScrollBarArea>
-                  {subject.ProfArray.map((subdata, num) => (
-                    <CheckContainer>
-                      <SubContainer>
-                        <input
-                          type="checkbox"
-                          id={num}
-                          style={{
-                            width: '15px',
-                            height: '15px',
-                            marginRight: '8px',
-                          }}
-                          checked={
-                            profSelectedOption.indexOf(subdata) === -1
-                              ? false
-                              : true
-                          }
-                          onChange={() => profAddSelected(subdata)}
-                        />
-                        <ChkLabel
-                          for={num}
-                          checked={profSelectedOption.indexOf(subdata)}
-                        >
-                          {subdata}
-                        </ChkLabel>
-                      </SubContainer>
-                    </CheckContainer>
-                  ))}
-                </ScrollBarArea>
-                <FoldBtn
-                  onClick={() => {
-                    profFoldControler();
-                  }}
-                >
-                  접기 ∧
-                </FoldBtn>
-              </ScrollArea>
-            </CheckboxContainer>
-          ) : (
-            <FilterArea>
-              현재 선택된 필터 :
-              {profSelectedOption.map((subject) => (
-                <CurrentFilterList
-                  onClick={() => {
-                    profMinusSelected(subject);
-                  }}
-                >
-                  {subject} x
-                </CurrentFilterList>
-              ))}
-            </FilterArea>
+        : ProfSubOption === true
+        ? subOptionData.map((subject) =>
+            profFoldActivated === true ? (
+              <CheckboxContainer>
+                <ScrollArea section={2} number={1}>
+                  <ScrollBarArea>
+                    {subject.ProfArray.map((subdata, num) => (
+                      <CheckContainer>
+                        <SubContainer>
+                          <input
+                            type="checkbox"
+                            id={num}
+                            style={{
+                              width: '15px',
+                              height: '15px',
+                              marginRight: '8px',
+                            }}
+                            checked={
+                              profSelectedOption.indexOf(subdata) === -1
+                                ? false
+                                : true
+                            }
+                            onChange={() => profAddSelected(subdata)}
+                          />
+                          <ChkLabel
+                            for={num}
+                            checked={profSelectedOption.indexOf(subdata)}
+                          >
+                            {subdata}
+                          </ChkLabel>
+                        </SubContainer>
+                      </CheckContainer>
+                    ))}
+                  </ScrollBarArea>
+                  <FoldBtn
+                    onClick={() => {
+                      profFoldControler();
+                    }}
+                  >
+                    접기 ∧
+                  </FoldBtn>
+                </ScrollArea>
+              </CheckboxContainer>
+            ) : (
+              <FilterArea>
+                현재 선택된 필터 :
+                {profSelectedOption.map((subject) => (
+                  <CurrentFilterList
+                    onClick={() => {
+                      profMinusSelected(subject);
+                    }}
+                  >
+                    {subject} x
+                  </CurrentFilterList>
+                ))}
+              </FilterArea>
+            )
           )
-        )
-      ) : TimeSubOption === true ? (
-        subOptionData.map((subject) =>
-          timeFoldActivated === true ? (
-            <CheckboxContainer>
-              <ScrollArea section={2} number={2}>
-                <ScrollBarArea>
-                  {subject.TimeArray.map((subdata, num) => (
-                    <CheckContainer>
-                      <SubContainer>
-                        <input
-                          type="checkbox"
-                          id={num}
-                          style={{
-                            width: '15px',
-                            height: '15px',
-                            marginRight: '8px',
-                          }}
-                          checked={
-                            timeSelectedOption.indexOf(subdata) === -1
-                              ? false
-                              : true
-                          }
-                          onChange={() => timeAddSelected(subdata)}
-                        />
-                        <ChkLabel
-                          for={num}
-                          checked={timeSelectedOption.indexOf(subdata)}
-                        >
-                          {subdata}
-                        </ChkLabel>
-                      </SubContainer>
-                    </CheckContainer>
-                  ))}
-                </ScrollBarArea>
-                <FoldBtn
-                  onClick={() => {
-                    timeFoldControler();
-                  }}
-                >
-                  접기 ∧
-                </FoldBtn>
-              </ScrollArea>
-            </CheckboxContainer>
-          ) : (
-            <FilterArea>
-              현재 선택된 필터 :
-              {timeSelectedOption.map((subject) => (
-                <CurrentFilterList
-                  onClick={() => {
-                    timeMinusSelected(subject);
-                  }}
-                >
-                  {subject} x
-                </CurrentFilterList>
-              ))}
-            </FilterArea>
+        : TimeSubOption === true
+        ? subOptionData.map((subject) =>
+            timeFoldActivated === true ? (
+              <CheckboxContainer>
+                <ScrollArea section={2} number={2}>
+                  <ScrollBarArea>
+                    {subject.TimeArray.map((subdata, num) => (
+                      <CheckContainer>
+                        <SubContainer>
+                          <input
+                            type="checkbox"
+                            id={num}
+                            style={{
+                              width: '15px',
+                              height: '15px',
+                              marginRight: '8px',
+                            }}
+                            checked={
+                              timeSelectedOption.indexOf(subdata) === -1
+                                ? false
+                                : true
+                            }
+                            onChange={() => timeAddSelected(subdata)}
+                          />
+                          <ChkLabel
+                            for={num}
+                            checked={timeSelectedOption.indexOf(subdata)}
+                          >
+                            {subdata}
+                          </ChkLabel>
+                        </SubContainer>
+                      </CheckContainer>
+                    ))}
+                  </ScrollBarArea>
+                  <FoldBtn
+                    onClick={() => {
+                      timeFoldControler();
+                    }}
+                  >
+                    접기 ∧
+                  </FoldBtn>
+                </ScrollArea>
+              </CheckboxContainer>
+            ) : (
+              <FilterArea>
+                현재 선택된 필터 :
+                {timeSelectedOption.map((subject) => (
+                  <CurrentFilterList
+                    onClick={() => {
+                      timeMinusSelected(subject);
+                    }}
+                  >
+                    {subject} x
+                  </CurrentFilterList>
+                ))}
+              </FilterArea>
+            )
           )
-        )
-      ) : LangSubOption === true ? (
-        subOptionData.map((subject) =>
-          langFoldActivated === true ? (
-            <CheckboxContainer>
-              <ScrollArea section={2} number={3}>
-                <ScrollBarArea>
-                  {subject.LangArray.map((subdata, num) => (
-                    <CheckContainer>
-                      <SubContainer>
-                        <input
-                          type="checkbox"
-                          id={num}
-                          style={{
-                            width: '15px',
-                            height: '15px',
-                            marginRight: '8px',
-                          }}
-                          checked={
-                            langSelectedOption.indexOf(subdata) === -1
-                              ? false
-                              : true
-                          }
-                          onChange={() => langAddSelected(subdata)}
-                        />
-                        <ChkLabel
-                          for={num}
-                          checked={langSelectedOption.indexOf(subdata)}
-                        >
-                          {subdata}
-                        </ChkLabel>
-                      </SubContainer>
-                    </CheckContainer>
-                  ))}
-                </ScrollBarArea>
-                <FoldBtn
-                  onClick={() => {
-                    langFoldControler();
-                  }}
-                >
-                  접기 ∧
-                </FoldBtn>
-              </ScrollArea>
-            </CheckboxContainer>
-          ) : (
-            <FilterArea>
-              현재 선택된 필터 :
-              {langSelectedOption.map((subject) => (
-                <CurrentFilterList
-                  onClick={() => {
-                    langMinusSelected(subject);
-                  }}
-                >
-                  {subject} x
-                </CurrentFilterList>
-              ))}
-            </FilterArea>
+        : LangSubOption === true
+        ? subOptionData.map((subject) =>
+            langFoldActivated === true ? (
+              <CheckboxContainer>
+                <ScrollArea section={2} number={3}>
+                  <ScrollBarArea>
+                    {subject.LangArray.map((subdata, num) => (
+                      <CheckContainer>
+                        <SubContainer>
+                          <input
+                            type="checkbox"
+                            id={num}
+                            style={{
+                              width: '15px',
+                              height: '15px',
+                              marginRight: '8px',
+                            }}
+                            checked={
+                              langSelectedOption.indexOf(subdata) === -1
+                                ? false
+                                : true
+                            }
+                            onChange={() => langAddSelected(subdata)}
+                          />
+                          <ChkLabel
+                            for={num}
+                            checked={langSelectedOption.indexOf(subdata)}
+                          >
+                            {subdata}
+                          </ChkLabel>
+                        </SubContainer>
+                      </CheckContainer>
+                    ))}
+                  </ScrollBarArea>
+                  <FoldBtn
+                    onClick={() => {
+                      langFoldControler();
+                    }}
+                  >
+                    접기 ∧
+                  </FoldBtn>
+                </ScrollArea>
+              </CheckboxContainer>
+            ) : (
+              <FilterArea>
+                현재 선택된 필터 :
+                {langSelectedOption.map((subject) => (
+                  <CurrentFilterList
+                    onClick={() => {
+                      langMinusSelected(subject);
+                    }}
+                  >
+                    {subject} x
+                  </CurrentFilterList>
+                ))}
+              </FilterArea>
+            )
           )
-        )
-      ) : ZoomSubOption === true ? (
-        subOptionData.map((subject) =>
-          zoomFoldActivated === true ? (
-            <CheckboxContainer>
-              <ScrollArea section={2} number={4}>
-                <ScrollBarArea>
-                  {subject.ZoomArray.map((subdata, num) => (
-                    <CheckContainer>
-                      <SubContainer>
-                        <input
-                          type="checkbox"
-                          id={num}
-                          style={{
-                            width: '15px',
-                            height: '15px',
-                            marginRight: '8px',
-                          }}
-                          checked={
-                            zoomSelectedOption.indexOf(subdata) === -1
-                              ? false
-                              : true
-                          }
-                          onChange={() => zoomAddSelected(subdata)}
-                        />
-                        <ChkLabel
-                          for={num}
-                          checked={zoomSelectedOption.indexOf(subdata)}
-                        >
-                          {subdata}
-                        </ChkLabel>
-                      </SubContainer>
-                    </CheckContainer>
-                  ))}
-                </ScrollBarArea>
-                <FoldBtn
-                  onClick={() => {
-                    zoomFoldControler();
-                  }}
-                >
-                  접기 ∧
-                </FoldBtn>
-              </ScrollArea>
-            </CheckboxContainer>
-          ) : (
-            <FilterArea>
-              현재 선택된 필터 :
-              {zoomSelectedOption.map((subject) => (
-                <CurrentFilterList
-                  onClick={() => {
-                    zoomMinusSelected(subject);
-                  }}
-                >
-                  {subject} x
-                </CurrentFilterList>
-              ))}
-            </FilterArea>
+        : ZoomSubOption === true
+        ? subOptionData.map((subject) =>
+            zoomFoldActivated === true ? (
+              <CheckboxContainer>
+                <ScrollArea section={2} number={4}>
+                  <ScrollBarArea>
+                    {subject.ZoomArray.map((subdata, num) => (
+                      <CheckContainer>
+                        <SubContainer>
+                          <input
+                            type="checkbox"
+                            id={num}
+                            style={{
+                              width: '15px',
+                              height: '15px',
+                              marginRight: '8px',
+                            }}
+                            checked={
+                              zoomSelectedOption.indexOf(subdata) === -1
+                                ? false
+                                : true
+                            }
+                            onChange={() => zoomAddSelected(subdata)}
+                          />
+                          <ChkLabel
+                            for={num}
+                            checked={zoomSelectedOption.indexOf(subdata)}
+                          >
+                            {subdata}
+                          </ChkLabel>
+                        </SubContainer>
+                      </CheckContainer>
+                    ))}
+                  </ScrollBarArea>
+                  <FoldBtn
+                    onClick={() => {
+                      zoomFoldControler();
+                    }}
+                  >
+                    접기 ∧
+                  </FoldBtn>
+                </ScrollArea>
+              </CheckboxContainer>
+            ) : (
+              <FilterArea>
+                현재 선택된 필터 :
+                {zoomSelectedOption.map((subject) => (
+                  <CurrentFilterList
+                    onClick={() => {
+                      zoomMinusSelected(subject);
+                    }}
+                  >
+                    {subject} x
+                  </CurrentFilterList>
+                ))}
+              </FilterArea>
+            )
           )
-        )
-      ) : (
-        <div>세부옵션을 선택해 주세요</div>
-      )}
+        : null}
     </SectionContainer>
   );
 };

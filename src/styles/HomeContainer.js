@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 100%;
+  height: auto;
 `;
 
 export const HomeContainer = styled.div`
@@ -18,9 +18,10 @@ export const HomeContainer = styled.div`
     }
   }}
   min-width: 600px;
-  height: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: start;
   padding: 40px 50px 40px 50px;
+  overflow: auto;
 `;
