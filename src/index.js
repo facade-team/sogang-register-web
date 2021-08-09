@@ -10,9 +10,9 @@ import { LoadingProvider } from './contexts/LoadingContext';
 import { SnackBarProvider } from './contexts/SnackBarContext';
 import { SubjectProvider } from './contexts/SubjectContext';
 
-axios.defaults.baseURL = 'http://3.130.245.129:80/';
+axios.defaults.baseURL = 'http://api.sogang-sincheong.com	';
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-axios.defaults.timeout = 3000;
+axios.defaults.timeout = 5000;
 
 ReactDOM.render(
   <LoadingProvider>
