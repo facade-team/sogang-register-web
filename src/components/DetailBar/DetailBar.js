@@ -64,8 +64,6 @@ const DetailBar = ({
   const [latestList, setLatestList] = useState([]);
   const [favoriteList, setFavoriteList] = useState([]);
   const [checkBookmark, setCheckBookmark] = useState(false);
-  // 로딩스피너 띄우기
-  const { loading, setLoading } = useLoadingContext();
 
   //해당과목 즐겨찾기 여부, 즐겨찾기 추가, 삭제
   useEffect(() => {
@@ -92,7 +90,6 @@ const DetailBar = ({
             sub_id: favoriteList,
           })
           .then((res) => {
-            setLoading(false);
             if (res.status === 201) {
               console.log(res);
             }
@@ -165,151 +162,143 @@ const DetailBar = ({
 
   return (
     <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <DetailbarComponent widthPx={width} heightPx={height}>
-          <DetailContainer>
-            <ProfileBar openModal={openModal} detailbar></ProfileBar>
-            <DetailbarContent>
-              {JSON.stringify(subject) === '{}' ? (
-                ''
-              ) : (
-                <>
-                  <Top>
-                    <SubjectName font={19}>{subject.과목명}</SubjectName>
-                    <BtnContainer>
-                      <StarBtn
-                        size={22}
-                        checkBookmark={checkBookmark}
-                        onClick={toFavorite}
-                      ></StarBtn>
-                    </BtnContainer>
-                  </Top>
-                  <TagContainer>
-                    {subject.비대면여부 && <Tag untact>비대면</Tag>}
-                    {!subject.비대면여부 && <Tag ontact>대면</Tag>}
-                    {subject.영어강의 && <Tag eng>영어강의</Tag>}
-                    {subject.중국어강의 && <Tag china>중국어강의</Tag>}
-                  </TagContainer>
-                  <SubjectTable>
-                    <TableBody>
-                      <TableRow>
-                        <TableHead scope="row" corner={false}>
-                          학과
-                        </TableHead>
-                        <TableData corner={false}>경영학과</TableData>
-                      </TableRow>
-                      <TableRow>
-                        <TableHead scope="row" corner={false}>
-                          과목번호
-                        </TableHead>
-                        <TableData corner={false}>
-                          {subject.subject_id}
-                        </TableData>
-                      </TableRow>
-                      <TableRow>
-                        <TableHead scope="row" corner={false}>
-                          강의계획서
-                        </TableHead>
-                        <TableData corner={false}>조회하기 클릭</TableData>
-                      </TableRow>
-                      <TableRow>
-                        <TableHead scope="row" corner={false}>
-                          학점
-                        </TableHead>
-                        <TableData corner={false}>{subject.학점}</TableData>
-                      </TableRow>
-                      <TableRow>
-                        <TableHead scope="row" corner={false}>
-                          강의시간
-                        </TableHead>
-                        <TableData corner={false}>
-                          {subject.수업시간_강의실}
-                        </TableData>
-                      </TableRow>
-                      <TableRow>
-                        <TableHead scope="row" corner={false}>
-                          교수
-                        </TableHead>
-                        <TableData corner={false}>{subject.교수진}</TableData>
-                      </TableRow>
-                      <TableRow>
-                        <TableHead scope="row" corner={false}>
-                          수강대상
-                        </TableHead>
-                        <TableData corner={false}>전학년</TableData>
-                      </TableRow>
-                      <TableRow>
-                        <TableHead scope="row" corner={false}>
-                          권장학년
-                        </TableHead>
-                        <TableData corner={false}>{subject.권장학년}</TableData>
-                      </TableRow>
-                      <TableRow>
-                        <TableHead scope="row" corner={true}>
-                          비고
-                        </TableHead>
-                        <TableData corner={true}>{subject.비고}</TableData>
-                      </TableRow>
-                    </TableBody>
-                  </SubjectTable>
-                </>
-              )}
-            </DetailbarContent>
-            {/* //최근 본 과목, 즐겨찾기 */}
-            <StackContent>
-              <OptionBtnContainer>
-                <GradationBtn
-                  width={120}
-                  borderRadius={20}
-                  active={latestAndFavoritesToggle}
-                  onClick={switchLatestAndFavorites}
-                  marginRight={-16}
-                >
-                  최근 본 과목
-                </GradationBtn>
-                <GradationBtn
-                  width={120}
-                  borderRadius={20}
-                  active={!latestAndFavoritesToggle}
-                  onClick={switchLatestAndFavorites}
-                  marginRight={-16}
-                >
-                  즐겨찾기
-                </GradationBtn>
-              </OptionBtnContainer>
-              <SubjectList>
-                {latestAndFavoritesToggle
-                  ? latestList.map((sub, index) => (
-                      <>
-                        <Subject
-                          key={sub.subject_id}
-                          subject={sub}
-                          onClick={clickCard}
-                          active={true}
-                        ></Subject>
-                        {index !== latestList.length - 1 && <Divider></Divider>}
-                      </>
-                    ))
-                  : favoriteList.map((sub, index) => (
-                      <>
-                        <Subject
-                          key={sub.subject_id}
-                          subject={sub}
-                          onClick={clickCard}
-                          active={true}
-                        ></Subject>
-                        {index !== favoriteList.length - 1 && (
-                          <Divider></Divider>
-                        )}
-                      </>
-                    ))}
-              </SubjectList>
-            </StackContent>
-          </DetailContainer>
-        </DetailbarComponent>
-      )}
+      <DetailbarComponent widthPx={width} heightPx={height}>
+        <DetailContainer>
+          <ProfileBar openModal={openModal} detailbar></ProfileBar>
+          <DetailbarContent>
+            {JSON.stringify(subject) === '{}' ? (
+              ''
+            ) : (
+              <>
+                <Top>
+                  <SubjectName font={19}>{subject.과목명}</SubjectName>
+                  <BtnContainer>
+                    <StarBtn
+                      size={22}
+                      checkBookmark={checkBookmark}
+                      onClick={toFavorite}
+                    ></StarBtn>
+                  </BtnContainer>
+                </Top>
+                <TagContainer>
+                  {subject.비대면여부 && <Tag untact>비대면</Tag>}
+                  {!subject.비대면여부 && <Tag ontact>대면</Tag>}
+                  {subject.영어강의 && <Tag eng>영어강의</Tag>}
+                  {subject.중국어강의 && <Tag china>중국어강의</Tag>}
+                </TagContainer>
+                <SubjectTable>
+                  <TableBody>
+                    <TableRow>
+                      <TableHead scope="row" corner={false}>
+                        학과
+                      </TableHead>
+                      <TableData corner={false}>경영학과</TableData>
+                    </TableRow>
+                    <TableRow>
+                      <TableHead scope="row" corner={false}>
+                        과목번호
+                      </TableHead>
+                      <TableData corner={false}>{subject.subject_id}</TableData>
+                    </TableRow>
+                    <TableRow>
+                      <TableHead scope="row" corner={false}>
+                        강의계획서
+                      </TableHead>
+                      <TableData corner={false}>조회하기 클릭</TableData>
+                    </TableRow>
+                    <TableRow>
+                      <TableHead scope="row" corner={false}>
+                        학점
+                      </TableHead>
+                      <TableData corner={false}>{subject.학점}</TableData>
+                    </TableRow>
+                    <TableRow>
+                      <TableHead scope="row" corner={false}>
+                        강의시간
+                      </TableHead>
+                      <TableData corner={false}>
+                        {subject.수업시간_강의실}
+                      </TableData>
+                    </TableRow>
+                    <TableRow>
+                      <TableHead scope="row" corner={false}>
+                        교수
+                      </TableHead>
+                      <TableData corner={false}>{subject.교수진}</TableData>
+                    </TableRow>
+                    <TableRow>
+                      <TableHead scope="row" corner={false}>
+                        수강대상
+                      </TableHead>
+                      <TableData corner={false}>전학년</TableData>
+                    </TableRow>
+                    <TableRow>
+                      <TableHead scope="row" corner={false}>
+                        권장학년
+                      </TableHead>
+                      <TableData corner={false}>{subject.권장학년}</TableData>
+                    </TableRow>
+                    <TableRow>
+                      <TableHead scope="row" corner={true}>
+                        비고
+                      </TableHead>
+                      <TableData corner={true}>{subject.비고}</TableData>
+                    </TableRow>
+                  </TableBody>
+                </SubjectTable>
+              </>
+            )}
+          </DetailbarContent>
+          {/* //최근 본 과목, 즐겨찾기 */}
+          <StackContent>
+            <OptionBtnContainer>
+              <GradationBtn
+                width={120}
+                borderRadius={20}
+                active={latestAndFavoritesToggle}
+                onClick={switchLatestAndFavorites}
+                marginRight={-16}
+              >
+                최근 본 과목
+              </GradationBtn>
+              <GradationBtn
+                width={120}
+                borderRadius={20}
+                active={!latestAndFavoritesToggle}
+                onClick={switchLatestAndFavorites}
+                marginRight={-16}
+              >
+                즐겨찾기
+              </GradationBtn>
+            </OptionBtnContainer>
+            <SubjectList>
+              {latestAndFavoritesToggle
+                ? latestList.map((sub, index) => (
+                    <>
+                      <Subject
+                        key={sub.subject_id}
+                        subject={sub}
+                        onClick={clickCard}
+                        active={true}
+                      ></Subject>
+                      {index !== latestList.length - 1 && <Divider></Divider>}
+                    </>
+                  ))
+                : favoriteList.map((sub, index) => (
+                    <>
+                      <Subject
+                        key={sub.subject_id}
+                        subject={sub}
+                        onClick={clickCard}
+                        active={true}
+                      ></Subject>
+                      {index !== favoriteList.length - 1 && <Divider></Divider>}
+                    </>
+                  ))}
+            </SubjectList>
+          </StackContent>
+        </DetailContainer>
+      </DetailbarComponent>
     </>
   );
 };
