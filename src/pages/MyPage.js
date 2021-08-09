@@ -32,13 +32,9 @@ const MyPage = (props) => {
 
   const { isAuth } = useAuthContext();
 
-  // wip
-
-  // useEffect(() => {
-  //   if (!isAuth) props.openModal();
-  // }, [isAuth]);
-
-  // snackbar
+  useEffect(() => {
+    if (!isAuth) props.openModal();
+  }, [isAuth]);
 
   const [state, setState] = useState({
     open: true,
@@ -54,28 +50,30 @@ const MyPage = (props) => {
 
   return (
     <Container>
-      {isAuth ? (
-        <MyPageContainer navigation="Mypage">
-          <Title title="마이페이지" openModal={props.openModal}></Title>
-          <Box>
-            <ButtonList></ButtonList>
-            <MypageSubjectList></MypageSubjectList>
-          </Box>
-        </MyPageContainer>
-      ) : (
-        <Snackbar
-          anchorOrigin={{ vertical, horizontal }}
-          open={open}
-          onClose={handleClose}
-          message="I love snacks"
-          key={vertical + horizontal}
-          autoHideDuration={2000}
-        >
-          <Alert onClose={handleClose} severity="error">
-            로그인이 필요합니다
-          </Alert>
-        </Snackbar>
-      )}
+      <MyPageContainer navigation="Mypage">
+        {isAuth ? (
+          <>
+            <Title title="마이페이지" openModal={props.openModal}></Title>
+            <Box>
+              <ButtonList></ButtonList>
+              <MypageSubjectList></MypageSubjectList>
+            </Box>
+          </>
+        ) : (
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={open}
+            onClose={handleClose}
+            message="I love snacks"
+            key={vertical + horizontal}
+            autoHideDuration={2000}
+          >
+            <Alert onClose={handleClose} severity="error">
+              로그인이 필요합니다
+            </Alert>
+          </Snackbar>
+        )}
+      </MyPageContainer>
     </Container>
   );
 };

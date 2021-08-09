@@ -9,7 +9,10 @@ import Subject from '../SubjectCard/SubjectCard';
 import ProfileBar from '../ProfileBar/ProfileBar';
 import StarBtn from './StarBtn';
 
+//context
 import { useLoadingContext } from '../../contexts/LoadingContext';
+import { useAuthContext } from '../../contexts/AuthContext';
+import { useSnackBarContext } from '../../contexts/SnackBarContext';
 
 //styled
 import {
@@ -52,6 +55,9 @@ const DetailBar = ({
   latestSubject,
   clickCard,
 }) => {
+  const { isAuth, userData } = useAuthContext();
+  const { setSnackBar } = useSnackBarContext();
+
   //최근 본과목 -> true, 즐겨찾기 -> false
   const [latestAndFavoritesToggle, setLatestAndFavoritesToggle] =
     useState(true);
@@ -71,34 +77,30 @@ const DetailBar = ({
   }, [subject, favoriteList]);
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get('/join/favorites')
-      .then((res) => {
-        console.log(res);
-
-        setFavoriteList(res.data.data);
-      })
-      .then(() => {
-        setLoading(false);
-      });
-
-    return () => {
-      console.log(favoriteList);
-      setLoading(true);
+    if (isAuth) {
       axios
-        .post('/join/favorite/update', {
-          sub_id: favoriteList,
-        })
+        .get('/favorites/')
         .then((res) => {
-          setLoading(false);
-          if (res.status === 201) {
-            console.log(res);
-          }
+          setFavoriteList(res.data.data);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .then(() => {});
+    }
+    return () => {
+      if (isAuth) {
+        axios
+          .post('/favorites/update', {
+            sub_id: favoriteList,
+          })
+          .then((res) => {
+            setLoading(false);
+            if (res.status === 201) {
+              console.log(res);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     };
   }, []);
 

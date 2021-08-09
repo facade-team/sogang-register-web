@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
+
+import { useAuthContext } from '../../contexts/AuthContext';
+import { useSnackBarContext } from '../../contexts/SnackBarContext';
 
 //hooks
 import useInput from '../../hooks/useInput';
@@ -21,88 +23,106 @@ import {
 import { FormGroup, Input } from './AuthCode.element.js';
 
 const AuthCode = ({ openModal }) => {
-  const [codeFail, setCodeFail] = useState({ value: false, message: '' });
-  const [email, setEmail] = useState('');
+  const { setSnackBar } = useSnackBarContext();
+  const { isAuth, userData } = useAuthContext();
   const [form, onChangeForm] = useInput({
     code: '',
   });
+  const [state, setState] = useState({
+    open: true,
+    vertical: 'top',
+    horizontal: 'center',
+  });
 
+  const { vertical, horizontal, open } = state;
   const { code } = form;
 
-  const onClick = (e) => {
-    axios
-      .post('/user/confirmsecret', {
-        email,
-        script: code,
-      })
-      .then((res) => {
-        if (res.status === 201) {
-          console.log(res);
-        } else if (res.status === 401 || res.status === 402) {
-          setCodeFail({ value: true, message: res.message });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setCodeFail({ value: true, message: '인증 코드가 잘 못 되었습니다.' });
+  //useEffect
+  useEffect(() => {
+    if (!isAuth) {
+      openModal();
+      setSnackBar({
+        type: 'error',
+        msg: '로그인이 필요합니다.',
       });
+    }
+  }, [isAuth]);
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
   };
 
-  useEffect(() => {
-    axios.get('/user').then((res) => {
-      setEmail(res.data.data.email);
-    });
-  }, []);
+  const onClick = (e) => {
+    if (isAuth) {
+      axios
+        .post('/user/confirmsecret', {
+          email: userData.email,
+          script: code,
+        })
+        .then((res) => {
+          setSnackBar({
+            type: 'success',
+            msg: '이메일 인증에 성공하였습니다.',
+          });
+        })
+        .catch((err) => {
+          if (err.response.status === 401 || err.response.status === 402) {
+            console.log(err);
+            setSnackBar({
+              type: 'error',
+              msg: '123',
+            });
+          } else {
+            setSnackBar({
+              type: 'error',
+              msg: '인증에 실패했습니다.',
+            });
+          }
+        });
+    } else {
+      setSnackBar({
+        type: 'error',
+        msg: '로그인해주세요',
+      });
+    }
+  };
 
   return (
     <Container>
       <MyPageContainer navigation="Mypage">
         <Title title="마이페이지/이메일 인증" openModal={openModal}></Title>
-        <ContainerBox>
-          <FormContainer>
-            <p>이메일 인증코드를 입력해주세요</p>
-            <br></br>
-            <FormGroup>
-              {email ? (
+        {isAuth ? (
+          <ContainerBox>
+            <FormContainer>
+              <p>이메일 인증코드를 입력해주세요</p>
+              <br></br>
+              <FormGroup>
                 <Input
                   tyle="email"
-                  value={email}
+                  value={userData.email}
                   onChange={onChangeForm}
                   readOnly
                 ></Input>
-              ) : (
-                <Input tyle="email" onChange={onChangeForm} readOnly></Input>
-              )}
-            </FormGroup>
-            <FormGroup>
-              {code ? (
+              </FormGroup>
+              <FormGroup>
                 <Input
                   value={code}
                   placeholder="인증코드"
                   onChange={onChangeForm}
                 />
-              ) : (
-                <Input placeholder="인증코드" onChange={onChangeForm} />
-              )}
-            </FormGroup>
-            {codeFail.value ? (
-              <>
-                <p>{codeFail.message}</p>
-                <br></br>
-              </>
-            ) : (
+              </FormGroup>
               <br></br>
-            )}
-            <GradationBtn
-              width={200}
-              borderRadius={20}
-              active
-              onClick={onClick}
-            >
-              확인
-            </GradationBtn>
-          </FormContainer>
-        </ContainerBox>
+              <GradationBtn
+                width={200}
+                borderRadius={20}
+                active
+                onClick={onClick}
+              >
+                확인
+              </GradationBtn>
+            </FormContainer>
+          </ContainerBox>
+        ) : null}
       </MyPageContainer>
     </Container>
   );

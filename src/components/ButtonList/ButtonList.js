@@ -31,16 +31,6 @@ const ButtonList = () => {
             비밀번호 변경
           </GradationBtn>
         </Link>
-        <Link to="/mypage/favoritelist">
-          <GradationBtn
-            width={200}
-            borderRadius={20}
-            active={true}
-            mouseover={false}
-          >
-            즐겨찾기
-          </GradationBtn>
-        </Link>
         <Link to="/mypage/authemail">
           <GradationBtn
             width={200}

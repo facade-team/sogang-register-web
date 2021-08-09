@@ -24,7 +24,7 @@ export const StackContent = styled.div`
   background-color: #ffffff;
   position: relative;
   width: 60%;
-  height: 100%;
+  height: 80%;
   min-width: 250px;
   max-width: 450px;
   max-height: 600px;
