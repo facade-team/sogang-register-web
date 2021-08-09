@@ -48,20 +48,6 @@ const Spinner = styled(CircularProgress)`
 `;
 
 const App = () => {
-  axios.interceptors.response.use(
-    (response) => {
-      return response;
-    },
-
-    (err) => {
-      // Timeout 에러핸들링
-      if (err.code === 'ECONNABORTED') {
-        setSnackBar({ type: 'error', msg: '다시 시도해주세요' });
-      }
-      setLoading(false);
-    }
-  );
-
   //모달
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');

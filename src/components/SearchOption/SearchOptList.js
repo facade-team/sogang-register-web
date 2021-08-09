@@ -55,8 +55,8 @@ const SearchOptList = () => {
 
   // api 요청보내는 option 값을 저장하기 위한 state
   const [saveOption, setSaveOption] = useState({
-    year: '',
-    semester: '',
+    year: '', // ex. '20','21' ..
+    semester: '', // ex. '1','w' ..
     department: '',
     credit: [],
     grade: [],
@@ -68,8 +68,9 @@ const SearchOptList = () => {
 
   // option : OptionModal 컴포넌트에 클릭한 option 과 set함수를 배열로 넘겨주기 위한 state
   const [option, setOption] = useState([]);
+
   const { setSnackBar } = useSnackBarContext();
-  const { setLoading } = useLoadingContext();
+  const { loading, setLoading } = useLoadingContext();
 
   // api 요청으로 받아온 과목,학부 리스트를 전역 state 로 set
   const { setSubjects, setDepartments } = useSubjectContext();
@@ -99,24 +100,24 @@ const SearchOptList = () => {
   };
 
   const handleTagRemove = (opt, set) => {
-    if (opt === semesterOption) {
-      setSemesterOption({ ...semesterOption, selected: '' });
-      setMajorOption({ ...majorOption, selected: '' });
-      setTimeOption({ ...timeOption, selected: '' });
-      setGradeOption({ ...gradeOption, selected: '' });
-      setCreditOption({ ...creditOption, selected: '' });
-      setSearchOption({ ...searchOption, selected: '' });
-    }
-    // 일반적인 경우에서 태그 삭제 (set 조건문은 검색옵션 전부 초기화를 위해서 억지로 만든거임. 큰 의미 x)
-    if (set) set({ ...opt, selected: '' });
-
-    if (opt === majorOption) {
+    if (!loading) {
+      if (opt === semesterOption) {
+        setSemesterOption({ ...semesterOption, selected: '' });
+        setMajorOption({ ...majorOption, selected: '' });
+        setTimeOption({ ...timeOption, selected: '' });
+        setGradeOption({ ...gradeOption, selected: '' });
+        setCreditOption({ ...creditOption, selected: '' });
+        setSearchOption({ ...searchOption, selected: '' });
+      }
     }
   };
 
+  // FIXME : 전공/영역은 학년도/학기 요청때만 불러오면되는데, 지금은 다른 요청에서도 중복 요청하고 있음
+  // FIXME : 계절학기 선택 시에는 전공/영역 api 불러올 필요 없음
   const findSubjectByOption = (opt) => {
+    // TODO: opt 의 프로퍼티가 2개일때가 최초 전공/영역 검색할때임 Object.keys(opt).length
     if (semesterOption.selected) {
-      // TODO: 버튼누를때 다른버튼 비활성화
+      // 버튼누르고 요청하는 동안 다른버튼 비활성화
       setLoading(true);
       // 1. 학년도 학기를 바탕으로 해당 학기의 전공/영역 불러오기
       axios
@@ -139,10 +140,10 @@ const SearchOptList = () => {
               setLoading(false);
               setSnackBar({
                 type: 'error',
-                msg: '오류가 발생했습니다. 다시 시도해주세요.',
+                msg: '서버 오류가 발생했습니다. 다시 시도해주세요.',
               });
               // 검색옵션 초기화
-              handleTagRemove(semesterOption, null);
+              setSemesterOption({ ...semesterOption, selected: '' });
             });
         })
         .catch((err) => {
@@ -151,8 +152,13 @@ const SearchOptList = () => {
             type: 'error',
             msg: '오류가 발생했습니다. 다시 시도해주세요.',
           });
+          setLoading(false);
+          // 학년도/학기 선택에서 에러뜰시 검색옵션 전부 초기화
+          setSemesterOption({ ...semesterOption, selected: '' });
         });
-    } else setSubjects([]);
+    }
+    // FIXME: 다른 검색옵션으로 조회할때
+    else setSubjects([]);
   };
 
   /***** 학년도/학기 옵션 선택 시 ****/
@@ -184,8 +190,8 @@ const SearchOptList = () => {
       });
       console.log('학년도/학기 골랐을 때', cleanSaveOption);
 
-      findSubjectByOption(cleanSaveOption);
       setSaveOption(cleanSaveOption);
+      findSubjectByOption(cleanSaveOption);
     } else {
       // semesterOption 선택을 삭제하면 과목카드 전부 제거
       setSubjects([]);
@@ -300,16 +306,21 @@ const SearchOptList = () => {
           }}
           selected={semesterOption.selected}
           bgColor="#f0932b"
+          disabled={loading}
         >
           학년도/학기
         </OptBtn>
-        <OptBtn
-          onClick={() => handleClickOpen(majorOption, setMajorOption)}
-          selected={majorOption.selected}
-          bgColor="#ff7979"
-        >
-          전공/영역
-        </OptBtn>
+        {saveOption.semester !== 's' && saveOption.semester !== 'w' ? (
+          <OptBtn
+            onClick={() => handleClickOpen(majorOption, setMajorOption)}
+            selected={majorOption.selected}
+            bgColor="#ff7979"
+            disabled={loading}
+          >
+            전공/영역
+          </OptBtn>
+        ) : null}
+
         {/* <OptBtn
           onClick={() => handleClickOpen(timeOption, setTimeOption)}
           selected={timeOption.selected}
@@ -321,6 +332,7 @@ const SearchOptList = () => {
           onClick={() => handleClickOpen(gradeOption, setGradeOption)}
           selected={gradeOption.selected}
           bgColor="#badc58"
+          disabled={loading}
         >
           학년
         </OptBtn>
@@ -328,6 +340,7 @@ const SearchOptList = () => {
           onClick={() => handleClickOpen(creditOption, setCreditOption)}
           selected={creditOption.selected}
           bgColor="#95afc0"
+          disabled={loading}
         >
           학점
         </OptBtn>
@@ -335,6 +348,7 @@ const SearchOptList = () => {
           onClick={() => handleClickOpen(searchOption, setSearchOption)}
           selected={searchOption.selected}
           bgColor="#2e86de"
+          disabled={loading}
         >
           검색어
         </OptBtn>
@@ -346,6 +360,7 @@ const SearchOptList = () => {
               fontSize="13"
               bgColor="#f0932b"
               onClick={() => handleTagRemove(semesterOption, setSemesterOption)}
+              disabled={loading}
             >
               {semesterOption.selected}
               <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
@@ -356,6 +371,7 @@ const SearchOptList = () => {
               fontSize="13"
               bgColor="#ff7979"
               onClick={() => handleTagRemove(majorOption, setMajorOption)}
+              disabled={loading}
             >
               {majorOption.selected}
               <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
@@ -366,6 +382,7 @@ const SearchOptList = () => {
               fontSize="13"
               bgColor="#22a6b3"
               onClick={() => handleTagRemove(timeOption, setTimeOption)}
+              disabled={loading}
             >
               {timeOption.selected}
               <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
@@ -376,6 +393,7 @@ const SearchOptList = () => {
               fontSize="13"
               bgColor="#badc58"
               onClick={() => handleTagRemove(gradeOption, setGradeOption)}
+              disabled={loading}
             >
               {gradeOption.selected}
               <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
@@ -386,6 +404,7 @@ const SearchOptList = () => {
               fontSize="13"
               bgColor="#95afc0"
               onClick={() => handleTagRemove(creditOption, setCreditOption)}
+              disabled={loading}
             >
               {creditOption.selected}
               <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
@@ -396,6 +415,7 @@ const SearchOptList = () => {
               fontSize="13"
               bgColor="#2e86de"
               onClick={() => handleTagRemove(searchOption, setSearchOption)}
+              disabled={loading}
             >
               {searchOption.searchBy} : {searchOption.selected}
               <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>

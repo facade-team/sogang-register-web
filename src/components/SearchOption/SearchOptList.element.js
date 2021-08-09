@@ -38,25 +38,6 @@ export const OptBtn = styled.button`
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   }
 
-  ${(props) =>
-    props.focused === false &&
-    css`
-      background: rgb(164, 129, 235);
-      background: linear-gradient(
-        90deg,
-        rgba(164, 129, 235, 1) 0%,
-        rgba(148, 107, 232, 1) 26%,
-        rgba(139, 121, 226, 1) 45%,
-        rgba(53, 95, 169, 1) 98%
-      );
-    `};
-  ${(props) =>
-    props.focused === true &&
-    css`
-      border: 1px;
-      z-index: 2;
-    `};
-
   ${({ selected }) =>
     selected &&
     css`
@@ -68,10 +49,14 @@ export const OptBtn = styled.button`
   ${({ disabled }) =>
     disabled &&
     css`
-      cursor: default,
-      color: white;
-      background: #747d8c;
-      /* ${({ bgColor }) => bgColor && `background: ${bgColor};`} */
+      cursor: default;
+      /* background: #b2bec3;
+      color: #34495e; */
+      &:hover {
+        cursor: default;
+        transform: unset;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      }
     `}
 `;
 
@@ -79,7 +64,6 @@ export const TagContainer2 = styled(TagContainer)`
   align-items: center;
   padding: 8px;
   flex-wrap: wrap;
-  cursor: pointer;
 `;
 
 export const Tag2 = styled(Tag)`
@@ -88,4 +72,10 @@ export const Tag2 = styled(Tag)`
   align-items: center;
   margin-right: 8px;
   margin-bottom: 6px;
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      cursor: default;
+    `}
 `;
