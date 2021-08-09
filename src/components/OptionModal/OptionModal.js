@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import { Button } from '@material-ui/core';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -28,6 +28,14 @@ const styles = (theme) => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
+  },
+});
+
+const useStyles = makeStyles({
+  radioLabel: {
+    '& span:first-child': {
+      padding: '3px',
+    },
   },
 });
 
@@ -63,6 +71,7 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 export default function OptionModal({ open, setOpen, option }) {
+  const classes = useStyles();
   const handleClose = () => {
     setOpen(false);
   };
@@ -80,6 +89,7 @@ export default function OptionModal({ open, setOpen, option }) {
     setOpen(false);
   };
 
+  // 검색어(과목명,과목코드..) state
   const [value, setValue] = React.useState('과목명');
 
   const handleChange = (event) => {
@@ -98,7 +108,12 @@ export default function OptionModal({ open, setOpen, option }) {
             {option[0].type}
           </DialogTitle>
           <DialogContent
-            style={{ width: '400px', maxHeight: '500px' }}
+            style={{
+              width: '400px',
+              maxHeight: '500px',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
             dividers
           >
             {option[0].type !== '검색어' ? (
@@ -123,22 +138,31 @@ export default function OptionModal({ open, setOpen, option }) {
               </ul>
             ) : (
               <>
-                <FormControl component="fieldset">
+                <FormControl component="fieldset" style={{ margin: '0 auto' }}>
                   <RadioGroup value={value} onChange={handleChange} row>
                     <FormControlLabel
+                      className={classes.radioLabel}
                       value="과목명"
                       control={<Radio />}
                       label="과목명"
                     />
                     <FormControlLabel
+                      className={classes.radioLabel}
                       value="과목번호"
                       control={<Radio />}
                       label="과목코드"
                     />
                     <FormControlLabel
+                      className={classes.radioLabel}
                       value="교수명"
                       control={<Radio />}
                       label="교수명"
+                    />
+                    <FormControlLabel
+                      className={classes.radioLabel}
+                      value="강의실"
+                      control={<Radio />}
+                      label="강의실"
                     />
                   </RadioGroup>
                 </FormControl>

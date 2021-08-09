@@ -4,7 +4,9 @@ import styled from 'styled-components';
 import { useAuthContext } from './contexts/AuthContext';
 import { useLoadingContext } from './contexts/LoadingContext';
 import { useSnackBarContext } from './contexts/SnackBarContext';
+import { useSubjectContext } from './contexts/SubjectContext';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import axios from 'axios';
 
 // GlobalStyle
 import GlobalStyle from './styles/GlobalStyle';
@@ -46,6 +48,20 @@ const Spinner = styled(CircularProgress)`
 `;
 
 const App = () => {
+  axios.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+
+    (err) => {
+      // Timeout 에러핸들링
+      if (err.code === 'ECONNABORTED') {
+        setSnackBar({ type: 'error', msg: '다시 시도해주세요' });
+      }
+      setLoading(false);
+    }
+  );
+
   //모달
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
@@ -56,6 +72,8 @@ const App = () => {
     toggleSidebar ? -openedSidebarWidth : -closedSidebarWidth
   );
   const [height, setHeight] = useState(document.documentElement.scrollHeight);
+
+  const { subject } = useSubjectContext();
 
   useEffect(() => {
     let limit = Math.max(
@@ -76,7 +94,7 @@ const App = () => {
       );
       setHeight(limit);
     });
-  }, []);
+  });
 
   const toggleSidebarFunc = (e) => {
     setToggleSidebar(!toggleSidebar);
@@ -118,7 +136,7 @@ const App = () => {
     setState({ ...state, open: false });
   };
 
-  const { snackBar } = useSnackBarContext();
+  const { snackBar, setSnackBar } = useSnackBarContext();
 
   useEffect(() => {
     if (snackBar) {

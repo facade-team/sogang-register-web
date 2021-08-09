@@ -10,7 +10,7 @@ import { LoadingProvider } from './contexts/LoadingContext';
 import { SnackBarProvider } from './contexts/SnackBarContext';
 import { SubjectProvider } from './contexts/SubjectContext';
 
-axios.defaults.baseURL = 'http://api.sogang-sincheong.com	';
+axios.defaults.baseURL = 'http://api.sogang-sincheong.com';
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
 axios.defaults.timeout = 5000;
 
