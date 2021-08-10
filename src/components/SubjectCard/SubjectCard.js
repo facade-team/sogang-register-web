@@ -13,8 +13,8 @@ const SubjectCard = ({ subject, onClick, active, key }) => {
       <SubjectNameInList font={14}>{subject.과목명}</SubjectNameInList>
       <TagContainer>
         {subject.대면여부 ? <Tag untact>비대면</Tag> : <Tag ontact>대면</Tag>}
-        {subject.강의언어 === '영어' && <Tag eng>영어강의</Tag>}
-        {subject.강의언어 === '중국어' && <Tag china>중국어강의</Tag>}
+        {subject.강의언어 === '영어' ? <Tag eng>영어강의</Tag> : null}
+        {subject.강의언어 === '중국어' ? <Tag china>중국어강의</Tag> : null}
         <Tag credit={subject.학점}>{subject.학점}학점</Tag>
       </TagContainer>
       <Detail>

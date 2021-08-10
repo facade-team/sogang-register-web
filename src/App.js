@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import { useAuthContext } from './contexts/AuthContext';
 import { useLoadingContext } from './contexts/LoadingContext';
 import { useSnackBarContext } from './contexts/SnackBarContext';
+import { useSubjectContext } from './contexts/SubjectContext';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import axios from 'axios';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // GlobalStyle
 import GlobalStyle from './styles/GlobalStyle';
@@ -12,7 +15,9 @@ import GlobalStyle from './styles/GlobalStyle';
 //Components
 import MainContainer from './components/MainContainer/MainContainer';
 import Sidebar from './components/Sidebar/Sidebar';
+import MobileSidebar from './components/Sidebar/MobileSidebar';
 import ToggleBtn from './components/ToggleBtn/ToggleBtn';
+import MobileToggleBtn from './components/ToggleBtn/MobileToggleBtn';
 import Modal from './components/Modal/Modal';
 
 // Snackbar
@@ -25,6 +30,7 @@ function Alert(props) {
 
 const openedSidebarWidth = 250;
 const closedSidebarWidth = 90;
+const closedMobileSidebarHeight = 60;
 
 const Container = styled.div`
   position: relative;
@@ -52,10 +58,16 @@ const App = () => {
 
   //사이드바
   const [toggleSidebar, setToggleSidebar] = useState(true);
+  const [mobileToggleSidebar, setMobileToggleSidebar] = useState(false);
   const [width, setWidth] = useState(
     toggleSidebar ? -openedSidebarWidth : -closedSidebarWidth
   );
   const [height, setHeight] = useState(document.documentElement.scrollHeight);
+  const [notMobile, setNotMobile] = useState(true); // true : pc, false : mobile
+  const { subject } = useSubjectContext();
+  const [mobileWidth, setMobileWidth] = useState(
+    document.documentElement.scrollHeight
+  );
 
   useEffect(() => {
     let limit = Math.max(
@@ -75,8 +87,11 @@ const App = () => {
         document.documentElement.offsetHeight
       );
       setHeight(limit);
+
+      var notWidth = window.matchMedia('(min-width: 600px)').matches;
+      setNotMobile(notWidth);
     });
-  }, []);
+  });
 
   const toggleSidebarFunc = (e) => {
     setToggleSidebar(!toggleSidebar);
@@ -118,7 +133,7 @@ const App = () => {
     setState({ ...state, open: false });
   };
 
-  const { snackBar } = useSnackBarContext();
+  const { snackBar, setSnackBar } = useSnackBarContext();
 
   useEffect(() => {
     if (snackBar) {
@@ -134,7 +149,8 @@ const App = () => {
           {loading ? <Spinner /> : null}
           {authLoading ? (
             <Spinner />
-          ) : (
+          ) : notMobile === true ? (
+            //pc
             <>
               <MainContainer
                 width={toggleSidebar ? openedSidebarWidth : closedSidebarWidth}
@@ -148,15 +164,38 @@ const App = () => {
                 onClick={toggleSidebarFunc}
               ></ToggleBtn>
             </>
+          ) : (
+            // mobile
+            <>
+              <MainContainer
+                height={height}
+                toggleOpen={toggleSidebar}
+                openModal={openModal}
+              ></MainContainer>
+              <MobileToggleBtn
+                toggleOpen={toggleSidebar}
+                onClick={toggleSidebarFunc}
+              ></MobileToggleBtn>
+            </>
           )}
-
-          <Sidebar
-            width={width}
-            height={height}
-            toggleOpen={toggleSidebar}
-            openSidebar={toggleSidebarFunc}
-            openModal={openModal}
-          ></Sidebar>
+          {notMobile === true ? ( // pc
+            <Sidebar
+              width={width}
+              height={height}
+              toggleOpen={toggleSidebar}
+              openSidebar={toggleSidebarFunc}
+              openModal={openModal}
+            ></Sidebar>
+          ) : (
+            // mobile
+            <MobileSidebar
+              width={mobileWidth}
+              height={closedMobileSidebarHeight}
+              toggleOpen={mobileToggleSidebar}
+              openSidebar={toggleSidebarFunc}
+              openModal={openModal}
+            ></MobileSidebar>
+          )}
           <Modal
             showModal={showModal}
             setShowModal={setShowModal}

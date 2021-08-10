@@ -19,16 +19,13 @@ const Home = ({ openModal, height }) => {
   const [detailSubject, setDetailSubject] = useState({});
 
   const { subjects } = useSubjectContext();
-  const data = subjects;
 
   const clickCard = (key) => {
     if (detailbarWidth === 0) {
       setDetailbarWidth(350);
     }
 
-    const detailData = data.find((d) => {
-      return d.subject_id === key;
-    });
+    const detailData = subjects.find((d) => d.subject_id === key);
     if (key === cardKey) return;
     setCardKey(key);
 
@@ -55,7 +52,7 @@ const Home = ({ openModal, height }) => {
         <SelectSubject
           number="03"
           subtitle="과목조회"
-          data={data}
+          data={subjects}
           onClickCard={clickCard}
         ></SelectSubject>
       </HomeContainer>
