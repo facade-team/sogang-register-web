@@ -311,7 +311,6 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
             </OptionBtnContainer>
             <SubjectList>
               {latestAndFavoritesToggle
-<<<<<<< HEAD
                 ? latestList &&
                   latestList.map((sub, index) => (
                     <div key={`${sub.subject_id}${index}`}>
@@ -335,29 +334,6 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                       ></Subject>
                       {index !== favoriteList.length - 1 && <Divider></Divider>}
                     </div>
-=======
-                ? latestList.map((sub, index) => (
-                    <>
-                      <Subject
-                        key={sub.subject_id}
-                        subject={sub}
-                        onClick={clickCard}
-                        active={true}
-                      ></Subject>
-                      {index !== latestList.length - 1 && <Divider></Divider>}
-                    </>
-                  ))
-                : favoriteList.map((sub, index) => (
-                    <>
-                      <Subject
-                        key={sub.subject_id}
-                        subject={sub}
-                        onClick={clickCard}
-                        active={true}
-                      ></Subject>
-                      {index !== favoriteList.length - 1 && <Divider></Divider>}
-                    </>
->>>>>>> 24dec9c7c369a6a55afbe75873d67f1f398735bb
                   ))}
             </SubjectList>
           </StackContent>
