@@ -7,7 +7,6 @@ import { useSnackBarContext } from './contexts/SnackBarContext';
 import { useSubjectContext } from './contexts/SubjectContext';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // GlobalStyle
 import GlobalStyle from './styles/GlobalStyle';
@@ -63,7 +62,9 @@ const App = () => {
     toggleSidebar ? -openedSidebarWidth : -closedSidebarWidth
   );
   const [height, setHeight] = useState(document.documentElement.scrollHeight);
-  const [notMobile, setNotMobile] = useState(true); // true : pc, false : mobile
+  const [notMobile, setNotMobile] = useState(
+    window.matchMedia('(min-width: 600px)').matches
+  ); // true : pc, false : mobile
   const { subject } = useSubjectContext();
   const [mobileWidth, setMobileWidth] = useState(
     document.documentElement.scrollHeight
