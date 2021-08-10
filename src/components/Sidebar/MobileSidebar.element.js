@@ -43,8 +43,9 @@ export const SidebarContent = styled.div`
 `;
 
 export const ServiceName = styled.div`
-  position: relative;
-  top: 40px;
+  position: inherit;
+  top: 20px;
+  left: 25px;
   font-size: 1.5rem;
   font-weight: 800;
 
