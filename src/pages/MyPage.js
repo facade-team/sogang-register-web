@@ -21,7 +21,6 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-// const MyPage = ({ openModal }) => {
 const MyPage = (props) => {
   // 네비게이션 바에 현재 페이지 표시를 위한 상태
   const { setMenu } = useMenuContext();

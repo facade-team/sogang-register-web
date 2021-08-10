@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { useMenuContext } from '../contexts/MenuContext';
 import { useSubjectContext } from '../contexts/SubjectContext';
 
-// import { data } from '../pages/DummyData';
-
 //components
 import Title from '../components/Title/Title';
 import SearchOption from '../components/SearchOption/SearchOption';
@@ -19,7 +17,6 @@ const Home = ({ openModal, height }) => {
   const [detailbarWidth, setDetailbarWidth] = useState(0);
   const [cardKey, setCardKey] = useState('');
   const [detailSubject, setDetailSubject] = useState({});
-  const [latestSubject, setLatestSubject] = useState({});
 
   const { subjects } = useSubjectContext();
   const data = subjects;
@@ -29,16 +26,14 @@ const Home = ({ openModal, height }) => {
       setDetailbarWidth(350);
     }
 
-    const detailData = data.find((d) => d.subject_id === key);
+    const detailData = data.find((d) => {
+      return d.subject_id === key;
+    });
     if (key === cardKey) return;
-
     setCardKey(key);
+
     setDetailSubject(detailData);
   };
-
-  useEffect(() => {
-    setLatestSubject(detailSubject);
-  }, [cardKey]);
 
   // 네비게이션 바에 현재 페이지 표시를 위한 상태
   const { setMenu } = useMenuContext();
@@ -65,15 +60,16 @@ const Home = ({ openModal, height }) => {
         ></SelectSubject>
       </HomeContainer>
       {/* 오른쪽 사이드바 */}
-      <DetailBar
-        width={detailbarWidth}
-        height={height}
-        signBtnType="login"
-        openModal={openModal}
-        subject={detailSubject}
-        latestSubject={latestSubject}
-        clickCard={clickCard}
-      ></DetailBar>
+      {detailbarWidth === 0 ? null : (
+        <DetailBar
+          width={detailbarWidth}
+          height={height}
+          signBtnType="login"
+          openModal={openModal}
+          subject={detailSubject}
+          clickCard={clickCard}
+        ></DetailBar>
+      )}
     </Container>
   );
 };

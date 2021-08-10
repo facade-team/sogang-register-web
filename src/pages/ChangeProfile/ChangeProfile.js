@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-import { IoPersonCircleOutline } from 'react-icons/io5';
-import useInput from '../../hooks/useInput';
+import { useHistory } from 'react-router-dom';
 
 import GradationBtn from '../../components/GradationBtn/GradationBtn';
 import Title from '../../components/Title/Title';
@@ -16,14 +14,8 @@ import { useSnackBarContext } from '../../contexts/SnackBarContext';
 
 import {
   ContainerBox,
-  // Profile,
   FormContainer,
   FormGroup,
-  // ProfileContainer,
-  // Avatar,
-  // Detail,
-  // Name,
-  // Major,
   SelectForm,
   Label,
   Input,
@@ -35,15 +27,10 @@ import {
 } from '../../styles/HomeContainer';
 
 const ChangeProfile = ({ openModal }) => {
+  let history = useHistory();
   const { isAuth, userData, setUserData } = useAuthContext();
   const { setSnackBar } = useSnackBarContext();
   const [major, setMajor] = useState(false);
-  const [defaultMajorOption, setDefaultMajorOption] = useState([]);
-  const [form, onChangeForm] = useInput({
-    email: userData.email, // api로 초기값 설정
-  });
-
-  const { email } = form;
 
   const [checkBoxValue, setCheckBoxValue] = useState(userData.allowEmail); //api로 초기값 설정
 
@@ -88,23 +75,32 @@ const ChangeProfile = ({ openModal }) => {
           allow_email: checkBoxValue,
         })
         .then((res) => {
-          console.log(res);
-          console.log(major, checkBoxValue);
+          history.push('/mypage');
           setUserData({
             major: major,
             allow_email: checkBoxValue,
             ...userData,
           });
+          console.log(localStorage.getItem('userData'));
+          localStorage.setItem(
+            'userData',
+            JSON.stringify({
+              major: major,
+              allowEmail: checkBoxValue,
+              ...userData,
+            })
+          );
           setSnackBar({
             type: 'success',
             msg: '프로필 수정에 성공하였습니다.',
           });
         })
         .catch((err) => {
-          // setSnackBar({
-          //   type: 'error',
-          //   msg: '이전 비밀번호가 일치하지 않습니다.',
-          // });
+          console.log(err);
+          setSnackBar({
+            type: 'error',
+            msg: '프로필 수정에 실패하였습니다.',
+          });
         });
     } else {
       setSnackBar({
@@ -129,7 +125,6 @@ const ChangeProfile = ({ openModal }) => {
                     name="email"
                     id="email"
                     value={userData.email}
-                    onChange={onChangeForm}
                     readOnly
                   />
                 </FormGroup>

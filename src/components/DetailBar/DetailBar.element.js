@@ -6,10 +6,7 @@ export const DetailbarComponent = styled.div`
   display: ${({ widthPx }) => (widthPx === 0 ? 'none' : 'block')};
   right: ${({ widthPx }) => `${widthPx - 350}px`};
   min-width: 350px;
-  /* height: 100%; */
-  height: ${(props) => {
-    return `${props.heightPx}px`;
-  }};
+  height: auto;
   background-color: #f6faff;
 
   overflow-y: hidden;
@@ -112,6 +109,8 @@ export const TableHead = styled.th`
   padding-left: 5px;
   color: #6a31df;
   width: 80px;
+  padding: 5px;
+  height: 24px;
   border-right: 1px solid #f2f2f2;
   border-bottom: ${({ corner }) => !corner && `1px solid #f2f2f2;`};
 `;

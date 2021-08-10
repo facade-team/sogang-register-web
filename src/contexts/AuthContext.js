@@ -28,8 +28,10 @@ const AuthProvider = ({ children }) => {
               major: res.data.data.major,
               allowEmail: res.data.data.allow_email,
               isVerified: res.data.data.verify_on,
+              token: res.data.data.Authorization,
             };
             setUserData(ud);
+
             localStorage.setItem('userData', JSON.stringify(ud));
             localStorage.setItem('token', res.data.data.Authorization);
           }
@@ -46,6 +48,7 @@ const AuthProvider = ({ children }) => {
               major: res.data.data.major,
               allowEmail: res.data.data.allow_email,
               isVerified: res.data.data.verify_on,
+              token: res.data.data.Authorization,
             };
             setUserData(ud);
             localStorage.setItem('userData', JSON.stringify(ud));
