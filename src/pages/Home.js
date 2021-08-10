@@ -6,7 +6,7 @@ import { useSubjectContext } from '../contexts/SubjectContext';
 //components
 import Title from '../components/Title/Title';
 import SearchOption from '../components/SearchOption/SearchOption';
-import DetailOption from '../components/DetailOption/DetailOption';
+import SortOption from '../components/SortOption/SortOption';
 import SelectSubject from '../components/SelectSubject/SelectSubject';
 import DetailBar from '../components/DetailBar/DetailBar';
 
@@ -47,8 +47,12 @@ const Home = ({ openModal, height }) => {
           openModal={openModal}
           widthPx={detailbarWidth}
         ></Title>
-        <SearchOption number="01" subtitle="검색옵션"></SearchOption>
-        <DetailOption number="02" subtitle="세부옵션"></DetailOption>
+        <SearchOption
+          number="01"
+          subtitle="검색옵션"
+          submessage="*복수선택가능"
+        ></SearchOption>
+        <SortOption number="02" subtitle="정렬옵션"></SortOption>
         <SelectSubject
           number="03"
           subtitle="과목조회"

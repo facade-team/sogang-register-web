@@ -16,14 +16,14 @@ export const Number = styled.span`
 
 export const SubTitleComp = styled.span`
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 50px;
 `;
 
 export const SubMessage = styled.span`
-  margin-left: 18px;
-  font-size: 10px;
-  font-weight: 400;
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 500;
   line-height: 50px;
   align-self: end;
 `;

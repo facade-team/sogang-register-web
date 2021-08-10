@@ -19,7 +19,6 @@ import OptionModal from '../OptionModal/OptionModal';
 // 임시 데이터
 import { semesterData, gradeData, creditData } from './dummy';
 import { majorCode_2021_2 } from '../../utils/majorCode';
-import { cookie } from 'request';
 
 const SearchOptList = () => {
   const [semesterOption, setSemesterOption] = useState({

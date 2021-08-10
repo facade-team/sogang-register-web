@@ -1,14 +1,14 @@
 import React from 'react';
 import SubTitle from '../SubTitle/SubTitle';
-import { OptionBar } from './DetailOption.element';
-import SubList from '../SubList/SubList';
+import { OptionBar } from './SortOption.element';
+import SortOptList from './SortOptList';
 
 const DetailOption = ({ number, subtitle }) => {
   return (
     <>
       <SubTitle number={number} subtitle={subtitle} />
       <OptionBar>
-        <SubList></SubList>
+        <SortOptList></SortOptList>
       </OptionBar>
     </>
   );
