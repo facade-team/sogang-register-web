@@ -276,7 +276,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                       <TableHead scope="row" corner={false}>
                         수강대상
                       </TableHead>
-                      <TableData corner={false}>전학년</TableData>
+                      <TableData corner={false}>{subject.수강대상}</TableData>
                     </TableRow>
                     <TableRow>
                       <TableHead scope="row" corner={true}>

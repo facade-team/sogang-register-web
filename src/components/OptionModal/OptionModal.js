@@ -122,7 +122,7 @@ export default function OptionModal({ open, setOpen, option }) {
       option[1]({ ...option[0], searchBy, selected: keyword.subjectName });
     } else if (searchBy === '과목번호') {
       option[1]({ ...option[0], searchBy, selected: keyword.subjectCode });
-    } else if (searchBy === '교수명') {
+    } else if (searchBy === '교수진') {
       option[1]({ ...option[0], searchBy, selected: keyword.profName });
     } else if (searchBy === '강의실') {
       option[1]({ ...option[0], searchBy, selected: keyword.classRoom });
@@ -210,7 +210,7 @@ export default function OptionModal({ open, setOpen, option }) {
                     />
                     <FormControlLabel
                       className={classes.radioLabel}
-                      value="교수명"
+                      value="교수진"
                       control={<Radio />}
                       label="교수명"
                     />
@@ -231,6 +231,7 @@ export default function OptionModal({ open, setOpen, option }) {
                         name="subjectName"
                         value={subjectName}
                         onChange={onChangeKeyword}
+                        autoFocus
                         placeholder="ex) 미적분학1"
                       ></input>
                     ) : null}
@@ -240,15 +241,17 @@ export default function OptionModal({ open, setOpen, option }) {
                         name="subjectCode"
                         value={subjectCode}
                         onChange={onChangeKeyword}
+                        autoFocus
                         placeholder="ex) CSE2035"
                       ></input>
                     ) : null}
-                    {searchBy === '교수명' ? (
+                    {searchBy === '교수진' ? (
                       <input
                         type="text"
                         name="profName"
                         value={profName}
                         onChange={onChangeKeyword}
+                        autoFocus
                         placeholder="교수명"
                       ></input>
                     ) : null}
@@ -258,6 +261,7 @@ export default function OptionModal({ open, setOpen, option }) {
                         name="classRoom"
                         value={classRoom}
                         onChange={onChangeKeyword}
+                        autoFocus
                         placeholder="ex) J, J관, J107..."
                       ></input>
                     ) : null}

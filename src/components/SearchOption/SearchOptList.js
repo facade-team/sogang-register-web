@@ -19,6 +19,7 @@ import OptionModal from '../OptionModal/OptionModal';
 // 임시 데이터
 import { semesterData, gradeData, creditData } from './dummy';
 import { majorCode_2021_2 } from '../../utils/majorCode';
+import { cookie } from 'request';
 
 const SearchOptList = () => {
   const [semesterOption, setSemesterOption] = useState({
@@ -74,7 +75,7 @@ const SearchOptList = () => {
   const { loading, setLoading } = useLoadingContext();
 
   // api 요청으로 받아온 과목,학부 리스트를 전역 state 로 set
-  const { setSubjects, setDepartments } = useSubjectContext();
+  const { subjects, setSubjects, setDepartments } = useSubjectContext();
 
   // saveOption 에서 비어있는(false) 멤버를 없애기 위한 유틸함수
   const removeFalseMember = (obj) => {
@@ -116,7 +117,6 @@ const SearchOptList = () => {
     }
   };
 
-  // FIXME : 전공/영역은 학년도/학기 요청때만 불러오면되는데, 지금은 다른 요청에서도 중복 요청하고 있음
   // FIXME : 계절학기 선택 시에는 전공/영역 api 불러올 필요 없음
   const findSubjectByOption = (opt) => {
     // TODO: opt 의 프로퍼티가 2개일때가 최초 학년도/학기만 선택할 경우임. Object.keys(opt).length === 2
@@ -191,6 +191,29 @@ const SearchOptList = () => {
     }
   };
 
+  // FIXME: 초기 모든 과목 담을 state 있어야함
+  // FIXME: state 로 검색 시에 결함있음 (학년을 계속해서 고르게되면 결과값들이 걸러짐)
+  // const findSubjectByState = (opt) => {
+  //   setLoading(true);
+  //   console.log('subjects', subjects);
+  //   console.log('opt', opt);
+  //   //TODO: 학년 중복 선택 가능하게끔
+  //   if (opt.grade[0]) {
+  //     const checkSubjectGrade = (subject) => {
+  //       if (
+  //         subject.수강대상 === '전학년' ||
+  //         subject.수강대상.indexOf(String(opt.grade[0])) !== -1
+  //       )
+  //         return true;
+  //       else return false;
+  //     };
+  //     const result = subjects.filter(checkSubjectGrade);
+  //     console.log(result);
+  //     setSubjects(result);
+  //   }
+  //   setLoading(false);
+  // };
+
   /***** 학년도/학기 옵션 선택 시 ****/
   useEffect(() => {
     if (semesterOption.selected) {
@@ -262,6 +285,7 @@ const SearchOptList = () => {
         grade: [Number(gradeOption.selected[0])],
       });
       console.log('학년 골랐을때', cleanSaveOption);
+      // findSubjectByState(cleanSaveOption); // 결함있어서 일단 사용x
       findSubjectByOption(cleanSaveOption);
       setSaveOption(cleanSaveOption);
     }
@@ -311,19 +335,19 @@ const SearchOptList = () => {
         keyword: searchOption.selected,
       });
       console.log('검색어 골랐을때', cleanSaveOption);
-      // findSubjectByOption(cleanSaveOption);
-      // setSaveOption(cleanSaveOption);
+      findSubjectByOption(cleanSaveOption);
+      setSaveOption(cleanSaveOption);
     }
     // 검색어 옵션 태그 제거했을때
     else {
       const cleanSaveOption = removeFalseMember({
         ...saveOption,
-        searchBy: '',
-        selected: '',
+        searchby: '',
+        keyword: '',
       });
       console.log('검색어 태그 제거 시', cleanSaveOption);
-      // findSubjectByOption(cleanSaveOption);
-      // setSaveOption(cleanSaveOption);
+      findSubjectByOption(cleanSaveOption);
+      setSaveOption(cleanSaveOption);
     }
   }, [searchOption.selected]);
 
