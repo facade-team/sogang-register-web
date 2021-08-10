@@ -46,16 +46,7 @@ const ButtonList = () => {
               이메일 인증
             </GradationBtn>
           </Link>
-        ) : (
-          <GradationBtn
-            width={200}
-            borderRadius={20}
-            active={false}
-            mouseover={false}
-          >
-            이메일 인증
-          </GradationBtn>
-        )}
+        ) : null}
 
         <Link to="/mypage/quit">
           <GradationBtn
