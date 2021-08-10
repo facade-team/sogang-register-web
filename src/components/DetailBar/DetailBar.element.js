@@ -115,6 +115,8 @@ export const TableHead = styled.th`
   font-weight: 900;
 
   width: 80px;
+  padding: 5px;
+  height: 24px;
   border-right: 1px solid #f2f2f2;
   border-bottom: ${({ corner }) => !corner && `1px solid #f2f2f2;`};
 `;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 //hooks
 import useInput from '../../hooks/useInput';
@@ -26,6 +27,7 @@ import {
 } from '../../styles/HomeContainer';
 
 const ChangePassword = ({ openModal }) => {
+  let history = useHistory();
   const { setSnackBar } = useSnackBarContext();
   const { isAuth, userData } = useAuthContext();
   const [form, onChangeForm] = useInput({
@@ -53,6 +55,7 @@ const ChangePassword = ({ openModal }) => {
           new_password: newPassword,
         })
         .then((res) => {
+          history.push('/mypage');
           setSnackBar({
             type: 'success',
             msg: '새로운 비밀번호로 변경되었습니다.',

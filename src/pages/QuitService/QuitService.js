@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 //hooks
 import useInput from '../../hooks/useInput';
@@ -26,6 +27,7 @@ import {
 } from '../../styles/HomeContainer';
 
 const ChangePassword = ({ openModal }) => {
+  let history = useHistory();
   const { isAuth, userData, logout } = useAuthContext();
   const { setSnackBar } = useSnackBarContext();
   const [passwordFail, setPasswordFail] = useState({
@@ -51,7 +53,7 @@ const ChangePassword = ({ openModal }) => {
 
   const onClick = (e) => {
     if (isAuth) {
-      if (email === userData.email && username === userData.name) {
+      if (email === userData.email && username === userData.username) {
         axios
           .post('/privacy/dropout', {
             email,
@@ -60,30 +62,27 @@ const ChangePassword = ({ openModal }) => {
           })
           .then((res) => {
             if (res.status === 201) {
-              //TODO 로그아웃, alert
-
               logout();
+              history.push('/');
               setSnackBar({
                 type: 'success',
                 msg: '탈퇴가 완료되었습니다. 다음에 다시 찾아주세요!',
               });
             } else if (res.status === 401) {
-              setPasswordFail({ value: true, message: res.message });
             }
           })
           .catch((err) => {
-            console.log(err);
             if (err.response.status === 401) {
               setSnackBar({
                 type: 'success',
-                msg: '프로필 수정에 성공하였습니다.',
+                msg: '탈퇴에 실패하였습니다.',
               });
             }
           });
       } else {
-        setPasswordFail({
-          value: true,
-          message: '이메일 또는 이름이 올바르지 않습니다.',
+        setSnackBar({
+          type: 'error',
+          msg: '입력 정보가 올바르지 않습니다',
         });
       }
     }

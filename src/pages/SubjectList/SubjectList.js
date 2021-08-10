@@ -6,6 +6,7 @@ import Subject from '../../components/SubjectCard/SubjectCard';
 
 //context
 import { useAuthContext } from '../../contexts/AuthContext';
+import { useSnackBarContext } from '../../contexts/SnackBarContext';
 
 //styled
 import {
@@ -20,37 +21,59 @@ import {
 const SubjectListComp = () => {
   const { isAuth, userData } = useAuthContext();
   const [favoriteList, setFavoriteList] = useState([]);
+  const { setSnackBar } = useSnackBarContext();
 
   const clearFavoriteList = (e) => {
     setFavoriteList([]);
+    localStorage.removeItem('subject');
   };
 
   useEffect(() => {
-    if (isAuth) {
-      axios.get('/favorites/').then((res) => {
-        if (res.data.data === undefined) {
-          setFavoriteList([]);
-        } else {
-          setFavoriteList(res.dat);
-        }
-      });
-
-      return () => {
-        axios
-          .post('/favorites/update', {
-            sub_id: favoriteList,
-          })
-          .then((res) => {
-            if (res.status === 201) {
+    if (userData.token) {
+      if (localStorage.getItem('subject') === null) {
+        if (isAuth) {
+          axios
+            .get('/favorites/')
+            .then((res) => {
               console.log(res);
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      };
+              if (res.status === 201) {
+                setFavoriteList(res.data.data);
+              }
+            })
+            .catch((err) => {
+              setSnackBar({
+                type: 'error',
+                msg: '즐겨찾기 과목을 불러오는데 오류가 발생했습니다.',
+              });
+            });
+        }
+      } else {
+        setFavoriteList(JSON.parse(localStorage.getItem('subject')));
+      }
     }
-  }, []);
+
+    return () => {
+      if (userData.token) {
+        if (isAuth) {
+          const req = favoriteList.map((sub) => {
+            return sub.subject_id;
+          });
+          axios
+            .post('/favorites/update', {
+              sub_id: req,
+            })
+            .then((res) => {
+              if (res.status === 201) {
+                console.log(res);
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      }
+    };
+  }, [userData.token]);
 
   return (
     <Container>
