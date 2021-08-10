@@ -5,10 +5,10 @@ export const SidebarComponent = styled.div`
   position: absolute;
   left: 0%;
   text-align: center;
-  height: 100%;
-  /* height: ${(props) => {
+  /* height: 100%; */
+  height: ${(props) => {
     return `${props.heightPx}px`;
-  }}; */
+  }};
   width: ${(props) => `${-props.widthPx}px`};
   border-radius: 0px 10px 10px 0px;
   background-color: rgba(106, 49, 223, 0.9);
