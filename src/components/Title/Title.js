@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, TitleComp } from './Title.element';
 import ProfileBar from '../ProfileBar/ProfileBar';
 
 const Title = ({ title, openModal, widthPx }) => {
+  const [notMobile, setNotMobile] = useState(
+    window.matchMedia('(min-width: 600px)').matches
+  ); // true : pc, false : mobile
+
+  useEffect(() => {
+    var notWidth = window.matchMedia('(min-width: 600px)').matches;
+    setNotMobile(notWidth);
+  });
+
   return (
     <Container>
       <TitleComp>{title}</TitleComp>
-      {!widthPx ? <ProfileBar openModal={openModal}></ProfileBar> : null}
+      {notMobile === true ? ( // pc
+        !widthPx ? (
+          <ProfileBar openModal={openModal}></ProfileBar>
+        ) : null
+      ) : (
+        <></>
+      )}
     </Container>
   );
 };

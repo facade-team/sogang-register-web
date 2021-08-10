@@ -23,6 +23,10 @@ const Home = ({ openModal, height }) => {
 
   const { subjects } = useSubjectContext();
 
+  const [notMobile, setNotMobile] = useState(
+    window.matchMedia('(min-width: 600px)').matches
+  ); // true : pc, false : mobile
+
   const clickCard = (key) => {
     if (detailbarWidth === 0) {
       setDetailbarWidth(350);
@@ -46,6 +50,11 @@ const Home = ({ openModal, height }) => {
     setMenu('search');
   }, [setMenu]);
 
+  useEffect(() => {
+    var notWidth = window.matchMedia('(min-width: 600px)').matches;
+    setNotMobile(notWidth);
+  }, []);
+
   return (
     <Container>
       <HomeContainer widthPx={detailbarWidth} navigation="Home">
@@ -54,7 +63,11 @@ const Home = ({ openModal, height }) => {
           openModal={openModal}
           widthPx={detailbarWidth}
         ></Title>
-        <SearchOption number="01" subtitle="검색옵션"></SearchOption>
+        <SearchOption
+          number="01"
+          subtitle="검색옵션"
+          submessage="*복수선택가능"
+        ></SearchOption>
         <DetailOption number="02" subtitle="세부옵션"></DetailOption>
         <SelectSubject
           number="03"
@@ -64,15 +77,19 @@ const Home = ({ openModal, height }) => {
         ></SelectSubject>
       </HomeContainer>
       {/* 오른쪽 사이드바 */}
-      <DetailBar
-        width={detailbarWidth}
-        height={height}
-        signBtnType="login"
-        openModal={openModal}
-        subject={detailSubject}
-        latestSubject={latestSubject}
-        clickCard={clickCard}
-      ></DetailBar>
+      {notMobile === true ? ( // pc
+        <DetailBar
+          width={detailbarWidth}
+          height={height}
+          signBtnType="login"
+          openModal={openModal}
+          subject={detailSubject}
+          latestSubject={latestSubject}
+          clickCard={clickCard}
+        ></DetailBar> // mobile
+      ) : (
+        <></>
+      )}
     </Container>
   );
 };

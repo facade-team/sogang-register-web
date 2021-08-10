@@ -8,9 +8,7 @@ const MobileToggleBtn = ({ toggleOpen, width, onClick }) => {
   return (
     <>
       <ImgBox onClick={onClick} toggleSidebar={toggleOpen} widthPx={width}>
-        {!toggleOpen ? null : ( // <OpenBtn size="25"></OpenBtn>
-          <FaBars size="25" color="white"></FaBars>
-        )}
+        <FaBars size="25" color="white"></FaBars>
       </ImgBox>
     </>
   );

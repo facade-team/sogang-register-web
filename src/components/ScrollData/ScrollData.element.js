@@ -34,6 +34,30 @@ export const ScrollArea = styled.div`
       }
     }};
   }
+  @media screen and (max-width: 459px) {
+    left: ${(props) => {
+      if (props.number === 3) {
+        return `10px`;
+      }
+      if (props.number === 4) {
+        return `150px`;
+      }
+    }};
+    top: ${(props) => {
+      if (props.number === 1) {
+        return `-90px`;
+      }
+      if (props.number === 2) {
+        return `-90px`;
+      }
+      if (props.number === 3) {
+        return `-45px`;
+      }
+      if (props.number === 4) {
+        return `-45px`;
+      }
+    }};
+  }
 `;
 
 export const FoldBtn = styled.button`
