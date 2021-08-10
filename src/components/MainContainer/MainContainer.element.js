@@ -9,5 +9,6 @@ export const Container = styled.div`
   margin-left: ${({ widthPx }) => `${widthPx}px`};
   @media screen and (max-width: 600px) {
     top: 60px;
+    width: 100%;
   }
 `;

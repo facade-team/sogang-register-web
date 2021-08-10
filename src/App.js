@@ -67,7 +67,7 @@ const App = () => {
   ); // true : pc, false : mobile
   const { subject } = useSubjectContext();
   const [mobileWidth, setMobileWidth] = useState(
-    document.documentElement.scrollHeight
+    document.documentElement.scrollWidth
   );
 
   useEffect(() => {

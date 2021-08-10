@@ -51,11 +51,13 @@ const MobileSideBar = ({
   const { isAuth } = useAuthContext();
 
   return (
-    <SidebarComponent
-      widthPx={width}
-      heightPx={height}
-      toggleOpen={toggleOpen}
-    ></SidebarComponent>
+    <SidebarComponent widthPx={width} heightPx={height} toggleOpen={toggleOpen}>
+      <ServiceName>
+        <MainLogo src={Logo}></MainLogo>
+        <Sogang>서강</Sogang>
+        <Register>신청</Register>
+      </ServiceName>
+    </SidebarComponent>
   );
 };
 
