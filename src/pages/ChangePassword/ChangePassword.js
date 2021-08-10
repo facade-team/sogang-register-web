@@ -38,14 +38,16 @@ const ChangePassword = ({ openModal }) => {
 
   //useEffect
   useEffect(() => {
-    if (!isAuth) {
-      openModal();
-      setSnackBar({
-        type: 'error',
-        msg: '로그인이 필요합니다.',
-      });
-    }
-  }, [isAuth]);
+    setTimeout(() => {
+      if (!userData) {
+        openModal();
+        setSnackBar({
+          type: 'error',
+          msg: '로그인이 필요합니다.',
+        });
+      }
+    }, 1000);
+  }, [userData]);
 
   const onClick = (e) => {
     if (newPassword === checkPassword) {

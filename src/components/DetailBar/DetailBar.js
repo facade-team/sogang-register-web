@@ -54,7 +54,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
 
   useEffect(() => {
     if (localStorage.getItem('subject') === null) {
-      if (isAuth) {
+      if (isAuth && userData.token) {
         axios
           .get('/favorites/')
           .then((res) => {
@@ -63,6 +63,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
             }
           })
           .catch((err) => {
+            console.log(err);
             setSnackBar({
               type: 'error',
               msg: '즐겨찾기 과목을 불러오는데 오류가 발생했습니다.',
@@ -76,7 +77,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
     }
 
     return () => {
-      if (isAuth) {
+      if (isAuth && userData.token) {
         const req = favoriteList.map((sub) => {
           return sub.subject_id;
         });
@@ -94,10 +95,10 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
           });
       }
     };
-  }, []);
+  }, [userData.token]);
 
   useEffect(() => {
-    if (latestList.length === 0) return;
+    if (!latestList || latestList.length === 0) return;
     if (JSON.stringify(subject) === '{}') {
       return;
     }
@@ -108,7 +109,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
 
     if (latestListIndex === -1) {
       // 최근 본 과목 리스트에 없을 때
-      const list = latestList.concat(subject);
+      const list = [subject, ...latestList];
 
       if (list > 10) {
         list.shift();
@@ -165,11 +166,14 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
       if (idx > -1) list.splice(idx, 1);
       setFavoriteList(list);
       if (localStorage.getItem('subject') !== null) {
-        const currentFavorite = JSON.parse(localStorage.getItem('subject'));
-        localStorage.setItem(
-          'subject',
-          JSON.stringify([subject, ...currentFavorite])
-        );
+        let currentFavorite = JSON.parse(localStorage.getItem('subject'));
+        currentFavorite = currentFavorite.filter((s) => {
+          console.log(s.subject_id === subject.subject_id);
+          if (s.subject_id === subject.subject_id) return false;
+          return true;
+        });
+        console.log(currentFavorite);
+        localStorage.setItem('subject', JSON.stringify(currentFavorite));
       } else {
         localStorage.setItem('subject', JSON.stringify([subject]));
       }
@@ -311,7 +315,6 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
             </OptionBtnContainer>
             <SubjectList>
               {latestAndFavoritesToggle
-<<<<<<< HEAD
                 ? latestList &&
                   latestList.map((sub, index) => (
                     <div key={`${sub.subject_id}${index}`}>
@@ -335,29 +338,6 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                       ></Subject>
                       {index !== favoriteList.length - 1 && <Divider></Divider>}
                     </div>
-=======
-                ? latestList.map((sub, index) => (
-                    <>
-                      <Subject
-                        key={sub.subject_id}
-                        subject={sub}
-                        onClick={clickCard}
-                        active={true}
-                      ></Subject>
-                      {index !== latestList.length - 1 && <Divider></Divider>}
-                    </>
-                  ))
-                : favoriteList.map((sub, index) => (
-                    <>
-                      <Subject
-                        key={sub.subject_id}
-                        subject={sub}
-                        onClick={clickCard}
-                        active={true}
-                      ></Subject>
-                      {index !== favoriteList.length - 1 && <Divider></Divider>}
-                    </>
->>>>>>> 24dec9c7c369a6a55afbe75873d67f1f398735bb
                   ))}
             </SubjectList>
           </StackContent>

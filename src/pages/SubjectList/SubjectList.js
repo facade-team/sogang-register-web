@@ -55,6 +55,7 @@ const SubjectListComp = () => {
     return () => {
       if (userData.token) {
         if (isAuth) {
+          console.log(123);
           const req = favoriteList.map((sub) => {
             return sub.subject_id;
           });
