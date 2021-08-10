@@ -6,7 +6,7 @@ export const Container = styled.div`
 `;
 
 export const TitleComp = styled.p`
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 27px;
+  font-weight: 900;
   color: #61527f;
 `;

@@ -72,6 +72,7 @@ export const Tag2 = styled(Tag)`
   align-items: center;
   margin-right: 8px;
   margin-bottom: 6px;
+  cursor: pointer;
 
   ${({ disabled }) =>
     disabled &&

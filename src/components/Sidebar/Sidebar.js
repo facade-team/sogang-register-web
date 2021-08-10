@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { MdSearch, MdChatBubbleOutline } from 'react-icons/md';
+import { MdSearch, MdChatBubbleOutline, MdInfoOutline } from 'react-icons/md';
+
 import { BsGrid } from 'react-icons/bs';
 import { RiMenuFill } from 'react-icons/ri';
 
@@ -62,7 +63,10 @@ const SideBar = ({ width, height, toggleOpen, openModal, openSidebar }) => {
             </ServiceName>
           ) : (
             <ServiceName onClick={openSidebar}>
-              <RiMenuFill color="white"></RiMenuFill>
+              <RiMenuFill
+                color="white"
+                style={{ cursor: 'pointer' }}
+              ></RiMenuFill>
             </ServiceName>
           )}
           {toggleOpen && !toggleText && isAuth ? (
@@ -140,6 +144,26 @@ const SideBar = ({ width, height, toggleOpen, openModal, openSidebar }) => {
                 </>
               )}
             </Navigation>
+            {/* <Navigation>
+              {toggleOpen && !toggleText ? (
+                <>
+                  <CustomLink to="/info">
+                    <Icon info={menu}>
+                      <MdInfoOutline></MdInfoOutline>
+                    </Icon>
+                    <NavMenu info={menu}>서비스 소개</NavMenu>
+                  </CustomLink>
+                </>
+              ) : (
+                <>
+                  <CustomLink to="/info">
+                    <Icon info={menu}>
+                      <MdInfoOutline></MdInfoOutline>
+                    </Icon>
+                  </CustomLink>
+                </>
+              )}
+            </Navigation> */}
           </NavigationList>
         </SidebarContent>
       </SidebarComponent>
