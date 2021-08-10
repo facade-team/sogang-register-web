@@ -6,6 +6,7 @@ import Home from '../../pages/Home';
 import Feedback from '../../pages/Feedback';
 import MyPage from '../../pages/MyPage';
 import Join from '../../pages/Join';
+import Info from '../../pages/Info/Info';
 import MypageProfile from '../../pages/ChangeProfile/ChangeProfile';
 import MypageSubjectList from '../../pages/SubjectList/SubjectList';
 import MyPagePassword from '../../pages/ChangePassword/ChangePassword';
@@ -33,6 +34,9 @@ const MainContainer = ({ width, height, toggleOpen, onClick, openModal }) => {
         </Route>
         <Route path="/mypage" exact>
           <MyPage openModal={openModal} />
+        </Route>
+        <Route path="/info" exact>
+          <Info openModal={openModal} />
         </Route>
         <Route path="/join" exact>
           <Join openModal={openModal} />

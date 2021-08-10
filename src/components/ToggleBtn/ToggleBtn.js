@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaAngleDoubleLeft } from 'react-icons/fa';
+import { FaBars, FaAngleDoubleLeft } from 'react-icons/fa';
 
 //styled
 import { ImgBox } from './ToggleBtn.element';
