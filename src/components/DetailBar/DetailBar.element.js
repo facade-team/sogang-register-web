@@ -110,7 +110,10 @@ export const TableRow = styled.tr``;
 export const TableHead = styled.th`
   text-align: left;
   padding-left: 5px;
-  color: #6a31df;
+  /* color: #6a31df; */
+  color: #656e79;
+  font-weight: 900;
+
   width: 80px;
   border-right: 1px solid #f2f2f2;
   border-bottom: ${({ corner }) => !corner && `1px solid #f2f2f2;`};
