@@ -8,6 +8,16 @@ import {
 } from '../SearchOption/SearchOptList.element';
 
 const SortOptList = () => {
+  const [profOption, setProfOption] = useState({
+    selected: false,
+  });
+  const [langOption, setLangOption] = useState({
+    selected: false,
+  });
+  const [contactOption, setContactOption] = useState({
+    selected: false,
+  });
+
   return (
     <SectionContainer>
       <OptionContainer>
