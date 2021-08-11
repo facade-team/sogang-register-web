@@ -16,7 +16,7 @@ import MainContainer from './components/MainContainer/MainContainer';
 import Sidebar from './components/Sidebar/Sidebar';
 import MobileSidebar from './components/Sidebar/MobileSidebar';
 import ToggleBtn from './components/ToggleBtn/ToggleBtn';
-import MobileToggleBtn from './components/ToggleBtn/ToggleBtn';
+import MobileToggleBtn from './components/ToggleBtn/MobileToggleBtn';
 import Modal from './components/Modal/Modal';
 
 // Snackbar

@@ -8,8 +8,9 @@ export const Container = styled.div`
   transition: 0.8s ease;
   margin-left: ${({ widthPx }) => `${widthPx}px`};
 
-  @media screen and (max-width: 900px){
+  @media screen and (max-width: 900px) {
     width: 100%;
+    top: 60px;
   }
   @media screen and (max-width: 600px) {
     top: 60px;
