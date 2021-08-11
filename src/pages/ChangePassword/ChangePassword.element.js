@@ -12,6 +12,7 @@ export const ContainerBox = styled.div`
 
   @media screen and (max-width: 900px){
     min-width: 400px;
+    margin-top: 50px;
   }
   @media screen and (max-width: 600px) {
     min-width: 200px;
@@ -40,6 +41,13 @@ export const Input = styled.input`
       }
     `;
   }}
+  @media screen and (max-width: 900px){
+    font-size: 14px;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 10px;
+    width: 70%;
+  }
 `;
 
 export const FormContainer = styled.div`
@@ -58,6 +66,14 @@ export const FormGroup = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-bottom: 15px;
+
+  @media screen and (max-width: 900px){
+    font-size: 14px;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 10px;
+    width: 60%;
+  }
 `;
 
 export const Label = styled.label`
@@ -72,5 +88,12 @@ export const Label = styled.label`
     color: #7248db;
     font-weight: 800;
     transition: all 0.4s ease;
+  }
+
+  @media screen and (max-width: 900px){
+    font-size: 14px;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 10px;
   }
 `;

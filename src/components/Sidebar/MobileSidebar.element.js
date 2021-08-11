@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom';
 export const SidebarComponent = styled.div`
   position: absolute;
   text-align: center;
-  width: ${(props) => {
-    return `${props.widthPx}px`;
-  }};
+  width : 100%;
   height: ${(props) => {
     return `${props.heightPx}px`;
   }};

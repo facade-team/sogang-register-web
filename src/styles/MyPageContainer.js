@@ -5,4 +5,9 @@ export const Box = styled.div`
   height: 100%;
   display: flex;
   flex-direction: row;
+
+  @media screen and (max-width: 900px){
+    flex-direction: column;
+    align-items: center;
+  }
 `;
