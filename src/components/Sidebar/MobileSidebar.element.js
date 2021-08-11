@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export const SidebarComponent = styled.div`
   position: absolute;
   text-align: center;
-  width : 100%;
+  width: 100%;
   height: ${(props) => {
     return `${props.heightPx}px`;
   }};
@@ -13,6 +13,7 @@ export const SidebarComponent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 
 export const MainLogo = styled.img`
@@ -54,8 +55,7 @@ export const ServiceName = styled.div`
 
 export const NavigationList = styled.div`
   position: relative;
-  top: 200px;
-  /* height: 20vh; */
+  top: 240px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

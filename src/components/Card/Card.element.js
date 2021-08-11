@@ -28,6 +28,7 @@ export const CardContainer = styled.div`
 
   @media screen and (max-width: 600px) {
     min-width: 140px;
+    padding: 20px 14px 15px 20px;
   }
 `;
 
@@ -36,6 +37,12 @@ export const SubjectName = styled.p`
   font-size: 18px;
   word-wrap: break-word;
   ${({ text }) => text.length > 10 && `font-size: 16px; letter-spacing:0.01px;`}
+  @media screen and (max-width: 600px) {
+    font-size: 14px;
+    ${({ text }) =>
+      text.length > 10 && `font-size: 12px; letter-spacing:0.01px;`}
+    margin-bottom: 4px;
+  }
 `;
 
 export const TagContainer = styled.div`
@@ -43,6 +50,7 @@ export const TagContainer = styled.div`
   flex-direction: row;
   @media screen and (max-width: 600px) {
     flex-wrap: wrap;
+    margin-bottom: 2px;
   }
 `;
 
@@ -66,6 +74,9 @@ export const Tag = styled.div`
 
   // font-size
   ${({ fontSize }) => fontSize && `font-size: ${fontSize}px;`}
+  @media screen and (max-width: 600px) {
+    margin-bottom: 3px;
+  }
 `;
 
 export const Detail = styled.div`
@@ -75,4 +86,8 @@ export const Detail = styled.div`
 export const P = styled.p`
   ${({ text }) => text.length > 20 && `font-size: 11px; letter-spacing:0.01px;`}
   margin-bottom: 8px;
+  @media screen and (max-width: 600px) {
+    ${({ text }) =>
+      text.length > 10 && `font-size: 9px; letter-spacing:0.01px;`}
+  }
 `;
