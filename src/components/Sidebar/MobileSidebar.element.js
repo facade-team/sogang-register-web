@@ -6,7 +6,11 @@ export const SidebarComponent = styled.div`
   text-align: center;
   width: 100%;
   height: ${(props) => {
-    return `${props.heightPx}px`;
+    if (props.toggleOpen === false) {
+      return `${props.heightPx}px`;
+    } else {
+      return `60px`;
+    }
   }};
   background-color: rgba(106, 49, 223, 0.9);
   transition: 0.8s ease;
@@ -14,6 +18,13 @@ export const SidebarComponent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: ${(props) => {
+    if (props.toggleOpen === false) {
+      return `2`;
+    } else {
+      return `1`;
+    }
+  }};
 `;
 
 export const MainLogo = styled.img`

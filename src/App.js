@@ -69,6 +69,9 @@ const App = () => {
   const [mobileWidth, setMobileWidth] = useState(
     document.documentElement.scrollWidth
   );
+  const [mSidebarHeight, setMSidebarHeight] = useState(
+    document.documentElement.scrollHeight
+  );
 
   useEffect(() => {
     let limit = Math.max(
@@ -178,7 +181,7 @@ const App = () => {
                 openModal={openModal}
               ></MainContainer>
               <MobileToggleBtn
-                toggleOpen={toggleSidebar}
+                toggleOpen={mobileToggleSidebar}
                 onClick={mobileToggleSidebarFunc}
               ></MobileToggleBtn>
             </>
@@ -195,7 +198,7 @@ const App = () => {
             // mobile
             <MobileSidebar
               width={mobileWidth}
-              height={closedMobileSidebarHeight}
+              height={mSidebarHeight}
               toggleOpen={mobileToggleSidebar}
               openSidebar={toggleSidebarFunc}
               openModal={openModal}

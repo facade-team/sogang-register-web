@@ -8,7 +8,7 @@ export const ImgBox = styled.div`
   transform: ${(props) => {
     return `translatex(${props.widthPx}px)`;
   }};
-  z-index: 1;
+  z-index: 3;
   /* width: 25px; */
   right: 20px;
   top: 15px;
