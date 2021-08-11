@@ -10,6 +10,12 @@ export const ContainerBox = styled.div`
   width: 100%;
   min-width: 600px;
   min-height: 300px;
+
+  @media screen and (max-width: 805px){
+    //width: 100%;
+    //min-width: 200px;
+  }
+
 `;
 
 export const Profile = styled.div`
@@ -52,6 +58,11 @@ export const FormContainer = styled.div`
   align-items: center;
   width: 40%;
   min-width: 400px;
+
+  @media screen and (max-width: 805px){
+    //width: 40%;
+    //min-width: 200px;
+  }
 `;
 
 export const FormGroup = styled.div`
@@ -60,6 +71,9 @@ export const FormGroup = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-bottom: 15px;
+
+  @media screen and (max-width: 805px){
+  }
 `;
 
 export const SelectForm = styled(Select)`
@@ -68,6 +82,11 @@ export const SelectForm = styled(Select)`
   font-size: 16px;
   outline: none;
   transition: all 0.4s ease;
+
+  @media screen and (max-width: 805px){
+    //width: 80%;
+    //font-size: 8px;
+  }
 `;
 
 export const Option = styled.option`
@@ -90,6 +109,10 @@ export const Label = styled.label`
     color: #7248db;
     font-weight: 800;
     transition: all 0.4s ease;
+  }
+
+  @media screen and (max-width: 805px){
+    //font-size: 6px;
   }
 `;
 
@@ -121,6 +144,10 @@ export const Input = styled.input`
       `;
     }
   }}
+    @media screen and (max-width: 805px){
+    //width: 80%;
+    //font-size: 8px;
+  }
 `;
 
 export const MailAllow = styled.div`

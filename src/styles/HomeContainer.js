@@ -24,4 +24,9 @@ export const HomeContainer = styled.div`
   justify-content: start;
   padding: 40px 50px 40px 50px;
   overflow: auto;
+
+  @media screen and (max-width: 805px){
+    //min-width: 300px;
+    //padding: 40px 30px 40px 30px;
+  }
 `;
