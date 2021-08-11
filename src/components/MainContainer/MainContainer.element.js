@@ -11,5 +11,8 @@ export const Container = styled.div`
   @media screen and (max-width: 805px){
     //margin-left: 0px;
     //width: 0;
+  @media screen and (max-width: 600px) {
+    top: 60px;
+    width: 100%;
   }
 `;

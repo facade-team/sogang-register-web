@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 
 export const SidebarComponent = styled.div`
   position: absolute;
-  left: 0%;
   text-align: center;
-  /* height: 100%; */
+  width: ${(props) => {
+    return `${props.widthPx}px`;
+  }};
   height: ${(props) => {
     return `${props.heightPx}px`;
   }};
-  width: ${(props) => `${-props.widthPx}px`};
-  border-radius: 0px 10px 10px 0px;
   background-color: rgba(106, 49, 223, 0.9);
   transition: 0.8s ease;
   display: flex;
@@ -19,7 +18,6 @@ export const SidebarComponent = styled.div`
 `;
 
 export const MainLogo = styled.img`
-  /* position: fixed; */
   width: 1.8rem;
   height: 1.2rem;
   margin-right: 15px;
@@ -45,8 +43,9 @@ export const SidebarContent = styled.div`
 `;
 
 export const ServiceName = styled.div`
-  position: relative;
-  top: 40px;
+  position: inherit;
+  top: 20px;
+  left: 25px;
   font-size: 1.5rem;
   font-weight: 800;
 

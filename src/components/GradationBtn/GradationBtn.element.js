@@ -16,6 +16,11 @@ export const GradationBtnComp = styled.button`
           border: 1px;
           color: #ffffff;
           z-index: 1;
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.05) translateZ(0px);
+            transition: all 0.1s ease-in;
+          }
         `
       : css`
           background-color: rgb(255, 255, 255);
@@ -31,10 +36,4 @@ export const GradationBtnComp = styled.button`
   position: ${({ position }) => `${position}`};
   top: ${({ top }) => `${top}px`};
   margin-right: ${({ marginRight }) => `${marginRight}px`};
-
-  &:hover {
-    cursor: pointer;
-    transform: scale(1.05) translateZ(0px);
-    transition: all 0.1s ease-in;
-  }
 `;

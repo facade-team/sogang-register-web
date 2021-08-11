@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useSnackBarContext } from '../../contexts/SnackBarContext';
@@ -23,6 +24,7 @@ import {
 import { FormGroup, Input } from './AuthCode.element.js';
 
 const AuthCode = ({ openModal }) => {
+  let history = useHistory();
   const { setSnackBar } = useSnackBarContext();
   const { isAuth, userData } = useAuthContext();
   const [form, onChangeForm] = useInput({
@@ -39,18 +41,16 @@ const AuthCode = ({ openModal }) => {
 
   //useEffect
   useEffect(() => {
-    if (!isAuth) {
-      openModal();
-      setSnackBar({
-        type: 'error',
-        msg: '로그인이 필요합니다.',
-      });
-    }
-  }, [isAuth]);
-
-  const handleClose = () => {
-    setState({ ...state, open: false });
-  };
+    setTimeout(() => {
+      if (!userData) {
+        openModal();
+        setSnackBar({
+          type: 'error',
+          msg: '로그인이 필요합니다.',
+        });
+      }
+    }, 1000);
+  }, [userData]);
 
   const onClick = (e) => {
     if (isAuth) {
@@ -60,6 +60,7 @@ const AuthCode = ({ openModal }) => {
           script: code,
         })
         .then((res) => {
+          history.push('/mypage');
           setSnackBar({
             type: 'success',
             msg: '이메일 인증에 성공하였습니다.',

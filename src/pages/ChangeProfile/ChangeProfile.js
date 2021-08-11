@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-import { IoPersonCircleOutline } from 'react-icons/io5';
-import useInput from '../../hooks/useInput';
+import { useHistory } from 'react-router-dom';
 
 import GradationBtn from '../../components/GradationBtn/GradationBtn';
 import Title from '../../components/Title/Title';
@@ -13,17 +11,12 @@ import majorsPair, { getOptionIndex } from '../../utils/majorPair';
 // context API
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useSnackBarContext } from '../../contexts/SnackBarContext';
+import { useLoadingContext } from '../../contexts/LoadingContext';
 
 import {
   ContainerBox,
-  // Profile,
   FormContainer,
   FormGroup,
-  // ProfileContainer,
-  // Avatar,
-  // Detail,
-  // Name,
-  // Major,
   SelectForm,
   Label,
   Input,
@@ -35,39 +28,28 @@ import {
 } from '../../styles/HomeContainer';
 
 const ChangeProfile = ({ openModal }) => {
+  let history = useHistory();
   const { isAuth, userData, setUserData } = useAuthContext();
   const { setSnackBar } = useSnackBarContext();
-  const [major, setMajor] = useState(false);
-  const [defaultMajorOption, setDefaultMajorOption] = useState([]);
-  const [form, onChangeForm] = useInput({
-    email: userData.email, // api로 초기값 설정
-  });
-
-  const { email } = form;
-
+  const [major, setMajor] = useState(userData.major);
   const [checkBoxValue, setCheckBoxValue] = useState(userData.allowEmail); //api로 초기값 설정
 
-  //useEffect
-  // useEffect(() => {
-  //   if (userData) {
-  //     console.log(userData.major);
-  //     const m = userData.major;
-  //     setDefaultMajorOption(
-  //       m.map((subject) => {
-  //         return { value: subject, label: subject };
-  //       })
-  //     );
-  //   }
-  // }, [userData]);
+  console.log(checkBoxValue);
+  // 로딩스피너 띄우기
+  const { setLoading } = useLoadingContext();
 
   useEffect(() => {
-    if (!isAuth) {
-      openModal();
-      setSnackBar({
-        type: 'error',
-        msg: '로그인이 필요합니다.',
-      });
-    }
+    console.log(userData);
+
+    setTimeout(() => {
+      if (!userData) {
+        openModal();
+        setSnackBar({
+          type: 'error',
+          msg: '로그인이 필요합니다.',
+        });
+      }
+    }, 1000);
   }, [userData]);
 
   const onChange = (e) => {
@@ -79,32 +61,65 @@ const ChangeProfile = ({ openModal }) => {
     }
   };
 
+  const clickCheckBox = (e) => {
+    setCheckBoxValue(!checkBoxValue);
+    localStorage.setItem(
+      'userData',
+      JSON.stringify({
+        allowEmail: checkBoxValue,
+        major: userData.major,
+        email: userData.email,
+        isVerified: userData.isVerified,
+        token: userData.token,
+        username: userData.username,
+      })
+    );
+  };
+
   const onClick = (e) => {
     e.preventDefault();
     if (isAuth) {
+      setLoading(true);
       axios
         .post('/user/majoremail', {
-          major: major,
+          major,
           allow_email: checkBoxValue,
         })
         .then((res) => {
-          console.log(res);
-          console.log(major, checkBoxValue);
+          setLoading(false);
+
+          setMajor(userData.major);
+          setCheckBoxValue(userData.allowEmail);
+          history.push('/mypage');
           setUserData({
-            major: major,
+            major,
             allow_email: checkBoxValue,
             ...userData,
           });
+
+          localStorage.setItem(
+            'userData',
+            JSON.stringify({
+              major,
+              allowEmail: checkBoxValue,
+              email: userData.email,
+              isVerified: userData.isVerified,
+              token: userData.token,
+              username: userData.username,
+            })
+          );
           setSnackBar({
             type: 'success',
             msg: '프로필 수정에 성공하였습니다.',
           });
         })
         .catch((err) => {
-          // setSnackBar({
-          //   type: 'error',
-          //   msg: '이전 비밀번호가 일치하지 않습니다.',
-          // });
+          setLoading(false);
+          console.log(err);
+          setSnackBar({
+            type: 'error',
+            msg: '프로필 수정에 실패하였습니다.',
+          });
         });
     } else {
       setSnackBar({
@@ -129,7 +144,6 @@ const ChangeProfile = ({ openModal }) => {
                     name="email"
                     id="email"
                     value={userData.email}
-                    onChange={onChangeForm}
                     readOnly
                   />
                 </FormGroup>
@@ -137,9 +151,14 @@ const ChangeProfile = ({ openModal }) => {
                 <FormGroup>
                   <Label htmlFor="majors">전공 </Label>
                   <SelectForm
-                    // value={{ label: '컴퓨터공학' }} TODO: default value -> state
-                    // value={}
                     options={majorsPair}
+                    defaultValue={
+                      userData &&
+                      userData.major.map((option) => {
+                        console.log(option);
+                        return { value: option, label: option };
+                      })
+                    }
                     isSearchable
                     isClearable
                     isMulti
@@ -160,7 +179,7 @@ const ChangeProfile = ({ openModal }) => {
                     name="admit"
                     id="allow"
                     checked={checkBoxValue}
-                    onChange={() => setCheckBoxValue(!checkBoxValue)}
+                    onChange={clickCheckBox}
                   />
                 </MailAllow>
                 <br></br>

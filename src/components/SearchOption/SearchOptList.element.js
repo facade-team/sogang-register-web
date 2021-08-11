@@ -58,6 +58,10 @@ export const OptBtn = styled.button`
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       }
     `}
+  @media screen and (max-width: 600px) {
+    width: 100px;
+    margin: 6px 5px;
+  }
 `;
 
 export const TagContainer2 = styled(TagContainer)`
@@ -72,6 +76,7 @@ export const Tag2 = styled(Tag)`
   align-items: center;
   margin-right: 8px;
   margin-bottom: 6px;
+  cursor: pointer;
 
   ${({ disabled }) =>
     disabled &&

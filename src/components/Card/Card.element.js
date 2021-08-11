@@ -25,6 +25,10 @@ export const CardContainer = styled.div`
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     top: -4px;
   }
+
+  @media screen and (max-width: 600px) {
+    min-width: 140px;
+  }
 `;
 
 export const SubjectName = styled.p`
@@ -37,6 +41,9 @@ export const SubjectName = styled.p`
 export const TagContainer = styled.div`
   display: flex;
   flex-direction: row;
+  @media screen and (max-width: 600px) {
+    flex-wrap: wrap;
+  }
 `;
 
 export const Tag = styled.div`

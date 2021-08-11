@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 //hooks
 import useInput from '../../hooks/useInput';
@@ -26,6 +27,7 @@ import {
 } from '../../styles/HomeContainer';
 
 const ChangePassword = ({ openModal }) => {
+  let history = useHistory();
   const { setSnackBar } = useSnackBarContext();
   const { isAuth, userData } = useAuthContext();
   const [form, onChangeForm] = useInput({
@@ -36,14 +38,16 @@ const ChangePassword = ({ openModal }) => {
 
   //useEffect
   useEffect(() => {
-    if (!isAuth) {
-      openModal();
-      setSnackBar({
-        type: 'error',
-        msg: '로그인이 필요합니다.',
-      });
-    }
-  }, [isAuth]);
+    setTimeout(() => {
+      if (!userData) {
+        openModal();
+        setSnackBar({
+          type: 'error',
+          msg: '로그인이 필요합니다.',
+        });
+      }
+    }, 1000);
+  }, [userData]);
 
   const onClick = (e) => {
     if (newPassword === checkPassword) {
@@ -53,6 +57,7 @@ const ChangePassword = ({ openModal }) => {
           new_password: newPassword,
         })
         .then((res) => {
+          history.push('/mypage');
           setSnackBar({
             type: 'success',
             msg: '새로운 비밀번호로 변경되었습니다.',

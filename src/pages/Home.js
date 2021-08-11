@@ -3,12 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { useMenuContext } from '../contexts/MenuContext';
 import { useSubjectContext } from '../contexts/SubjectContext';
 
-// import { data } from '../pages/DummyData';
-
 //components
 import Title from '../components/Title/Title';
 import SearchOption from '../components/SearchOption/SearchOption';
-import DetailOption from '../components/DetailOption/DetailOption';
+import SortOption from '../components/SortOption/SortOption';
 import SelectSubject from '../components/SelectSubject/SelectSubject';
 import DetailBar from '../components/DetailBar/DetailBar';
 
@@ -19,9 +17,12 @@ const Home = ({ openModal, height }) => {
   const [detailbarWidth, setDetailbarWidth] = useState(0);
   const [cardKey, setCardKey] = useState('');
   const [detailSubject, setDetailSubject] = useState({});
-  const [latestSubject, setLatestSubject] = useState({});
 
   const { subjects } = useSubjectContext();
+
+  const [notMobile, setNotMobile] = useState(
+    window.matchMedia('(min-width: 600px)').matches
+  ); // true : pc, false : mobile
 
   const clickCard = (key) => {
     if (detailbarWidth === 0) {
@@ -30,14 +31,10 @@ const Home = ({ openModal, height }) => {
 
     const detailData = subjects.find((d) => d.subject_id === key);
     if (key === cardKey) return;
-
     setCardKey(key);
+
     setDetailSubject(detailData);
   };
-
-  useEffect(() => {
-    setLatestSubject(detailSubject);
-  }, [cardKey]);
 
   // 네비게이션 바에 현재 페이지 표시를 위한 상태
   const { setMenu } = useMenuContext();
@@ -45,6 +42,11 @@ const Home = ({ openModal, height }) => {
   useEffect(() => {
     setMenu('search');
   }, [setMenu]);
+
+  useEffect(() => {
+    var notWidth = window.matchMedia('(min-width: 600px)').matches;
+    setNotMobile(notWidth);
+  }, []);
 
   return (
     <Container>
@@ -54,8 +56,12 @@ const Home = ({ openModal, height }) => {
           openModal={openModal}
           widthPx={detailbarWidth}
         ></Title>
-        <SearchOption number="01" subtitle="검색옵션"></SearchOption>
-        <DetailOption number="02" subtitle="세부옵션"></DetailOption>
+        <SearchOption
+          number="01"
+          subtitle="검색옵션"
+          submessage="*복수선택가능"
+        ></SearchOption>
+        <SortOption number="02" subtitle="정렬옵션"></SortOption>
         <SelectSubject
           number="03"
           subtitle="과목조회"
@@ -64,15 +70,21 @@ const Home = ({ openModal, height }) => {
         ></SelectSubject>
       </HomeContainer>
       {/* 오른쪽 사이드바 */}
-      <DetailBar
-        width={detailbarWidth}
-        height={height}
-        signBtnType="login"
-        openModal={openModal}
-        subject={detailSubject}
-        latestSubject={latestSubject}
-        clickCard={clickCard}
-      ></DetailBar>
+      {notMobile === true ? ( // pc
+        detailbarWidth === 0 ? null : (
+          <DetailBar
+            width={detailbarWidth}
+            height={height}
+            signBtnType="login"
+            openModal={openModal}
+            subject={detailSubject}
+            // latestSubject={latestSubject}
+            clickCard={clickCard}
+          ></DetailBar> // mobile
+        )
+      ) : (
+        <></>
+      )}
     </Container>
   );
 };

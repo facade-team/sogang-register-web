@@ -4,10 +4,14 @@ import { Link } from 'react-router-dom';
 //components
 import GradationBtn from '../GradationBtn/GradationBtn';
 
+//context
+import { useAuthContext } from '../../contexts/AuthContext';
+
 //styled
 import { Container, Buttons } from './ButtonList.element';
 
 const ButtonList = () => {
+  const { isAuth, userData } = useAuthContext();
   return (
     <Container>
       <Buttons>
@@ -31,16 +35,19 @@ const ButtonList = () => {
             비밀번호 변경
           </GradationBtn>
         </Link>
-        <Link to="/mypage/authemail">
-          <GradationBtn
-            width={200}
-            borderRadius={20}
-            active={true}
-            mouseover={false}
-          >
-            이메일 인증
-          </GradationBtn>
-        </Link>
+        {isAuth && !userData.isVerified ? (
+          <Link to="/mypage/authemail">
+            <GradationBtn
+              width={200}
+              borderRadius={20}
+              active={true}
+              mouseover={false}
+            >
+              이메일 인증
+            </GradationBtn>
+          </Link>
+        ) : null}
+
         <Link to="/mypage/quit">
           <GradationBtn
             width={200}

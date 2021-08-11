@@ -26,7 +26,13 @@ import {
   NavMenu,
 } from './MobileSidebar.element';
 
-const SideBar = ({ width, height, toggleOpen, openModal, openSidebar }) => {
+const MobileSideBar = ({
+  width,
+  height,
+  toggleOpen,
+  openModal,
+  openSidebar,
+}) => {
   const [initial, setInitial] = useState(true);
   const [toggleText, setToggleText] = useState(true);
   useEffect(() => {
@@ -45,106 +51,14 @@ const SideBar = ({ width, height, toggleOpen, openModal, openSidebar }) => {
   const { isAuth } = useAuthContext();
 
   return (
-    <>
-      <SidebarComponent
-        heightPx={height}
-        widthPx={width}
-        toggleOpen={toggleOpen}
-      >
-        <SidebarContent toggleOpen={toggleOpen}>
-          {toggleOpen && !toggleText ? (
-            <ServiceName>
-              <Link to="/">
-                <MainLogo src={Logo}></MainLogo>
-                <Sogang toggleOpen={toggleOpen}>서강</Sogang>
-                <Register toggleOpen={toggleOpen}>신청</Register>
-              </Link>
-            </ServiceName>
-          ) : (
-            <ServiceName onClick={openSidebar}>
-              <RiMenuFill color="white"></RiMenuFill>
-            </ServiceName>
-          )}
-          {toggleOpen && !toggleText && isAuth ? (
-            <>
-              <GradationBtn
-                onClick={openModal}
-                signBtnType={'login'}
-                width={100}
-                top={160}
-                borderRadius={15}
-                position={'relative'}
-                active
-              ></GradationBtn>
-            </>
-          ) : null}
-
-          <NavigationList>
-            <Navigation>
-              {toggleOpen && !toggleText ? (
-                <>
-                  <CustomLink to="/">
-                    <Icon search={menu}>
-                      <MdSearch></MdSearch>
-                    </Icon>
-                    <NavMenu search={menu}>개설교과목 검색</NavMenu>
-                  </CustomLink>
-                </>
-              ) : (
-                <>
-                  <CustomLink to="/">
-                    <Icon search={menu}>
-                      <MdSearch></MdSearch>
-                    </Icon>
-                  </CustomLink>
-                </>
-              )}
-            </Navigation>
-            <Navigation>
-              {toggleOpen && !toggleText ? (
-                <>
-                  <CustomLink to="/mypage">
-                    <Icon mypage={menu}>
-                      <BsGrid></BsGrid>
-                    </Icon>
-                    <NavMenu mypage={menu}>마이페이지</NavMenu>
-                  </CustomLink>
-                </>
-              ) : (
-                <>
-                  <CustomLink to="/mypage">
-                    <Icon mypage={menu}>
-                      <BsGrid></BsGrid>
-                    </Icon>
-                  </CustomLink>
-                </>
-              )}
-            </Navigation>
-            <Navigation>
-              {toggleOpen && !toggleText ? (
-                <>
-                  <CustomLink to="/feedback">
-                    <Icon feedback={menu}>
-                      <MdChatBubbleOutline></MdChatBubbleOutline>
-                    </Icon>
-                    <NavMenu feedback={menu}>피드백/문의</NavMenu>
-                  </CustomLink>
-                </>
-              ) : (
-                <>
-                  <CustomLink to="/feedback">
-                    <Icon feedback={menu}>
-                      <MdChatBubbleOutline></MdChatBubbleOutline>
-                    </Icon>
-                  </CustomLink>
-                </>
-              )}
-            </Navigation>
-          </NavigationList>
-        </SidebarContent>
-      </SidebarComponent>
-    </>
+    <SidebarComponent widthPx={width} heightPx={height} toggleOpen={toggleOpen}>
+      <ServiceName>
+        <MainLogo src={Logo}></MainLogo>
+        <Sogang>서강</Sogang>
+        <Register>신청</Register>
+      </ServiceName>
+    </SidebarComponent>
   );
 };
 
-export default SideBar;
+export default MobileSideBar;

@@ -28,5 +28,11 @@ export const HomeContainer = styled.div`
   @media screen and (max-width: 805px){
     //min-width: 300px;
     //padding: 40px 30px 40px 30px;
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    min-width: 200px;
+    padding: 20px 20px 20px 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 `;
