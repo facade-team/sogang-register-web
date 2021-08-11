@@ -101,6 +101,10 @@ const App = () => {
       : setWidth(-openedSidebarWidth);
   };
 
+  const mobileToggleSidebarFunc = () => {
+    setMobileToggleSidebar(!mobileToggleSidebar);
+  };
+
   const openModal = (signBtnType) => {
     setShowModal((prev) => !prev);
     setModalType(signBtnType);
@@ -175,7 +179,7 @@ const App = () => {
               ></MainContainer>
               <MobileToggleBtn
                 toggleOpen={toggleSidebar}
-                onClick={toggleSidebarFunc}
+                onClick={mobileToggleSidebarFunc}
               ></MobileToggleBtn>
             </>
           )}
