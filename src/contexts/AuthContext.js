@@ -21,8 +21,10 @@ const AuthProvider = ({ children }) => {
         .then((res) => {
           if (res.status === 201) {
             console.log(res);
+            axios.defaults.headers.common['Authorization'] =
+              res.data.data.Authorization;
             setIsAuth(true);
-            const ud = {
+            let ud = {
               email: res.data.data.email,
               username: res.data.data.username,
               major: res.data.data.major,
@@ -34,6 +36,18 @@ const AuthProvider = ({ children }) => {
 
             localStorage.setItem('userData', JSON.stringify(ud));
             localStorage.setItem('token', res.data.data.Authorization);
+            axios.get('/favorites/').then((resFavorite) => {
+              console.log(resFavorite);
+              const subjects = resFavorite.data.data;
+              if (subjects) {
+                ud = {
+                  subjects: resFavorite.data.data,
+                  ...ud,
+                };
+                console.log(ud);
+                localStorage.setItem('userData', JSON.stringify(ud));
+              }
+            });
           }
           // 이메일 인증은 안됐지만 로그인 성공
           else if (res.status === 202) {
@@ -49,6 +63,7 @@ const AuthProvider = ({ children }) => {
               allowEmail: res.data.data.allow_email,
               isVerified: res.data.data.verify_on,
               token: res.data.data.Authorization,
+              subjects: [],
             };
             setUserData(ud);
             localStorage.setItem('userData', JSON.stringify(ud));
