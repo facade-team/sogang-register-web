@@ -63,7 +63,7 @@ const App = () => {
   );
   const [height, setHeight] = useState(document.documentElement.scrollHeight);
   const [notMobile, setNotMobile] = useState(
-    window.matchMedia('(min-width: 600px)').matches
+    window.matchMedia('(min-width: 900px)').matches
   ); // true : pc, false : mobile
   const { subject } = useSubjectContext();
   const [mobileWidth, setMobileWidth] = useState(
@@ -89,7 +89,7 @@ const App = () => {
       );
       setHeight(limit);
 
-      var notWidth = window.matchMedia('(min-width: 600px)').matches;
+      var notWidth = window.matchMedia('(min-width: 900px)').matches;
       setNotMobile(notWidth);
     });
   });

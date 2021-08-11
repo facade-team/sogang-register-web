@@ -9,6 +9,13 @@ export const ContainerBox = styled.div`
   width: 100%;
   min-width: 600px;
   min-height: 300px;
+
+  @media screen and (max-width: 900px){
+    min-width: 400px;
+  }
+  @media screen and (max-width: 600px) {
+    min-width: 200px;
+  }
 `;
 
 export const Input = styled.input`
