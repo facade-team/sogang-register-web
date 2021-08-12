@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import SubTitle from '../SubTitle/SubTitle';
 import Card from '../Card/Card';
 import {
@@ -22,11 +22,13 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
     langOption,
     contactOption,
   } = useSubjectContext();
+
   return (
     <>
       <SubTitle number={number} subtitle={subtitle}></SubTitle>
-      {data ? (
+      {data && data.length !== 0 ? (
         <>
+          {console.log('23', data)}
           <CardList>
             {/* 정렬옵션 없을때 */}
             {data &&

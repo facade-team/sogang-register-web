@@ -12,11 +12,8 @@ const SubjectCard = ({ subject, onClick, active, key }) => {
     <Subject onClick={() => (active ? onClick(subject.subject_id) : null)}>
       <SubjectNameInList font={14}>{subject.과목명}</SubjectNameInList>
       <TagContainer>
-        {subject.대면여부 === '비대면' ? (
-          <Tag untact>비대면</Tag>
-        ) : (
-          <Tag ontact>대면</Tag>
-        )}
+        {subject.대면여부 === '비대면' ? <Tag untact>비대면</Tag> : null}
+        {subject.대면여부 === '대면' ? <Tag ontact>대면</Tag> : null}
         {subject.강의언어 === '영어' ? <Tag eng>영어강의</Tag> : null}
         {subject.강의언어 === '중국어' ? <Tag china>중국어강의</Tag> : null}
         <Tag credit={subject.학점}>{subject.학점}학점</Tag>

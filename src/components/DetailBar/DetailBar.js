@@ -253,11 +253,12 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                     <Tag untact fontSize="12">
                       비대면
                     </Tag>
-                  ) : (
+                  ) : null}
+                  {subject.대면여부 === '대면' ? (
                     <Tag ontact fontSize="12">
                       대면
                     </Tag>
-                  )}
+                  ) : null}
                   {subject.강의언어 === '영어' ? (
                     <Tag eng fontSize="12">
                       영어강의
