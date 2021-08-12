@@ -27,6 +27,9 @@ export const CardList = styled.div`
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
   }
+  @media screen and (max-width: 600px) {
+    justify-content: center;
+  }
 `;
 
 export const ImgContainer = styled.div`
@@ -55,6 +58,9 @@ export const ProfName = styled.div`
 export const SortedCard = styled.div`
   display: flex;
   flex-wrap: wrap;
+  @media screen and (max-width: 600px) {
+    justify-content: center;
+  }
 `;
 
 export const Divider = styled.hr`
