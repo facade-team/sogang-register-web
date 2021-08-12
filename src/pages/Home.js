@@ -38,7 +38,7 @@ const Home = ({ openModal, height }) => {
   };
   const mobileClickCard = (key) => {
     if (detailbarHeight === 0) {
-      setDetailbarHeight(500);
+      setDetailbarHeight(400);
     }
     const mobileDetailData = subjects.find((data) => data.subject_id === key);
     if (key === cardKey) return;

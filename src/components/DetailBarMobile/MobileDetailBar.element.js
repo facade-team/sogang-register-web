@@ -31,7 +31,7 @@ export const DetailbarContent = styled.div`
   padding: 15px 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  // justify-content: space-between;
   box-shadow: 3px 3px 6px 3px rgba(0, 0, 0, 0.34);
 `;
 
@@ -54,15 +54,25 @@ export const Top = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 8px;
+  @media screen and (max-width: 600px) {
+    margin-bottom: 12px;
+  }
 `;
 
 export const SubjectName = styled.div`
   color: #61547f;
-  width: 100%;
+  width: fit-content;
   font-size: ${({ font }) => `${font}px`};
   font-weight: 600;
   text-align: left;
   height: fit-content;
+  ${({ text }) => text.length > 10 && `font-size: 16px; letter-spacing:0.01px;`}
+`;
+
+export const TagContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
 `;
 
 export const BtnContainer = styled.div`
@@ -79,7 +89,7 @@ export const BtnContainer = styled.div`
 export const SubjectTable = styled.table`
   border-collapse: collapse;
   height: auto;
-  font-size: 14px;
+  font-size: 16px;
 `;
 
 export const TableBody = styled.tbody``;
