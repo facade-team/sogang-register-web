@@ -26,10 +26,10 @@ export const CardContainer = styled.div`
     top: -4px;
   }
 
-  @media screen and (max-width: 600px) {
-    min-width: 140px;
-    padding: 20px 14px 15px 20px;
-  }
+  // @media screen and (max-width: 600px) {
+  //   min-width: 140px;
+  //   padding: 20px 14px 15px 20px;
+  // }
 `;
 
 export const SubjectName = styled.p`
