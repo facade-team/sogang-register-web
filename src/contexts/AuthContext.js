@@ -21,33 +21,34 @@ const AuthProvider = ({ children }) => {
         .then((res) => {
           if (res.status === 201) {
             console.log(res);
-            axios.defaults.headers.common['Authorization'] =
-              res.data.data.Authorization;
             setIsAuth(true);
-            let ud = {
-              email: res.data.data.email,
-              username: res.data.data.username,
-              major: res.data.data.major,
-              allowEmail: res.data.data.allow_email,
-              isVerified: res.data.data.verify_on,
-              token: res.data.data.Authorization,
-            };
+
+            let ud;
+            if (res.data.data.favorites === null) {
+              ud = {
+                email: res.data.data.email,
+                username: res.data.data.username,
+                major: res.data.data.major,
+                allowEmail: res.data.data.allow_email,
+                isVerified: res.data.data.verify_on,
+                token: res.data.data.Authorization,
+              };
+            } else {
+              ud = {
+                email: res.data.data.email,
+                username: res.data.data.username,
+                major: res.data.data.major,
+                allowEmail: res.data.data.allow_email,
+                isVerified: res.data.data.verify_on,
+                token: res.data.data.Authorization,
+                subjects: res.data.data.faovirtes,
+              };
+            }
+
             setUserData(ud);
 
             localStorage.setItem('userData', JSON.stringify(ud));
             localStorage.setItem('token', res.data.data.Authorization);
-            axios.get('/favorites/').then((resFavorite) => {
-              console.log(resFavorite);
-              const subjects = resFavorite.data.data;
-              if (subjects) {
-                ud = {
-                  subjects: resFavorite.data.data,
-                  ...ud,
-                };
-                console.log(ud);
-                localStorage.setItem('userData', JSON.stringify(ud));
-              }
-            });
           }
           // 이메일 인증은 안됐지만 로그인 성공
           else if (res.status === 202) {

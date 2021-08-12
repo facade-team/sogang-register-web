@@ -10,6 +10,7 @@ import StarBtn from './StarBtn';
 //context
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useSnackBarContext } from '../../contexts/SnackBarContext';
+import { useLoadingContext } from '../../contexts/LoadingContext';
 
 //styled
 import {
@@ -32,8 +33,9 @@ import {
 import { Tag, TagContainer } from '../Card/Card.element';
 
 const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
-  const { isAuth, userData } = useAuthContext();
+  const { isAuth, userData, setUserData } = useAuthContext();
   const { setSnackBar } = useSnackBarContext();
+  const { setLoading } = useLoadingContext();
 
   //최근 본과목 -> true, 즐겨찾기 -> false
   const [latestAndFavoritesToggle, setLatestAndFavoritesToggle] =
@@ -53,49 +55,35 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
   }, [subject, favoriteList]);
 
   useEffect(() => {
-    if (localStorage.getItem('subject') === null) {
-      if (isAuth && userData.token) {
-        axios
-          .get('/favorites/')
-          .then((res) => {
-            if (res.status === 201) {
-              setFavoriteList(res.data.data);
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-            setSnackBar({
-              type: 'error',
-              msg: '즐겨찾기 과목을 불러오는데 오류가 발생했습니다.',
-            });
-          });
-      }
-    } else {
-      if (localStorage.getItem('subject') !== null) {
-        setFavoriteList(JSON.parse(localStorage.getItem('subject')));
-      }
+    // if (localStorage.getItem('subject') === null) {
+    //   if (isAuth && userData.token) {
+    //     setLoading(true);
+    //     axios
+    //       .get('/favorites/')
+    //       .then((res) => {
+    //         setLoading(false);
+    //         if (res.status === 201) {
+    //           setFavoriteList(res.data.data);
+    //         }
+    //       })
+    //       .catch((err) => {
+    //         setLoading(false);
+    //         console.log(err);
+    //         setSnackBar({
+    //           type: 'error',
+    //           msg: '즐겨찾기 과목을 불러오는데 오류가 발생했습니다.',
+    //         });
+    //       });
+    //   }
+    // } else {
+    //   if (localStorage.getItem('subject') !== null) {
+    //     setFavoriteList(JSON.parse(localStorage.getItem('subject')));
+    //   }
+    // }
+    if (userData.subjects) {
+      setFavoriteList(userData.subjects);
     }
-
-    return () => {
-      if (isAuth && userData.token) {
-        const req = favoriteList.map((sub) => {
-          return sub.subject_id;
-        });
-        axios
-          .post('/favorites/update', {
-            sub_id: req,
-          })
-          .then((res) => {
-            if (res.status === 201) {
-              console.log(res);
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    };
-  }, [userData.token]);
+  }, [userData.subjects]);
 
   useEffect(() => {
     if (!latestList || latestList.length === 0) return;
@@ -127,6 +115,43 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
     }
   }, [subject]);
 
+  useEffect(() => {
+    return () => {
+      if (isAuth) {
+        console.log(userData.subjects);
+        if (userData.hasOwnProperty('subjects')) {
+          const req = userData.subjects.map((sub) => {
+            return sub.subject_id;
+          });
+          console.log(req);
+          axios
+            .post('/favorites/update', {
+              sub_id: req,
+            })
+            .then((res) => {
+              if (res.status === 201) {
+                console.log(res);
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          axios
+            .post('/favorites/update', {
+              sub_id: [],
+            })
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      }
+    };
+  }, []);
+
   const toFavorite = () => {
     if (!isAuth) {
       setSnackBar({
@@ -151,31 +176,48 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
 
       setFavoriteList(list);
 
-      if (localStorage.getItem('subject') !== null) {
-        const currentFavorite = JSON.parse(localStorage.getItem('subject'));
-        localStorage.setItem(
-          'subject',
-          JSON.stringify([subject, ...currentFavorite])
-        );
-      } else {
-        localStorage.setItem('subject', JSON.stringify([subject]));
-      }
+      let newUserData = {
+        ...userData,
+        subjects: list,
+      };
+      setUserData(newUserData);
+      localStorage.setItem('userData', JSON.stringify(newUserData));
+      // if (newUserData.subjects !== null) {
+      //   const currentFavorite = JSON.parse(localStorage.getItem('subject'));
+      //   localStorage.setItem(
+      //     'userData',
+      //     JSON.stringify([subject, ...currentFavorite])
+      //   );
+      // } else {
+      //   newUserData = {
+      //     subjects: subject,
+      //     ...userData,
+      //   };
+      //   setUserData(newUserData);
+      //   localStorage.setItem('userData', JSON.stringify(newUserData));
+      // }
     } else {
       //삭제
       const idx = favoriteList.indexOf(sub);
       if (idx > -1) list.splice(idx, 1);
       setFavoriteList(list);
-      if (localStorage.getItem('subject') !== null) {
-        let currentFavorite = JSON.parse(localStorage.getItem('subject'));
-        currentFavorite = currentFavorite.filter((s) => {
-          console.log(s.subject_id === subject.subject_id);
-          if (s.subject_id === subject.subject_id) return false;
-          return true;
-        });
-        console.log(currentFavorite);
-        localStorage.setItem('subject', JSON.stringify(currentFavorite));
-      } else {
-        localStorage.setItem('subject', JSON.stringify([subject]));
+
+      let newUserData = { ...userData };
+      if (newUserData.subjects !== undefined) {
+        let currentFavorite = userData.subjects;
+        currentFavorite = currentFavorite.filter(
+          (s) => s.subject_id !== subject.subject_id
+        );
+
+        if (currentFavorite.length !== 0) {
+          newUserData.subjects = currentFavorite;
+          setUserData(newUserData);
+          localStorage.setItem('userData', JSON.stringify(newUserData));
+        } else {
+          delete newUserData.subjects;
+          setUserData(newUserData);
+          localStorage.setItem('userData', JSON.stringify(newUserData));
+        }
       }
     }
   };
@@ -319,7 +361,6 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                   latestList.map((sub, index) => (
                     <div key={`${sub.subject_id}${index}`}>
                       <Subject
-                        // key={`${subject.subject_id}index`}
                         subject={sub}
                         onClick={() => clickCard(sub.subject_id)}
                         active={true}
@@ -331,7 +372,6 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                   favoriteList.map((sub, index) => (
                     <div key={`${sub.subject_id}${index}`}>
                       <Subject
-                        // key={subject.subject_id}
                         subject={sub}
                         onClick={() => clickCard(sub.subject_id)}
                         active={true}

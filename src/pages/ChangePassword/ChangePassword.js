@@ -8,6 +8,7 @@ import useInput from '../../hooks/useInput';
 //context
 import { useSnackBarContext } from '../../contexts/SnackBarContext';
 import { useAuthContext } from '../../contexts/AuthContext';
+import { useLoadingContext } from '../../contexts/LoadingContext';
 
 //component
 import GradationBtn from '../../components/GradationBtn/GradationBtn';
@@ -30,6 +31,7 @@ const ChangePassword = ({ openModal }) => {
   let history = useHistory();
   const { setSnackBar } = useSnackBarContext();
   const { isAuth, userData } = useAuthContext();
+  const { setLoading } = useLoadingContext();
   const [form, onChangeForm] = useInput({
     currentPassword: '',
     newPassword: '',
@@ -38,25 +40,25 @@ const ChangePassword = ({ openModal }) => {
 
   //useEffect
   useEffect(() => {
-    setTimeout(() => {
-      if (!userData) {
-        openModal();
-        setSnackBar({
-          type: 'error',
-          msg: '로그인이 필요합니다.',
-        });
-      }
-    }, 1000);
-  }, [userData]);
+    if (!userData) {
+      openModal();
+      setSnackBar({
+        type: 'error',
+        msg: '로그인이 필요합니다.',
+      });
+    }
+  }, [isAuth]);
 
   const onClick = (e) => {
     if (newPassword === checkPassword) {
+      setLoading(true);
       axios
         .post('/privacy/passwordchange', {
           old_password: currentPassword,
           new_password: newPassword,
         })
         .then((res) => {
+          setLoading(false);
           history.push('/mypage');
           setSnackBar({
             type: 'success',
@@ -64,6 +66,7 @@ const ChangePassword = ({ openModal }) => {
           });
         })
         .catch((err) => {
+          setLoading(false);
           console.log(err);
           if (err.response.status === 401) {
             setSnackBar({

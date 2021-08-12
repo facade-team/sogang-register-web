@@ -6,7 +6,7 @@ import GradationBtn from '../../components/GradationBtn/GradationBtn';
 import Title from '../../components/Title/Title';
 
 // 전공리스트
-import majorsPair, { getOptionIndex } from '../../utils/majorPair';
+import majorsPair from '../../utils/majorPair';
 
 // context API
 import { useAuthContext } from '../../contexts/AuthContext';
@@ -39,18 +39,14 @@ const ChangeProfile = ({ openModal }) => {
   const { setLoading } = useLoadingContext();
 
   useEffect(() => {
-    console.log(userData);
-
-    setTimeout(() => {
-      if (!userData) {
-        openModal();
-        setSnackBar({
-          type: 'error',
-          msg: '로그인이 필요합니다.',
-        });
-      }
-    }, 1000);
-  }, [userData]);
+    if (!isAuth) {
+      openModal();
+      setSnackBar({
+        type: 'error',
+        msg: '로그인이 필요합니다.',
+      });
+    }
+  }, [isAuth]);
 
   const onChange = (e) => {
     const selectedMajor = e.map((items) => items.value); // 배열형태
@@ -93,8 +89,11 @@ const ChangeProfile = ({ openModal }) => {
           history.push('/mypage');
           setUserData({
             major,
-            allow_email: checkBoxValue,
-            ...userData,
+            allowEmail: checkBoxValue,
+            email: userData.email,
+            isVerified: userData.isVerified,
+            token: userData.token,
+            username: userData.username,
           });
 
           localStorage.setItem(
