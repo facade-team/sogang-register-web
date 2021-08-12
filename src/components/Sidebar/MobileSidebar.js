@@ -32,9 +32,11 @@ const MobileSideBar = ({
   toggleOpen,
   openModal,
   openSidebar,
+  navClick,
 }) => {
   const [initial, setInitial] = useState(true);
   const [toggleText, setToggleText] = useState(true);
+
   useEffect(() => {
     if (initial) {
       setToggleText(!toggleText);
@@ -52,16 +54,18 @@ const MobileSideBar = ({
 
   return (
     <>
-      {toggleOpen === true ? (
+      {toggleOpen === false ? (
         <SidebarComponent
           widthPx={width}
           heightPx={height}
           toggleOpen={toggleOpen}
         >
           <ServiceName>
-            <MainLogo src={Logo}></MainLogo>
-            <Sogang>서강</Sogang>
-            <Register>신청</Register>
+            <Link to="/">
+              <MainLogo src={Logo}></MainLogo>
+              <Sogang>서강</Sogang>
+              <Register>신청</Register>
+            </Link>
           </ServiceName>
         </SidebarComponent>
       ) : (
@@ -71,22 +75,24 @@ const MobileSideBar = ({
           toggleOpen={toggleOpen}
         >
           <ServiceName>
-            <MainLogo src={Logo}></MainLogo>
-            <Sogang>서강</Sogang>
-            <Register>신청</Register>
+            <Link to="/" onClick={navClick}>
+              <MainLogo src={Logo}></MainLogo>
+              <Sogang>서강</Sogang>
+              <Register>신청</Register>
+            </Link>
           </ServiceName>
           <GradationBtn
             onClick={openModal}
             signBtnType={'login'}
             width={200}
-            top={80}
+            top={160}
             borderRadius={15}
             position={'absolute'}
             active
           ></GradationBtn>
           <NavigationList>
             <Navigation>
-              <CustomLink to="/">
+              <CustomLink to="/" onClick={navClick}>
                 <Icon search={menu}>
                   <MdSearch />
                 </Icon>
@@ -94,7 +100,7 @@ const MobileSideBar = ({
               </CustomLink>
             </Navigation>
             <Navigation>
-              <CustomLink to="/mypage">
+              <CustomLink to="/mypage" onClick={navClick}>
                 <Icon mypage={menu}>
                   <BsGrid />
                 </Icon>
@@ -102,7 +108,7 @@ const MobileSideBar = ({
               </CustomLink>
             </Navigation>
             <Navigation>
-              <CustomLink to="/feedback">
+              <CustomLink to="/feedback" onClick={navClick}>
                 <Icon mypage={menu}>
                   <MdChatBubbleOutline />
                 </Icon>

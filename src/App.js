@@ -113,6 +113,12 @@ const App = () => {
     setModalType(signBtnType);
   };
 
+  const mobileopenModal = (signBtnType) => {
+    setShowModal((prev) => !prev);
+    setModalType(signBtnType);
+    mobileToggleSidebarFunc();
+  };
+
   const { setUserData, setIsAuth, authLoading, setAuthLoading } =
     useAuthContext();
   const { loading, setLoading } = useLoadingContext();
@@ -200,8 +206,9 @@ const App = () => {
               width={mobileWidth}
               height={mSidebarHeight}
               toggleOpen={mobileToggleSidebar}
-              openSidebar={toggleSidebarFunc}
-              openModal={openModal}
+              openSidebar={mobileToggleSidebarFunc}
+              openModal={mobileopenModal}
+              navClick={mobileToggleSidebarFunc}
             ></MobileSidebar>
           )}
           <Modal

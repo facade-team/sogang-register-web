@@ -5,7 +5,7 @@ export const Container = styled.div`
   justify-content: space-between;
   margin-bottom: 10px;
 
-  @media screen and (max-width: 900px){
+  @media screen and (max-width: 900px) {
   }
   @media screen and (max-width: 600px) {
   }

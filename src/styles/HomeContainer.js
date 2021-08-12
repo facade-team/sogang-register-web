@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   width: 100%;
   height: auto;
-  @media screen and (max-width: 900px){
+  @media screen and (max-width: 900px) {
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -31,7 +31,7 @@ export const HomeContainer = styled.div`
   padding: 40px 50px 40px 50px;
   overflow: auto;
 
-  @media screen and (max-width: 900px){
+  @media screen and (max-width: 900px) {
     min-width: 800px;
     justify-content: center;
     width: 100%;
