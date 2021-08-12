@@ -7,8 +7,9 @@ export const Container = styled.div`
   justify-content: space-around;
   align-items: center;
   height: 100%;
-  width: 50%;
-  min-width: 600px;
+  //changed
+  width: 100%;
+  //min-width: 600px;
   min-height: 400px;
 `;
 
@@ -23,7 +24,7 @@ export const OptionBtnContainer = styled.div`
 export const StackContent = styled.div`
   background-color: #ffffff;
   position: relative;
-  width: 60%;
+  width: 80%;
   height: 80%;
   min-width: 250px;
   max-width: 450px;
@@ -37,6 +38,10 @@ export const StackContent = styled.div`
 
   margin-right: 20px;
   margin-left: 20px;
+
+  @media screen and (max-width: 600px){
+    min-width: 200px;
+  }
 `;
 
 export const SubjectList = styled.ul`

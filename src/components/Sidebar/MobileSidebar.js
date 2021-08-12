@@ -32,9 +32,11 @@ const MobileSideBar = ({
   toggleOpen,
   openModal,
   openSidebar,
+  navClick,
 }) => {
   const [initial, setInitial] = useState(true);
   const [toggleText, setToggleText] = useState(true);
+
   useEffect(() => {
     if (initial) {
       setToggleText(!toggleText);
@@ -51,13 +53,72 @@ const MobileSideBar = ({
   const { isAuth } = useAuthContext();
 
   return (
-    <SidebarComponent widthPx={width} heightPx={height} toggleOpen={toggleOpen}>
-      <ServiceName>
-        <MainLogo src={Logo}></MainLogo>
-        <Sogang>서강</Sogang>
-        <Register>신청</Register>
-      </ServiceName>
-    </SidebarComponent>
+    <>
+      {toggleOpen === false ? (
+        <SidebarComponent
+          widthPx={width}
+          heightPx={height}
+          toggleOpen={toggleOpen}
+        >
+          <ServiceName>
+            <Link to="/">
+              <MainLogo src={Logo}></MainLogo>
+              <Sogang>서강</Sogang>
+              <Register>신청</Register>
+            </Link>
+          </ServiceName>
+        </SidebarComponent>
+      ) : (
+        <SidebarComponent
+          widthPx={width}
+          heightPx={height}
+          toggleOpen={toggleOpen}
+        >
+          <ServiceName>
+            <Link to="/" onClick={navClick}>
+              <MainLogo src={Logo}></MainLogo>
+              <Sogang>서강</Sogang>
+              <Register>신청</Register>
+            </Link>
+          </ServiceName>
+          <GradationBtn
+            onClick={openModal}
+            signBtnType={'login'}
+            width={200}
+            top={160}
+            borderRadius={15}
+            position={'absolute'}
+            active
+          ></GradationBtn>
+          <NavigationList>
+            <Navigation>
+              <CustomLink to="/" onClick={navClick}>
+                <Icon search={menu}>
+                  <MdSearch />
+                </Icon>
+                <NavMenu search={menu}>개설교과목 검색</NavMenu>
+              </CustomLink>
+            </Navigation>
+            <Navigation>
+              <CustomLink to="/mypage" onClick={navClick}>
+                <Icon mypage={menu}>
+                  <BsGrid />
+                </Icon>
+                <NavMenu search={menu}>마이페이지</NavMenu>
+              </CustomLink>
+            </Navigation>
+            <Navigation>
+              <CustomLink to="/feedback" onClick={navClick}>
+                <Icon mypage={menu}>
+                  <MdChatBubbleOutline />
+                </Icon>
+                <NavMenu search={menu}>피드백/문의</NavMenu>
+              </CustomLink>
+            </Navigation>
+          </NavigationList>
+        </SidebarComponent>
+      )}
+    </>
   );
 };
 
