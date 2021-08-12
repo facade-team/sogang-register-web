@@ -234,9 +234,9 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                   <TableBody>
                     <TableRow>
                       <TableHead scope="row" corner={false}>
-                        학과
+                        전공/영역
                       </TableHead>
-                      <TableData corner={false}>경영학과</TableData>
+                      <TableData corner={false}>{subject.학과}</TableData>
                     </TableRow>
                     <TableRow>
                       <TableHead scope="row" corner={false}>

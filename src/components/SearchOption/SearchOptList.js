@@ -74,7 +74,13 @@ const SearchOptList = () => {
   const { loading, setLoading } = useLoadingContext();
 
   // api 요청으로 받아온 과목,학부 리스트를 전역 state 로 set
-  const { subjects, setSubjects, setDepartments } = useSubjectContext();
+  const {
+    subjects,
+    setSubjects,
+    setDepartments,
+    setProfOption,
+    setIsSearchOption,
+  } = useSubjectContext();
 
   // saveOption 에서 비어있는(false) 멤버를 없애기 위한 유틸함수
   const removeFalseMember = (obj) => {
@@ -118,6 +124,7 @@ const SearchOptList = () => {
 
   // FIXME : 계절학기 선택 시에는 전공/영역 api 불러올 필요 없음
   const findSubjectByOption = (opt) => {
+    setProfOption(false);
     // TODO: opt 의 프로퍼티가 2개일때가 최초 학년도/학기만 선택할 경우임. Object.keys(opt).length === 2
     if (semesterOption.selected && Object.keys(opt).length === 2) {
       // console.log('opt', opt); // {year: '21', semester: '2'}
@@ -216,6 +223,8 @@ const SearchOptList = () => {
   /***** 학년도/학기 옵션 선택 시 ****/
   useEffect(() => {
     if (semesterOption.selected) {
+      // 학년도/학기를 선택했다는 건, 검색옵션이 선택되었다는 뜻
+      setIsSearchOption(true);
       const [fullYear, fullSemester] = semesterOption.selected.split('-'); // ex) [2021,2학기]
       const year = fullYear.substring(2, 4);
       let semester;
@@ -246,6 +255,7 @@ const SearchOptList = () => {
       findSubjectByOption(cleanSaveOption);
     } else {
       // semesterOption 선택을 삭제하면 과목카드 전부 제거
+      setIsSearchOption(false);
       setSubjects([]);
     }
   }, [semesterOption.selected]);

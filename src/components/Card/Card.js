@@ -20,7 +20,9 @@ const Card = ({ subject, onClick }) => {
       </TagContainer>
       <Detail>
         <P text={subject.교수진}>{subject.교수진}</P>
-        <p>{subject.수업시간_강의실}</p>
+        <p>
+          {subject.요일} {subject.시작시간}~{subject.종료시간}
+        </p>
       </Detail>
     </CardContainer>
   );
