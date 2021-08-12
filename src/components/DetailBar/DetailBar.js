@@ -216,6 +216,9 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                       대면
                     </Tag>
                   )}
+                  <Tag fontSize="12" credit={subject.학점}>
+                    {subject.학점}학점
+                  </Tag>
                   {subject.강의언어 === '영어' ? (
                     <Tag eng fontSize="12">
                       영어강의
@@ -226,9 +229,6 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                       중국어강의
                     </Tag>
                   ) : null}
-                  <Tag fontSize="12" credit={subject.학점}>
-                    {subject.학점}학점
-                  </Tag>
                 </TagContainer>
                 <SubjectTable>
                   <TableBody>
