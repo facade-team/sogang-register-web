@@ -269,9 +269,6 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                       중국어강의
                     </Tag>
                   ) : null}
-                  <Tag fontSize="12" credit={subject.학점}>
-                    {subject.학점}학점
-                  </Tag>
                 </TagContainer>
                 <SubjectTable>
                   <TableBody>
