@@ -15,7 +15,13 @@ import { useSubjectContext } from '../../contexts/SubjectContext';
 import searchImg from '../../assets/img/32.png';
 
 const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
-  const { isSearchOption, subjectsByProf, profOption } = useSubjectContext();
+  const {
+    isSearchOption,
+    subjectsByProf,
+    profOption,
+    langOption,
+    contactOption,
+  } = useSubjectContext();
   return (
     <>
       <SubTitle number={number} subtitle={subtitle}></SubTitle>
@@ -25,6 +31,8 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
             {/* 정렬옵션 없을때 */}
             {data &&
               !profOption &&
+              !contactOption &&
+              !langOption &&
               data.map((subject) => (
                 <Card
                   key={subject.subject_id}
@@ -34,7 +42,8 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
               ))}
 
             {/* 교수 정렬옵션 */}
-            {subjectsByProf &&
+            {isSearchOption &&
+              subjectsByProf &&
               profOption &&
               subjectsByProf.map((subjectWithProf) => (
                 <>
@@ -55,11 +64,27 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
                   <Divider></Divider>
                 </>
               ))}
+
+            {/*강의언어 정렬옵션 렌더링*/}
+            {isSearchOption && langOption}
+            {/*대면여부 정렬옵션 렌더링*/}
+            {isSearchOption &&
+              contactOption &&
+              data.map((subject) => {
+                return subject.대면여부 === '대면' ? (
+                  <Card
+                    key={subject.subject_id}
+                    subject={subject}
+                    onClick={() => onClickCard(subject.subject_id)}
+                  ></Card>
+                ) : null;
+              })}
           </CardList>
         </>
       ) : null}
 
-      {!data ? (
+      {/* 초기상태 */}
+      {!data || !isSearchOption ? (
         <ImgContainer>
           <img src={searchImg} alt="search" width="400px"></img>
         </ImgContainer>

@@ -83,7 +83,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
     if (userData.subjects) {
       setFavoriteList(userData.subjects);
     }
-  }, [userData.subjects]);
+  }, []);
 
   useEffect(() => {
     if (!latestList || latestList.length === 0) return;
@@ -249,7 +249,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                   </BtnContainer>
                 </Top>
                 <TagContainer>
-                  {subject.대면여부 ? (
+                  {subject.대면여부 === '비대면' ? (
                     <Tag untact fontSize="12">
                       비대면
                     </Tag>
@@ -305,7 +305,25 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                         강의시간
                       </TableHead>
                       <TableData corner={false}>
-                        {subject.요일} {subject.시작시간}~{subject.종료시간}
+                        {subject.요일1 === subject.요일2 ? (
+                          <p>
+                            {subject.요일1} {subject.시간1}
+                          </p>
+                        ) : null}
+                        {subject.요일1 !== subject.요일2 ? (
+                          <>
+                            {subject.시간1 === subject.시간2 ? (
+                              <p>
+                                {subject.요일1},{subject.요일2} {subject.시간1}
+                              </p>
+                            ) : (
+                              <p>
+                                {subject.요일1} {subject.시간1} ,{subject.요일2}{' '}
+                                {subject.시간2}
+                              </p>
+                            )}
+                          </>
+                        ) : null}
                       </TableData>
                     </TableRow>
                     <TableRow>

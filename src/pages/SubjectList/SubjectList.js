@@ -39,59 +39,6 @@ const SubjectListComp = () => {
   useEffect(() => {
     console.log(userData.subjects);
     setFavoriteList(userData.subjects);
-    // if (userData.token) {
-    //   if (localStorage.getItem('subject') === null) {
-    //     if (isAuth) {
-    //       setLoading(true);
-    //       axios
-    //         .get('/favorites/')
-    //         .then((res) => {
-    //           console.log(res);
-    //           setLoading(false);
-    //           if (res.status === 201) {
-    //             setFavoriteList(res.data.data);
-    //           }
-    //         })
-    //         .catch((err) => {
-    //           setLoading(false);
-    //           console.log(err);
-    //           setSnackBar({
-    //             type: 'error',
-    //             msg: '즐겨찾기 과목을 불러오는데 오류가 발생했습니다.',
-    //           });
-    //         });
-    //     }
-    //   } else {
-    //     setFavoriteList(JSON.parse(localStorage.getItem('subject')));
-    //   }
-    // }
-
-    // if (userData.subjects) {
-    // }
-
-    // return () => {
-    //   if (userData.token) {
-    //     if (isAuth) {
-    //       console.log(123);
-    //       console.log(favoriteList);
-    //       const req = favoriteList.map((sub) => {
-    //         return sub.subject_id;
-    //       });
-    //       axios
-    //         .post('/favorites/update', {
-    //           sub_id: req,
-    //         })
-    //         .then((res) => {
-    //           if (res.status === 201) {
-    //             console.log(res);
-    //           }
-    //         })
-    //         .catch((err) => {
-    //           console.log(err);
-    //         });
-    //     }
-    //   }
-    // };
   }, [userData.subjects]);
 
   useEffect(() => {
@@ -125,7 +72,7 @@ const SubjectListComp = () => {
         }
       }
     };
-  }, []);
+  }, [userData.subjects]);
 
   return (
     <Container>

@@ -6,7 +6,7 @@ const SubjectProvider = ({ children }) => {
   const [subjects, setSubjects] = useState([]);
   const [departments, setDepartments] = useState([]);
 
-  // 01.검색옵션 이 설정돼있는지 여부 ( 최소요건 : 학년도/학기 선택)
+  // 01.검색옵션 이 설정돼있는지 여부 ( 학년도/학기를 선택할 때 설정)
   const [isSearchOption, setIsSearchOption] = useState(false);
 
   // 교수정렬옵션에 의해 정렬된 과목
