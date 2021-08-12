@@ -7,8 +7,12 @@ export const Container = styled.div`
   ${({ widthPx }) => `width: calc( 100% - ${widthPx}px);`}
   transition: 0.8s ease;
   margin-left: ${({ widthPx }) => `${widthPx}px`};
-  @media screen and (max-width: 600px) {
-    top: 60px;
+
+  @media screen and (max-width: 900px) {
     width: 100%;
+    top: 60px;
+    height: auto;
+  }
+  @media screen and (max-width: 600px) {
   }
 `;

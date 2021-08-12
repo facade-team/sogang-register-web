@@ -33,3 +33,34 @@ export const ImgContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+export const SortedSubjectContainer = styled.div`
+  display: flex;
+  width: 100%;
+
+  flex-wrap: wrap;
+  flex-direction: column;
+`;
+
+export const ProfName = styled.div`
+  padding: 8px;
+  color: #61527f;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #ecf0f1;
+  width: fit-content;
+  border-radius: 4px;
+`;
+
+export const SortedCard = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const Divider = styled.hr`
+  width: 100%;
+  border-top: 2px solid #bfbfbf;
+  border-radius: 8px;
+  margin-right: 6px;
+  margin-left: 6px;
+`;

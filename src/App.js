@@ -16,7 +16,7 @@ import MainContainer from './components/MainContainer/MainContainer';
 import Sidebar from './components/Sidebar/Sidebar';
 import MobileSidebar from './components/Sidebar/MobileSidebar';
 import ToggleBtn from './components/ToggleBtn/ToggleBtn';
-import MobileToggleBtn from './components/ToggleBtn/ToggleBtn';
+import MobileToggleBtn from './components/ToggleBtn/MobileToggleBtn';
 import Modal from './components/Modal/Modal';
 
 // Snackbar
@@ -63,11 +63,14 @@ const App = () => {
   );
   const [height, setHeight] = useState(document.documentElement.scrollHeight);
   const [notMobile, setNotMobile] = useState(
-    window.matchMedia('(min-width: 600px)').matches
+    window.matchMedia('(min-width: 900px)').matches
   ); // true : pc, false : mobile
   const { subject } = useSubjectContext();
   const [mobileWidth, setMobileWidth] = useState(
     document.documentElement.scrollWidth
+  );
+  const [mSidebarHeight, setMSidebarHeight] = useState(
+    document.documentElement.scrollHeight
   );
 
   useEffect(() => {
@@ -89,7 +92,7 @@ const App = () => {
       );
       setHeight(limit);
 
-      var notWidth = window.matchMedia('(min-width: 600px)').matches;
+      var notWidth = window.matchMedia('(min-width: 900px)').matches;
       setNotMobile(notWidth);
     });
   });
@@ -101,9 +104,19 @@ const App = () => {
       : setWidth(-openedSidebarWidth);
   };
 
+  const mobileToggleSidebarFunc = () => {
+    setMobileToggleSidebar(!mobileToggleSidebar);
+  };
+
   const openModal = (signBtnType) => {
     setShowModal((prev) => !prev);
     setModalType(signBtnType);
+  };
+
+  const mobileopenModal = (signBtnType) => {
+    setShowModal((prev) => !prev);
+    setModalType(signBtnType);
+    mobileToggleSidebarFunc();
   };
 
   const { setUserData, setIsAuth, authLoading, setAuthLoading } =
@@ -174,8 +187,8 @@ const App = () => {
                 openModal={openModal}
               ></MainContainer>
               <MobileToggleBtn
-                toggleOpen={toggleSidebar}
-                onClick={toggleSidebarFunc}
+                toggleOpen={mobileToggleSidebar}
+                onClick={mobileToggleSidebarFunc}
               ></MobileToggleBtn>
             </>
           )}
@@ -191,10 +204,11 @@ const App = () => {
             // mobile
             <MobileSidebar
               width={mobileWidth}
-              height={closedMobileSidebarHeight}
+              height={mSidebarHeight}
               toggleOpen={mobileToggleSidebar}
-              openSidebar={toggleSidebarFunc}
-              openModal={openModal}
+              openSidebar={mobileToggleSidebarFunc}
+              openModal={mobileopenModal}
+              navClick={mobileToggleSidebarFunc}
             ></MobileSidebar>
           )}
           <Modal

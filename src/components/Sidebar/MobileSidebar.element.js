@@ -4,17 +4,28 @@ import { Link } from 'react-router-dom';
 export const SidebarComponent = styled.div`
   position: absolute;
   text-align: center;
-  width: ${(props) => {
-    return `${props.widthPx}px`;
-  }};
+  width: 100%;
   height: ${(props) => {
-    return `${props.heightPx}px`;
+    if (props.toggleOpen === true) {
+      return `${props.heightPx}px`;
+    } else {
+      return `60px`;
+    }
   }};
-  background-color: rgba(106, 49, 223, 0.9);
-  transition: 0.8s ease;
+  background-color: #7b45e9;
+  transition: 0.2s ease;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  overflow-y: unset;
+  z-index: ${(props) => {
+    if (props.toggleOpen === true) {
+      return `2`;
+    } else {
+      return `2`;
+    }
+  }};
 `;
 
 export const MainLogo = styled.img`
@@ -56,8 +67,7 @@ export const ServiceName = styled.div`
 
 export const NavigationList = styled.div`
   position: relative;
-  top: 200px;
-  /* height: 20vh; */
+  top: 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -77,8 +87,14 @@ export const Navigation = styled.div`
 `;
 
 export const Icon = styled.div`
+  font-size: 30px;
   ${({ search }) =>
-    search === 'search' ? `color: white; font-weight:800;` : null}
+    search === 'search'
+      ? `color: white;
+    font-weight:800;
+     
+    `
+      : null}
   ${({ mypage }) =>
     mypage === 'mypage' ? `color: white; font-weight:800;` : null}
   ${({ feedback }) =>
@@ -94,11 +110,9 @@ export const CustomLink = styled(Link)`
 `;
 
 export const NavMenu = styled.span`
-  margin-left: 40px;
-  ${({ search }) =>
-    search === 'search' ? `color: white; font-weight:800;` : null}
-  ${({ mypage }) =>
-    mypage === 'mypage' ? `color: white; font-weight:800;` : null}
-  ${({ feedback }) =>
-    feedback === 'feedback' ? `color: white; font-weight:800;` : null}
+  margin-left: 16px;
+  font-size: 24px;
+  ${({ search }) => (search === 'search' ? `color: white;` : null)}
+  ${({ mypage }) => (mypage === 'mypage' ? `color: white;` : null)}
+  ${({ feedback }) => (feedback === 'feedback' ? `color: white;` : null)}
 `;
