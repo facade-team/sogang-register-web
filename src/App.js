@@ -223,6 +223,7 @@ const App = () => {
             onClose={handleClose}
             key={vertical + horizontal}
             autoHideDuration={2000}
+            style={{ top: '50px' }}
           >
             <Alert onClose={handleClose} severity={snackBar.type}>
               {snackBar.msg}
