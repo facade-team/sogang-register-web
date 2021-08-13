@@ -34,15 +34,9 @@ const SortOptList = () => {
     if (isSearchOption) {
       if (e.target.name === 'prof') {
         setProfOption(!profOption);
-        setLangOption(false);
-        setContactOption(false);
       } else if (e.target.name === 'lang') {
-        setProfOption(false);
         setLangOption(!langOption);
-        setContactOption(false);
       } else if (e.target.name === 'contact') {
-        setProfOption(false);
-        setLangOption(false);
         setContactOption(!contactOption);
       }
     } else {
