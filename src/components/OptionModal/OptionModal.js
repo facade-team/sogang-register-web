@@ -165,7 +165,9 @@ export default function OptionModal({ open, setOpen, option }) {
           </DialogTitle>
           <DialogContent
             style={{
-              width: '400px',
+              width: '100%',
+              minWidth: '300px',
+              maxWidth: '400px',
               maxHeight: '500px',
               display: 'flex',
               flexDirection: 'column',

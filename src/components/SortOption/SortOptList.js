@@ -55,41 +55,55 @@ const SortOptList = () => {
 
   // 교수 정렬
   useEffect(() => {
-    setSaveSubjects(subjects);
-    if (profOption) {
-      const profObj = new Set(subjects.map((subject) => subject.교수진)); // 교수리스트 set object
-      const profArr = [...profObj];
-      const SortedProfArr = profArr.sort(hangulFirstCompare); // 한글->영어 순으로 정렬된 교수 리스트
-      // console.log(SortedProfArr); // ['강기봉', '강문성' ...]
+    // 검색옵션이 설정돼있을 때만, 정렬 실행
+    if (isSearchOption) {
+      setSaveSubjects(subjects);
+      if (profOption) {
+        const profObj = new Set(subjects.map((subject) => subject.교수진)); // 교수리스트 set object
+        const profArr = [...profObj];
+        const SortedProfArr = profArr.sort(hangulFirstCompare); // 한글->영어 순으로 정렬된 교수 리스트
+        // console.log(SortedProfArr); // ['강기봉', '강문성' ...]
 
-      const resultArr = [];
-      SortedProfArr.forEach((prof) => resultArr.push({ [prof]: [] }));
-      // console.log(resultArr);
-      subjects.forEach((subject) => {
-        const profIdx = SortedProfArr.indexOf(subject.교수진);
-        resultArr[profIdx][subject.교수진].push(subject);
-      });
-      // console.log('res', resultArr);
-      /* resultArr : [ 
-        {"강기봉" : [{과목1},{과목2}]}, 
-        {"강문성" : [{과목1},{과목2}..]},
-        ...
-      ]
+        const resultArr = [];
+        SortedProfArr.forEach((prof) => resultArr.push({ [prof]: [] }));
+        console.log(resultArr);
+        subjects.forEach((subject) => {
+          const profIdx = SortedProfArr.indexOf(subject.교수진);
+          resultArr[profIdx][subject.교수진].push(subject);
+        });
+        // console.log('res', resultArr);
+        /* resultArr : [ 
+          {"강기봉" : [{과목1},{과목2}]}, 
+          {"강문성" : [{과목1},{과목2}..]},
+          ...
+        ]
+  
+        */
 
-      */
+        const destructedArr = [];
+        resultArr.forEach((obj) => {
+          const list = Object.values(obj);
+          destructedArr.push(...list[0]);
+        });
 
-      const destructedArr = [];
-      resultArr.forEach((obj) => {
-        const list = Object.values(obj);
-        destructedArr.push(...list[0]);
-      });
-
-      //setSubjects(destructedArr);
-      setSubjectsByProf(resultArr);
+        //setSubjects(destructedArr);
+        setSubjectsByProf(resultArr);
+      } else {
+        // setSubjects(saveSubjects);
+      }
     } else {
-      setSubjects(saveSubjects);
+      setSubjects([]);
     }
-  }, [profOption]);
+  }, [profOption, isSearchOption]);
+
+  // 대면 여부로 정렬
+  useEffect(() => {
+    // 검색옵션이 설정돼있을 때만, 정렬 실행
+    if (isSearchOption) {
+    } else {
+      setSubjects([]);
+    }
+  }, [contactOption, isSearchOption]);
 
   return (
     <SectionContainer>

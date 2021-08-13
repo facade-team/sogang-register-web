@@ -3,14 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 100%;
-  @media screen and (max-width: 900px) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: auto;
-  }
+  height: auto;
 `;
 
 export const HomeContainer = styled.div`
@@ -31,17 +24,4 @@ export const HomeContainer = styled.div`
   justify-content: start;
   padding: 40px 50px 40px 50px;
   overflow: auto;
-
-  @media screen and (max-width: 900px) {
-    min-width: 800px;
-    justify-content: center;
-    width: 100%;
-  }
-  @media screen and (max-width: 600px) {
-    width: 100%;
-    min-width: 200px;
-    padding: 20px 20px 20px 20px;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
 `;

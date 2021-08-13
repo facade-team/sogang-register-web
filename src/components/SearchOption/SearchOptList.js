@@ -47,7 +47,7 @@ const SearchOptList = () => {
     data: creditData,
     selected: '',
   });
-  const [searchOption, setSearchOption] = useState({
+  const [searchKeywordOption, setSearchKeywordOption] = useState({
     type: '검색어',
     data: ['test'],
     searchBy: '', // 검색 타입
@@ -80,6 +80,7 @@ const SearchOptList = () => {
     setDepartments,
     setProfOption,
     setIsSearchOption,
+    isSearchOption,
   } = useSubjectContext();
 
   // saveOption 에서 비어있는(false) 멤버를 없애기 위한 유틸함수
@@ -114,9 +115,12 @@ const SearchOptList = () => {
         setTimeOption({ ...timeOption, selected: '' });
         setGradeOption({ ...gradeOption, selected: '' });
         setCreditOption({ ...creditOption, selected: '' });
-        setSearchOption({ ...searchOption, selected: '' });
+        setSearchKeywordOption({ ...searchKeywordOption, selected: '' });
+        setIsSearchOption(false);
+        setProfOption(false);
       } else {
         // 학년도/학기가 아닌 다른 태그 삭제했을 때
+        console.log(2);
         set({ ...opt, selected: '' });
       }
     }
@@ -124,6 +128,7 @@ const SearchOptList = () => {
 
   // FIXME : 계절학기 선택 시에는 전공/영역 api 불러올 필요 없음
   const findSubjectByOption = (opt) => {
+    // 검색옵션 다시 설정할때는 정렬옵션 초기화시킴
     setProfOption(false);
     // TODO: opt 의 프로퍼티가 2개일때가 최초 학년도/학기만 선택할 경우임. Object.keys(opt).length === 2
     if (semesterOption.selected && Object.keys(opt).length === 2) {
@@ -255,6 +260,7 @@ const SearchOptList = () => {
       findSubjectByOption(cleanSaveOption);
     } else {
       // semesterOption 선택을 삭제하면 과목카드 전부 제거
+      setSaveOption([]);
       setIsSearchOption(false);
       setSubjects([]);
     }
@@ -263,102 +269,112 @@ const SearchOptList = () => {
   /*************전공/영역 검색옵션 선택 시 ******************/
   useEffect(() => {
     // console.log('전공/영역 선택한거', majorOption.selected, majorOption.code);
-    if (majorOption.selected) {
-      const cleanSaveOption = removeFalseMember({
-        ...saveOption,
-        department: majorOption.code,
-      });
-      console.log('전공/영역 골랐을때', cleanSaveOption);
-      findSubjectByOption(cleanSaveOption);
-      setSaveOption(cleanSaveOption);
-    }
-    // 전공/영역 검색옵션 태그 제거했을때
-    else {
-      const cleanSaveOption = removeFalseMember({
-        ...saveOption,
-        department: '',
-      });
-      console.log('전공/영역 태그 제거 시', cleanSaveOption);
-      findSubjectByOption(cleanSaveOption);
-      setSaveOption(cleanSaveOption);
+
+    // 검색옵션(학년도학기) 가 설정돼있을때만 실행
+    if (isSearchOption) {
+      if (majorOption.selected) {
+        const cleanSaveOption = removeFalseMember({
+          ...saveOption,
+          department: majorOption.code,
+        });
+        console.log('전공/영역 골랐을때', cleanSaveOption);
+        findSubjectByOption(cleanSaveOption);
+        setSaveOption(cleanSaveOption);
+      }
+      // 전공/영역 검색옵션 태그 제거했을때
+      else {
+        const cleanSaveOption = removeFalseMember({
+          ...saveOption,
+          department: '',
+        });
+        console.log('전공/영역 태그 제거 시', cleanSaveOption);
+        findSubjectByOption(cleanSaveOption);
+        setSaveOption(cleanSaveOption);
+      }
     }
   }, [majorOption.selected]);
 
   /*************학년 검색옵션 선택 시 ******************/
   // FIXME: 학년검색은 api 요청안하고 state 에 담아서 하는게 훨씬 빠르지만, 일단은 api 요청으로 구현
   useEffect(() => {
-    if (gradeOption.selected) {
-      const cleanSaveOption = removeFalseMember({
-        ...saveOption,
-        // TODO: 학년 다중선택가능하게끔 해야함
-        grade: [Number(gradeOption.selected[0])],
-      });
-      console.log('학년 골랐을때', cleanSaveOption);
-      // findSubjectByState(cleanSaveOption); // 결함있어서 일단 사용x
-      findSubjectByOption(cleanSaveOption);
-      setSaveOption(cleanSaveOption);
-    }
-    // 학년 검색옵션 태그 제거했을때
-    else {
-      const cleanSaveOption = removeFalseMember({
-        ...saveOption,
-        grade: [],
-      });
-      console.log('학년 태그 제거 시', cleanSaveOption);
-      findSubjectByOption(cleanSaveOption);
-      setSaveOption(cleanSaveOption);
+    if (isSearchOption) {
+      if (gradeOption.selected) {
+        const cleanSaveOption = removeFalseMember({
+          ...saveOption,
+          // TODO: 학년 다중선택가능하게끔 해야함
+          grade: [Number(gradeOption.selected[0])],
+        });
+        console.log('학년 골랐을때', cleanSaveOption);
+        // findSubjectByState(cleanSaveOption); // 결함있어서 일단 사용x
+        findSubjectByOption(cleanSaveOption);
+        setSaveOption(cleanSaveOption);
+      }
+      // 학년 검색옵션 태그 제거했을때
+      else {
+        const cleanSaveOption = removeFalseMember({
+          ...saveOption,
+          grade: [],
+        });
+        console.log('학년 태그 제거 시', cleanSaveOption);
+        findSubjectByOption(cleanSaveOption);
+        setSaveOption(cleanSaveOption);
+      }
     }
   }, [gradeOption.selected]);
 
   /*************학점 검색옵션 선택 시 ******************/
   // FIXME: 학점검색도 api 요청안하고 state 에 담아서 하는게 훨씬 빠르지만, 일단은 api 요청으로 구현
   useEffect(() => {
-    if (creditOption.selected) {
-      const cleanSaveOption = removeFalseMember({
-        ...saveOption,
-        // TODO: 학점도 다중선택가능하게끔 해야함
-        credit: [Number(creditOption.selected[0])],
-      });
-      console.log('학점 골랐을때', cleanSaveOption);
-      findSubjectByOption(cleanSaveOption);
-      setSaveOption(cleanSaveOption);
-    }
-    // 학년 검색옵션 태그 제거했을때
-    else {
-      const cleanSaveOption = removeFalseMember({
-        ...saveOption,
-        credit: [],
-      });
-      console.log('학점 태그 제거 시', cleanSaveOption);
-      findSubjectByOption(cleanSaveOption);
-      setSaveOption(cleanSaveOption);
+    if (isSearchOption) {
+      if (creditOption.selected) {
+        const cleanSaveOption = removeFalseMember({
+          ...saveOption,
+          // TODO: 학점도 다중선택가능하게끔 해야함
+          credit: [Number(creditOption.selected[0])],
+        });
+        console.log('학점 골랐을때', cleanSaveOption);
+        findSubjectByOption(cleanSaveOption);
+        setSaveOption(cleanSaveOption);
+      }
+      // 학년 검색옵션 태그 제거했을때
+      else {
+        const cleanSaveOption = removeFalseMember({
+          ...saveOption,
+          credit: [],
+        });
+        console.log('학점 태그 제거 시', cleanSaveOption);
+        findSubjectByOption(cleanSaveOption);
+        setSaveOption(cleanSaveOption);
+      }
     }
   }, [creditOption.selected]);
 
   /*************검색어 검색옵션 선택 시 ******************/
   useEffect(() => {
-    if (searchOption.selected) {
-      const cleanSaveOption = removeFalseMember({
-        ...saveOption,
-        searchby: searchOption.searchBy,
-        keyword: searchOption.selected,
-      });
-      console.log('검색어 골랐을때', cleanSaveOption);
-      findSubjectByOption(cleanSaveOption);
-      setSaveOption(cleanSaveOption);
+    if (isSearchOption) {
+      if (searchKeywordOption.selected) {
+        const cleanSaveOption = removeFalseMember({
+          ...saveOption,
+          searchby: searchKeywordOption.searchBy,
+          keyword: searchKeywordOption.selected,
+        });
+        console.log('검색어 골랐을때', cleanSaveOption);
+        findSubjectByOption(cleanSaveOption);
+        setSaveOption(cleanSaveOption);
+      }
+      // 검색어 옵션 태그 제거했을때
+      else {
+        const cleanSaveOption = removeFalseMember({
+          ...saveOption,
+          searchby: '',
+          keyword: '',
+        });
+        console.log('검색어 태그 제거 시', cleanSaveOption);
+        findSubjectByOption(cleanSaveOption);
+        setSaveOption(cleanSaveOption);
+      }
     }
-    // 검색어 옵션 태그 제거했을때
-    else {
-      const cleanSaveOption = removeFalseMember({
-        ...saveOption,
-        searchby: '',
-        keyword: '',
-      });
-      console.log('검색어 태그 제거 시', cleanSaveOption);
-      findSubjectByOption(cleanSaveOption);
-      setSaveOption(cleanSaveOption);
-    }
-  }, [searchOption.selected]);
+  }, [searchKeywordOption.selected]);
 
   return (
     <SectionContainer>
@@ -366,6 +382,7 @@ const SearchOptList = () => {
         <OptBtn
           onClick={() => {
             handleClickOpen(semesterOption, setSemesterOption);
+            setIsSearchOption(true);
           }}
           selected={semesterOption.selected}
           bgColor="#f0932b"
@@ -408,8 +425,10 @@ const SearchOptList = () => {
           학점
         </OptBtn>
         <OptBtn
-          onClick={() => handleClickOpen(searchOption, setSearchOption)}
-          selected={searchOption.selected}
+          onClick={() =>
+            handleClickOpen(searchKeywordOption, setSearchKeywordOption)
+          }
+          selected={searchKeywordOption.selected}
           bgColor="#2e86de"
           disabled={loading}
         >
@@ -473,14 +492,16 @@ const SearchOptList = () => {
               <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
             </Tag2>
           ) : null}
-          {searchOption.selected ? (
+          {searchKeywordOption.selected ? (
             <Tag2
               fontSize="13"
               bgColor="#2e86de"
-              onClick={() => handleTagRemove(searchOption, setSearchOption)}
+              onClick={() =>
+                handleTagRemove(searchKeywordOption, setSearchKeywordOption)
+              }
               disabled={loading}
             >
-              {searchOption.searchBy} : {searchOption.selected}
+              {searchKeywordOption.searchBy} : {searchKeywordOption.selected}
               <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
             </Tag2>
           ) : null}

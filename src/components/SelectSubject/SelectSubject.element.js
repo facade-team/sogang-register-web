@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const CardList = styled.div`
   display: flex;
   min-height: 200px;
@@ -26,6 +31,9 @@ export const CardList = styled.div`
     background-color: #f5f5f5;
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  }
+  @media screen and (max-width: 600px) {
+    justify-content: center;
   }
 `;
 
@@ -55,6 +63,9 @@ export const ProfName = styled.div`
 export const SortedCard = styled.div`
   display: flex;
   flex-wrap: wrap;
+  @media screen and (max-width: 600px) {
+    justify-content: center;
+  }
 `;
 
 export const Divider = styled.hr`

@@ -245,15 +245,16 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                   </BtnContainer>
                 </Top>
                 <TagContainer>
-                  {subject.대면여부 ? (
+                  {subject.대면여부 === '비대면' ? (
                     <Tag untact fontSize="12">
                       비대면
                     </Tag>
-                  ) : (
+                  ) : null}
+                  {subject.대면여부 === '대면' ? (
                     <Tag ontact fontSize="12">
                       대면
                     </Tag>
-                  )}
+                  ) : null}
                   {subject.강의언어 === '영어' ? (
                     <Tag eng fontSize="12">
                       영어강의
@@ -264,9 +265,6 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                       중국어강의
                     </Tag>
                   ) : null}
-                  <Tag fontSize="12" credit={subject.학점}>
-                    {subject.학점}학점
-                  </Tag>
                 </TagContainer>
                 <SubjectTable>
                   <TableBody>
@@ -301,7 +299,25 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                         강의시간
                       </TableHead>
                       <TableData corner={false}>
-                        {subject.요일} {subject.시작시간}~{subject.종료시간}
+                        {subject.요일1 === subject.요일2 ? (
+                          <p>
+                            {subject.요일1} {subject.시간1}
+                          </p>
+                        ) : null}
+                        {subject.요일1 !== subject.요일2 ? (
+                          <>
+                            {subject.시간1 === subject.시간2 ? (
+                              <p>
+                                {subject.요일1},{subject.요일2} {subject.시간1}
+                              </p>
+                            ) : (
+                              <p>
+                                {subject.요일1} {subject.시간1} ,{subject.요일2}{' '}
+                                {subject.시간2}
+                              </p>
+                            )}
+                          </>
+                        ) : null}
                       </TableData>
                     </TableRow>
                     <TableRow>

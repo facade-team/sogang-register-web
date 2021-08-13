@@ -24,6 +24,10 @@ export const ModalContainer = styled(motion.div)`
   position: relative;
   z-index: 10;
   border-radius: 16px;
+
+  @media screen and (max-width: 600px) {
+    min-width: 280px;
+  }
 `;
 
 export const ModalLogo = styled.div`

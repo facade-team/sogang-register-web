@@ -9,15 +9,16 @@ import SearchOption from '../components/SearchOption/SearchOption';
 import SortOption from '../components/SortOption/SortOption';
 import SelectSubject from '../components/SelectSubject/SelectSubject';
 import DetailBar from '../components/DetailBar/DetailBar';
-
+import MobileDetailBar from '../components/DetailBarMobile/MobileDetailBar';
 //styled
 import { Container, HomeContainer } from '../styles/HomeContainer';
 
 const Home = ({ openModal, height }) => {
   const [detailbarWidth, setDetailbarWidth] = useState(0);
+  const [detailbarHeight, setDetailbarHeight] = useState(0);
   const [cardKey, setCardKey] = useState('');
   const [detailSubject, setDetailSubject] = useState({});
-
+  const [mobileDetailSubject, setMobileDetailSubject] = useState({});
   const { subjects } = useSubjectContext();
 
   const [notMobile, setNotMobile] = useState(
@@ -34,6 +35,16 @@ const Home = ({ openModal, height }) => {
     setCardKey(key);
 
     setDetailSubject(detailData);
+  };
+  const mobileClickCard = (key) => {
+    if (detailbarHeight === 0) {
+      setDetailbarHeight(400);
+    }
+    const mobileDetailData = subjects.find((data) => data.subject_id === key);
+    if (key === cardKey) return;
+    setCardKey(key);
+    setMobileDetailSubject(mobileDetailData);
+    console.log(key);
   };
 
   // 네비게이션 바에 현재 페이지 표시를 위한 상태
@@ -66,7 +77,7 @@ const Home = ({ openModal, height }) => {
           number="03"
           subtitle="과목조회"
           data={subjects}
-          onClickCard={clickCard}
+          onClickCard={notMobile ? clickCard : mobileClickCard}
         ></SelectSubject>
       </HomeContainer>
       {/* 오른쪽 사이드바 */}
@@ -78,12 +89,17 @@ const Home = ({ openModal, height }) => {
             signBtnType="login"
             openModal={openModal}
             subject={detailSubject}
-            // latestSubject={latestSubject}
             clickCard={clickCard}
-          ></DetailBar> // mobile
+            // latestSubject={latestSubject}
+          ></DetailBar>
         )
       ) : (
-        <></>
+        // mobile
+        <MobileDetailBar
+          height={detailbarHeight}
+          subject={mobileDetailSubject}
+          clickCard={mobileClickCard}
+        ></MobileDetailBar>
       )}
     </Container>
   );
