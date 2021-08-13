@@ -68,6 +68,7 @@ export const TagContainer2 = styled(TagContainer)`
   align-items: center;
   padding: 8px;
   flex-wrap: wrap;
+  height: fit-content;
 `;
 
 export const Tag2 = styled(Tag)`
@@ -82,5 +83,11 @@ export const Tag2 = styled(Tag)`
     disabled &&
     css`
       cursor: default;
+    `}
+
+  ${({ deactive }) =>
+    deactive &&
+    css`
+      background-color: #b2bec3;
     `}
 `;

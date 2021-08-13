@@ -16,6 +16,15 @@ const SubjectProvider = ({ children }) => {
   const [langOption, setLangOption] = useState(false);
   const [contactOption, setContactOption] = useState(false);
 
+  // 대면 / 비대면
+  const [ontact, setOntact] = useState(true);
+  const [untact, setUntact] = useState(true);
+
+  // 강의언어 옵션리스트
+  const [kor, setKor] = useState(true);
+  const [eng, setEng] = useState(true);
+  const [china, setChina] = useState(true);
+
   const subjectContextValue = {
     subjects,
     setSubjects,
@@ -31,6 +40,16 @@ const SubjectProvider = ({ children }) => {
     setLangOption,
     contactOption,
     setContactOption,
+    ontact,
+    setOntact,
+    untact,
+    setUntact,
+    kor,
+    setKor,
+    eng,
+    setEng,
+    china,
+    setChina,
   };
 
   return (
