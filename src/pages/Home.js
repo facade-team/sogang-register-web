@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
+import { BsArrowUp } from 'react-icons/bs';
 
 import { useMenuContext } from '../contexts/MenuContext';
 import { useSubjectContext } from '../contexts/SubjectContext';
+
+import Fab from '@material-ui/core/Fab';
 
 //components
 import Title from '../components/Title/Title';
@@ -13,6 +18,28 @@ import MobileDetailBar from '../components/DetailBarMobile/MobileDetailBar';
 import MobileModal from '../components/DetailBarMobile/MobileModal';
 //styled
 import { Container, HomeContainer } from '../styles/HomeContainer';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    position: 'fixed',
+    bottom: '20px',
+    right: '20px',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+}));
+
+const FabContainer = styled.div`
+  display: none;
+
+  @media screen and (max-width: 600px) {
+    display: block;
+  }
+`;
 
 const Home = ({ openModal, height }) => {
   const [detailbarWidth, setDetailbarWidth] = useState(0);
@@ -69,8 +96,18 @@ const Home = ({ openModal, height }) => {
     setNotMobile(notWidth);
   }, []);
 
+  const classes = useStyles();
+
+  const goToTop = (e) => {
+    document.querySelector('#home').scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <Container>
+      {console.log('win', window.scrollY)}
       <HomeContainer widthPx={detailbarWidth} navigation="Home">
         <Title
           title="개설교과목 검색"
@@ -85,6 +122,11 @@ const Home = ({ openModal, height }) => {
           data={subjects}
           onClickCard={notMobile ? clickCard : mobileClickCard}
         ></SelectSubject>
+        <FabContainer className={classes.root}>
+          <Fab color="primary" aria-label="add" onClick={goToTop}>
+            <BsArrowUp size="30" />
+          </Fab>
+        </FabContainer>
       </HomeContainer>
       {/* 오른쪽 사이드바 */}
       {notMobile === true ? ( // pc

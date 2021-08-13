@@ -7,7 +7,6 @@ export const Container = styled.div`
 
   @media screen and (max-width: 900px) {
     flex-direction: column;
-
     align-items: center;
     width: 100%;
     height: 100%;
@@ -21,7 +20,7 @@ export const Container = styled.div`
   }
 `;
 
-export const HomeContainer = styled.div`
+export const HomeContainer = styled.div.attrs({ id: 'home' })`
   /* width: ${({ widthPx }) => `calc( 100% - ${widthPx}px);`}; */
   ${({ widthPx, navigation }) => {
     if (navigation) {

@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 600px) {
+    width: 95%;
+    margin: 0 auto;
+  }
 `;
 
 export const CardList = styled.div`
@@ -34,8 +38,8 @@ export const CardList = styled.div`
   }
   @media screen and (max-width: 600px) {
     justify-content: center;
-    background-color: rgb(0, 0, 0, 0.05);
     border-radius: 10px;
+    overflow-y: unset;
   }
 `;
 

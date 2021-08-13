@@ -33,9 +33,12 @@ const LinkContainer = styled.div`
   }
 
   @media screen and (max-width: 600px) {
+    width: 100%;
+    padding: 10px 20px;
     flex-direction: column;
     a {
       margin-bottom: 5px;
+      align-items: center;
     }
   }
 `;
