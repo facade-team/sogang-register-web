@@ -16,7 +16,7 @@ export const CardList = styled.div`
   justify-content: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
-  overflow-y: auto;
+  /* overflow-y: auto;
 
   &::-webkit-scrollbar {
     cursor: pointer;
@@ -35,7 +35,7 @@ export const CardList = styled.div`
     background-color: #f5f5f5;
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  }
+  } */
   @media screen and (max-width: 600px) {
     justify-content: center;
     border-radius: 10px;

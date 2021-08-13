@@ -22,8 +22,9 @@ import { Container, HomeContainer } from '../styles/HomeContainer';
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'fixed',
-    bottom: '20px',
-    right: '20px',
+    bottom: '25px',
+    right: '25px',
+    zIndex: 999,
     '& > *': {
       margin: theme.spacing(1),
     },
@@ -34,9 +35,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const FabContainer = styled.div`
-  display: none;
+  display: block;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 900px) {
     display: block;
   }
 `;
@@ -107,7 +108,6 @@ const Home = ({ openModal, height }) => {
 
   return (
     <Container>
-      {console.log('win', window.scrollY)}
       <HomeContainer widthPx={detailbarWidth} navigation="Home">
         <Title
           title="개설교과목 검색"

@@ -134,7 +134,7 @@ export const Label = styled.label`
     font-size: 14px;
   }
   @media screen and (max-width: 600px) {
-    font-size: 10px;
+    font-size: 14px;
   }
 `;
 

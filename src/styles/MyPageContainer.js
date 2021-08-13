@@ -19,6 +19,7 @@ export const Box = styled.div`
   height: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 
   @media screen and (max-width: 900px) {
     flex-direction: column;

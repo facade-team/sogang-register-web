@@ -43,6 +43,14 @@ const LinkContainer = styled.div`
   }
 `;
 
+const A = styled.a`
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.04);
+    transition: all 0.3s ease;
+  }
+`;
+
 const FeedbackForm = () => {
   const { userData } = useAuthContext();
   const [form, onChangeForm, setForm] = useInput({
@@ -86,16 +94,16 @@ const FeedbackForm = () => {
   return (
     <FormContainer>
       <LinkContainer>
-        <a
+        <A
           href="https://honey-clavicle-b51.notion.site/33a4fff98f414bbca2493ae77a962e6b"
           target="_blank"
           style={{ display: 'flex', alignItems: 'center' }}
         >
           <img src={notionLogo} width="28px"></img>
           <span>서강신청 블로그</span>
-        </a>
+        </A>
 
-        <a
+        <A
           href="https://www.instagram.com/sogang_sincheong/"
           target="_blank"
           style={{ display: 'flex', alignItems: 'center' }}
@@ -106,7 +114,7 @@ const FeedbackForm = () => {
             style={{ marginRight: '5px' }}
           ></img>
           <span>Instagram</span>
-        </a>
+        </A>
       </LinkContainer>
       <FormGroup>
         <label htmlFor="email">회신받을 이메일</label>

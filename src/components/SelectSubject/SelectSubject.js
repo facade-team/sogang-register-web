@@ -37,8 +37,6 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
   const handleFilterClick = (e) => {
     const clickedFilter = e.target.innerText;
     const filterType = e.target.id;
-    console.log('e.target.innerText', e.target.innerText);
-    console.log('filterType', filterType);
 
     // 클릭한 필터가 제외필터에 있는 상태였으면, 제외필터에서 없애줌
     // 없으면, 제외필터에 추가
@@ -152,7 +150,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
 
   return (
     <>
-      {console.log('제외된 필터', excludeFilter)}
+      {/* {console.log('제외된 필터', excludeFilter)} */}
       <SubTitle number={number} subtitle={subtitle}></SubTitle>
 
       {data && data.length !== 0 ? (

@@ -41,6 +41,9 @@ const MobileDetailBar = ({ height, subject, clickCard }) => {
                 <span style={{ display: 'flex' }}>
                   <SubjectName text={subject.과목명} font={20}>
                     {subject.과목명}
+                    <span style={{ fontSize: '13px' }}>
+                      [{subject.subject_id.substring(14, 15)}반]
+                    </span>
                   </SubjectName>
                   <BtnContainer>
                     <StarBtn size={22}></StarBtn>
@@ -113,7 +116,25 @@ const MobileDetailBar = ({ height, subject, clickCard }) => {
                       강의시간
                     </TableHead>
                     <TableData corner={false}>
-                      {subject.요일} {subject.시작시간}~{subject.종료시간}
+                      {subject.요일1 === subject.요일2 ? (
+                        <p>
+                          {subject.요일1} {subject.시간1}
+                        </p>
+                      ) : null}
+                      {subject.요일1 !== subject.요일2 ? (
+                        <>
+                          {subject.시간1 === subject.시간2 ? (
+                            <p>
+                              {subject.요일1},{subject.요일2} {subject.시간1}
+                            </p>
+                          ) : (
+                            <p>
+                              {subject.요일1} {subject.시간1} ,{subject.요일2}{' '}
+                              {subject.시간2}
+                            </p>
+                          )}
+                        </>
+                      ) : null}
                     </TableData>
                   </TableRow>
                   <TableRow>

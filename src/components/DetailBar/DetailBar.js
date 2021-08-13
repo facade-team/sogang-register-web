@@ -392,6 +392,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                 active={!latestAndFavoritesToggle}
                 onClick={switchLatestAndFavorites}
                 marginRight={-16}
+                mouseover
               >
                 즐겨찾기
               </GradationBtn>

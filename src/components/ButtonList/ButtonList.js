@@ -21,6 +21,7 @@ const ButtonList = () => {
             borderRadius={20}
             active={true}
             mouseover={false}
+            height="40"
           >
             회원정보 수정
           </GradationBtn>
@@ -31,6 +32,7 @@ const ButtonList = () => {
             borderRadius={20}
             active={true}
             mouseover={false}
+            height="40"
           >
             비밀번호 변경
           </GradationBtn>
@@ -42,6 +44,7 @@ const ButtonList = () => {
               borderRadius={20}
               active={true}
               mouseover={false}
+              height="40"
             >
               이메일 인증
             </GradationBtn>
@@ -54,6 +57,7 @@ const ButtonList = () => {
             borderRadius={20}
             active={true}
             mouseover={false}
+            height="40"
           >
             회원 탈퇴
           </GradationBtn>

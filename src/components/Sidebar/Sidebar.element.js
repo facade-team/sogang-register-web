@@ -49,9 +49,10 @@ export const ServiceName = styled.div`
   top: 40px;
   font-size: 1.5rem;
   font-weight: 800;
-
+  transition: 0.3s;
   &:hover {
     transform: scale(1.05);
+    transition: all 0.3s ease;
   }
 `;
 
@@ -88,9 +89,11 @@ export const Icon = styled.div`
 
 export const CustomLink = styled(Link)`
   display: flex;
+  transition: 0.3s;
   &:hover {
     color: white;
-    font-weight: 700;
+    font-weight: 800;
+    transition: all 0.3s ease;
   }
 `;
 

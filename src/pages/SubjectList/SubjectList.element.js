@@ -8,9 +8,13 @@ export const Container = styled.div`
   align-items: center;
   height: 100%;
   //changed
-  width: 100%;
+  width: 50%;
   //min-width: 600px;
   min-height: 400px;
+
+  @media screen and (max-width: 600px) {
+    width: 80%;
+  }
 `;
 
 export const OptionBtnContainer = styled.div`
@@ -39,7 +43,7 @@ export const StackContent = styled.div`
   margin-right: 20px;
   margin-left: 20px;
 
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 600px) {
     min-width: 200px;
   }
 `;
