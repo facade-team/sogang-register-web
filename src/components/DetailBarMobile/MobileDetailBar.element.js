@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const DetailbarComponent = styled.div`
-  // position: fixed;
   width: 100%;
   display: ${({ heightPx }) => (heightPx === 0 ? 'none' : 'flex')};
   height: ${(props) => {
@@ -70,7 +69,7 @@ export const SubjectName = styled.div`
 export const TagContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 `;
 
 export const BtnContainer = styled.div`

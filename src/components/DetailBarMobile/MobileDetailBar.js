@@ -21,7 +21,7 @@ import {
 
 import { Tag } from '../Card/Card.element';
 
-const MobileDetailBar = ({ visible, height, subject, mobileClose }) => {
+const MobileDetailBar = ({ visible, height, subject, onClose }) => {
   return (
     <>
       <DetailbarComponent heightPx={height}>
@@ -29,13 +29,15 @@ const MobileDetailBar = ({ visible, height, subject, mobileClose }) => {
           {JSON.stringify(subject) === '{}' ? null : (
             <>
               <Top>
-                <SubjectName text={subject.과목명} font={20}>
-                  {subject.과목명}
-                </SubjectName>
-                <BtnContainer>
-                  <StarBtn size={22}></StarBtn>
-                </BtnContainer>
-                <CloseIcon className="modal-close" onClick={mobileClose} />
+                <span style={{ display: 'flex' }}>
+                  <SubjectName text={subject.과목명} font={20}>
+                    {subject.과목명}
+                  </SubjectName>
+                  <BtnContainer>
+                    <StarBtn size={22}></StarBtn>
+                  </BtnContainer>
+                </span>
+                <CloseIcon className="modal-close" onClick={onClose} />
               </Top>
               <TagContainer>
                 {subject.대면여부 ? (

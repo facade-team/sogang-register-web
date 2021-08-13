@@ -47,10 +47,14 @@ const Home = ({ openModal, height }) => {
       setDetailbarHeight(400);
     }
     const mobileDetailData = subjects.find((data) => data.subject_id === key);
-    if (key === cardKey) return;
-    setCardKey(key);
-    setMobileDetailSubject(mobileDetailData);
-    setModalVisible(true);
+    if (key === cardKey) {
+      setModalVisible(true);
+      return;
+    } else {
+      setCardKey(key);
+      setMobileDetailSubject(mobileDetailData);
+      setModalVisible(true);
+    }
   };
 
   // 네비게이션 바에 현재 페이지 표시를 위한 상태
@@ -107,12 +111,14 @@ const Home = ({ openModal, height }) => {
             closable={true}
             maskClosable={true}
             onClose={closeModal}
+            height={detailbarHeight}
           >
             <MobileDetailBar
               height={detailbarHeight}
               subject={mobileDetailSubject}
               clickCard={mobileClickCard}
               visible={modalVisible}
+              onClose={closeModal}
             ></MobileDetailBar>
           </MobileModal>
         )

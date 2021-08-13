@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react';
-import CloseIcon from '@material-ui/icons/Close';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-function MobileModal({ className, onClose, maskClosable, visible, children }) {
+function MobileModal({
+  className,
+  height,
+  onClose,
+  maskClosable,
+  visible,
+  children,
+}) {
   useEffect(() => {
     document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
     return () => {
@@ -32,7 +38,7 @@ function MobileModal({ className, onClose, maskClosable, visible, children }) {
         tabIndex="-1"
         visible={visible}
       >
-        <ModalInner tabIndex="0" className="modal-inner">
+        <ModalInner heightPx={height} tabIndex="0" className="modal-inner">
           {/* {closable && <CloseIcon className="modal-close" onClick={close} />} */}
           {children}
         </ModalInner>
@@ -74,15 +80,17 @@ const ModalInner = styled.div`
   box-sizing: border-box;
   position: relative;
   //   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-  //   background-color: #fff;
-  background-color: transparent;
+  background-color: #fff;
+  //   background-color: transparent;
   border-radius: 10px;
-  width: 360px;
-
+  width: 350px;
+  height: ${(heightPx) => {
+    return `${heightPx}px`;
+  }};
   top: 50%;
   transform: translateY(-50%);
   margin: 0 auto;
-  padding: 40px 20px;
+  //   padding: 40px 20px;
 `;
 
 export default MobileModal;

@@ -6,7 +6,7 @@ export const Container = styled.div`
   height: 100%;
   @media screen and (max-width: 900px) {
     flex-direction: column;
-    justify-content: center;
+    // justify-content: center;
     align-items: center;
     width: 100%;
     height: auto;

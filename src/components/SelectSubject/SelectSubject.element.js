@@ -29,6 +29,8 @@ export const CardList = styled.div`
   }
   @media screen and (max-width: 600px) {
     justify-content: center;
+    background-color: rgb(0, 0, 0, 0.05);
+    border-radius: 10px;
   }
 `;
 
