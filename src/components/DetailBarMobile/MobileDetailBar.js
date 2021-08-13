@@ -46,7 +46,7 @@ const MobileDetailBar = ({ height, subject, clickCard }) => {
                     <StarBtn size={22}></StarBtn>
                   </BtnContainer>
                 </span>
-                <CloseIcon className="modal-close" onClick={onClose} />
+                {/* <CloseIcon className="modal-close" onClick={onClose} /> */}
               </Top>
               <TagContainer>
                 {subject.대면여부 ? (
