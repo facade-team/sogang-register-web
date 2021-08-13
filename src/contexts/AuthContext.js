@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
             setIsAuth(true);
 
             let ud;
-            if (res.data.data.favorites === null) {
+            if (res.data.favorites === null) {
               ud = {
                 email: res.data.data.email,
                 username: res.data.data.username,
@@ -41,7 +41,7 @@ const AuthProvider = ({ children }) => {
                 allowEmail: res.data.data.allow_email,
                 isVerified: res.data.data.verify_on,
                 token: res.data.data.Authorization,
-                subjects: res.data.data.faovirtes,
+                subjects: res.data.faovirtes,
               };
             }
 
@@ -64,7 +64,6 @@ const AuthProvider = ({ children }) => {
               allowEmail: res.data.data.allow_email,
               isVerified: res.data.data.verify_on,
               token: res.data.data.Authorization,
-              subjects: [],
             };
             setUserData(ud);
             localStorage.setItem('userData', JSON.stringify(ud));

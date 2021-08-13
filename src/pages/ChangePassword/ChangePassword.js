@@ -38,17 +38,6 @@ const ChangePassword = ({ openModal }) => {
     checkPassword: '',
   });
 
-  //useEffect
-  useEffect(() => {
-    if (!userData) {
-      openModal();
-      setSnackBar({
-        type: 'error',
-        msg: '로그인이 필요합니다.',
-      });
-    }
-  }, [isAuth]);
-
   const onClick = (e) => {
     if (newPassword === checkPassword) {
       setLoading(true);

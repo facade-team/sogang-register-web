@@ -57,13 +57,15 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
               ))}
           </CardList>
         </>
-      ) : null}
-
-      {!data ? (
+      ) : (
         <ImgContainer>
           <img src={searchImg} alt="search" width="400px"></img>
         </ImgContainer>
-      ) : null}
+      )}
+
+      {/* {!data ? (
+        
+      ) : null} */}
     </>
   );
 };

@@ -21,9 +21,32 @@ import {
 
 const SubjectListComp = () => {
   const { isAuth, userData, setUserData } = useAuthContext();
-  const [favoriteList, setFavoriteList] = useState([]);
+  const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
   const { setSnackBar } = useSnackBarContext();
   const { setLoading } = useLoadingContext();
+
+  console.log(userData, favoriteList);
+  const deleteInList = (key, latest) => {
+    let list;
+    list = [...favoriteList];
+
+    list = list.filter((sub) => sub.subject_id !== key);
+
+    console.log(list);
+    setFavoriteList(list);
+
+    let newUserData = { ...userData };
+    if (newUserData.subjects) {
+      newUserData = {
+        ...userData,
+        subjects: list,
+      };
+      console.log(newUserData);
+
+      setUserData(newUserData);
+      localStorage.setItem('userData', JSON.stringify(newUserData));
+    }
+  };
 
   const clearFavoriteList = (e) => {
     setFavoriteList([]);
@@ -37,67 +60,11 @@ const SubjectListComp = () => {
   };
 
   useEffect(() => {
-    console.log(userData.subjects);
-    setFavoriteList(userData.subjects);
-    // if (userData.token) {
-    //   if (localStorage.getItem('subject') === null) {
-    //     if (isAuth) {
-    //       setLoading(true);
-    //       axios
-    //         .get('/favorites/')
-    //         .then((res) => {
-    //           console.log(res);
-    //           setLoading(false);
-    //           if (res.status === 201) {
-    //             setFavoriteList(res.data.data);
-    //           }
-    //         })
-    //         .catch((err) => {
-    //           setLoading(false);
-    //           console.log(err);
-    //           setSnackBar({
-    //             type: 'error',
-    //             msg: '즐겨찾기 과목을 불러오는데 오류가 발생했습니다.',
-    //           });
-    //         });
-    //     }
-    //   } else {
-    //     setFavoriteList(JSON.parse(localStorage.getItem('subject')));
-    //   }
-    // }
-
-    // if (userData.subjects) {
-    // }
-
-    // return () => {
-    //   if (userData.token) {
-    //     if (isAuth) {
-    //       console.log(123);
-    //       console.log(favoriteList);
-    //       const req = favoriteList.map((sub) => {
-    //         return sub.subject_id;
-    //       });
-    //       axios
-    //         .post('/favorites/update', {
-    //           sub_id: req,
-    //         })
-    //         .then((res) => {
-    //           if (res.status === 201) {
-    //             console.log(res);
-    //           }
-    //         })
-    //         .catch((err) => {
-    //           console.log(err);
-    //         });
-    //     }
-    //   }
-    // };
-  }, [userData.subjects]);
-
-  useEffect(() => {
     return () => {
       if (isAuth) {
-        if (userData.hasOwnProperty('subjects')) {
+        const newUserData = { ...userData };
+        console.log(newUserData, favoriteList);
+        if (userData.subjects) {
           const req = userData.subjects.map((sub) => {
             return sub.subject_id;
           });
@@ -146,7 +113,12 @@ const SubjectListComp = () => {
           <SubjectList>
             {favoriteList.map((sub, index) => (
               <div key={`${sub.subject_id}${index}`}>
-                <Subject subject={sub} active={false}></Subject>
+                <Subject
+                  subject={sub}
+                  active={false}
+                  onDelete={deleteInList}
+                  latest={false}
+                ></Subject>
                 {index !== favoriteList.length - 1 && <Divider></Divider>}
               </div>
             ))}

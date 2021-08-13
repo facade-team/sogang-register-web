@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { AiOutlineClose } from 'react-icons/ai/';
 
 export const Subject = styled.li`
   margin-left: 10px;
@@ -37,4 +38,11 @@ export const P = styled.p`
   }}
   margin-bottom: 4px;
   margin-top: 4px;
+`;
+
+export const CloseBtn = styled(AiOutlineClose)`
+  position: absolute;
+  width: 20px;
+  top: 50px;
+  right: 15px;
 `;
