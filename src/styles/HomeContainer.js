@@ -4,12 +4,21 @@ export const Container = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
+
   @media screen and (max-width: 900px) {
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: auto;
+    height: 100%;
+  }
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -36,9 +45,11 @@ export const HomeContainer = styled.div`
     min-width: 800px;
     justify-content: center;
     width: 100%;
+    height: 100%;
   }
   @media screen and (max-width: 600px) {
     width: 100%;
+    height: 100%;
     min-width: 200px;
     padding: 20px 20px 20px 20px;
     overflow-y: auto;

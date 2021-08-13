@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 import GradationBtn from '../../components/GradationBtn/GradationBtn';
@@ -6,8 +6,6 @@ import Subject from '../../components/SubjectCard/SubjectCard';
 
 //context
 import { useAuthContext } from '../../contexts/AuthContext';
-import { useSnackBarContext } from '../../contexts/SnackBarContext';
-import { useLoadingContext } from '../../contexts/LoadingContext';
 
 //styled
 import {
@@ -20,12 +18,10 @@ import {
 } from './SubjectList.element.js';
 
 const SubjectListComp = () => {
+  const value = useRef({});
   const { isAuth, userData, setUserData } = useAuthContext();
   const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
-  const { setSnackBar } = useSnackBarContext();
-  const { setLoading } = useLoadingContext();
 
-  console.log(userData, favoriteList);
   const deleteInList = (key, latest) => {
     let list;
     list = [...favoriteList];
@@ -34,6 +30,7 @@ const SubjectListComp = () => {
 
     console.log(list);
     setFavoriteList(list);
+    value.current.favoriteList = list;
 
     let newUserData = { ...userData };
     if (newUserData.subjects) {
@@ -50,6 +47,7 @@ const SubjectListComp = () => {
 
   const clearFavoriteList = (e) => {
     setFavoriteList([]);
+    value.current.favoriteList = [];
     const newUserData = { ...userData };
     if (newUserData.hasOwnProperty('subjects')) {
       delete newUserData.subjects;
@@ -62,10 +60,24 @@ const SubjectListComp = () => {
   useEffect(() => {
     return () => {
       if (isAuth) {
-        const newUserData = { ...userData };
-        console.log(newUserData, favoriteList);
-        if (userData.subjects) {
-          const req = userData.subjects.map((sub) => {
+        const list = value.current.favoriteList;
+        if (favoriteList === list) {
+          return;
+        }
+
+        if (!list) {
+          axios
+            .post('/favorites/update', {
+              sub_id: [],
+            })
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          const req = list.map((sub) => {
             return sub.subject_id;
           });
           console.log(req);
@@ -77,14 +89,6 @@ const SubjectListComp = () => {
               if (res.status === 201) {
                 console.log(res);
               }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        } else if (favoriteList.length === 0) {
-          axios
-            .post('/favorites/update', {
-              sub_id: [],
             })
             .catch((err) => {
               console.log(err);

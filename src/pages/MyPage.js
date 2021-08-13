@@ -3,7 +3,6 @@ import { useMenuContext } from '../contexts/MenuContext';
 import { useAuthContext } from '../contexts/AuthContext';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { Route, Switch } from 'react-router-dom';
 
 //components
 import Title from '../components/Title/Title';

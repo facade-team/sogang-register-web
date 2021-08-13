@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 //components
@@ -10,7 +10,6 @@ import StarBtn from './StarBtn';
 //context
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useSnackBarContext } from '../../contexts/SnackBarContext';
-import { useLoadingContext } from '../../contexts/LoadingContext';
 
 //styled
 import {
@@ -33,9 +32,9 @@ import {
 import { Tag, TagContainer } from '../Card/Card.element';
 
 const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
+  const value = useRef({});
   const { isAuth, userData, setUserData } = useAuthContext();
   const { setSnackBar } = useSnackBarContext();
-  const { setLoading } = useLoadingContext();
 
   //최근 본과목 -> true, 즐겨찾기 -> false
   const [latestAndFavoritesToggle, setLatestAndFavoritesToggle] =
@@ -44,7 +43,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
   const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
   const [checkBookmark, setCheckBookmark] = useState(false);
 
-  console.log(userData, favoriteList);
+  // console.log(userData, favoriteList);
   //해당과목 즐겨찾기 여부, 즐겨찾기 추가, 삭제
   useEffect(() => {
     if (isAuth) {
@@ -88,9 +87,24 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
   useEffect(() => {
     return () => {
       if (isAuth) {
-        console.log(userData.subjects, favoriteList);
-        if (userData.subjects) {
-          const req = userData.subjects.map((sub) => {
+        const list = value.current.favoriteList;
+        if (favoriteList === list) {
+          return;
+        }
+
+        if (!list) {
+          axios
+            .post('/favorites/update', {
+              sub_id: [],
+            })
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          const req = list.map((sub) => {
             return sub.subject_id;
           });
           console.log(req);
@@ -102,17 +116,6 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
               if (res.status === 201) {
                 console.log(res);
               }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        } else {
-          axios
-            .post('/favorites/update', {
-              sub_id: [],
-            })
-            .then((res) => {
-              console.log(res);
             })
             .catch((err) => {
               console.log(err);
@@ -133,6 +136,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
     if (latest) setLatestList(list);
     else {
       setFavoriteList(list);
+      value.current = list;
       console.log(list);
       let newUserData = { ...userData };
       if (newUserData.subjects) {
@@ -171,6 +175,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
       }
 
       setFavoriteList(list);
+      value.current.favoriteList = list;
 
       let newUserData = {
         ...userData,
@@ -197,6 +202,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
       const idx = favoriteList.indexOf(sub);
       if (idx > -1) list.splice(idx, 1);
       setFavoriteList(list);
+      value.current.favoriteList = list;
 
       let newUserData = { ...userData };
       if (newUserData.subjects !== undefined) {

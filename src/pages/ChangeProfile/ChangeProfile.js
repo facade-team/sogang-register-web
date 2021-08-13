@@ -17,6 +17,7 @@ import {
   ContainerBox,
   FormContainer,
   FormGroup,
+  Form,
   SelectForm,
   Label,
   Input,
@@ -133,9 +134,9 @@ const ChangeProfile = ({ openModal }) => {
       <MyPageContainer navigation="Mypage">
         <Title title="마이페이지/프로필 수정" openModal={openModal}></Title>
         {isAuth ? (
-          <>
-            <ContainerBox>
-              <FormContainer>
+          <ContainerBox>
+            <FormContainer>
+              <Form>
                 <FormGroup>
                   <Label htmlFor="email">이메일</Label>
                   <Input
@@ -190,9 +191,9 @@ const ChangeProfile = ({ openModal }) => {
                 >
                   수정
                 </GradationBtn>
-              </FormContainer>
-            </ContainerBox>
-          </>
+              </Form>
+            </FormContainer>
+          </ContainerBox>
         ) : null}
       </MyPageContainer>
     </Container>

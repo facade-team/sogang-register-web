@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
@@ -20,6 +20,7 @@ import {
   Input,
   FormContainer,
   FormGroup,
+  Form,
   Label,
 } from './ChangePassword.element';
 import {
@@ -30,7 +31,7 @@ import {
 const ChangePassword = ({ openModal }) => {
   let history = useHistory();
   const { setSnackBar } = useSnackBarContext();
-  const { isAuth, userData } = useAuthContext();
+  const { isAuth } = useAuthContext();
   const { setLoading } = useLoadingContext();
   const [form, onChangeForm] = useInput({
     currentPassword: '',
@@ -86,45 +87,47 @@ const ChangePassword = ({ openModal }) => {
         {isAuth ? (
           <ContainerBox>
             <FormContainer>
-              <FormGroup>
-                <Label htmlFor="currentPassword">현재 비밀번호</Label>
-                <Input
-                  type="password"
-                  name="currentPassword"
-                  id="currentPassword"
-                  value={currentPassword}
-                  onChange={onChangeForm}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="newPassword">새 비밀번호</Label>
-                <Input
-                  type="password"
-                  name="newPassword"
-                  id="newPassword"
-                  value={newPassword}
-                  onChange={onChangeForm}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="checkPassword">새 비밀번호 확인</Label>
-                <Input
-                  type="password"
-                  name="checkPassword"
-                  id="checkPassword"
-                  value={checkPassword}
-                  onChange={onChangeForm}
-                />
-              </FormGroup>
-              <br></br>
-              <GradationBtn
-                width={200}
-                borderRadius={20}
-                active
-                onClick={onClick}
-              >
-                확인
-              </GradationBtn>
+              <Form>
+                <FormGroup>
+                  <Label htmlFor="currentPassword">현재 비밀번호</Label>
+                  <Input
+                    type="password"
+                    name="currentPassword"
+                    id="currentPassword"
+                    value={currentPassword}
+                    onChange={onChangeForm}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="newPassword">새 비밀번호</Label>
+                  <Input
+                    type="password"
+                    name="newPassword"
+                    id="newPassword"
+                    value={newPassword}
+                    onChange={onChangeForm}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="checkPassword">새 비밀번호 확인</Label>
+                  <Input
+                    type="password"
+                    name="checkPassword"
+                    id="checkPassword"
+                    value={checkPassword}
+                    onChange={onChangeForm}
+                  />
+                </FormGroup>
+                <br></br>
+                <GradationBtn
+                  width={200}
+                  borderRadius={20}
+                  active
+                  onClick={onClick}
+                >
+                  확인
+                </GradationBtn>
+              </Form>
             </FormContainer>
           </ContainerBox>
         ) : null}

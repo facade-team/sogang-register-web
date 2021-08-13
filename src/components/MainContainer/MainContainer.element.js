@@ -11,8 +11,10 @@ export const Container = styled.div`
   @media screen and (max-width: 900px) {
     width: 100%;
     top: 60px;
-    height: auto;
+    height: calc(100% - 60px);
   }
   @media screen and (max-width: 600px) {
+    height: 100%;
+    height: calc(100% - 60px);
   }
 `;
