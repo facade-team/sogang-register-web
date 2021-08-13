@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Tag2, TagContainer2 } from '../SearchOption/SearchOptList.element';
 
 export const Container = styled.div`
   display: flex;

@@ -11,7 +11,12 @@ import {
 const Card = ({ subject, onClick }) => {
   return (
     <CardContainer onClick={onClick}>
-      <SubjectName text={subject.과목명}>{subject.과목명}</SubjectName>
+      <SubjectName text={subject.과목명}>
+        {subject.과목명}{' '}
+        <span style={{ fontSize: '13px' }}>
+          [{subject.subject_id.substring(14, 15)}반]
+        </span>
+      </SubjectName>
       <TagContainer>
         {subject.대면여부 === '비대면' ? <Tag untact>비대면</Tag> : null}
         {subject.대면여부 === '대면' ? <Tag ontact>대면</Tag> : null}

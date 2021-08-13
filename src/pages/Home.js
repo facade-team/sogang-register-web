@@ -67,12 +67,8 @@ const Home = ({ openModal, height }) => {
           openModal={openModal}
           widthPx={detailbarWidth}
         ></Title>
-        <SearchOption
-          number="01"
-          subtitle="검색옵션"
-          submessage="*복수선택가능"
-        ></SearchOption>
-        <SortOption number="02" subtitle="정렬옵션"></SortOption>
+        <SearchOption number="01" subtitle="검색옵션"></SearchOption>
+        <SortOption number="02" subtitle="필터옵션"></SortOption>
         <SelectSubject
           number="03"
           subtitle="과목조회"

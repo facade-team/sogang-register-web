@@ -5,12 +5,7 @@ import {
   Container,
   CardList,
   ImgContainer,
-  SortedSubjectContainer,
-  SortedCard,
-  ProfName,
-  Divider,
   FilterType,
-  FilterContainer,
 } from './SelectSubject.element';
 
 import { IoIosClose } from 'react-icons/io';
@@ -26,20 +21,11 @@ import hangulFirstCompare from '../../utils/hangulFirstCompare';
 const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
   const {
     isSearchOption,
-    subjectsByProf,
     profOption,
     langOption,
     contactOption,
-    ontact,
-    setOntact,
-    untact,
-    setUntact,
-    kor,
-    setKor,
-    eng,
-    setEng,
-    china,
-    setChina,
+    profArr,
+    setProfArr,
   } = useSubjectContext();
 
   const [excludeFilter, setExcludeFilter] = useState({
@@ -47,8 +33,6 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
     lang: [],
     contact: [],
   });
-
-  const [profArr, setProfArr] = useState([]);
 
   const handleFilterClick = (e) => {
     const clickedFilter = e.target.innerText;
@@ -169,7 +153,6 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
   return (
     <>
       {console.log('제외된 필터', excludeFilter)}
-      {console.log('교수리스트', profArr)}
 
       <SubTitle number={number} subtitle={subtitle}></SubTitle>
       {data && data.length !== 0 ? (
@@ -187,32 +170,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
             </CardList>
           )}
 
-          {/* 교수 정렬옵션
-          {isSearchOption && subjectsByProf && profOption && (
-            <CardList>
-              {subjectsByProf.map((subjectWithProf) => (
-                <>
-                  <SortedSubjectContainer>
-                    <ProfName>{Object.keys(subjectWithProf)}</ProfName>
-                    <SortedCard>
-                      {Object.values(subjectWithProf).map((subjectArr) =>
-                        subjectArr.map((subject) => (
-                          <Card
-                            key={subject.subject_id}
-                            subject={subject}
-                            onClick={() => onClickCard(subject.subject_id)}
-                          ></Card>
-                        ))
-                      )}
-                    </SortedCard>
-                  </SortedSubjectContainer>
-                  <Divider></Divider>
-                </>
-              ))}
-            </CardList>
-          )} */}
-
-          {/*교수 정렬옵션 렌더링*/}
+          {/*교수 필터옵션 렌더링*/}
           {profOption && (
             <TagContainer2>
               <FilterType color="#706fd3">교수명</FilterType>
@@ -234,7 +192,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
             </TagContainer2>
           )}
 
-          {/*강의언어 정렬옵션 렌더링*/}
+          {/*강의언어 필터옵션 렌더링*/}
           {langOption && (
             <TagContainer2>
               <FilterType color="#ea8685">강의언어</FilterType>
@@ -267,7 +225,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
               </Tag2>
             </TagContainer2>
           )}
-          {/*대면여부 정렬옵션 렌더링*/}
+          {/*대면여부 필터옵션 렌더링*/}
           {contactOption && (
             <TagContainer2>
               <FilterType color="#01a3a4">대면여부</FilterType>

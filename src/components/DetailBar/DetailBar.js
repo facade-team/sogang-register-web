@@ -241,7 +241,12 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
             {JSON.stringify(subject) === '{}' ? null : (
               <>
                 <Top>
-                  <SubjectName font={19}>{subject.과목명}</SubjectName>
+                  <SubjectName font={19}>
+                    {subject.과목명}{' '}
+                    <span style={{ fontSize: '13px' }}>
+                      [{subject.subject_id.substring(14, 15)}반]
+                    </span>
+                  </SubjectName>
                   <BtnContainer>
                     <StarBtn
                       size={22}
@@ -261,6 +266,9 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                       대면
                     </Tag>
                   ) : null}
+                  <Tag fontSize="12" credit={subject.학점}>
+                    {subject.학점}학점
+                  </Tag>
                   {subject.강의언어 === '영어' ? (
                     <Tag eng fontSize="12">
                       영어강의
