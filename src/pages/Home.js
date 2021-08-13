@@ -10,6 +10,7 @@ import SortOption from '../components/SortOption/SortOption';
 import SelectSubject from '../components/SelectSubject/SelectSubject';
 import DetailBar from '../components/DetailBar/DetailBar';
 import MobileDetailBar from '../components/DetailBarMobile/MobileDetailBar';
+import MobileModal from '../components/DetailBarMobile/MobileModal';
 //styled
 import { Container, HomeContainer } from '../styles/HomeContainer';
 
@@ -20,10 +21,15 @@ const Home = ({ openModal, height }) => {
   const [detailSubject, setDetailSubject] = useState({});
   const [mobileDetailSubject, setMobileDetailSubject] = useState({});
   const { subjects } = useSubjectContext();
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [notMobile, setNotMobile] = useState(
     window.matchMedia('(min-width: 600px)').matches
   ); // true : pc, false : mobile
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
   const clickCard = (key) => {
     if (detailbarWidth === 0) {
@@ -44,7 +50,7 @@ const Home = ({ openModal, height }) => {
     if (key === cardKey) return;
     setCardKey(key);
     setMobileDetailSubject(mobileDetailData);
-    console.log(key);
+    setModalVisible(true);
   };
 
   // 네비게이션 바에 현재 페이지 표시를 위한 상태
@@ -95,11 +101,21 @@ const Home = ({ openModal, height }) => {
         )
       ) : (
         // mobile
-        <MobileDetailBar
-          height={detailbarHeight}
-          subject={mobileDetailSubject}
-          clickCard={mobileClickCard}
-        ></MobileDetailBar>
+        modalVisible && (
+          <MobileModal
+            visible={modalVisible}
+            closable={true}
+            maskClosable={true}
+            onClose={closeModal}
+          >
+            <MobileDetailBar
+              height={detailbarHeight}
+              subject={mobileDetailSubject}
+              clickCard={mobileClickCard}
+              visible={modalVisible}
+            ></MobileDetailBar>
+          </MobileModal>
+        )
       )}
     </Container>
   );

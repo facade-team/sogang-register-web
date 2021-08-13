@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import Subject from '../SubjectCard/SubjectCard';
 import StarBtn from '../DetailBar/StarBtn';
+import CloseIcon from '@material-ui/icons/Close';
 
 import {
   DetailbarComponent,
@@ -20,7 +21,7 @@ import {
 
 import { Tag } from '../Card/Card.element';
 
-const MobileDetailBar = ({ height, subject, clickCard }) => {
+const MobileDetailBar = ({ visible, height, subject, mobileClose }) => {
   return (
     <>
       <DetailbarComponent heightPx={height}>
@@ -34,7 +35,7 @@ const MobileDetailBar = ({ height, subject, clickCard }) => {
                 <BtnContainer>
                   <StarBtn size={22}></StarBtn>
                 </BtnContainer>
-                <button>닫기</button>
+                <CloseIcon className="modal-close" onClick={mobileClose} />
               </Top>
               <TagContainer>
                 {subject.대면여부 ? (

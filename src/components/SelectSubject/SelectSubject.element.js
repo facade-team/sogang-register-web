@@ -43,6 +43,10 @@ export const SortedSubjectContainer = styled.div`
 
   flex-wrap: wrap;
   flex-direction: column;
+  @media screen and (max-width: 600px) {
+    width: 90%;
+    overflow-x: hidden;
+  }
 `;
 
 export const ProfName = styled.div`
@@ -69,4 +73,7 @@ export const Divider = styled.hr`
   border-radius: 8px;
   margin-right: 6px;
   margin-left: 6px;
+  @media screen and (max-width: 600px) {
+    width: 90%;
+  }
 `;
