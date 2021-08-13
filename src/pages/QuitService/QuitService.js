@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
@@ -19,6 +19,7 @@ import {
   Input,
   FormContainer,
   FormGroup,
+  Form,
   Label,
 } from '../ChangePassword/ChangePassword.element';
 import {
@@ -30,10 +31,6 @@ const ChangePassword = ({ openModal }) => {
   let history = useHistory();
   const { isAuth, userData, logout } = useAuthContext();
   const { setSnackBar } = useSnackBarContext();
-  const [passwordFail, setPasswordFail] = useState({
-    value: false,
-    message: '',
-  });
   const [form, onChangeForm] = useInput({
     email: '',
     username: '',
@@ -97,45 +94,47 @@ const ChangePassword = ({ openModal }) => {
         {isAuth ? (
           <ContainerBox>
             <FormContainer>
-              <FormGroup>
-                <Label htmlFor="email">이메일</Label>
-                <Input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={email}
-                  onChange={onChangeForm}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="username">이름</Label>
-                <Input
-                  type="text"
-                  name="username"
-                  id="username"
-                  value={username}
-                  onChange={onChangeForm}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="password">비밀번호 확인</Label>
-                <Input
-                  type="password"
-                  name="password"
-                  id="password"
-                  value={password}
-                  onChange={onChangeForm}
-                />
-              </FormGroup>
-              <br></br>
-              <GradationBtn
-                width={200}
-                borderRadius={20}
-                active
-                onClick={onClick}
-              >
-                확인
-              </GradationBtn>
+              <Form>
+                <FormGroup>
+                  <Label htmlFor="email">이메일</Label>
+                  <Input
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={email}
+                    onChange={onChangeForm}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="username">이름</Label>
+                  <Input
+                    type="text"
+                    name="username"
+                    id="username"
+                    value={username}
+                    onChange={onChangeForm}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="password">비밀번호 확인</Label>
+                  <Input
+                    type="password"
+                    name="password"
+                    id="password"
+                    value={password}
+                    onChange={onChangeForm}
+                  />
+                </FormGroup>
+                <br></br>
+                <GradationBtn
+                  width={200}
+                  borderRadius={20}
+                  active
+                  onClick={onClick}
+                >
+                  확인
+                </GradationBtn>
+              </Form>
             </FormContainer>
           </ContainerBox>
         ) : null}

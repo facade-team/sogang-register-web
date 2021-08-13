@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 //components
@@ -10,7 +10,6 @@ import StarBtn from './StarBtn';
 //context
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useSnackBarContext } from '../../contexts/SnackBarContext';
-import { useLoadingContext } from '../../contexts/LoadingContext';
 
 //styled
 import {
@@ -33,17 +32,18 @@ import {
 import { Tag, TagContainer } from '../Card/Card.element';
 
 const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
+  const value = useRef({});
   const { isAuth, userData, setUserData } = useAuthContext();
   const { setSnackBar } = useSnackBarContext();
-  const { setLoading } = useLoadingContext();
 
   //최근 본과목 -> true, 즐겨찾기 -> false
   const [latestAndFavoritesToggle, setLatestAndFavoritesToggle] =
     useState(true);
   const [latestList, setLatestList] = useState([subject]);
-  const [favoriteList, setFavoriteList] = useState([]);
+  const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
   const [checkBookmark, setCheckBookmark] = useState(false);
 
+  // console.log(userData, favoriteList);
   //해당과목 즐겨찾기 여부, 즐겨찾기 추가, 삭제
   useEffect(() => {
     if (isAuth) {
@@ -53,37 +53,6 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
       existInFavoriteList ? setCheckBookmark(true) : setCheckBookmark(false);
     }
   }, [subject, favoriteList]);
-
-  useEffect(() => {
-    // if (localStorage.getItem('subject') === null) {
-    //   if (isAuth && userData.token) {
-    //     setLoading(true);
-    //     axios
-    //       .get('/favorites/')
-    //       .then((res) => {
-    //         setLoading(false);
-    //         if (res.status === 201) {
-    //           setFavoriteList(res.data.data);
-    //         }
-    //       })
-    //       .catch((err) => {
-    //         setLoading(false);
-    //         console.log(err);
-    //         setSnackBar({
-    //           type: 'error',
-    //           msg: '즐겨찾기 과목을 불러오는데 오류가 발생했습니다.',
-    //         });
-    //       });
-    //   }
-    // } else {
-    //   if (localStorage.getItem('subject') !== null) {
-    //     setFavoriteList(JSON.parse(localStorage.getItem('subject')));
-    //   }
-    // }
-    if (userData.subjects) {
-      setFavoriteList(userData.subjects);
-    }
-  }, []);
 
   useEffect(() => {
     if (!latestList || latestList.length === 0) return;
@@ -97,7 +66,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
 
     if (latestListIndex === -1) {
       // 최근 본 과목 리스트에 없을 때
-      const list = [subject, ...latestList];
+      const list = [...latestList, subject];
 
       if (list > 10) {
         list.shift();
@@ -118,9 +87,24 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
   useEffect(() => {
     return () => {
       if (isAuth) {
-        console.log(userData.subjects);
-        if (userData.hasOwnProperty('subjects')) {
-          const req = userData.subjects.map((sub) => {
+        const list = value.current.favoriteList;
+        if (favoriteList === list) {
+          return;
+        }
+
+        if (!list) {
+          axios
+            .post('/favorites/update', {
+              sub_id: [],
+            })
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          const req = list.map((sub) => {
             return sub.subject_id;
           });
           console.log(req);
@@ -136,21 +120,37 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
             .catch((err) => {
               console.log(err);
             });
-        } else {
-          axios
-            .post('/favorites/update', {
-              sub_id: [],
-            })
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
         }
       }
     };
   }, []);
+
+  //
+  const deleteInList = (key, latest) => {
+    let list;
+    if (latest) list = [...latestList];
+    else list = [...favoriteList];
+
+    list = list.filter((sub) => sub.subject_id !== key);
+
+    if (latest) setLatestList(list);
+    else {
+      setFavoriteList(list);
+      value.current = list;
+      console.log(list);
+      let newUserData = { ...userData };
+      if (newUserData.subjects) {
+        newUserData = {
+          ...userData,
+          subjects: list,
+        };
+        console.log(newUserData);
+
+        setUserData(newUserData);
+        localStorage.setItem('userData', JSON.stringify(newUserData));
+      }
+    }
+  };
 
   const toFavorite = () => {
     if (!isAuth) {
@@ -175,6 +175,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
       }
 
       setFavoriteList(list);
+      value.current.favoriteList = list;
 
       let newUserData = {
         ...userData,
@@ -201,10 +202,11 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
       const idx = favoriteList.indexOf(sub);
       if (idx > -1) list.splice(idx, 1);
       setFavoriteList(list);
+      value.current.favoriteList = list;
 
       let newUserData = { ...userData };
       if (newUserData.subjects !== undefined) {
-        let currentFavorite = userData.subjects;
+        let currentFavorite = [...userData.subjects];
         currentFavorite = currentFavorite.filter(
           (s) => s.subject_id !== subject.subject_id
         );
@@ -380,6 +382,8 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                         subject={sub}
                         onClick={() => clickCard(sub.subject_id)}
                         active={true}
+                        onDelete={deleteInList}
+                        latest={true}
                       ></Subject>
                       {index !== latestList.length - 1 && <Divider></Divider>}
                     </div>
@@ -391,6 +395,8 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                         subject={sub}
                         onClick={() => clickCard(sub.subject_id)}
                         active={true}
+                        onDelete={deleteInList}
+                        latest={false}
                       ></Subject>
                       {index !== favoriteList.length - 1 && <Divider></Divider>}
                     </div>

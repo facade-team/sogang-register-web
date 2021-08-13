@@ -47,9 +47,16 @@ const ModalForm = ({ modalType, setModalType, setShowModal }) => {
 
       <CustomGradationBtnComp active>로그인</CustomGradationBtnComp>
       <div>
-        <Link to="/join" onClick={() => setShowModal(false)}>
-          <span>회원가입</span>
-        </Link>
+        <p>
+          <Link to="/join" onClick={() => setShowModal(false)}>
+            <span>회원가입</span>
+          </Link>
+        </p>
+        <p>
+          <Link to="/mypage/changepassword" onClick={() => setShowModal(false)}>
+            비밀번호 리셋
+          </Link>
+        </p>
       </div>
       {/* <Seperator>
             <div></div>

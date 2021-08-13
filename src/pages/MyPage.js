@@ -3,7 +3,6 @@ import { useMenuContext } from '../contexts/MenuContext';
 import { useAuthContext } from '../contexts/AuthContext';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { Route, Switch } from 'react-router-dom';
 
 //components
 import Title from '../components/Title/Title';
@@ -11,11 +10,8 @@ import ButtonList from '../components/ButtonList/ButtonList';
 import MypageSubjectList from './SubjectList/SubjectList';
 
 // styled
-import {
-  Container,
-  HomeContainer as MyPageContainer,
-} from '../styles/HomeContainer';
-import { Box } from '../styles/MyPageContainer';
+import { HomeContainer as MyPageContainer } from '../styles/HomeContainer';
+import { Container, Box } from '../styles/MyPageContainer';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;

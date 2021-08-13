@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
@@ -30,13 +30,7 @@ const AuthCode = ({ openModal }) => {
   const [form, onChangeForm] = useInput({
     code: '',
   });
-  const [state, setState] = useState({
-    open: true,
-    vertical: 'top',
-    horizontal: 'center',
-  });
 
-  const { vertical, horizontal, open } = state;
   const { code } = form;
 
   //useEffect

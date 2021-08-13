@@ -10,12 +10,12 @@ export const ContainerBox = styled.div`
   min-width: 600px;
   min-height: 300px;
 
-  @media screen and (max-width: 900px){
+  @media screen and (max-width: 900px) {
     min-width: 400px;
-    margin-top: 50px;
   }
   @media screen and (max-width: 600px) {
     min-width: 200px;
+    display: inline-block;
   }
 `;
 
@@ -41,7 +41,7 @@ export const Input = styled.input`
       }
     `;
   }}
-  @media screen and (max-width: 900px){
+  @media screen and (max-width: 900px) {
     font-size: 14px;
   }
   @media screen and (max-width: 600px) {
@@ -50,14 +50,39 @@ export const Input = styled.input`
   }
 `;
 
+// export const FormContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   width: 40%;
+//   min-height: 300px;
+//   max-height: 600px;
+//   min-width: 400px;
+// `;
+
 export const FormContainer = styled.div`
+  @media screen and (max-width: 900px) {
+    //width: 40%;
+    //min-width: 200px;
+  }
+  @media screen and (max-width: 600px) {
+    position: relative;
+    top: 25%;
+    left: 0%;
+  }
+`;
+
+export const Form = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 40%;
-  min-height: 300px;
-  max-height: 600px;
   min-width: 400px;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    min-width: 200px;
+  }
 `;
 
 export const FormGroup = styled.div`
@@ -67,12 +92,12 @@ export const FormGroup = styled.div`
   width: 100%;
   margin-bottom: 15px;
 
-  @media screen and (max-width: 900px){
+  @media screen and (max-width: 900px) {
     font-size: 14px;
   }
   @media screen and (max-width: 600px) {
     font-size: 10px;
-    width: 60%;
+    width: 100%;
   }
 `;
 
@@ -90,7 +115,7 @@ export const Label = styled.label`
     transition: all 0.4s ease;
   }
 
-  @media screen and (max-width: 900px){
+  @media screen and (max-width: 900px) {
     font-size: 14px;
   }
   @media screen and (max-width: 600px) {

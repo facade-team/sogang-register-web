@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 import GradationBtn from '../../components/GradationBtn/GradationBtn';
@@ -6,8 +6,6 @@ import Subject from '../../components/SubjectCard/SubjectCard';
 
 //context
 import { useAuthContext } from '../../contexts/AuthContext';
-import { useSnackBarContext } from '../../contexts/SnackBarContext';
-import { useLoadingContext } from '../../contexts/LoadingContext';
 
 //styled
 import {
@@ -20,13 +18,36 @@ import {
 } from './SubjectList.element.js';
 
 const SubjectListComp = () => {
+  const value = useRef({});
   const { isAuth, userData, setUserData } = useAuthContext();
-  const [favoriteList, setFavoriteList] = useState([]);
-  const { setSnackBar } = useSnackBarContext();
-  const { setLoading } = useLoadingContext();
+  const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
+
+  const deleteInList = (key, latest) => {
+    let list;
+    list = [...favoriteList];
+
+    list = list.filter((sub) => sub.subject_id !== key);
+
+    console.log(list);
+    setFavoriteList(list);
+    value.current.favoriteList = list;
+
+    let newUserData = { ...userData };
+    if (newUserData.subjects) {
+      newUserData = {
+        ...userData,
+        subjects: list,
+      };
+      console.log(newUserData);
+
+      setUserData(newUserData);
+      localStorage.setItem('userData', JSON.stringify(newUserData));
+    }
+  };
 
   const clearFavoriteList = (e) => {
     setFavoriteList([]);
+    value.current.favoriteList = [];
     const newUserData = { ...userData };
     if (newUserData.hasOwnProperty('subjects')) {
       delete newUserData.subjects;
@@ -37,15 +58,26 @@ const SubjectListComp = () => {
   };
 
   useEffect(() => {
-    console.log(userData.subjects);
-    setFavoriteList(userData.subjects);
-  }, [userData.subjects]);
-
-  useEffect(() => {
     return () => {
       if (isAuth) {
-        if (userData.hasOwnProperty('subjects')) {
-          const req = userData.subjects.map((sub) => {
+        const list = value.current.favoriteList;
+        if (favoriteList === list) {
+          return;
+        }
+
+        if (!list) {
+          axios
+            .post('/favorites/update', {
+              sub_id: [],
+            })
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          const req = list.map((sub) => {
             return sub.subject_id;
           });
           console.log(req);
@@ -61,18 +93,10 @@ const SubjectListComp = () => {
             .catch((err) => {
               console.log(err);
             });
-        } else if (favoriteList.length === 0) {
-          axios
-            .post('/favorites/update', {
-              sub_id: [],
-            })
-            .catch((err) => {
-              console.log(err);
-            });
         }
       }
     };
-  }, [userData.subjects]);
+  }, []);
 
   return (
     <Container>
@@ -93,7 +117,12 @@ const SubjectListComp = () => {
           <SubjectList>
             {favoriteList.map((sub, index) => (
               <div key={`${sub.subject_id}${index}`}>
-                <Subject subject={sub} active={false}></Subject>
+                <Subject
+                  subject={sub}
+                  active={false}
+                  onDelete={deleteInList}
+                  latest={false}
+                ></Subject>
                 {index !== favoriteList.length - 1 && <Divider></Divider>}
               </div>
             ))}
