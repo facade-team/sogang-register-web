@@ -22,6 +22,7 @@ const Feedback = ({ openModal }) => {
     <Container>
       <FeedbackContainer navigation="Feedback">
         <Title title="피드백/문의" openModal={openModal}></Title>
+
         <FeedbackForm></FeedbackForm>
       </FeedbackContainer>
     </Container>

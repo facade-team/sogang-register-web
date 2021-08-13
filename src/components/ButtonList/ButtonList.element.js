@@ -9,7 +9,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media screen and (max-width: 900px){
+  @media screen and (max-width: 900px) {
     min-height: 200px;
   }
 `;
@@ -21,11 +21,11 @@ export const Buttons = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
 
-  @media screen and (max-width: 900px){
+  @media screen and (max-width: 900px) {
     width: 100%;
     min-height: 200px;
     align-items: center;
     margin-top: 25.5px;
-    margin-bottom: 50px;
+    margin-bottom: 5px;
   }
 `;

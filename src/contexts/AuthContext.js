@@ -1,6 +1,7 @@
 import { createContext, useState, useContext } from 'react';
 import axios from 'axios';
 import { useSnackBarContext } from './SnackBarContext';
+import { useHistory } from 'react-router-dom';
 
 const AuthContext = createContext({});
 
@@ -11,6 +12,7 @@ const AuthProvider = ({ children }) => {
   const [authLoading, setAuthLoading] = useState(false);
 
   const { setSnackBar } = useSnackBarContext();
+  let history = useHistory();
 
   // user : 사용자가 입력한 id, password 객체
   const login = (user) => {

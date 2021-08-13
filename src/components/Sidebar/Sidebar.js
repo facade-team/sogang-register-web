@@ -144,26 +144,6 @@ const SideBar = ({ width, height, toggleOpen, openModal, openSidebar }) => {
                 </>
               )}
             </Navigation>
-            {/* <Navigation>
-              {toggleOpen && !toggleText ? (
-                <>
-                  <CustomLink to="/info">
-                    <Icon info={menu}>
-                      <MdInfoOutline></MdInfoOutline>
-                    </Icon>
-                    <NavMenu info={menu}>서비스 소개</NavMenu>
-                  </CustomLink>
-                </>
-              ) : (
-                <>
-                  <CustomLink to="/info">
-                    <Icon info={menu}>
-                      <MdInfoOutline></MdInfoOutline>
-                    </Icon>
-                  </CustomLink>
-                </>
-              )}
-            </Navigation> */}
           </NavigationList>
         </SidebarContent>
       </SidebarComponent>

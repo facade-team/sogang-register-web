@@ -157,7 +157,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
 
       {data && data.length !== 0 ? (
         <Container>
-          <span style={{ fontSize: '13px', margin: '5px' }}>
+          <span style={{ fontSize: '13px', margin: '15px' }}>
             **10/4까지 모든 수업 전면 비대면 전환되었습니다.**
           </span>
           {/* 정렬옵션 없을때 */}
