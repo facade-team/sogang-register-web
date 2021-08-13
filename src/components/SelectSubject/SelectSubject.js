@@ -45,62 +45,67 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
   });
 
   const handleFilterClick = (e) => {
-    const clickedFilter = e.target.id;
+    const clickedFilter = e.target.innerText;
+    const filterType = e.target.id;
     console.log('e.target', e.target.innerText);
 
     // 클릭한 필터가 제외필터에 있는 상태였으면, 제외필터에서 없애줌
     // 없으면, 제외필터에 추가
 
     // 강의언어
-    if (excludeFilter.lang.includes(clickedFilter)) {
-      const temp = excludeFilter.lang;
-      for (let i = 0; i < temp.length; i++) {
-        if (temp[i] === clickedFilter) {
-          temp.splice(i, 1);
-          i--;
+    if (filterType === '강의언어') {
+      if (excludeFilter.lang.includes(clickedFilter)) {
+        const temp = excludeFilter.lang;
+        for (let i = 0; i < temp.length; i++) {
+          if (temp[i] === clickedFilter) {
+            temp.splice(i, 1);
+            i--;
+          }
         }
+        setExcludeFilter({ ...excludeFilter, lang: temp });
       }
-      setExcludeFilter({ ...excludeFilter, lang: temp });
-    }
-    // 추가
-    else {
-      const temp = excludeFilter.lang;
-      temp.push(clickedFilter);
-      setExcludeFilter({
-        ...excludeFilter,
-        lang: temp,
-      });
+      // 추가
+      else {
+        const temp = excludeFilter.lang;
+        temp.push(clickedFilter);
+        setExcludeFilter({
+          ...excludeFilter,
+          lang: temp,
+        });
+      }
     }
 
     // 대면여부
     // 제거
-    if (excludeFilter.contact.includes(clickedFilter)) {
-      const temp = excludeFilter.contact;
-      for (let i = 0; i < temp.length; i++) {
-        if (temp[i] === clickedFilter) {
-          temp.splice(i, 1);
-          i--;
+    if (filterType === '대면여부') {
+      if (excludeFilter.contact.includes(clickedFilter)) {
+        const temp = excludeFilter.contact;
+        for (let i = 0; i < temp.length; i++) {
+          if (temp[i] === clickedFilter) {
+            temp.splice(i, 1);
+            i--;
+          }
         }
+        setExcludeFilter({ ...excludeFilter, contact: temp });
       }
-      setExcludeFilter({ ...excludeFilter, contact: temp });
-    }
-    // 추가
-    else {
-      const temp = excludeFilter.contact;
-      temp.push(clickedFilter);
-      setExcludeFilter({
-        ...excludeFilter,
-        contact: temp,
-      });
+      // 추가
+      else {
+        const temp = excludeFilter.contact;
+        temp.push(clickedFilter);
+        setExcludeFilter({
+          ...excludeFilter,
+          contact: temp,
+        });
+      }
     }
   };
 
   const filtering = (subject) => {
     // 제외필터에 해당하면 false 로 필터링
-    if (excludeFilter.contact.includes(subject.강의언어)) {
+    if (excludeFilter.contact.includes(subject.대면여부)) {
       return false;
     }
-    if (excludeFilter.lang.includes(subject.대면여부)) {
+    if (excludeFilter.lang.includes(subject.강의언어)) {
       return false;
     }
 
@@ -167,7 +172,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
           {langOption && (
             <TagContainer2>
               <Tag2
-                id="한국어"
+                id="강의언어"
                 fontSize="13"
                 bgColor="#01a3a4"
                 onClick={handleFilterClick}
@@ -176,7 +181,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
                 한국어
               </Tag2>
               <Tag2
-                id="영어"
+                id="강의언어"
                 fontSize="13"
                 bgColor="#01a3a4"
                 onClick={handleFilterClick}
@@ -185,7 +190,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
                 영어
               </Tag2>
               <Tag2
-                id="중국어"
+                id="강의언어"
                 fontSize="13"
                 bgColor="#01a3a4"
                 onClick={handleFilterClick}
@@ -199,7 +204,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
           {contactOption && (
             <TagContainer2>
               <Tag2
-                id="대면"
+                id="대면여부"
                 fontSize="13"
                 bgColor="#01a3a4"
                 onClick={handleFilterClick}
@@ -208,7 +213,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
                 대면
               </Tag2>
               <Tag2
-                id="비대면"
+                id="대면여부"
                 fontSize="13"
                 bgColor="#01a3a4"
                 onClick={handleFilterClick}
