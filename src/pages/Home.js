@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     bottom: '25px',
     right: '25px',
-    zIndex: 999,
+    zIndex: 1,
     '& > *': {
       margin: theme.spacing(1),
     },
