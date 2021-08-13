@@ -232,6 +232,13 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
     }
   };
 
+  const handleClick = () => {
+    setSnackBar({
+      type: 'error',
+      msg: '추후 업데이트 예정입니다!',
+    });
+  };
+
   return (
     <>
       <DetailbarComponent widthPx={width} heightPx={height}>
@@ -300,7 +307,15 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                       <TableHead scope="row" corner={false}>
                         강의계획서
                       </TableHead>
-                      <TableData corner={false}>조회하기</TableData>
+                      <TableData corner={false}>
+                        <Tag
+                          bgColor="#95a5a6"
+                          onClick={handleClick}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          조회하기
+                        </Tag>
+                      </TableData>
                     </TableRow>
                     <TableRow>
                       <TableHead scope="row" corner={false}>

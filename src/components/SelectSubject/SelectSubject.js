@@ -153,10 +153,13 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
   return (
     <>
       {console.log('제외된 필터', excludeFilter)}
-
       <SubTitle number={number} subtitle={subtitle}></SubTitle>
+
       {data && data.length !== 0 ? (
         <Container>
+          <span style={{ fontSize: '13px', margin: '5px' }}>
+            **10/4까지 모든 수업 전면 비대면 전환되었습니다.**
+          </span>
           {/* 정렬옵션 없을때 */}
           {data && !profOption && !contactOption && !langOption && (
             <CardList>
@@ -263,14 +266,12 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
           )}
         </Container>
       ) : null}
-
       {/* 초기상태 */}
       {!data || !isSearchOption ? (
         <ImgContainer>
           <img src={searchImg} alt="search" width="400px"></img>
         </ImgContainer>
       ) : null}
-
       {/* {!data ? (
         
       ) : null} */}
