@@ -34,6 +34,8 @@ export const CardList = styled.div`
   }
   @media screen and (max-width: 600px) {
     justify-content: center;
+    background-color: rgb(0, 0, 0, 0.05);
+    border-radius: 10px;
   }
 `;
 
@@ -48,6 +50,10 @@ export const SortedSubjectContainer = styled.div`
 
   flex-wrap: wrap;
   flex-direction: column;
+  @media screen and (max-width: 600px) {
+    width: 90%;
+    overflow-x: hidden;
+  }
 `;
 
 export const ProfName = styled.div`
@@ -74,6 +80,9 @@ export const Divider = styled.hr`
   border-radius: 8px;
   margin-right: 6px;
   margin-left: 6px;
+  @media screen and (max-width: 600px) {
+    width: 90%;
+  }
 `;
 
 export const FilterType = styled.div`

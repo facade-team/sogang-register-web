@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import Subject from '../SubjectCard/SubjectCard';
 import StarBtn from '../DetailBar/StarBtn';
+import CloseIcon from '@material-ui/icons/Close';
 
 import {
   DetailbarComponent,
@@ -37,13 +38,15 @@ const MobileDetailBar = ({ height, subject, clickCard }) => {
           {JSON.stringify(subject) === '{}' ? null : (
             <>
               <Top>
-                <SubjectName text={subject.과목명} font={20}>
-                  {subject.과목명}
-                </SubjectName>
-                <BtnContainer>
-                  <StarBtn size={22}></StarBtn>
-                </BtnContainer>
-                <button>닫기</button>
+                <span style={{ display: 'flex' }}>
+                  <SubjectName text={subject.과목명} font={20}>
+                    {subject.과목명}
+                  </SubjectName>
+                  <BtnContainer>
+                    <StarBtn size={22}></StarBtn>
+                  </BtnContainer>
+                </span>
+                <CloseIcon className="modal-close" onClick={onClose} />
               </Top>
               <TagContainer>
                 {subject.대면여부 ? (
