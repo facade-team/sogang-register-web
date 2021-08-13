@@ -11,11 +11,8 @@ import ButtonList from '../components/ButtonList/ButtonList';
 import MypageSubjectList from './SubjectList/SubjectList';
 
 // styled
-import {
-  Container,
-  HomeContainer as MyPageContainer,
-} from '../styles/HomeContainer';
-import { Box } from '../styles/MyPageContainer';
+import { HomeContainer as MyPageContainer } from '../styles/HomeContainer';
+import { Container, Box } from '../styles/MyPageContainer';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;

@@ -11,11 +11,15 @@ export const ContainerBox = styled.div`
   min-width: 600px;
   min-height: 300px;
 
-  @media screen and (max-width: 805px){
+  @media screen and (max-width: 900px) {
     //width: 100%;
     //min-width: 200px;
+    min-width: 400px;
+    margin-top: 50px;
   }
-
+  @media screen and (max-width: 600px) {
+    min-width: 200px;
+  }
 `;
 
 export const Profile = styled.div`
@@ -59,7 +63,7 @@ export const FormContainer = styled.div`
   width: 40%;
   min-width: 400px;
 
-  @media screen and (max-width: 805px){
+  @media screen and (max-width: 805px) {
     //width: 40%;
     //min-width: 200px;
   }
@@ -72,18 +76,22 @@ export const FormGroup = styled.div`
   width: 100%;
   margin-bottom: 15px;
 
-  @media screen and (max-width: 805px){
+  @media screen and (max-width: 900px) {
+    font-size: 14px;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 10px;
+    width: 60%;
   }
 `;
 
 export const SelectForm = styled(Select)`
-  z-index: 10;
   width: 80%;
   font-size: 16px;
   outline: none;
   transition: all 0.4s ease;
 
-  @media screen and (max-width: 805px){
+  @media screen and (max-width: 805px) {
     //width: 80%;
     //font-size: 8px;
   }
@@ -111,8 +119,11 @@ export const Label = styled.label`
     transition: all 0.4s ease;
   }
 
-  @media screen and (max-width: 805px){
-    //font-size: 6px;
+  @media screen and (max-width: 900px) {
+    font-size: 14px;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 10px;
   }
 `;
 
@@ -144,7 +155,7 @@ export const Input = styled.input`
       `;
     }
   }}
-    @media screen and (max-width: 805px){
+  @media screen and (max-width: 805px) {
     //width: 80%;
     //font-size: 8px;
   }
