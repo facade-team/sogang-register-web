@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Tag2, TagContainer2 } from '../SearchOption/SearchOptList.element';
 
 export const Container = styled.div`
   display: flex;
@@ -74,4 +75,12 @@ export const Divider = styled.hr`
   border-radius: 8px;
   margin-right: 6px;
   margin-left: 6px;
+`;
+
+export const FilterType = styled.div`
+  font-size: 13px;
+  font-weight: 900;
+  margin-right: 5px;
+  margin-bottom: 6px;
+  color: ${({ color }) => `${color}`};
 `;

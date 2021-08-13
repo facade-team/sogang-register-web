@@ -106,7 +106,7 @@ const SortOptList = () => {
           name="prof"
           onClick={(e) => handleBtnClick(e)}
           selected={profOption}
-          bgColor="#01a3a4"
+          bgColor="#706fd3"
         >
           교수
         </OptBtn>
@@ -114,7 +114,7 @@ const SortOptList = () => {
           name="lang"
           onClick={(e) => handleBtnClick(e)}
           selected={langOption}
-          bgColor="#01a3a4"
+          bgColor="#ea8685"
         >
           강의언어
         </OptBtn>

@@ -9,6 +9,8 @@ import {
   SortedCard,
   ProfName,
   Divider,
+  FilterType,
+  FilterContainer,
 } from './SelectSubject.element';
 
 import { IoIosClose } from 'react-icons/io';
@@ -18,6 +20,8 @@ import { Tag2, TagContainer2 } from '../SearchOption/SearchOptList.element';
 import { useSubjectContext } from '../../contexts/SubjectContext';
 
 import searchImg from '../../assets/img/32.png';
+
+import hangulFirstCompare from '../../utils/hangulFirstCompare';
 
 const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
   const {
@@ -44,10 +48,13 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
     contact: [],
   });
 
+  const [profArr, setProfArr] = useState([]);
+
   const handleFilterClick = (e) => {
     const clickedFilter = e.target.innerText;
     const filterType = e.target.id;
-    console.log('e.target', e.target.innerText);
+    console.log('e.target.innerText', e.target.innerText);
+    console.log('filterType', filterType);
 
     // 클릭한 필터가 제외필터에 있는 상태였으면, 제외필터에서 없애줌
     // 없으면, 제외필터에 추가
@@ -98,6 +105,31 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
         });
       }
     }
+
+    // 교수
+    // 제거
+    if (filterType === '교수') {
+      console.log(1);
+      if (excludeFilter.prof.includes(clickedFilter)) {
+        const temp = excludeFilter.prof;
+        for (let i = 0; i < temp.length; i++) {
+          if (temp[i] === clickedFilter) {
+            temp.splice(i, 1);
+            i--;
+          }
+        }
+        setExcludeFilter({ ...excludeFilter, prof: temp });
+      }
+      // 추가
+      else {
+        const temp = excludeFilter.prof;
+        temp.push(clickedFilter);
+        setExcludeFilter({
+          ...excludeFilter,
+          prof: temp,
+        });
+      }
+    }
   };
 
   const filtering = (subject) => {
@@ -106,6 +138,9 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
       return false;
     }
     if (excludeFilter.lang.includes(subject.강의언어)) {
+      return false;
+    }
+    if (excludeFilter.prof.includes(subject.교수진)) {
       return false;
     }
 
@@ -124,9 +159,18 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
     }
   }, [profOption, langOption, contactOption]);
 
+  useEffect(() => {
+    const profObj = new Set(data.map((subject) => subject.교수진));
+    const tempArr = [...profObj];
+    const sortedProfArr = tempArr.sort(hangulFirstCompare);
+    setProfArr(sortedProfArr);
+  }, [data]);
+
   return (
     <>
-      {console.log('23', excludeFilter)}
+      {console.log('제외된 필터', excludeFilter)}
+      {console.log('교수리스트', profArr)}
+
       <SubTitle number={number} subtitle={subtitle}></SubTitle>
       {data && data.length !== 0 ? (
         <Container>
@@ -143,7 +187,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
             </CardList>
           )}
 
-          {/* 교수 정렬옵션 */}
+          {/* 교수 정렬옵션
           {isSearchOption && subjectsByProf && profOption && (
             <CardList>
               {subjectsByProf.map((subjectWithProf) => (
@@ -166,15 +210,38 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
                 </>
               ))}
             </CardList>
+          )} */}
+
+          {/*교수 정렬옵션 렌더링*/}
+          {profOption && (
+            <TagContainer2>
+              <FilterType color="#706fd3">교수명</FilterType>
+              {profArr.map((prof) => (
+                <>
+                  {prof.length !== 1 && (
+                    <Tag2
+                      id="교수"
+                      fontSize="13"
+                      bgColor="#706fd3"
+                      onClick={handleFilterClick}
+                      deactive={excludeFilter.prof.includes(prof)}
+                    >
+                      {prof}
+                    </Tag2>
+                  )}
+                </>
+              ))}
+            </TagContainer2>
           )}
 
           {/*강의언어 정렬옵션 렌더링*/}
           {langOption && (
             <TagContainer2>
+              <FilterType color="#ea8685">강의언어</FilterType>
               <Tag2
                 id="강의언어"
                 fontSize="13"
-                bgColor="#01a3a4"
+                bgColor="#ea8685"
                 onClick={handleFilterClick}
                 deactive={excludeFilter.lang.includes('한국어')}
               >
@@ -183,7 +250,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
               <Tag2
                 id="강의언어"
                 fontSize="13"
-                bgColor="#01a3a4"
+                bgColor="#ea8685"
                 onClick={handleFilterClick}
                 deactive={excludeFilter.lang.includes('영어')}
               >
@@ -192,7 +259,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
               <Tag2
                 id="강의언어"
                 fontSize="13"
-                bgColor="#01a3a4"
+                bgColor="#ea8685"
                 onClick={handleFilterClick}
                 deactive={excludeFilter.lang.includes('중국어')}
               >
@@ -203,6 +270,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
           {/*대면여부 정렬옵션 렌더링*/}
           {contactOption && (
             <TagContainer2>
+              <FilterType color="#01a3a4">대면여부</FilterType>
               <Tag2
                 id="대면여부"
                 fontSize="13"
@@ -224,7 +292,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
             </TagContainer2>
           )}
 
-          {(contactOption || langOption) && (
+          {(contactOption || langOption || profOption) && (
             <CardList>
               {data.filter(filtering).map((subject) => (
                 <Card
