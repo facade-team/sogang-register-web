@@ -39,7 +39,6 @@ function MobileModal({
         visible={visible}
       >
         <ModalInner heightPx={height} tabIndex="0" className="modal-inner">
-          {/* {closable && <CloseIcon className="modal-close" onClick={close} />} */}
           {children}
         </ModalInner>
       </ModalWrapper>
