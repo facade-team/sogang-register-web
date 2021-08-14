@@ -50,8 +50,6 @@ const ChangePassword = ({ openModal }) => {
     }
   }, [isAuth]);
 
-  const { setLoading } = useLoadingContext();
-
   const onClick = (e) => {
     setLoading(true);
     if (isAuth) {
