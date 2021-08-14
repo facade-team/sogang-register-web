@@ -6,9 +6,6 @@ const PostFavorite = (list) => {
       .post('/favorites/update', {
         sub_id: [],
       })
-      .then((res) => {
-        console.log(res);
-      })
       .catch((err) => {
         console.log(err);
       });
@@ -20,12 +17,6 @@ const PostFavorite = (list) => {
     axios
       .post('/favorites/update', {
         sub_id: req,
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.status === 201) {
-          console.log(res);
-        }
       })
       .catch((err) => {
         console.log(err);

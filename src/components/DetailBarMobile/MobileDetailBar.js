@@ -1,8 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+
+//API
+import PostFavorite from '../../API/PostFavorite';
 
 import { useAuthContext } from '../../contexts/AuthContext';
-import Subject from '../SubjectCard/SubjectCard';
+import { useLatestSubjectsContext } from '../../contexts/LatestSubjectsContext';
+
 import StarBtn from '../DetailBar/StarBtn';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -25,14 +28,19 @@ import { useSnackBarContext } from '../../contexts/SnackBarContext';
 import { Tag } from '../Card/Card.element';
 
 const MobileDetailBar = ({ height, subject, onClose }) => {
-  const value = useRef({});
   const { isAuth, userData, setUserData } = useAuthContext();
+  const { latestSubjects, setLatestSubjects } = useLatestSubjectsContext();
   const { setSnackBar } = useSnackBarContext();
-  const [latestAndFavoritesToggle, setLatestAndFavoritesToggle] =
-    useState(true);
-  const [latestList, setLatestList] = useState([subject]);
   const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
   const [checkBookmark, setCheckBookmark] = useState(false);
+
+  useEffect(() => {
+    if (latestSubjects.length !== 0) {
+      const list = [subject, ...latestSubjects];
+
+      setLatestSubjects(list);
+    }
+  }, []);
 
   useEffect(() => {
     if (isAuth) {
@@ -44,102 +52,34 @@ const MobileDetailBar = ({ height, subject, onClose }) => {
   }, [subject, favoriteList]);
 
   useEffect(() => {
-    if (!latestList || latestList.length === 0) return;
+    if (!latestSubjects) return;
     if (JSON.stringify(subject) === '{}') {
       return;
     }
 
-    const latestListIndex = latestList.findIndex(
+    const latestListIndex = latestSubjects.findIndex(
       (latest) => latest.subject_id === subject.subject_id
     );
 
     if (latestListIndex === -1) {
       // 최근 본 과목 리스트에 없을 때
-      const list = [...latestList, subject];
+      const list = [subject, ...latestSubjects];
 
-      if (list > 10) {
-        list.shift();
+      if (list.length > 10) {
+        list.pop();
       }
 
-      setLatestList(list);
+      setLatestSubjects(list);
     } else if (latestListIndex > 0) {
       // 이미 최근 본 과목 리스트에 있을 때
-      const list = [...latestList];
+      const list = [...latestSubjects];
 
       //latestSubject를 맨 앞으로
       list.unshift(list.splice(latestListIndex, 1)[0]);
 
-      setLatestList(list);
+      setLatestSubjects(list);
     }
   }, [subject]);
-
-  useEffect(() => {
-    return () => {
-      if (isAuth) {
-        const list = value.current.favoriteList;
-        if (favoriteList === list) {
-          return;
-        }
-
-        if (!list) {
-          axios
-            .post('/favorites/update', {
-              sub_id: [],
-            })
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        } else {
-          const req = list.map((sub) => {
-            return sub.subject_id;
-          });
-          console.log(req);
-          axios
-            .post('/favorites/update', {
-              sub_id: req,
-            })
-            .then((res) => {
-              if (res.status === 201) {
-                console.log(res);
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      }
-    };
-  }, []);
-
-  //
-  const deleteInList = (key, latest) => {
-    let list;
-    if (latest) list = [...latestList];
-    else list = [...favoriteList];
-
-    list = list.filter((sub) => sub.subject_id !== key);
-
-    if (latest) setLatestList(list);
-    else {
-      setFavoriteList(list);
-      value.current = list;
-      console.log(list);
-      let newUserData = { ...userData };
-      if (newUserData.subjects) {
-        newUserData = {
-          ...userData,
-          subjects: list,
-        };
-        console.log(newUserData);
-
-        setUserData(newUserData);
-        localStorage.setItem('userData', JSON.stringify(newUserData));
-      }
-    }
-  };
 
   const toFavorite = () => {
     if (!isAuth) {
@@ -160,11 +100,11 @@ const MobileDetailBar = ({ height, subject, onClose }) => {
       list = favoriteList.concat(subject);
 
       if (list.length > 10) {
-        list.shift();
+        list.pop();
       }
 
       setFavoriteList(list);
-      value.current.favoriteList = list;
+      PostFavorite(list);
 
       let newUserData = {
         ...userData,
@@ -173,11 +113,11 @@ const MobileDetailBar = ({ height, subject, onClose }) => {
       setUserData(newUserData);
       localStorage.setItem('userData', JSON.stringify(newUserData));
     } else {
-      // 삭제
+      //삭제
       const idx = favoriteList.indexOf(sub);
       if (idx > -1) list.splice(idx, 1);
       setFavoriteList(list);
-      value.current.favoriteList = list;
+      PostFavorite(list);
 
       let newUserData = { ...userData };
       if (newUserData.subjects !== undefined) {

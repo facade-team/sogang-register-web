@@ -55,7 +55,6 @@ const AuthCode = ({ openModal }) => {
         })
         .catch((err) => {
           if (err.response.status === 401 || err.response.status === 402) {
-            console.log(err);
             setSnackBar({
               type: 'error',
               msg: '123',

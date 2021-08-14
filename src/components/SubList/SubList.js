@@ -65,7 +65,6 @@ const SubList = () => {
   useEffect(() => {
     if (yearFlag === true) {
       yearFoldControler();
-      // console.log('here!');
     }
   }, [yearFlag]);
 
@@ -83,7 +82,6 @@ const SubList = () => {
     } else {
       setYearSubOption(true);
       setYearFoldActivated(true);
-      // console.log('here!!!!!');
     }
   };
 
@@ -130,7 +128,6 @@ const SubList = () => {
         yearlist.splice(idx, 1);
         if (yearlist.length === 0) {
           setYearFlag(true);
-          // console.log(yearFlag);
         }
       }
       yearlist.sort();
@@ -141,7 +138,6 @@ const SubList = () => {
   useEffect(() => {
     if (profFlag === true) {
       profFoldControler();
-      // console.log('here!');
     }
   }, [profFlag]);
 
@@ -159,7 +155,6 @@ const SubList = () => {
     } else {
       setProfSubOption(true);
       setProfFoldActivated(true);
-      // console.log('here!!!!!');
     }
   };
 
@@ -206,7 +201,6 @@ const SubList = () => {
         proflist.splice(idx, 1);
         if (proflist.length === 0) {
           setProfFlag(true);
-          // console.log(profFlag);
         }
       }
       proflist.sort();
@@ -217,7 +211,6 @@ const SubList = () => {
   useEffect(() => {
     if (timeFlag === true) {
       timeFoldControler();
-      // console.log('here!');
     }
   }, [timeFlag]);
 
@@ -235,7 +228,6 @@ const SubList = () => {
     } else {
       setTimeSubOption(true);
       setTimeFoldActivated(true);
-      // console.log('here!!!!!');
     }
   };
 
@@ -282,7 +274,6 @@ const SubList = () => {
         timelist.splice(idx, 1);
         if (timelist.length === 0) {
           setTimeFlag(true);
-          // console.log(timeFlag);
         }
       }
       timelist.sort();
@@ -293,7 +284,6 @@ const SubList = () => {
   useEffect(() => {
     if (langFlag === true) {
       langFoldControler();
-      // console.log('here!');
     }
   }, [langFlag]);
 
@@ -311,7 +301,6 @@ const SubList = () => {
     } else {
       setLangSubOption(true);
       setLangFoldActivated(true);
-      // console.log('here!!!!!');
     }
   };
 
@@ -358,7 +347,6 @@ const SubList = () => {
         langlist.splice(idx, 1);
         if (langlist.length === 0) {
           setLangFlag(true);
-          // console.log(langFlag);
         }
       }
       langlist.sort();
@@ -369,7 +357,6 @@ const SubList = () => {
   useEffect(() => {
     if (zoomFlag === true) {
       zoomFoldControler();
-      // console.log('here!');
     }
   }, [zoomFlag]);
 
@@ -387,7 +374,6 @@ const SubList = () => {
     } else {
       setZoomSubOption(true);
       setZoomFoldActivated(true);
-      // console.log('here!!!!!');
     }
   };
 
@@ -434,7 +420,6 @@ const SubList = () => {
         zoomlist.splice(idx, 1);
         if (zoomlist.length === 0) {
           setZoomFlag(true);
-          // console.log(zoomFlag);
         }
       }
       zoomlist.sort();

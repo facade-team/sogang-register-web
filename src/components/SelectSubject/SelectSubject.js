@@ -182,8 +182,6 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
 
   return (
     <>
-      {console.log('제외된 필터', excludeFilter)}
-      {console.log('교수배열', profArr)}
       <SubTitle number={number} subtitle={subtitle}></SubTitle>
 
       {data && data.length !== 0 ? (

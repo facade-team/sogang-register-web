@@ -80,14 +80,12 @@ export default function OptionModal({ open, setOpen, option }) {
   };
 
   const handleListClick = (item) => {
-    console.log(item);
     option[1]({ ...option[0], selected: item });
     setOpen(false);
   };
 
   // 전공은 배열 안 객체가 또 존재해서 함수를 다르게 써야함
   const handleMajorListClick = (item) => {
-    console.log(item); // ex) {text: '컴퓨터공학', id: 'WD1111'}
     option[1]({ ...option[0], selected: item.text, code: item.id });
     setOpen(false);
   };
@@ -117,7 +115,6 @@ export default function OptionModal({ open, setOpen, option }) {
   };
 
   const handleSearch = () => {
-    console.log(searchBy, keyword);
     if (searchBy === '과목명') {
       option[1]({ ...option[0], searchBy, selected: keyword.subjectName });
     } else if (searchBy === '과목번호') {
@@ -139,7 +136,6 @@ export default function OptionModal({ open, setOpen, option }) {
       } else if (e.key === 'Enter' && open && option[0].type === '검색어') {
         e.preventDefault();
         handleSearch();
-        // setOpen(false);
       }
     },
     [setOpen, open, handleSearch]

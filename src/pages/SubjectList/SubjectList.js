@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 //API
 import PostFavorite from '../../API/PostFavorite';
@@ -9,8 +8,7 @@ import Subject from '../../components/SubjectCard/SubjectCard';
 
 //context
 import { useAuthContext } from '../../contexts/AuthContext';
-import Tooltip from '@material-ui/core/Tooltip'
-
+import Tooltip from '@material-ui/core/Tooltip';
 
 //styled
 import {
@@ -20,11 +18,11 @@ import {
   SubjectList,
   Divider,
   TrashBtn,
-  TooltipContainer
+  TooltipContainer,
 } from './SubjectList.element.js';
 
 const SubjectListComp = () => {
-  const { isAuth, userData, setUserData } = useAuthContext();
+  const { userData, setUserData } = useAuthContext();
   const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
 
   const deleteInList = (e, key, latest) => {
@@ -66,7 +64,7 @@ const SubjectListComp = () => {
     <Container>
       {/* 즐겨찾기 */}
       <StackContent>
-        <Tooltip title='모두 삭제'>
+        <Tooltip title="모두 삭제">
           <TooltipContainer>
             <TrashBtn size={20} onClick={clearFavoriteList}></TrashBtn>
           </TooltipContainer>
