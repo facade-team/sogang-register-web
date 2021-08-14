@@ -52,4 +52,9 @@ export const CloseBtn = styled(AiOutlineClose)`
   position: relative;
   top: -45px;
   float: right;
+
+  &:hover {
+    cursor: pointer;
+    transform: translateX(1.05);
+  }
 `;

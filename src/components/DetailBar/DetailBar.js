@@ -50,21 +50,17 @@ const DetailBar = ({
   //최근 본과목 -> true, 즐겨찾기 -> false
   const [latestAndFavoritesToggle, setLatestAndFavoritesToggle] =
     useState(true);
-  const [latestList, setLatestList] = useState([subject]);
   const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
   const [checkBookmark, setCheckBookmark] = useState(false);
 
-  console.log(latestList);
   useEffect(() => {
     if (latestSubjects.length !== 0) {
-      const list = [...latestList, ...latestSubjects];
+      const list = [subject, ...latestSubjects];
 
-      setLatestList(list);
       setLatestSubjects(list);
     }
   }, []);
 
-  // console.log(userData, favoriteList);
   //해당과목 즐겨찾기 여부, 즐겨찾기 추가, 삭제
   useEffect(() => {
     if (isAuth) {
@@ -76,51 +72,47 @@ const DetailBar = ({
   }, [subject, favoriteList]);
 
   useEffect(() => {
-    if (!latestList || latestList.length === 0) return;
+    if (!latestSubjects) return;
     if (JSON.stringify(subject) === '{}') {
       return;
     }
 
-    const latestListIndex = latestList.findIndex(
+    const latestListIndex = latestSubjects.findIndex(
       (latest) => latest.subject_id === subject.subject_id
     );
 
     if (latestListIndex === -1) {
       // 최근 본 과목 리스트에 없을 때
-      const list = [...latestList, subject];
+      const list = [subject, ...latestSubjects];
 
-      if (list > 10) {
-        list.shift();
+      if (list.length > 10) {
+        list.pop();
       }
 
-      setLatestList(list);
       setLatestSubjects(list);
     } else if (latestListIndex > 0) {
       // 이미 최근 본 과목 리스트에 있을 때
-      const list = [...latestList];
+      const list = [...latestSubjects];
 
       //latestSubject를 맨 앞으로
       list.unshift(list.splice(latestListIndex, 1)[0]);
 
-      setLatestList(list);
       setLatestSubjects(list);
     }
   }, [subject]);
 
   //
-  const deleteInList = (key, latest) => {
+  const deleteInList = (e, key, latest) => {
     let list;
-    if (latest) list = [...latestList];
+    if (latest) list = [...latestSubjects];
     else list = [...favoriteList];
 
     list = list.filter((sub) => sub.subject_id !== key);
 
     if (latest) {
-      setLatestList(list);
       setLatestSubjects(list);
     } else {
       setFavoriteList(list);
-
       PostFavorite(list);
 
       let newUserData = { ...userData };
@@ -129,7 +121,6 @@ const DetailBar = ({
           ...userData,
           subjects: list,
         };
-        console.log(newUserData);
 
         setUserData(newUserData);
         localStorage.setItem('userData', JSON.stringify(newUserData));
@@ -156,7 +147,7 @@ const DetailBar = ({
       list = favoriteList.concat(subject);
 
       if (list.length > 10) {
-        list.shift();
+        list.pop();
       }
 
       setFavoriteList(list);
@@ -262,7 +253,6 @@ const DetailBar = ({
                       중국어강의
                     </Tag>
                   ) : null}
-                  <Tag credit={subject.학점}>{subject.학점}학점</Tag>
                 </TagContainer>
                 <SubjectTable>
                   <TableBody>
@@ -376,17 +366,19 @@ const DetailBar = ({
             </OptionBtnContainer>
             <SubjectList>
               {latestAndFavoritesToggle
-                ? latestList &&
-                  latestList.map((sub, index) => (
+                ? latestSubjects &&
+                  latestSubjects.map((sub, index) => (
                     <div key={`${sub.subject_id}${index}`}>
                       <Subject
                         subject={sub}
                         onClick={() => clickCard(sub.subject_id)}
                         active={true}
-                        onDelete={deleteInList}
+                        onDelete={false}
                         latest={true}
                       ></Subject>
-                      {index !== latestList.length - 1 && <Divider></Divider>}
+                      {index !== latestSubjects.length - 1 && (
+                        <Divider></Divider>
+                      )}
                     </div>
                   ))
                 : favoriteList &&

@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useMenuContext } from '../contexts/MenuContext';
 import { useAuthContext } from '../contexts/AuthContext';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import { useSnackBarContext } from '../contexts/SnackBarContext';
 
 //components
 import Title from '../components/Title/Title';
@@ -13,13 +12,10 @@ import MypageSubjectList from './SubjectList/SubjectList';
 import { HomeContainer as MyPageContainer } from '../styles/HomeContainer';
 import { Container, Box } from '../styles/MyPageContainer';
 
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
 const MyPage = (props) => {
   // 네비게이션 바에 현재 페이지 표시를 위한 상태
   const { setMenu } = useMenuContext();
+  const { setSnackBar } = useSnackBarContext();
 
   useEffect(() => {
     setMenu('mypage');
@@ -28,45 +24,22 @@ const MyPage = (props) => {
   const { isAuth } = useAuthContext();
 
   useEffect(() => {
-    if (!isAuth) props.openModal();
+    if (!isAuth) {
+      setSnackBar({ type: 'error', msg: '로그인이 필요합니다.' });
+    }
   }, [isAuth]);
-
-  const [state, setState] = useState({
-    open: true,
-    vertical: 'top',
-    horizontal: 'center',
-  });
-
-  const { vertical, horizontal, open } = state;
-
-  const handleClose = () => {
-    setState({ ...state, open: false });
-  };
 
   return (
     <Container>
       <MyPageContainer navigation="Mypage">
-        {isAuth ? (
+        <Title title="마이페이지" openModal={props.openModal}></Title>
+        {isAuth && (
           <>
-            <Title title="마이페이지" openModal={props.openModal}></Title>
             <Box>
               <ButtonList></ButtonList>
               <MypageSubjectList></MypageSubjectList>
             </Box>
           </>
-        ) : (
-          <Snackbar
-            anchorOrigin={{ vertical, horizontal }}
-            open={open}
-            onClose={handleClose}
-            message="I love snacks"
-            key={vertical + horizontal}
-            autoHideDuration={2000}
-          >
-            <Alert onClose={handleClose} severity="error">
-              로그인이 필요합니다
-            </Alert>
-          </Snackbar>
         )}
       </MyPageContainer>
     </Container>

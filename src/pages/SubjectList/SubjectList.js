@@ -24,15 +24,13 @@ const SubjectListComp = () => {
   const { isAuth, userData, setUserData } = useAuthContext();
   const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
 
-  const deleteInList = (key, latest) => {
+  const deleteInList = (e, key, latest) => {
     let list;
     list = [...favoriteList];
 
     list = list.filter((sub) => sub.subject_id !== key);
 
-    console.log(list);
     setFavoriteList(list);
-
     PostFavorite(list);
 
     let newUserData = { ...userData };

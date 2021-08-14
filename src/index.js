@@ -18,15 +18,15 @@ axios.defaults.timeout = 5000;
 ReactDOM.render(
   <LoadingProvider>
     <SnackBarProvider>
-      <AuthProvider>
-        <MenuProvider>
-          <SubjectProvider>
-            <LatestSubjectsProvider>
+      <LatestSubjectsProvider>
+        <AuthProvider>
+          <MenuProvider>
+            <SubjectProvider>
               <App></App>
-            </LatestSubjectsProvider>
-          </SubjectProvider>
-        </MenuProvider>
-      </AuthProvider>
+            </SubjectProvider>
+          </MenuProvider>
+        </AuthProvider>
+      </LatestSubjectsProvider>
     </SnackBarProvider>
   </LoadingProvider>,
   document.getElementById('root')
