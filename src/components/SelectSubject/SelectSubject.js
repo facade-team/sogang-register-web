@@ -393,9 +393,6 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
           <img src={searchImg} alt="search" width="400px"></img>
         </ImgContainer>
       ) : null}
-      {/* {!data ? (
-        
-      ) : null} */}
     </>
   );
 };

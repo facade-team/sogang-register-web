@@ -50,6 +50,12 @@ const SortOptList = () => {
     }
   };
 
+  useEffect(() => {
+    setProfOption(false);
+    setContactOption(false);
+    setLangOption(false);
+  }, []);
+
   return (
     <SectionContainer>
       <OptionContainer>
