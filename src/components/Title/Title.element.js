@@ -20,8 +20,10 @@ export const TitleComp = styled.p`
     font-size: 20px;
     font-weight: 800;
   @media screen and (max-width: 600px) {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 800;
     color: #61527f;
+    margin-top: 5px;
+    margin-left: 5px;
   }
 `;

@@ -143,6 +143,7 @@ export const TableData = styled.td`
   width: 160px;
   border-left: 1px solid #f2f2f2;
   border-bottom: ${({ corner }) => !corner && `1px solid #f2f2f2;`};
+  font-size: ${({ fontSize }) => `${fontSize}px`};
 `;
 
 export const FavoriteBtn = styled.div`

@@ -75,10 +75,11 @@ const SearchOptList = () => {
 
   // api 요청으로 받아온 과목,학부 리스트를 전역 state 로 set
   const {
-    subjects,
     setSubjects,
     setDepartments,
     setProfOption,
+    setLangOption,
+    setContactOption,
     setIsSearchOption,
     isSearchOption,
   } = useSubjectContext();
@@ -118,9 +119,10 @@ const SearchOptList = () => {
         setSearchKeywordOption({ ...searchKeywordOption, selected: '' });
         setIsSearchOption(false);
         setProfOption(false);
+        setLangOption(false);
+        setContactOption(false);
       } else {
         // 학년도/학기가 아닌 다른 태그 삭제했을 때
-        console.log(2);
         set({ ...opt, selected: '' });
       }
     }

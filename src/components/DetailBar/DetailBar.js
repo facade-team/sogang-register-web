@@ -203,6 +203,13 @@ const DetailBar = ({
     }
   };
 
+  const handleClick = () => {
+    setSnackBar({
+      type: 'error',
+      msg: '추후 업데이트 예정입니다!',
+    });
+  };
+
   return (
     <>
       <DetailbarComponent widthPx={width} heightPx={height}>
@@ -217,7 +224,12 @@ const DetailBar = ({
             {JSON.stringify(subject) === '{}' ? null : (
               <>
                 <Top>
-                  <SubjectName font={19}>{subject.과목명}</SubjectName>
+                  <SubjectName font={19}>
+                    {subject.과목명}{' '}
+                    <span style={{ fontSize: '13px' }}>
+                      [{subject.subject_id.substring(14, 15)}반]
+                    </span>
+                  </SubjectName>
                   <BtnContainer>
                     <StarBtn
                       size={22}
@@ -237,6 +249,9 @@ const DetailBar = ({
                       대면
                     </Tag>
                   ) : null}
+                  <Tag fontSize="12" credit={subject.학점}>
+                    {subject.학점}학점
+                  </Tag>
                   {subject.강의언어 === '영어' ? (
                     <Tag eng fontSize="12">
                       영어강의
@@ -269,7 +284,15 @@ const DetailBar = ({
                       <TableHead scope="row" corner={false}>
                         강의계획서
                       </TableHead>
-                      <TableData corner={false}>조회하기</TableData>
+                      <TableData corner={false}>
+                        <Tag
+                          bgColor="#95a5a6"
+                          onClick={handleClick}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          조회하기
+                        </Tag>
+                      </TableData>
                     </TableRow>
                     <TableRow>
                       <TableHead scope="row" corner={false}>
@@ -346,6 +369,7 @@ const DetailBar = ({
                 active={!latestAndFavoritesToggle}
                 onClick={switchLatestAndFavorites}
                 marginRight={-16}
+                mouseover
               >
                 즐겨찾기
               </GradationBtn>

@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
+import { useAuthContext } from '../../contexts/AuthContext';
 import Subject from '../SubjectCard/SubjectCard';
 import StarBtn from '../DetailBar/StarBtn';
+import CloseIcon from '@material-ui/icons/Close';
 
 import {
   DetailbarComponent,
@@ -18,9 +20,191 @@ import {
   TagContainer,
 } from './MobileDetailBar.element';
 
+import { useSnackBarContext } from '../../contexts/SnackBarContext';
+
 import { Tag } from '../Card/Card.element';
 
-const MobileDetailBar = ({ height, subject, clickCard }) => {
+const MobileDetailBar = ({ height, subject, onClose }) => {
+  const value = useRef({});
+  const { isAuth, userData, setUserData } = useAuthContext();
+  const { setSnackBar } = useSnackBarContext();
+  const [latestAndFavoritesToggle, setLatestAndFavoritesToggle] =
+    useState(true);
+  const [latestList, setLatestList] = useState([subject]);
+  const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
+  const [checkBookmark, setCheckBookmark] = useState(false);
+
+  useEffect(() => {
+    if (isAuth) {
+      const existInFavoriteList = favoriteList.find(
+        (favorite) => favorite.subject_id === subject.subject_id
+      );
+      existInFavoriteList ? setCheckBookmark(true) : setCheckBookmark(false);
+    }
+  }, [subject, favoriteList]);
+
+  useEffect(() => {
+    if (!latestList || latestList.length === 0) return;
+    if (JSON.stringify(subject) === '{}') {
+      return;
+    }
+
+    const latestListIndex = latestList.findIndex(
+      (latest) => latest.subject_id === subject.subject_id
+    );
+
+    if (latestListIndex === -1) {
+      // 최근 본 과목 리스트에 없을 때
+      const list = [...latestList, subject];
+
+      if (list > 10) {
+        list.shift();
+      }
+
+      setLatestList(list);
+    } else if (latestListIndex > 0) {
+      // 이미 최근 본 과목 리스트에 있을 때
+      const list = [...latestList];
+
+      //latestSubject를 맨 앞으로
+      list.unshift(list.splice(latestListIndex, 1)[0]);
+
+      setLatestList(list);
+    }
+  }, [subject]);
+
+  useEffect(() => {
+    return () => {
+      if (isAuth) {
+        const list = value.current.favoriteList;
+        if (favoriteList === list) {
+          return;
+        }
+
+        if (!list) {
+          axios
+            .post('/favorites/update', {
+              sub_id: [],
+            })
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          const req = list.map((sub) => {
+            return sub.subject_id;
+          });
+          console.log(req);
+          axios
+            .post('/favorites/update', {
+              sub_id: req,
+            })
+            .then((res) => {
+              if (res.status === 201) {
+                console.log(res);
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      }
+    };
+  }, []);
+
+  //
+  const deleteInList = (key, latest) => {
+    let list;
+    if (latest) list = [...latestList];
+    else list = [...favoriteList];
+
+    list = list.filter((sub) => sub.subject_id !== key);
+
+    if (latest) setLatestList(list);
+    else {
+      setFavoriteList(list);
+      value.current = list;
+      console.log(list);
+      let newUserData = { ...userData };
+      if (newUserData.subjects) {
+        newUserData = {
+          ...userData,
+          subjects: list,
+        };
+        console.log(newUserData);
+
+        setUserData(newUserData);
+        localStorage.setItem('userData', JSON.stringify(newUserData));
+      }
+    }
+  };
+
+  const toFavorite = () => {
+    if (!isAuth) {
+      setSnackBar({
+        type: 'error',
+        msg: '로그인이 필요합니다.',
+      });
+      return;
+    }
+    // 즐겨찾기 버튼 눌렀을 때 해당 과목 즐겨찾기 리스트로 이동. 한 번 더 누르면 즐겨찾기 리스트에서 삭제
+    const sub = favoriteList.find((favorite) => {
+      return favorite.subject_id === subject.subject_id;
+    });
+    let list = [...favoriteList];
+
+    if (sub === undefined) {
+      //추가
+      list = favoriteList.concat(subject);
+
+      if (list.length > 10) {
+        list.shift();
+      }
+
+      setFavoriteList(list);
+      value.current.favoriteList = list;
+
+      let newUserData = {
+        ...userData,
+        subjects: list,
+      };
+      setUserData(newUserData);
+      localStorage.setItem('userData', JSON.stringify(newUserData));
+    } else {
+      // 삭제
+      const idx = favoriteList.indexOf(sub);
+      if (idx > -1) list.splice(idx, 1);
+      setFavoriteList(list);
+      value.current.favoriteList = list;
+
+      let newUserData = { ...userData };
+      if (newUserData.subjects !== undefined) {
+        let currentFavorite = [...userData.subjects];
+        currentFavorite = currentFavorite.filter(
+          (s) => s.subject_id !== subject.subject_id
+        );
+
+        if (currentFavorite.length !== 0) {
+          newUserData.subjects = currentFavorite;
+          setUserData(newUserData);
+          localStorage.setItem('userData', JSON.stringify(newUserData));
+        } else {
+          delete newUserData.subjects;
+          setUserData(newUserData);
+          localStorage.setItem('userData', JSON.stringify(newUserData));
+        }
+      }
+    }
+  };
+
+  const handleClick = () => {
+    setSnackBar({
+      type: 'error',
+      msg: '추후 업데이트 예정입니다!',
+    });
+  };
   return (
     <>
       <DetailbarComponent heightPx={height}>
@@ -28,13 +212,22 @@ const MobileDetailBar = ({ height, subject, clickCard }) => {
           {JSON.stringify(subject) === '{}' ? null : (
             <>
               <Top>
-                <SubjectName text={subject.과목명} font={20}>
-                  {subject.과목명}
-                </SubjectName>
-                <BtnContainer>
-                  <StarBtn size={22}></StarBtn>
-                </BtnContainer>
-                <button>닫기</button>
+                <span style={{ display: 'flex' }}>
+                  <SubjectName text={subject.과목명} font={20}>
+                    {subject.과목명}
+                    <span style={{ fontSize: '13px' }}>
+                      [{subject.subject_id.substring(14, 15)}반]
+                    </span>
+                  </SubjectName>
+                  <BtnContainer>
+                    <StarBtn
+                      size={22}
+                      checkBookmark={checkBookmark}
+                      onClick={toFavorite}
+                    ></StarBtn>
+                  </BtnContainer>
+                </span>
+                <CloseIcon className="modal-close" onClick={onClose} />
               </Top>
               <TagContainer>
                 {subject.대면여부 ? (
@@ -80,7 +273,15 @@ const MobileDetailBar = ({ height, subject, clickCard }) => {
                     <TableHead scope="row" corner={false}>
                       강의계획서
                     </TableHead>
-                    <TableData corner={false}>조회하기</TableData>
+                    <TableData corner={false}>
+                      <Tag
+                        bgColor="#95a5a6"
+                        onClick={handleClick}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        조회하기
+                      </Tag>
+                    </TableData>
                   </TableRow>
                   <TableRow>
                     <TableHead scope="row" corner={false}>
@@ -93,7 +294,25 @@ const MobileDetailBar = ({ height, subject, clickCard }) => {
                       강의시간
                     </TableHead>
                     <TableData corner={false}>
-                      {subject.요일} {subject.시작시간}~{subject.종료시간}
+                      {subject.요일1 === subject.요일2 ? (
+                        <p>
+                          {subject.요일1} {subject.시간1}
+                        </p>
+                      ) : null}
+                      {subject.요일1 !== subject.요일2 ? (
+                        <>
+                          {subject.시간1 === subject.시간2 ? (
+                            <p>
+                              {subject.요일1},{subject.요일2} {subject.시간1}
+                            </p>
+                          ) : (
+                            <p>
+                              {subject.요일1} {subject.시간1} ,{subject.요일2}{' '}
+                              {subject.시간2}
+                            </p>
+                          )}
+                        </>
+                      ) : null}
                     </TableData>
                   </TableRow>
                   <TableRow>

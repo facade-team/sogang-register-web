@@ -17,6 +17,7 @@ const GradationBtn = ({
   position,
   marginRight,
   mouseover,
+  height,
 }) => {
   const { isAuth, logout } = useAuthContext();
 
@@ -42,6 +43,7 @@ const GradationBtn = ({
       position={position}
       marginRight={marginRight}
       mouseover={mouseover}
+      height={height}
     >
       {/* {children || (signBtnType === 'login' ? '로그인' : '회원가입')} */}
       {children || (isAuth ? '로그아웃' : '로그인')}

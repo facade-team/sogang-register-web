@@ -7,7 +7,6 @@ export const Container = styled.div`
 
   @media screen and (max-width: 900px) {
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
@@ -15,14 +14,13 @@ export const Container = styled.div`
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
   }
 `;
 
-export const HomeContainer = styled.div`
+export const HomeContainer = styled.div.attrs({ id: 'home' })`
   /* width: ${({ widthPx }) => `calc( 100% - ${widthPx}px);`}; */
   ${({ widthPx, navigation }) => {
     if (navigation) {
@@ -43,7 +41,6 @@ export const HomeContainer = styled.div`
 
   @media screen and (max-width: 900px) {
     min-width: 800px;
-    justify-content: center;
     width: 100%;
     height: 100%;
   }

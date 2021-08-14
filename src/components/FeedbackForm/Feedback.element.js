@@ -5,7 +5,7 @@ export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 40px 0px;
+  padding: 10px 40px 0px;
 `;
 
 export const FormGroup = styled.div`
@@ -55,10 +55,14 @@ export const CustomGradationBtnComp = styled(GradationBtnComp)`
   width: ${({ widthPx }) => (widthPx ? `${widthPx}px` : `100%`)};
   max-width: 800px;
   margin: 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
 
   &:hover {
     cursor: pointer;
-    transform: scale(1.02) translateZ(0px);
-    transition: all 0.1s ease-in;
+    transform: scale(1.04);
+    transition: all 0.3s ease;
+    z-index: 3;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   }
 `;

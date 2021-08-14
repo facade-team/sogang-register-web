@@ -169,7 +169,7 @@ const ChangeProfile = ({ openModal }) => {
 
                 <MailAllow>
                   <Label htmlFor="allow">
-                    <p>
+                    <p style={{ fontSize: '10px' }}>
                       즐겨찾기한 교과목의 정보 업데이트 시 이메일 수신에
                       동의합니다.
                     </p>

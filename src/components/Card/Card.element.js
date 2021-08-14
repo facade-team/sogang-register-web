@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const CardContainer = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ export const CardContainer = styled.div`
   }
 
   @media screen and (max-width: 600px) {
-    min-width: 260px;
+    min-width: 300px;
     height: 150px;
     // padding: 20px 14px 15px 20px;
   }
@@ -84,8 +84,10 @@ export const Detail = styled.div`
 `;
 
 export const P = styled.p`
-  ${({ text }) => text.length > 20 && `font-size: 11px; letter-spacing:0.01px;`}
+  font-size: 14px;
+  ${({ text }) => text.length > 10 && `font-size: 10px;`}
   margin-bottom: 8px;
+
   @media screen and (max-width: 600px) {
     font-size: 16px;
   }

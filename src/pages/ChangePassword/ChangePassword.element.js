@@ -43,10 +43,28 @@ export const Input = styled.input`
   }}
   @media screen and (max-width: 900px) {
     font-size: 14px;
+    &:focus-within {
+      padding: 12px 12px;
+      width: 70%;
+      font-size: 14px;
+      border-radius: 4px;
+      border: 1px solid #7248db;
+      outline: none;
+      transition: all 0.4s ease;
+    }
   }
   @media screen and (max-width: 600px) {
     font-size: 10px;
     width: 70%;
+    &:focus-within {
+      padding: 12px 12px;
+      width: 70%;
+      font-size: 10px;
+      border-radius: 4px;
+      border: 1px solid #7248db;
+      outline: none;
+      transition: all 0.4s ease;
+    }
   }
 `;
 
@@ -119,6 +137,6 @@ export const Label = styled.label`
     font-size: 14px;
   }
   @media screen and (max-width: 600px) {
-    font-size: 10px;
+    font-size: 13px;
   }
 `;
