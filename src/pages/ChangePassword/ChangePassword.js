@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
@@ -23,7 +23,6 @@ import {
   Form,
   Label,
 } from './ChangePassword.element';
-import { JoinFormContainer } from '../../components/JoinForm/JoinForm.element';
 import {
   Container,
   HomeContainer as MyPageContainer,
@@ -63,7 +62,6 @@ const ChangePassword = ({ openModal }) => {
         })
         .catch((err) => {
           setLoading(false);
-          console.log(err);
           if (err.response.status === 401) {
             setSnackBar({
               type: 'error',
@@ -105,7 +103,6 @@ const ChangePassword = ({ openModal }) => {
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err);
         setSnackBar({
           msg: '다시 시도해주십시오',
           type: 'error',
@@ -116,7 +113,12 @@ const ChangePassword = ({ openModal }) => {
   return (
     <Container>
       <MyPageContainer navigation="Mypage">
-        <Title title="마이페이지/비밀번호 변경" openModal={openModal}></Title>
+        {isAuth ? (
+          <Title title="마이페이지/비밀번호 변경" openModal={openModal}></Title>
+        ) : (
+          <Title title="마이페이지/비밀번호 리셋" openModal={openModal}></Title>
+        )}
+
         <ContainerBox>
           <FormContainer>
             <Form>

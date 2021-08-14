@@ -64,12 +64,10 @@ const FeedbackForm = () => {
   const { setSnackBar } = useSnackBarContext();
 
   const handleSubmit = () => {
-    console.log(form);
     setLoading(true);
     axios
       .post('/user/reportemail', form)
       .then((res) => {
-        console.log(1, res);
         setSnackBar({
           msg: '소중한 피드백 감사합니다!',
           type: 'success',
@@ -83,7 +81,6 @@ const FeedbackForm = () => {
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err);
         setSnackBar({
           msg: '다시 시도해주십시오',
           type: 'error',

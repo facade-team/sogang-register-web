@@ -9,17 +9,11 @@ import {
   TooltipContainer,
 } from './SubjectCard.element.js';
 import { Tag, TagContainer } from '../Card/Card.element';
-import Tooltip from '@material-ui/core/Tooltip'
-
+import Tooltip from '@material-ui/core/Tooltip';
 
 const SubjectCard = ({ subject, onClick, active, onDelete, latest }) => {
-  const [hoverCard, setHoverCard] = useState(false);
   return (
-    <Subject
-      onClick={() => (active ? onClick(subject.subject_id) : null)}
-      onMouseOver={() => setHoverCard(true)}
-      onMouseOut={() => setHoverCard(false)}
-    >
+    <Subject onClick={() => (active ? onClick(subject.subject_id) : null)}>
       <SubjectNameInList font={14}>{subject.과목명}</SubjectNameInList>
       <TagContainer>
         {subject.대면여부 === '비대면' ? <Tag untact>비대면</Tag> : null}
@@ -50,7 +44,7 @@ const SubjectCard = ({ subject, onClick, active, onDelete, latest }) => {
         ) : null}
       </Detail>
       {onDelete && (
-        <Tooltip title="삭제" placement='bottom'>
+        <Tooltip title="삭제" placement="bottom">
           <TooltipContainer>
             <CloseBtn
               size={20}

@@ -24,5 +24,6 @@ export const Box = styled.div`
   @media screen and (max-width: 900px) {
     flex-direction: column;
     align-items: center;
+    min-height: 600px;
   }
 `;

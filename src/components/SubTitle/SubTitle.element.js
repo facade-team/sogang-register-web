@@ -21,7 +21,7 @@ export const SubTitleComp = styled.span`
 `;
 
 export const SubMessage = styled.span`
-  margin-left: 10px;
+  margin-left: 30px;
   font-size: 12px;
   font-weight: 500;
   line-height: 50px;

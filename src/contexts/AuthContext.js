@@ -22,7 +22,6 @@ const AuthProvider = ({ children }) => {
         .post('/auth/login', user)
         .then((res) => {
           if (res.status === 201) {
-            console.log(res);
             setIsAuth(true);
 
             let ud;
@@ -75,7 +74,6 @@ const AuthProvider = ({ children }) => {
           return resolve(true);
         })
         .catch((err) => {
-          console.log(err);
           setAuthLoading(false);
 
           // timeout 에러핸들링

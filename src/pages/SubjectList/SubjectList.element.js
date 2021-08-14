@@ -13,7 +13,7 @@ export const Container = styled.div`
   min-height: 400px;
 
   @media screen and (max-width: 600px) {
-    width: 80%;
+    width: 100%;
   }
 `;
 
@@ -86,4 +86,4 @@ export const TooltipContainer = styled.div`
   position: absolute;
   top: 12px;
   right: 30px;
-`
+`;

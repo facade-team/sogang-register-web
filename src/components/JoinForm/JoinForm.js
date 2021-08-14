@@ -118,7 +118,6 @@ const JoinForm = () => {
               type: 'error',
             });
           }
-          console.log(err);
         });
     }
   };
@@ -142,7 +141,6 @@ const JoinForm = () => {
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err);
         setSnackBar({
           msg: '다시 시도해주십시오',
           type: 'error',
@@ -176,13 +174,11 @@ const JoinForm = () => {
             })
             .catch((err) => {
               setLoading(false);
-              console.log(err);
             });
         }
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err);
         if (err.response.status === 401) {
           setSnackBar({
             msg: '인증코드가 불일치합니다.',
@@ -244,7 +240,6 @@ const JoinForm = () => {
           }
         })
         .catch((err) => {
-          console.log(err);
           setLoading(false);
           if (err.response.status === 401) {
             setSnackBar({

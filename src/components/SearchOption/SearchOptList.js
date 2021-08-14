@@ -134,7 +134,6 @@ const SearchOptList = () => {
     setProfOption(false);
     // TODO: opt 의 프로퍼티가 2개일때가 최초 학년도/학기만 선택할 경우임. Object.keys(opt).length === 2
     if (semesterOption.selected && Object.keys(opt).length === 2) {
-      // console.log('opt', opt); // {year: '21', semester: '2'}
       // 21학년도 2학기 에는 전공/영역 을 불러오는 api 를 호출하지 않기 위한 꼼수
       if (opt.year !== '21' && opt.semester !== '2') {
         // 버튼누르고 요청하는 동안 다른버튼 비활성화
@@ -145,19 +144,16 @@ const SearchOptList = () => {
             params: { year: opt.year, semester: opt.semester },
           })
           .then((res) => {
-            console.log(res.data.data);
             setDepartments(res.data.data);
             setMajorOption({ ...majorOption, data: res.data.data });
             // 2. 과목검색 시, option 을 넣어서 api 요청
             axios
               .post('subject/option', opt)
               .then((res) => {
-                console.log(res.data.data);
                 setLoading(false);
                 setSubjects(res.data.data);
               })
               .catch((err) => {
-                console.log(err);
                 setLoading(false);
                 setSnackBar({
                   type: 'error',
@@ -168,7 +164,6 @@ const SearchOptList = () => {
               });
           })
           .catch((err) => {
-            console.log(err);
             setSnackBar({
               type: 'error',
               msg: '오류가 발생했습니다. 다시 시도해주세요.',
@@ -187,12 +182,10 @@ const SearchOptList = () => {
       axios
         .post('subject/option', opt)
         .then((res) => {
-          console.log(res.data.data);
           setLoading(false);
           setSubjects(res.data.data);
         })
         .catch((err) => {
-          console.log(err);
           setLoading(false);
           setSnackBar({
             type: 'error',
@@ -256,7 +249,6 @@ const SearchOptList = () => {
         year: year,
         semester: semester,
       });
-      console.log('학년도/학기 골랐을 때', cleanSaveOption);
 
       setSaveOption(cleanSaveOption);
       findSubjectByOption(cleanSaveOption);
@@ -270,8 +262,6 @@ const SearchOptList = () => {
 
   /*************전공/영역 검색옵션 선택 시 ******************/
   useEffect(() => {
-    // console.log('전공/영역 선택한거', majorOption.selected, majorOption.code);
-
     // 검색옵션(학년도학기) 가 설정돼있을때만 실행
     if (isSearchOption) {
       if (majorOption.selected) {
@@ -279,7 +269,6 @@ const SearchOptList = () => {
           ...saveOption,
           department: majorOption.code,
         });
-        console.log('전공/영역 골랐을때', cleanSaveOption);
         findSubjectByOption(cleanSaveOption);
         setSaveOption(cleanSaveOption);
       }
@@ -289,7 +278,6 @@ const SearchOptList = () => {
           ...saveOption,
           department: '',
         });
-        console.log('전공/영역 태그 제거 시', cleanSaveOption);
         findSubjectByOption(cleanSaveOption);
         setSaveOption(cleanSaveOption);
       }
@@ -306,7 +294,6 @@ const SearchOptList = () => {
           // TODO: 학년 다중선택가능하게끔 해야함
           grade: [Number(gradeOption.selected[0])],
         });
-        console.log('학년 골랐을때', cleanSaveOption);
         // findSubjectByState(cleanSaveOption); // 결함있어서 일단 사용x
         findSubjectByOption(cleanSaveOption);
         setSaveOption(cleanSaveOption);
@@ -317,7 +304,6 @@ const SearchOptList = () => {
           ...saveOption,
           grade: [],
         });
-        console.log('학년 태그 제거 시', cleanSaveOption);
         findSubjectByOption(cleanSaveOption);
         setSaveOption(cleanSaveOption);
       }
@@ -334,7 +320,6 @@ const SearchOptList = () => {
           // TODO: 학점도 다중선택가능하게끔 해야함
           credit: [Number(creditOption.selected[0])],
         });
-        console.log('학점 골랐을때', cleanSaveOption);
         findSubjectByOption(cleanSaveOption);
         setSaveOption(cleanSaveOption);
       }
@@ -344,7 +329,6 @@ const SearchOptList = () => {
           ...saveOption,
           credit: [],
         });
-        console.log('학점 태그 제거 시', cleanSaveOption);
         findSubjectByOption(cleanSaveOption);
         setSaveOption(cleanSaveOption);
       }
@@ -360,7 +344,6 @@ const SearchOptList = () => {
           searchby: searchKeywordOption.searchBy,
           keyword: searchKeywordOption.selected,
         });
-        console.log('검색어 골랐을때', cleanSaveOption);
         findSubjectByOption(cleanSaveOption);
         setSaveOption(cleanSaveOption);
       }
@@ -371,7 +354,6 @@ const SearchOptList = () => {
           searchby: '',
           keyword: '',
         });
-        console.log('검색어 태그 제거 시', cleanSaveOption);
         findSubjectByOption(cleanSaveOption);
         setSaveOption(cleanSaveOption);
       }

@@ -35,7 +35,6 @@ const ChangeProfile = ({ openModal }) => {
   const [major, setMajor] = useState(userData.major);
   const [checkBoxValue, setCheckBoxValue] = useState(userData.allowEmail); //api로 초기값 설정
 
-  console.log(checkBoxValue);
   // 로딩스피너 띄우기
   const { setLoading } = useLoadingContext();
 
@@ -111,7 +110,6 @@ const ChangeProfile = ({ openModal }) => {
         })
         .catch((err) => {
           setLoading(false);
-          console.log(err);
           setSnackBar({
             type: 'error',
             msg: '프로필 수정에 실패하였습니다.',
@@ -153,7 +151,6 @@ const ChangeProfile = ({ openModal }) => {
                     defaultValue={
                       userData &&
                       userData.major.map((option) => {
-                        console.log(option);
                         return { value: option, label: option };
                       })
                     }
