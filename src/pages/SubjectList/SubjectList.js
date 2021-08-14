@@ -1,5 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+
+//API
+import PostFavorite from '../../API/PostFavorite';
 
 import GradationBtn from '../../components/GradationBtn/GradationBtn';
 import Subject from '../../components/SubjectCard/SubjectCard';
@@ -18,7 +21,6 @@ import {
 } from './SubjectList.element.js';
 
 const SubjectListComp = () => {
-  const value = useRef({});
   const { isAuth, userData, setUserData } = useAuthContext();
   const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
 
@@ -30,7 +32,8 @@ const SubjectListComp = () => {
 
     console.log(list);
     setFavoriteList(list);
-    value.current.favoriteList = list;
+
+    PostFavorite(list);
 
     let newUserData = { ...userData };
     if (newUserData.subjects) {
@@ -38,7 +41,6 @@ const SubjectListComp = () => {
         ...userData,
         subjects: list,
       };
-      console.log(newUserData);
 
       setUserData(newUserData);
       localStorage.setItem('userData', JSON.stringify(newUserData));
@@ -47,7 +49,9 @@ const SubjectListComp = () => {
 
   const clearFavoriteList = (e) => {
     setFavoriteList([]);
-    value.current.favoriteList = [];
+
+    PostFavorite([]);
+
     const newUserData = { ...userData };
     if (newUserData.hasOwnProperty('subjects')) {
       delete newUserData.subjects;
@@ -56,47 +60,6 @@ const SubjectListComp = () => {
       localStorage.setItem('userData', JSON.stringify(newUserData));
     }
   };
-
-  useEffect(() => {
-    return () => {
-      if (isAuth) {
-        const list = value.current.favoriteList;
-        if (favoriteList === list) {
-          return;
-        }
-
-        if (!list) {
-          axios
-            .post('/favorites/update', {
-              sub_id: [],
-            })
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        } else {
-          const req = list.map((sub) => {
-            return sub.subject_id;
-          });
-          console.log(req);
-          axios
-            .post('/favorites/update', {
-              sub_id: req,
-            })
-            .then((res) => {
-              if (res.status === 201) {
-                console.log(res);
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      }
-    };
-  }, []);
 
   return (
     <Container>

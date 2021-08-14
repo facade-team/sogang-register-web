@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai/';
 
-export const Subject = styled.li`
+export const Subject = styled.div`
   margin-left: 10px;
   background-color: #efecf8;
   border-radius: 8px;
@@ -13,6 +13,13 @@ export const Subject = styled.li`
     box-shadow: 0px 4px 4px rgba(38, 38, 38, 0.2);
     top: -4px;
   }
+
+  /* &:hover:after {
+    content: 'X';
+    position: relative;
+    top: -45px;
+    float: right;
+  } */
 `;
 
 export const SubjectNameInList = styled.div`
@@ -41,8 +48,8 @@ export const P = styled.p`
 `;
 
 export const CloseBtn = styled(AiOutlineClose)`
-  position: absolute;
-  width: 20px;
-  top: 50px;
-  right: 15px;
+  content: 'X';
+  position: relative;
+  top: -45px;
+  float: right;
 `;

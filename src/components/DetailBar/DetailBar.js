@@ -1,5 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+
+//API
+import PostFavorite from '../../API/PostFavorite';
 
 //components
 import GradationBtn from '../GradationBtn/GradationBtn';
@@ -10,6 +12,7 @@ import StarBtn from './StarBtn';
 //context
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useSnackBarContext } from '../../contexts/SnackBarContext';
+import { useLatestSubjectsContext } from '../../contexts/LatestSubjectsContext';
 
 //styled
 import {
@@ -28,13 +31,21 @@ import {
   OptionBtnContainer,
   SubjectList,
   Divider,
+  CloseBar,
 } from './DetailBar.element';
 import { Tag, TagContainer } from '../Card/Card.element';
 
-const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
-  const value = useRef({});
+const DetailBar = ({
+  width,
+  height,
+  openModal,
+  subject,
+  clickCard,
+  closeDetailBar,
+}) => {
   const { isAuth, userData, setUserData } = useAuthContext();
   const { setSnackBar } = useSnackBarContext();
+  const { latestSubjects, setLatestSubjects } = useLatestSubjectsContext();
 
   //최근 본과목 -> true, 즐겨찾기 -> false
   const [latestAndFavoritesToggle, setLatestAndFavoritesToggle] =
@@ -42,6 +53,16 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
   const [latestList, setLatestList] = useState([subject]);
   const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
   const [checkBookmark, setCheckBookmark] = useState(false);
+
+  console.log(latestList);
+  useEffect(() => {
+    if (latestSubjects.length !== 0) {
+      const list = [...latestList, ...latestSubjects];
+
+      setLatestList(list);
+      setLatestSubjects(list);
+    }
+  }, []);
 
   // console.log(userData, favoriteList);
   //해당과목 즐겨찾기 여부, 즐겨찾기 추가, 삭제
@@ -73,6 +94,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
       }
 
       setLatestList(list);
+      setLatestSubjects(list);
     } else if (latestListIndex > 0) {
       // 이미 최근 본 과목 리스트에 있을 때
       const list = [...latestList];
@@ -81,49 +103,9 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
       list.unshift(list.splice(latestListIndex, 1)[0]);
 
       setLatestList(list);
+      setLatestSubjects(list);
     }
   }, [subject]);
-
-  useEffect(() => {
-    return () => {
-      if (isAuth) {
-        const list = value.current.favoriteList;
-        if (favoriteList === list) {
-          return;
-        }
-
-        if (!list) {
-          axios
-            .post('/favorites/update', {
-              sub_id: [],
-            })
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        } else {
-          const req = list.map((sub) => {
-            return sub.subject_id;
-          });
-          console.log(req);
-          axios
-            .post('/favorites/update', {
-              sub_id: req,
-            })
-            .then((res) => {
-              if (res.status === 201) {
-                console.log(res);
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      }
-    };
-  }, []);
 
   //
   const deleteInList = (key, latest) => {
@@ -133,11 +115,14 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
 
     list = list.filter((sub) => sub.subject_id !== key);
 
-    if (latest) setLatestList(list);
-    else {
+    if (latest) {
+      setLatestList(list);
+      setLatestSubjects(list);
+    } else {
       setFavoriteList(list);
-      value.current = list;
-      console.log(list);
+
+      PostFavorite(list);
+
       let newUserData = { ...userData };
       if (newUserData.subjects) {
         newUserData = {
@@ -175,7 +160,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
       }
 
       setFavoriteList(list);
-      value.current.favoriteList = list;
+      PostFavorite(list);
 
       let newUserData = {
         ...userData,
@@ -183,26 +168,12 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
       };
       setUserData(newUserData);
       localStorage.setItem('userData', JSON.stringify(newUserData));
-      // if (newUserData.subjects !== null) {
-      //   const currentFavorite = JSON.parse(localStorage.getItem('subject'));
-      //   localStorage.setItem(
-      //     'userData',
-      //     JSON.stringify([subject, ...currentFavorite])
-      //   );
-      // } else {
-      //   newUserData = {
-      //     subjects: subject,
-      //     ...userData,
-      //   };
-      //   setUserData(newUserData);
-      //   localStorage.setItem('userData', JSON.stringify(newUserData));
-      // }
     } else {
       //삭제
       const idx = favoriteList.indexOf(sub);
       if (idx > -1) list.splice(idx, 1);
       setFavoriteList(list);
-      value.current.favoriteList = list;
+      PostFavorite(list);
 
       let newUserData = { ...userData };
       if (newUserData.subjects !== undefined) {
@@ -235,6 +206,11 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
   return (
     <>
       <DetailbarComponent widthPx={width} heightPx={height}>
+        <CloseBar
+          size="25"
+          color="rgba(106,49,223,0.9)"
+          onClick={closeDetailBar}
+        ></CloseBar>
         <DetailContainer>
           <ProfileBar openModal={openModal} detailbar></ProfileBar>
           <DetailbarContent>
@@ -271,6 +247,7 @@ const DetailBar = ({ width, height, openModal, subject, clickCard }) => {
                       중국어강의
                     </Tag>
                   ) : null}
+                  <Tag credit={subject.학점}>{subject.학점}학점</Tag>
                 </TagContainer>
                 <SubjectTable>
                   <TableBody>

@@ -9,6 +9,7 @@ import { MenuProvider } from './contexts/MenuContext';
 import { LoadingProvider } from './contexts/LoadingContext';
 import { SnackBarProvider } from './contexts/SnackBarContext';
 import { SubjectProvider } from './contexts/SubjectContext';
+import { LatestSubjectsProvider } from './contexts/LatestSubjectsContext';
 
 axios.defaults.baseURL = 'http://api.sogang-sincheong.com';
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
@@ -20,7 +21,9 @@ ReactDOM.render(
       <AuthProvider>
         <MenuProvider>
           <SubjectProvider>
-            <App></App>
+            <LatestSubjectsProvider>
+              <App></App>
+            </LatestSubjectsProvider>
           </SubjectProvider>
         </MenuProvider>
       </AuthProvider>

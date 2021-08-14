@@ -36,6 +36,11 @@ const Home = ({ openModal, height }) => {
 
     setDetailSubject(detailData);
   };
+
+  const closeDetailBar = () => {
+    setDetailbarWidth(0);
+  };
+
   const mobileClickCard = (key) => {
     if (detailbarHeight === 0) {
       setDetailbarHeight(400);
@@ -90,6 +95,7 @@ const Home = ({ openModal, height }) => {
             openModal={openModal}
             subject={detailSubject}
             clickCard={clickCard}
+            closeDetailBar={closeDetailBar}
             // latestSubject={latestSubject}
           ></DetailBar>
         )

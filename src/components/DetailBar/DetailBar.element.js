@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { FaAngleDoubleRight } from 'react-icons/fa';
 
 export const DetailbarComponent = styled.div`
   position: relative;
@@ -29,6 +30,23 @@ export const DetailbarComponent = styled.div`
     background-color: #f2f2f2;
     border-radius: 10px;
     width: 1px;
+  }
+`;
+
+export const CloseBar = styled(FaAngleDoubleRight)`
+  position: absolute;
+  top: 0vh;
+  left: -350px;
+  padding-top: 5px;
+  outline: none;
+  transition: 0.9s ease;
+  transform: ${(props) => {
+    return `translatex(${350}px)`;
+  }};
+  z-index: 20;
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 

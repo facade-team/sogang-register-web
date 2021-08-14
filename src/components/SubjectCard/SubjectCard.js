@@ -14,8 +14,8 @@ const SubjectCard = ({ subject, onClick, active, onDelete, latest }) => {
   return (
     <Subject
       onClick={() => (active ? onClick(subject.subject_id) : null)}
-      onMouseEnter={() => setHoverCard(true)}
-      onMouseLeave={() => setHoverCard(false)}
+      onMouseOver={() => setHoverCard(true)}
+      onMouseOut={() => setHoverCard(false)}
     >
       <SubjectNameInList font={14}>{subject.과목명}</SubjectNameInList>
       <TagContainer>
@@ -46,11 +46,13 @@ const SubjectCard = ({ subject, onClick, active, onDelete, latest }) => {
           </>
         ) : null}
       </Detail>
-      {hoverCard ? (
-        <CloseBtn
-          onClick={() => onDelete(subject.subject_id, latest)}
-        ></CloseBtn>
-      ) : null}
+      <CloseBtn
+        size={20}
+        onClick={() => onDelete(subject.subject_id, latest)}
+      ></CloseBtn>
+      {/* {hoverCard && (
+        
+      )} */}
     </Subject>
   );
 };

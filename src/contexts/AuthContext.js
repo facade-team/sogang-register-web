@@ -1,6 +1,7 @@
 import { createContext, useState, useContext } from 'react';
 import axios from 'axios';
 import { useSnackBarContext } from './SnackBarContext';
+import { useLatestSubjectsContext } from './LatestSubjectsContext';
 
 const AuthContext = createContext({});
 
@@ -11,6 +12,7 @@ const AuthProvider = ({ children }) => {
   const [authLoading, setAuthLoading] = useState(false);
 
   const { setSnackBar } = useSnackBarContext();
+  const { setLatestSubjects } = useLatestSubjectsContext();
 
   // user : 사용자가 입력한 id, password 객체
   const login = (user) => {
@@ -101,6 +103,7 @@ const AuthProvider = ({ children }) => {
   const logout = () => {
     setIsAuth(false);
     setUserData({});
+    setLatestSubjects([]);
     localStorage.clear();
   };
   const authContextValue = {

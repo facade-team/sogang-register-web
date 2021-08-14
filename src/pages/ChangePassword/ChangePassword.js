@@ -84,53 +84,51 @@ const ChangePassword = ({ openModal }) => {
     <Container>
       <MyPageContainer navigation="Mypage">
         <Title title="마이페이지/비밀번호 변경" openModal={openModal}></Title>
-        {isAuth ? (
-          <ContainerBox>
-            <FormContainer>
-              <Form>
-                <FormGroup>
-                  <Label htmlFor="currentPassword">현재 비밀번호</Label>
-                  <Input
-                    type="password"
-                    name="currentPassword"
-                    id="currentPassword"
-                    value={currentPassword}
-                    onChange={onChangeForm}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label htmlFor="newPassword">새 비밀번호</Label>
-                  <Input
-                    type="password"
-                    name="newPassword"
-                    id="newPassword"
-                    value={newPassword}
-                    onChange={onChangeForm}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label htmlFor="checkPassword">새 비밀번호 확인</Label>
-                  <Input
-                    type="password"
-                    name="checkPassword"
-                    id="checkPassword"
-                    value={checkPassword}
-                    onChange={onChangeForm}
-                  />
-                </FormGroup>
-                <br></br>
-                <GradationBtn
-                  width={200}
-                  borderRadius={20}
-                  active
-                  onClick={onClick}
-                >
-                  확인
-                </GradationBtn>
-              </Form>
-            </FormContainer>
-          </ContainerBox>
-        ) : null}
+        <ContainerBox>
+          <FormContainer>
+            <Form>
+              <FormGroup>
+                <Label htmlFor="currentPassword">현재 비밀번호</Label>
+                <Input
+                  type="password"
+                  name="currentPassword"
+                  id="currentPassword"
+                  value={currentPassword}
+                  onChange={onChangeForm}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="newPassword">새 비밀번호</Label>
+                <Input
+                  type="password"
+                  name="newPassword"
+                  id="newPassword"
+                  value={newPassword}
+                  onChange={onChangeForm}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="checkPassword">새 비밀번호 확인</Label>
+                <Input
+                  type="password"
+                  name="checkPassword"
+                  id="checkPassword"
+                  value={checkPassword}
+                  onChange={onChangeForm}
+                />
+              </FormGroup>
+              <br></br>
+              <GradationBtn
+                width={200}
+                borderRadius={20}
+                active
+                onClick={onClick}
+              >
+                확인
+              </GradationBtn>
+            </Form>
+          </FormContainer>
+        </ContainerBox>
       </MyPageContainer>
     </Container>
   );
