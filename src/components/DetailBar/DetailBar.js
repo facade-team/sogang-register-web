@@ -34,6 +34,7 @@ import {
   CloseBar,
 } from './DetailBar.element';
 import { Tag, TagContainer } from '../Card/Card.element';
+import Tooltip from '@material-ui/core/Tooltip'
 
 const DetailBar = ({
   width,
@@ -221,13 +222,15 @@ const DetailBar = ({
                       [{subject.subject_id.substring(14, 15)}반]
                     </span>
                   </SubjectName>
-                  <BtnContainer>
-                    <StarBtn
-                      size={22}
-                      checkBookmark={checkBookmark}
-                      onClick={toFavorite}
-                    ></StarBtn>
-                  </BtnContainer>
+                  <Tooltip title='즐겨찾기'>
+                    <BtnContainer>
+                      <StarBtn
+                        size={22}
+                        checkBookmark={checkBookmark}
+                        onClick={toFavorite}
+                      ></StarBtn>
+                    </BtnContainer>
+                  </Tooltip>
                 </Top>
                 <TagContainer>
                   {subject.대면여부 === '비대면' ? (

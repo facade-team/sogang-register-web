@@ -7,6 +7,7 @@ import { useMenuContext } from '../contexts/MenuContext';
 import { useSubjectContext } from '../contexts/SubjectContext';
 
 import Fab from '@material-ui/core/Fab';
+import axios from 'axios';
 
 //components
 import Title from '../components/Title/Title';
@@ -18,7 +19,7 @@ import MobileDetailBar from '../components/DetailBarMobile/MobileDetailBar';
 import MobileModal from '../components/DetailBarMobile/MobileModal';
 //styled
 import { Container, HomeContainer } from '../styles/HomeContainer';
-import Tooltip from '@material-ui/core/Tooltip'
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -129,9 +130,9 @@ const Home = ({ openModal, height }) => {
           onClickCard={notMobile ? clickCard : mobileClickCard}
         ></SelectSubject>
         <FabContainer className={classes.root}>
-          <Tooltip title='처음으로' arrow>
+          <Tooltip title="처음으로" arrow>
             <Fab color="primary" aria-label="add" onClick={goToTop}>
-                <BsArrowUp size="30" />
+              <BsArrowUp size="30" />
             </Fab>
           </Tooltip>
         </FabContainer>
