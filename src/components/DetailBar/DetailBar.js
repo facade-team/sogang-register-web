@@ -47,7 +47,7 @@ const DetailBar = ({
 }) => {
   const { isAuth, userData, setUserData } = useAuthContext();
   const { setSnackBar } = useSnackBarContext();
-  const { setLoading } = useLoadingContext();
+  const { loading, setLoading } = useLoadingContext();
   const { latestSubjects, setLatestSubjects } = useLatestSubjectsContext();
 
   //최근 본과목 -> true, 즐겨찾기 -> false
@@ -122,6 +122,9 @@ const DetailBar = ({
 
   //
   const deleteInList = (e, key, latest) => {
+    if (loading) {
+      return;
+    }
     let list;
     if (latest) list = [...latestSubjects];
     else list = [...favoriteList];
@@ -148,6 +151,9 @@ const DetailBar = ({
   };
 
   const toFavorite = () => {
+    if (loading) {
+      return;
+    }
     if (!isAuth) {
       setSnackBar({
         type: 'error',
@@ -188,7 +194,7 @@ const DetailBar = ({
       const idx = favoriteList.indexOf(sub);
       if (idx > -1) list.splice(idx, 1);
       setFavoriteList(list);
-      deleteFavorite(subject.subject_id);
+      deleteFavorite(subject.subject_id, setLoading);
 
       let newUserData = { ...userData };
       if (newUserData.subjects !== undefined) {

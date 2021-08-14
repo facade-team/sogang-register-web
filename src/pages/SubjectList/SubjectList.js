@@ -24,10 +24,13 @@ import {
 
 const SubjectListComp = () => {
   const { userData, setUserData } = useAuthContext();
-  const { setLoading } = useLoadingContext();
+  const { loading, setLoading } = useLoadingContext();
   const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
 
   const deleteInList = (e, key, latest) => {
+    if (loading) {
+      return;
+    }
     let list;
     list = [...favoriteList];
 
@@ -49,6 +52,9 @@ const SubjectListComp = () => {
   };
 
   const clearFavoriteList = (e) => {
+    if (loading) {
+      return;
+    }
     setFavoriteList([]);
 
     deleteAllFavorite(setLoading);
