@@ -12,6 +12,7 @@ import Title from '../../components/Title/Title';
 //context
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useSnackBarContext } from '../../contexts/SnackBarContext';
+import { useLoadingContext } from '../../contexts/LoadingContext';
 
 //styled
 import {
@@ -48,7 +49,10 @@ const ChangePassword = ({ openModal }) => {
     }
   }, [isAuth]);
 
+  const { setLoading } = useLoadingContext();
+
   const onClick = (e) => {
+    setLoading(true);
     if (isAuth) {
       if (email === userData.email && username === userData.username) {
         axios
@@ -59,6 +63,7 @@ const ChangePassword = ({ openModal }) => {
           })
           .then((res) => {
             if (res.status === 201) {
+              setLoading(false);
               logout();
               history.push('/');
               setSnackBar({
@@ -66,12 +71,14 @@ const ChangePassword = ({ openModal }) => {
                 msg: '탈퇴가 완료되었습니다. 다음에 다시 찾아주세요!',
               });
             } else if (res.status === 401) {
+              setLoading(false);
             }
           })
           .catch((err) => {
             if (err.response.status === 401) {
+              setLoading(false);
               setSnackBar({
-                type: 'success',
+                type: 'error',
                 msg: '탈퇴에 실패하였습니다.',
               });
             }
@@ -90,21 +97,11 @@ const ChangePassword = ({ openModal }) => {
   return (
     <Container>
       <MyPageContainer navigation="Mypage">
-        <Title title="마이페이지/비밀번호 변경" openModal={openModal}></Title>
+        <Title title="회원탈퇴" openModal={openModal}></Title>
         {isAuth ? (
           <ContainerBox>
             <FormContainer>
               <Form>
-                <FormGroup>
-                  <Label htmlFor="email">이메일</Label>
-                  <Input
-                    type="email"
-                    name="email"
-                    id="email"
-                    value={email}
-                    onChange={onChangeForm}
-                  />
-                </FormGroup>
                 <FormGroup>
                   <Label htmlFor="username">이름</Label>
                   <Input
@@ -116,7 +113,17 @@ const ChangePassword = ({ openModal }) => {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label htmlFor="password">비밀번호 확인</Label>
+                  <Label htmlFor="email">이메일</Label>
+                  <Input
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={email}
+                    onChange={onChangeForm}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="password">비밀번호</Label>
                   <Input
                     type="password"
                     name="password"

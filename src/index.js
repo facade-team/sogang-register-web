@@ -12,7 +12,11 @@ import { SubjectProvider } from './contexts/SubjectContext';
 import { LatestSubjectsProvider } from './contexts/LatestSubjectsContext';
 
 axios.defaults.baseURL = 'http://api.sogang-sincheong.com';
-axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+// axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+setTimeout(() => {
+  axios.defaults.headers.common['Authorization'] =
+    localStorage.getItem('token');
+}, 0);
 // axios.defaults.timeout = 10000;
 
 ReactDOM.render(
