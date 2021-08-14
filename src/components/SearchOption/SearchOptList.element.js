@@ -90,11 +90,20 @@ export const Tag2 = styled(Tag)`
     disabled &&
     css`
       cursor: default;
+      &:hover {
+        transform: unset;
+        transition: unset;
+      }
     `}
 
   ${({ deactive }) =>
     deactive &&
     css`
       background-color: #b2bec3;
+      cursor: default;
+      &:hover {
+        transform: unset;
+        transition: unset;
+      }
     `}
 `;

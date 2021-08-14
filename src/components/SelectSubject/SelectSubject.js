@@ -161,13 +161,17 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
     if (!profOption) {
       setExcludeFilter({ ...excludeFilter, prof: [] });
     }
+  }, [profOption]);
+  useEffect(() => {
     if (!langOption) {
       setExcludeFilter({ ...excludeFilter, lang: [] });
     }
+  }, [langOption]);
+  useEffect(() => {
     if (!contactOption) {
       setExcludeFilter({ ...excludeFilter, contact: [] });
     }
-  }, [profOption, langOption, contactOption]);
+  }, [contactOption]);
 
   useEffect(() => {
     const profObj = new Set(data.map((subject) => subject.교수진));
@@ -213,7 +217,11 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
                 >
                   전체선택
                 </Tag2>
-              ) : null}
+              ) : (
+                <Tag2 id="교수" fontSize="13" deactive>
+                  전체선택
+                </Tag2>
+              )}
 
               {excludeFilter.prof.length < profArr.length ? (
                 <Tag2
@@ -224,7 +232,11 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
                 >
                   전체해제
                 </Tag2>
-              ) : null}
+              ) : (
+                <Tag2 id="교수" fontSize="13" deactive>
+                  전체해제
+                </Tag2>
+              )}
 
               {profArr.map((prof) => (
                 <>
@@ -257,7 +269,11 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
                 >
                   전체선택
                 </Tag2>
-              ) : null}
+              ) : (
+                <Tag2 id="강의언어" fontSize="13" deactive>
+                  전체선택
+                </Tag2>
+              )}
 
               {excludeFilter.lang.length < 3 ? (
                 <Tag2
@@ -268,7 +284,11 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
                 >
                   전체해제
                 </Tag2>
-              ) : null}
+              ) : (
+                <Tag2 id="강의언어" fontSize="13" deactive>
+                  전체해제
+                </Tag2>
+              )}
 
               <Tag2
                 id="강의언어"
@@ -312,7 +332,11 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
                 >
                   전체선택
                 </Tag2>
-              ) : null}
+              ) : (
+                <Tag2 id="대면여부" fontSize="13" deactive>
+                  전체선택
+                </Tag2>
+              )}
 
               {excludeFilter.contact.length < 2 ? (
                 <Tag2
@@ -323,7 +347,11 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
                 >
                   전체해제
                 </Tag2>
-              ) : null}
+              ) : (
+                <Tag2 id="대면여부" fontSize="13" deactive>
+                  전체해제
+                </Tag2>
+              )}
 
               <Tag2
                 id="대면여부"
