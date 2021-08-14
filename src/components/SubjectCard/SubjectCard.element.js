@@ -49,12 +49,15 @@ export const P = styled.p`
 
 export const CloseBtn = styled(AiOutlineClose)`
   content: 'X';
-  position: relative;
-  top: -45px;
-  float: right;
-
   &:hover {
     cursor: pointer;
     transform: translateX(1.05);
   }
 `;
+
+
+export const TooltipContainer = styled.div`
+  position: relative;
+  top: -45px;
+  float: right;
+`

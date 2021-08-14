@@ -18,6 +18,7 @@ import MobileDetailBar from '../components/DetailBarMobile/MobileDetailBar';
 import MobileModal from '../components/DetailBarMobile/MobileModal';
 //styled
 import { Container, HomeContainer } from '../styles/HomeContainer';
+import Tooltip from '@material-ui/core/Tooltip'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,7 +53,7 @@ const Home = ({ openModal, height }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [notMobile, setNotMobile] = useState(
-    window.matchMedia('(min-width: 600px)').matches
+    window.matchMedia('(min-width: 900px)').matches
   ); // true : pc, false : mobile
 
   const closeModal = () => {
@@ -98,9 +99,9 @@ const Home = ({ openModal, height }) => {
   }, [setMenu]);
 
   useEffect(() => {
-    var notWidth = window.matchMedia('(min-width: 600px)').matches;
+    var notWidth = window.matchMedia('(min-width: 900px)').matches;
     setNotMobile(notWidth);
-  }, []);
+  });
 
   const classes = useStyles();
 
@@ -128,9 +129,11 @@ const Home = ({ openModal, height }) => {
           onClickCard={notMobile ? clickCard : mobileClickCard}
         ></SelectSubject>
         <FabContainer className={classes.root}>
-          <Fab color="primary" aria-label="add" onClick={goToTop}>
-            <BsArrowUp size="30" />
-          </Fab>
+          <Tooltip title='처음으로' arrow>
+            <Fab color="primary" aria-label="add" onClick={goToTop}>
+                <BsArrowUp size="30" />
+            </Fab>
+          </Tooltip>
         </FabContainer>
       </HomeContainer>
       {/* 오른쪽 사이드바 */}

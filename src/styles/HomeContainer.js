@@ -40,7 +40,7 @@ export const HomeContainer = styled.div.attrs({ id: 'home' })`
   overflow: auto;
 
   @media screen and (max-width: 900px) {
-    min-width: 800px;
+    // min-width: 800px;
     width: 100%;
     height: 100%;
   }

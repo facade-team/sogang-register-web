@@ -29,7 +29,6 @@ function Alert(props) {
 
 const openedSidebarWidth = 250;
 const closedSidebarWidth = 90;
-const closedMobileSidebarHeight = 60;
 
 const Container = styled.div`
   position: relative;

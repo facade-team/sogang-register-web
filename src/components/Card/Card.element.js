@@ -31,6 +31,11 @@ export const CardContainer = styled.div`
     height: 150px;
     // padding: 20px 14px 15px 20px;
   }
+  @media screen and (max-width: 900px) {
+    min-width: 300px;
+    height: 150px;
+    // padding: 20px 14px 15px 20px;
+  }
 `;
 
 export const SubjectName = styled.p`
