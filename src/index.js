@@ -13,7 +13,7 @@ import { LatestSubjectsProvider } from './contexts/LatestSubjectsContext';
 
 axios.defaults.baseURL = 'http://api.sogang-sincheong.com';
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-axios.defaults.timeout = 10000;
+// axios.defaults.timeout = 10000;
 
 ReactDOM.render(
   <LoadingProvider>
