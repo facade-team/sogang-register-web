@@ -7,7 +7,6 @@ import { useMenuContext } from '../contexts/MenuContext';
 import { useSubjectContext } from '../contexts/SubjectContext';
 
 import Fab from '@material-ui/core/Fab';
-import axios from 'axios';
 
 //components
 import Title from '../components/Title/Title';

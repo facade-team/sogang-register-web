@@ -35,6 +35,21 @@ const SelectSubject = ({ number, subtitle, data, onClickCard, submessage }) => {
     contact: [],
   });
 
+  //작업중[분반 표시]
+  /*
+  const [classNum, setClassNum] = useState({
+    cls: [],
+    clsnum: [],
+  });
+  
+  const countClassNum = (data) => {
+    let cnt = 0;
+    let clsstr = data.substring(5, 12);
+
+
+  }
+  */
+
   const handleFilterClick = (e) => {
     const clickedFilter = e.target.innerText;
     const filterType = e.target.id;
@@ -179,6 +194,8 @@ const SelectSubject = ({ number, subtitle, data, onClickCard, submessage }) => {
     const tempArr = [...profObj];
     const sortedProfArr = tempArr.sort(hangulFirstCompare);
     setProfArr(sortedProfArr);
+    // const classObj = new Set(data.map((subject) => subject.subject_id));
+    // countClassNum(classObj);
   }, [data]);
 
   // call updatedAt api
