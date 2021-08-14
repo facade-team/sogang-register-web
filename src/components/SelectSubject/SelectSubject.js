@@ -19,7 +19,7 @@ import searchImg from '../../assets/img/32.png';
 import hangulFirstCompare from '../../utils/hangulFirstCompare';
 import axios from 'axios';
 
-const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
+const SelectSubject = ({ number, subtitle, data, onClickCard, submessage }) => {
   const {
     isSearchOption,
     profOption,
@@ -182,24 +182,28 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
   }, [data]);
 
   // call updatedAt api
-  const [updatedAt, setUpdatedAt] = useState(null)
+  const [updatedAt, setUpdatedAt] = useState(null);
 
   useEffect(() => {
     axios
       .get('/subject/updatedat')
       .then((res) => {
-        setUpdatedAt(res.data.data)
+        setUpdatedAt(res.data.data);
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }, [updatedAt])
+        console.log(err);
+      });
+  }, [updatedAt]);
 
   return (
     <>
       {console.log('제외된 필터', excludeFilter)}
       {console.log('교수배열', profArr)}
-      <SubTitle number={number} subtitle={subtitle}></SubTitle>
+      <SubTitle
+        number={number}
+        subtitle={subtitle}
+        submessage={submessage}
+      ></SubTitle>
 
       {data && data.length !== 0 ? (
         <Container>
@@ -207,9 +211,15 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
             **10/4까지 모든 수업 전면 비대면 전환되었습니다.**
           </span>
           {updatedAt && (
-          <span style={{ fontSize: '8px', margin: '8px 15px 8px 15px', color: '#626262' }}>
-            최종 업데이트 시각 : {updatedAt}
-          </span>
+            <span
+              style={{
+                fontSize: '8px',
+                margin: '8px 15px 8px 15px',
+                color: '#626262',
+              }}
+            >
+              최종 업데이트 시각 : {updatedAt}
+            </span>
           )}
           {/* 정렬옵션 없을때 */}
           {data && !profOption && !contactOption && !langOption && (
