@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
@@ -23,6 +23,7 @@ import {
   Form,
   Label,
 } from './ChangePassword.element';
+import { JoinFormContainer } from '../../components/JoinForm/JoinForm.element';
 import {
   Container,
   HomeContainer as MyPageContainer,
@@ -31,13 +32,18 @@ import {
 const ChangePassword = ({ openModal }) => {
   let history = useHistory();
   const { setSnackBar } = useSnackBarContext();
-  const { isAuth } = useAuthContext();
+  const { isAuth, userData } = useAuthContext();
   const { setLoading } = useLoadingContext();
   const [form, onChangeForm] = useInput({
+    email: userData ? userData.email : '',
+    name: '',
     currentPassword: '',
     newPassword: '',
     checkPassword: '',
+    verifyCode: '',
   });
+
+  const { email, name, currentPassword, newPassword, checkPassword } = form;
 
   const onClick = (e) => {
     if (newPassword === checkPassword) {
@@ -78,7 +84,34 @@ const ChangePassword = ({ openModal }) => {
     }
   };
 
-  const { currentPassword, newPassword, checkPassword } = form;
+  // 인증코드 발송 함수
+  const resetPassword = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    axios
+      .post('/privacy/passwordreset', {
+        email,
+        username: name,
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          setSnackBar({
+            msg: '임시비밀번호가 이메일로 발송되었습니다.',
+            type: 'success',
+          });
+          setLoading(false);
+          history.push('/');
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+        setSnackBar({
+          msg: '다시 시도해주십시오',
+          type: 'error',
+        });
+      });
+  };
 
   return (
     <Container>
@@ -87,45 +120,99 @@ const ChangePassword = ({ openModal }) => {
         <ContainerBox>
           <FormContainer>
             <Form>
-              <FormGroup>
-                <Label htmlFor="currentPassword">현재 비밀번호</Label>
-                <Input
-                  type="password"
-                  name="currentPassword"
-                  id="currentPassword"
-                  value={currentPassword}
-                  onChange={onChangeForm}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="newPassword">새 비밀번호</Label>
-                <Input
-                  type="password"
-                  name="newPassword"
-                  id="newPassword"
-                  value={newPassword}
-                  onChange={onChangeForm}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="checkPassword">새 비밀번호 확인</Label>
-                <Input
-                  type="password"
-                  name="checkPassword"
-                  id="checkPassword"
-                  value={checkPassword}
-                  onChange={onChangeForm}
-                />
-              </FormGroup>
-              <br></br>
-              <GradationBtn
-                width={200}
-                borderRadius={20}
-                active
-                onClick={onClick}
-              >
-                확인
-              </GradationBtn>
+              {isAuth ? (
+                <>
+                  <FormGroup>
+                    <Label htmlFor="email">이메일</Label>
+                    <Input
+                      required
+                      type="email"
+                      name="email"
+                      id="email"
+                      value={email}
+                      onChange={onChangeForm}
+                      readOnly
+                    />
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label htmlFor="currentPassword">현재 비밀번호</Label>
+                    <Input
+                      required
+                      type="password"
+                      name="currentPassword"
+                      id="currentPassword"
+                      value={currentPassword}
+                      onChange={onChangeForm}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="newPassword">새 비밀번호</Label>
+                    <Input
+                      required
+                      type="password"
+                      name="newPassword"
+                      id="newPassword"
+                      value={newPassword}
+                      onChange={onChangeForm}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="checkPassword">새 비밀번호 확인</Label>
+                    <Input
+                      required
+                      type="password"
+                      name="checkPassword"
+                      id="checkPassword"
+                      value={checkPassword}
+                      onChange={onChangeForm}
+                    />
+                  </FormGroup>
+                  <br></br>
+                  <GradationBtn
+                    width={200}
+                    borderRadius={20}
+                    active
+                    onClick={onClick}
+                  >
+                    확인
+                  </GradationBtn>
+                </>
+              ) : (
+                <>
+                  <FormGroup>
+                    <Label htmlFor="email">이메일</Label>
+                    <Input
+                      required
+                      type="email"
+                      name="email"
+                      id="email"
+                      value={email}
+                      onChange={onChangeForm}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="name">이름</Label>
+                    <Input
+                      required
+                      type="text"
+                      name="name"
+                      id="name"
+                      value={name}
+                      onChange={onChangeForm}
+                    />
+                  </FormGroup>
+                  <br></br>
+                  <GradationBtn
+                    width={200}
+                    borderRadius={20}
+                    active
+                    onClick={resetPassword}
+                  >
+                    확인
+                  </GradationBtn>
+                </>
+              )}
             </Form>
           </FormContainer>
         </ContainerBox>

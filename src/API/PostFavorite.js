@@ -22,6 +22,7 @@ const PostFavorite = (list) => {
         sub_id: req,
       })
       .then((res) => {
+        console.log(res);
         if (res.status === 201) {
           console.log(res);
         }

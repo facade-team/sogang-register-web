@@ -108,7 +108,7 @@ export const FormGroup = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 
   @media screen and (max-width: 900px) {
     font-size: 14px;

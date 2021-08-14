@@ -435,6 +435,7 @@ const JoinForm = () => {
             <input
               required
               type="text"
+              id="verifyCode"
               name="verifyCode"
               value={verifyCode}
               onChange={onChangeVerifyCode}

@@ -5,8 +5,15 @@ export const JoinFormContainer = styled.form`
   flex-direction: column;
   align-items: center;
   padding: 30px 40px 40px;
-  width: 500px;
+  min-width: 500px;
   margin: 0 auto;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    min-width: 200px;
+    padding-right: 0px;
+    padding-left: 0px;
+  }
 `;
 
 export const FormGroup = styled.div`

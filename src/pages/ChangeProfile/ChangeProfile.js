@@ -39,16 +39,6 @@ const ChangeProfile = ({ openModal }) => {
   // 로딩스피너 띄우기
   const { setLoading } = useLoadingContext();
 
-  useEffect(() => {
-    if (!isAuth) {
-      openModal();
-      setSnackBar({
-        type: 'error',
-        msg: '로그인이 필요합니다.',
-      });
-    }
-  }, [isAuth]);
-
   const onChange = (e) => {
     const selectedMajor = e.map((items) => items.value); // 배열형태
     if (selectedMajor.length === 0) {
@@ -57,6 +47,12 @@ const ChangeProfile = ({ openModal }) => {
       setMajor(selectedMajor);
     }
   };
+
+  useEffect(() => {
+    if (!isAuth) {
+      setSnackBar({ type: 'error', msg: '로그인이 필요합니다.' });
+    }
+  }, [isAuth]);
 
   const clickCheckBox = (e) => {
     setCheckBoxValue(!checkBoxValue);
@@ -140,6 +136,7 @@ const ChangeProfile = ({ openModal }) => {
                 <FormGroup>
                   <Label htmlFor="email">이메일</Label>
                   <Input
+                    required
                     type="email"
                     name="email"
                     id="email"
@@ -151,6 +148,7 @@ const ChangeProfile = ({ openModal }) => {
                 <FormGroup>
                   <Label htmlFor="majors">전공 </Label>
                   <SelectForm
+                    required
                     options={majorsPair}
                     defaultValue={
                       userData &&
