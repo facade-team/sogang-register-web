@@ -75,13 +75,15 @@ export const Divider = styled.hr`
 `;
 
 export const TrashBtn = styled(BsFillTrashFill)`
-  position: absolute;
-  top: 5px;
-  right: 30px;
-
   &:hover {
     cursor: pointer;
     transform: scale(1.05) translateZ(0px);
     transition: all 0.1s ease-in;
   }
 `;
+
+export const TooltipContainer = styled.div`
+  position: absolute;
+  top: 12px;
+  right: 30px;
+`
