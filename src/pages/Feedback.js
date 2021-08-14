@@ -22,8 +22,10 @@ const Feedback = ({ openModal }) => {
     <Container>
       <FeedbackContainer navigation="Feedback">
         <Title title="피드백/문의" openModal={openModal}></Title>
-
         <FeedbackForm></FeedbackForm>
+        <span style={{textAlign: 'center', fontSize: '10px', color: '#626262', marginTop: '30px'}}>
+          본 서비스에 사용된 개설교과목 정보의 출처는 <a href='http://sis109.sogang.ac.kr/sap/bc/webdynpro/sap/zcmw9016?sap-language=KO#' style={{color: '#61527F'}}>서강대학교 개설과목정보</a> 입니다
+        </span>
       </FeedbackContainer>
     </Container>
   );
