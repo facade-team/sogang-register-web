@@ -95,7 +95,7 @@ const FeedbackForm = () => {
     <FormContainer>
       <LinkContainer>
         <A
-          href="https://honey-clavicle-b51.notion.site/33a4fff98f414bbca2493ae77a962e6b"
+          href="https://www.notion.so/sogang-sincheong/33a4fff98f414bbca2493ae77a962e6b"
           target="_blank"
           style={{ display: 'flex', alignItems: 'center' }}
         >
