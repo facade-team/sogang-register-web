@@ -17,6 +17,7 @@ import { useSubjectContext } from '../../contexts/SubjectContext';
 import searchImg from '../../assets/img/32.png';
 
 import hangulFirstCompare from '../../utils/hangulFirstCompare';
+import axios from 'axios';
 
 const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
   const {
@@ -180,6 +181,20 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
     setProfArr(sortedProfArr);
   }, [data]);
 
+  // call updatedAt api
+  const [updatedAt, setUpdatedAt] = useState(null)
+
+  useEffect(() => {
+    axios
+      .get('/subject/updatedat')
+      .then((res) => {
+        setUpdatedAt(res.data.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [updatedAt])
+
   return (
     <>
       {console.log('제외된 필터', excludeFilter)}
@@ -191,6 +206,11 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
           <span style={{ fontSize: '13px', margin: '15px' }}>
             **10/4까지 모든 수업 전면 비대면 전환되었습니다.**
           </span>
+          {updatedAt && (
+          <span style={{ fontSize: '8px', margin: '8px 15px 8px 15px', color: '#626262' }}>
+            최종 업데이트 시각 : {updatedAt}
+          </span>
+          )}
           {/* 정렬옵션 없을때 */}
           {data && !profOption && !contactOption && !langOption && (
             <CardList>
