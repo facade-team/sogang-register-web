@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 //API
-import PostFavorite from '../../API/PostFavorite';
+import { addFavorite, deleteFavorite } from '../../API/Favorite';
 
 //components
 import GradationBtn from '../GradationBtn/GradationBtn';
@@ -34,7 +34,7 @@ import {
   CloseBar,
 } from './DetailBar.element';
 import { Tag, TagContainer } from '../Card/Card.element';
-import Tooltip from '@material-ui/core/Tooltip'
+import Tooltip from '@material-ui/core/Tooltip';
 
 const DetailBar = ({
   width,
@@ -56,7 +56,17 @@ const DetailBar = ({
 
   useEffect(() => {
     if (latestSubjects.length !== 0) {
-      const list = [subject, ...latestSubjects];
+      const idx = latestSubjects.findIndex((sub) => {
+        return subject.subject_id === sub.subject_id;
+      });
+
+      let list;
+      if (idx === -1) {
+        list = [subject, ...latestSubjects];
+      } else {
+        list = [...latestSubjects];
+        list.unshift(list.splice(idx, 1)[0]);
+      }
 
       setLatestSubjects(list);
     }
@@ -71,6 +81,12 @@ const DetailBar = ({
       existInFavoriteList ? setCheckBookmark(true) : setCheckBookmark(false);
     }
   }, [subject, favoriteList]);
+
+  useEffect(() => {
+    if (!isAuth) {
+      setFavoriteList([]);
+    }
+  }, [isAuth]);
 
   useEffect(() => {
     if (!latestSubjects) return;
@@ -114,7 +130,7 @@ const DetailBar = ({
       setLatestSubjects(list);
     } else {
       setFavoriteList(list);
-      PostFavorite(list);
+      deleteFavorite(key);
 
       let newUserData = { ...userData };
       if (newUserData.subjects) {
@@ -149,10 +165,15 @@ const DetailBar = ({
 
       if (list.length > 10) {
         list.pop();
+        setSnackBar({
+          type: 'error',
+          msg: '즐겨찾기는 10개까지 담을 수 있습니다.',
+        });
+        return;
       }
 
       setFavoriteList(list);
-      PostFavorite(list);
+      addFavorite(subject.subject_id);
 
       let newUserData = {
         ...userData,
@@ -165,7 +186,7 @@ const DetailBar = ({
       const idx = favoriteList.indexOf(sub);
       if (idx > -1) list.splice(idx, 1);
       setFavoriteList(list);
-      PostFavorite(list);
+      deleteFavorite(subject.subject_id);
 
       let newUserData = { ...userData };
       if (newUserData.subjects !== undefined) {
@@ -222,7 +243,7 @@ const DetailBar = ({
                       [{subject.subject_id.substring(14, 15)}반]
                     </span>
                   </SubjectName>
-                  <Tooltip title='즐겨찾기'>
+                  <Tooltip title="즐겨찾기">
                     <BtnContainer>
                       <StarBtn
                         size={22}

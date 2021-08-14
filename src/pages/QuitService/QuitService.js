@@ -12,6 +12,7 @@ import Title from '../../components/Title/Title';
 //context
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useSnackBarContext } from '../../contexts/SnackBarContext';
+import { useLoadingContext } from '../../contexts/LoadingContext';
 
 //styled
 import {
@@ -31,6 +32,7 @@ const ChangePassword = ({ openModal }) => {
   let history = useHistory();
   const { isAuth, userData, logout } = useAuthContext();
   const { setSnackBar } = useSnackBarContext();
+  const { setLoading } = useLoadingContext();
   const [form, onChangeForm] = useInput({
     email: '',
     username: '',
@@ -51,6 +53,7 @@ const ChangePassword = ({ openModal }) => {
   const onClick = (e) => {
     if (isAuth) {
       if (email === userData.email && username === userData.username) {
+        setLoading(true);
         axios
           .post('/privacy/dropout', {
             email,
@@ -59,6 +62,7 @@ const ChangePassword = ({ openModal }) => {
           })
           .then((res) => {
             if (res.status === 201) {
+              setLoading(false);
               logout();
               history.push('/');
               setSnackBar({
@@ -69,6 +73,7 @@ const ChangePassword = ({ openModal }) => {
             }
           })
           .catch((err) => {
+            setLoading(false);
             if (err.response.status === 401) {
               setSnackBar({
                 type: 'success',
@@ -90,7 +95,7 @@ const ChangePassword = ({ openModal }) => {
   return (
     <Container>
       <MyPageContainer navigation="Mypage">
-        <Title title="마이페이지/비밀번호 변경" openModal={openModal}></Title>
+        <Title title="마이페이지/회원 탈퇴" openModal={openModal}></Title>
         {isAuth ? (
           <ContainerBox>
             <FormContainer>

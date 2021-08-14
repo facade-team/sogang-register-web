@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 //API
-import PostFavorite from '../../API/PostFavorite';
+import { addFavorite, deleteFavorite } from '../../API/Favorite';
 
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useLatestSubjectsContext } from '../../contexts/LatestSubjectsContext';
@@ -104,7 +104,7 @@ const MobileDetailBar = ({ height, subject, onClose }) => {
       }
 
       setFavoriteList(list);
-      PostFavorite(list);
+      addFavorite(subject.subject_id);
 
       let newUserData = {
         ...userData,
@@ -117,7 +117,7 @@ const MobileDetailBar = ({ height, subject, onClose }) => {
       const idx = favoriteList.indexOf(sub);
       if (idx > -1) list.splice(idx, 1);
       setFavoriteList(list);
-      PostFavorite(list);
+      deleteFavorite(subject.subject_id);
 
       let newUserData = { ...userData };
       if (newUserData.subjects !== undefined) {

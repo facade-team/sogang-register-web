@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 //API
-import PostFavorite from '../../API/PostFavorite';
+import { deleteFavorite, deleteAllFavorite } from '../../API/Favorite';
 
 import GradationBtn from '../../components/GradationBtn/GradationBtn';
 import Subject from '../../components/SubjectCard/SubjectCard';
@@ -32,7 +32,7 @@ const SubjectListComp = () => {
     list = list.filter((sub) => sub.subject_id !== key);
 
     setFavoriteList(list);
-    PostFavorite(list);
+    deleteFavorite(key);
 
     let newUserData = { ...userData };
     if (newUserData.subjects) {
@@ -49,7 +49,7 @@ const SubjectListComp = () => {
   const clearFavoriteList = (e) => {
     setFavoriteList([]);
 
-    PostFavorite([]);
+    deleteAllFavorite();
 
     const newUserData = { ...userData };
     if (newUserData.hasOwnProperty('subjects')) {

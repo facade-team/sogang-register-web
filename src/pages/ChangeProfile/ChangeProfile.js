@@ -63,6 +63,7 @@ const ChangeProfile = ({ openModal }) => {
         email: userData.email,
         isVerified: userData.isVerified,
         token: userData.token,
+        subjects: userData.subjects,
         username: userData.username,
       })
     );
