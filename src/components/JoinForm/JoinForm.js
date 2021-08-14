@@ -33,7 +33,7 @@ const JoinForm = () => {
   const [major, setMajor] = useState(false);
   const [email, setEmail] = useState('');
   const [canUseEmail, setCanUseEmail] = useState(false);
-  const [verifyCode, setVerifyCode] = useState();
+  const [verifyCode, setVerifyCode] = useState('');
   const [password, setPassword] = useState('');
   const [passwordTest, setPasswordTest] = useState('');
   const [isJoined, setIsJoined] = useState(false);

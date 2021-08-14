@@ -91,9 +91,8 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
     // 교수
     // 제거
     if (filterType === '교수') {
-      console.log(1);
       if (excludeFilter.prof.includes(clickedFilter)) {
-        const temp = excludeFilter.prof;
+        const temp = [...excludeFilter.prof];
         for (let i = 0; i < temp.length; i++) {
           if (temp[i] === clickedFilter) {
             temp.splice(i, 1);
@@ -111,6 +110,35 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
           prof: temp,
         });
       }
+    }
+  };
+
+  const filterAllOn = (e) => {
+    const filterType = e.target.id;
+
+    // 제외된 필터에서 싹 다 삭제
+    if (filterType === '교수') {
+      setExcludeFilter({ ...excludeFilter, prof: [] });
+    } else if (filterType === '강의언어') {
+      setExcludeFilter({ ...excludeFilter, lang: [] });
+    } else if (filterType === '대면여부') {
+      setExcludeFilter({ ...excludeFilter, contact: [] });
+    }
+  };
+
+  const filterAllOff = (e) => {
+    const filterType = e.target.id;
+
+    // 제외된 필터에 싹 다 추가
+    if (filterType === '교수') {
+      setExcludeFilter({ ...excludeFilter, prof: profArr });
+    } else if (filterType === '강의언어') {
+      setExcludeFilter({
+        ...excludeFilter,
+        lang: ['한국어', '영어', '중국어'],
+      });
+    } else if (filterType === '대면여부') {
+      setExcludeFilter({ ...excludeFilter, contact: ['대면', '비대면'] });
     }
   };
 
@@ -150,7 +178,8 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
 
   return (
     <>
-      {/* {console.log('제외된 필터', excludeFilter)} */}
+      {console.log('제외된 필터', excludeFilter)}
+      {console.log('교수배열', profArr)}
       <SubTitle number={number} subtitle={subtitle}></SubTitle>
 
       {data && data.length !== 0 ? (
@@ -175,6 +204,28 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
           {profOption && (
             <TagContainer2>
               <FilterType color="#706fd3">교수명</FilterType>
+              {excludeFilter.prof.length > 0 ? (
+                <Tag2
+                  id="교수"
+                  fontSize="13"
+                  bgColor="#706fd3"
+                  onClick={filterAllOn}
+                >
+                  전체선택
+                </Tag2>
+              ) : null}
+
+              {excludeFilter.prof.length < profArr.length ? (
+                <Tag2
+                  id="교수"
+                  fontSize="13"
+                  bgColor="#706fd3"
+                  onClick={filterAllOff}
+                >
+                  전체해제
+                </Tag2>
+              ) : null}
+
               {profArr.map((prof) => (
                 <>
                   {prof.length !== 1 && (
@@ -197,6 +248,28 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
           {langOption && (
             <TagContainer2>
               <FilterType color="#ea8685">강의언어</FilterType>
+              {excludeFilter.lang.length > 0 ? (
+                <Tag2
+                  id="강의언어"
+                  fontSize="13"
+                  bgColor="#ea8685"
+                  onClick={filterAllOn}
+                >
+                  전체선택
+                </Tag2>
+              ) : null}
+
+              {excludeFilter.lang.length < 3 ? (
+                <Tag2
+                  id="강의언어"
+                  fontSize="13"
+                  bgColor="#ea8685"
+                  onClick={filterAllOff}
+                >
+                  전체해제
+                </Tag2>
+              ) : null}
+
               <Tag2
                 id="강의언어"
                 fontSize="13"
@@ -230,6 +303,28 @@ const SelectSubject = ({ number, subtitle, data, onClickCard }) => {
           {contactOption && (
             <TagContainer2>
               <FilterType color="#01a3a4">대면여부</FilterType>
+              {excludeFilter.contact.length > 0 ? (
+                <Tag2
+                  id="대면여부"
+                  fontSize="13"
+                  bgColor="#01a3a4"
+                  onClick={filterAllOn}
+                >
+                  전체선택
+                </Tag2>
+              ) : null}
+
+              {excludeFilter.contact.length < 2 ? (
+                <Tag2
+                  id="대면여부"
+                  fontSize="13"
+                  bgColor="#01a3a4"
+                  onClick={filterAllOff}
+                >
+                  전체해제
+                </Tag2>
+              ) : null}
+
               <Tag2
                 id="대면여부"
                 fontSize="13"

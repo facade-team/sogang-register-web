@@ -79,6 +79,13 @@ export const Tag2 = styled(Tag)`
   margin-bottom: 6px;
   cursor: pointer;
 
+  transition: 0.3s;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+    transition: all 0.3s ease;
+  }
+
   ${({ disabled }) =>
     disabled &&
     css`
