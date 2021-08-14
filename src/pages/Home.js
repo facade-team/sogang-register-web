@@ -52,7 +52,7 @@ const Home = ({ openModal, height }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [notMobile, setNotMobile] = useState(
-    window.matchMedia('(min-width: 600px)').matches
+    window.matchMedia('(min-width: 900px)').matches
   ); // true : pc, false : mobile
 
   const closeModal = () => {
@@ -93,9 +93,9 @@ const Home = ({ openModal, height }) => {
   }, [setMenu]);
 
   useEffect(() => {
-    var notWidth = window.matchMedia('(min-width: 600px)').matches;
+    var notWidth = window.matchMedia('(min-width: 900px)').matches;
     setNotMobile(notWidth);
-  }, []);
+  });
 
   const classes = useStyles();
 

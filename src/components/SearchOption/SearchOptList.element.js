@@ -23,7 +23,6 @@ export const OptBtn = styled.button`
   border: none;
   border-radius: 12px;
   width: 120px;
-  min-width: 80px;
   height: 100%;
   padding: 10px 1px;
   z-index: 2;
@@ -60,6 +59,10 @@ export const OptBtn = styled.button`
     `}
   @media screen and (max-width: 600px) {
     width: 100px;
+    margin: 6px 5px;
+  }
+  @media screen and (max-width: 900px) {
+    width: 120px;
     margin: 6px 5px;
   }
 `;
