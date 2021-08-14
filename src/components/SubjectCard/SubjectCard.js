@@ -6,8 +6,11 @@ import {
   Detail,
   P,
   CloseBtn,
+  TooltipContainer,
 } from './SubjectCard.element.js';
 import { Tag, TagContainer } from '../Card/Card.element';
+import Tooltip from '@material-ui/core/Tooltip'
+
 
 const SubjectCard = ({ subject, onClick, active, onDelete, latest }) => {
   const [hoverCard, setHoverCard] = useState(false);
@@ -47,9 +50,13 @@ const SubjectCard = ({ subject, onClick, active, onDelete, latest }) => {
         ) : null}
       </Detail>
       {hoverCard ? (
-        <CloseBtn
-          onClick={() => onDelete(subject.subject_id, latest)}
-        ></CloseBtn>
+        <Tooltip title="삭제" placement='bottom'>
+          <TooltipContainer>
+            <CloseBtn
+              onClick={() => onDelete(subject.subject_id, latest)}
+            ></CloseBtn>
+          </TooltipContainer>
+        </Tooltip>
       ) : null}
     </Subject>
   );

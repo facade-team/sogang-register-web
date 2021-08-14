@@ -6,6 +6,8 @@ import Subject from '../../components/SubjectCard/SubjectCard';
 
 //context
 import { useAuthContext } from '../../contexts/AuthContext';
+import Tooltip from '@material-ui/core/Tooltip'
+
 
 //styled
 import {
@@ -15,6 +17,7 @@ import {
   SubjectList,
   Divider,
   TrashBtn,
+  TooltipContainer
 } from './SubjectList.element.js';
 
 const SubjectListComp = () => {
@@ -102,7 +105,11 @@ const SubjectListComp = () => {
     <Container>
       {/* 즐겨찾기 */}
       <StackContent>
-        <TrashBtn size={20} onClick={clearFavoriteList}></TrashBtn>
+        <Tooltip title='모두 삭제'>
+          <TooltipContainer>
+            <TrashBtn size={20} onClick={clearFavoriteList}></TrashBtn>
+          </TooltipContainer>
+        </Tooltip>
         <OptionBtnContainer>
           <GradationBtn
             width={120}

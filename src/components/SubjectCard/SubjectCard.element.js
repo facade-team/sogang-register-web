@@ -41,8 +41,14 @@ export const P = styled.p`
 `;
 
 export const CloseBtn = styled(AiOutlineClose)`
-  position: absolute;
   width: 20px;
-  top: 50px;
-  right: 15px;
 `;
+
+
+export const TooltipContainer = styled.div`
+  position: relative;
+  width: 20px;
+  float: right;
+  right: 0px;
+  bottom: 74px;
+`
