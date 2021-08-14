@@ -24,7 +24,7 @@ const MyPage = (props) => {
   const { isAuth } = useAuthContext();
 
   useEffect(() => {
-    if (!isAuth) {
+    if (!localStorage.getItem('token')) {
       setSnackBar({ type: 'error', msg: '로그인이 필요합니다.' });
     }
   }, [isAuth]);
