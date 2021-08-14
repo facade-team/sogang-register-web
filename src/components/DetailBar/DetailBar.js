@@ -13,6 +13,7 @@ import StarBtn from './StarBtn';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useSnackBarContext } from '../../contexts/SnackBarContext';
 import { useLatestSubjectsContext } from '../../contexts/LatestSubjectsContext';
+import { useLoadingContext } from '../../contexts/LoadingContext';
 
 //styled
 import {
@@ -46,6 +47,7 @@ const DetailBar = ({
 }) => {
   const { isAuth, userData, setUserData } = useAuthContext();
   const { setSnackBar } = useSnackBarContext();
+  const { setLoading } = useLoadingContext();
   const { latestSubjects, setLatestSubjects } = useLatestSubjectsContext();
 
   //최근 본과목 -> true, 즐겨찾기 -> false
@@ -130,7 +132,7 @@ const DetailBar = ({
       setLatestSubjects(list);
     } else {
       setFavoriteList(list);
-      deleteFavorite(key);
+      deleteFavorite(key, setLoading);
 
       let newUserData = { ...userData };
       if (newUserData.subjects) {
@@ -173,7 +175,7 @@ const DetailBar = ({
       }
 
       setFavoriteList(list);
-      addFavorite(subject.subject_id);
+      addFavorite(subject.subject_id, setLoading);
 
       let newUserData = {
         ...userData,
