@@ -241,9 +241,16 @@ const DetailBar = ({
                 <Top>
                   <SubjectName font={19}>
                     {subject.과목명}{' '}
-                    <span style={{ fontSize: '13px' }}>
-                      [{subject.subject_id.substring(14, 15)}반]
-                    </span>
+                    {subject.subject_id.substring(13, 14) === '0' ? ( // 01?
+                      <span style={{ fontSize: '13px' }}>
+                        [{subject.subject_id.substring(14, 15)}반]
+                      </span>
+                    ) : (
+                      // 10?
+                      <span style={{ fontSize: '13px' }}>
+                        [{subject.subject_id.substring(13, 15)}반]
+                      </span>
+                    )}
                   </SubjectName>
                   <Tooltip title="즐겨찾기">
                     <BtnContainer>

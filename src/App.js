@@ -136,7 +136,6 @@ const App = () => {
     setUserData(ud);
     setIsAuth(true);
     axios.defaults.headers.common['Authorization'] = ud.token;
-    console.log('initiallize', axios.defaults.headers.common['Authorization']);
   };
 
   useEffect(() => {

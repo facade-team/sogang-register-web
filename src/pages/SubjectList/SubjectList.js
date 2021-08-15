@@ -36,7 +36,7 @@ const SubjectListComp = () => {
     list = list.filter((sub) => sub.subject_id !== key);
 
     setFavoriteList(list);
-    deleteFavorite(key, setLoading);
+    deleteFavorite(key, setLoading, setSnackBar);
 
     let newUserData = { ...userData };
     if (newUserData.subjects) {

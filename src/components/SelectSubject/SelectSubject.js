@@ -225,7 +225,6 @@ const SelectSubject = ({ number, subtitle, data, onClickCard, submessage }) => {
 
   return (
     <>
-      {/* {console.log('검색결과', data)} */}
       <SubTitle
         number={number}
         subtitle={subtitle}
