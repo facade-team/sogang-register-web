@@ -80,7 +80,7 @@ export const Tag = styled.div`
   ${({ fontSize }) => fontSize && `font-size: ${fontSize}px;`}
   @media screen and (max-width: 600px) {
     margin-bottom: 3px;
-    font-size: 12px;
+    font-size: 10px;
   }
 `;
 

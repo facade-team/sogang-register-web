@@ -7,6 +7,7 @@ import {
   P,
   CloseBtn,
   TooltipContainer,
+  TimeText,
 } from './SubjectCard.element.js';
 import { Tag, TagContainer } from '../Card/Card.element';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -37,20 +38,20 @@ const SubjectCard = ({ subject, onClick, active, onDelete, latest }) => {
       <Detail>
         <P text={subject.교수진}>{subject.교수진}</P>
         {subject.요일1 === subject.요일2 ? (
-          <p>
+          <TimeText>
             {subject.요일1} {subject.시간1}
-          </p>
+          </TimeText>
         ) : null}
         {subject.요일1 !== subject.요일2 ? (
           <>
             {subject.시간1 === subject.시간2 ? (
-              <p>
+              <TimeText>
                 {subject.요일1},{subject.요일2} {subject.시간1}
-              </p>
+              </TimeText>
             ) : (
-              <p>
+              <TimeText>
                 {subject.요일1} {subject.시간1} ,{subject.요일2} {subject.시간2}
-              </p>
+              </TimeText>
             )}
           </>
         ) : null}

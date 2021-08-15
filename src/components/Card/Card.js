@@ -12,7 +12,7 @@ const Card = ({ subject, onClick, subnum }) => {
   return (
     <CardContainer onClick={onClick}>
       <SubjectName text={subject.과목명}>
-        {subject.과목명}{' '}
+        {subject.과목명}
         {subject.subject_id.substring(13, 14) === '0' ? ( // 01?
           <span style={{ fontSize: '13px' }}>
             [{subject.subject_id.substring(14, 15)}반]

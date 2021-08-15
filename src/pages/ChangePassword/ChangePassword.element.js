@@ -114,7 +114,7 @@ export const FormGroup = styled.div`
     font-size: 14px;
   }
   @media screen and (max-width: 600px) {
-    font-size: 10px;
+    font-size: 11px;
     width: 100%;
   }
 `;
