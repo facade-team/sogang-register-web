@@ -60,7 +60,7 @@ export const OptBtn = styled.button`
     @media screen and (max-width: 900px) {
     width: 120px;
   }
-  @media screen and (max-width: 599px) {
+  @media screen and (max-width: 600px) {
     width: 100px;
     margin-left: 20px;
     margin-right: 20px;
@@ -68,8 +68,8 @@ export const OptBtn = styled.button`
   }
   @media screen and (max-width: 450px) {
     width: 100px;
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 40px;
+    margin-right: 0px;
     margin-bottom: 10px;
   }
   @media screen and (max-width: 360px) {
