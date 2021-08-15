@@ -10,9 +10,9 @@ import { LoadingProvider } from './contexts/LoadingContext';
 import { SnackBarProvider } from './contexts/SnackBarContext';
 import { SubjectProvider } from './contexts/SubjectContext';
 import { LatestSubjectsProvider } from './contexts/LatestSubjectsContext';
+require('dotenv').config();
 
-axios.defaults.baseURL = 'http://api.sogang-sincheong.com';
-// axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 ReactDOM.render(
   <LoadingProvider>
