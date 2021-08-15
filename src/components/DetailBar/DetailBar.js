@@ -47,7 +47,7 @@ const DetailBar = ({
 }) => {
   const { isAuth, userData, setUserData } = useAuthContext();
   const { setSnackBar } = useSnackBarContext();
-  const { setLoading } = useLoadingContext();
+  const { loading, setLoading } = useLoadingContext();
   const { latestSubjects, setLatestSubjects } = useLatestSubjectsContext();
 
   //최근 본과목 -> true, 즐겨찾기 -> false
@@ -132,7 +132,7 @@ const DetailBar = ({
       setLatestSubjects(list);
     } else {
       setFavoriteList(list);
-      deleteFavorite(key, setLoading);
+      deleteFavorite(key, setLoading, setSnackBar);
 
       let newUserData = { ...userData };
       if (newUserData.subjects) {
@@ -175,7 +175,7 @@ const DetailBar = ({
       }
 
       setFavoriteList(list);
-      addFavorite(subject.subject_id, setLoading);
+      addFavorite(subject.subject_id, setLoading, setSnackBar);
 
       let newUserData = {
         ...userData,
@@ -188,7 +188,7 @@ const DetailBar = ({
       const idx = favoriteList.indexOf(sub);
       if (idx > -1) list.splice(idx, 1);
       setFavoriteList(list);
-      deleteFavorite(subject.subject_id);
+      deleteFavorite(subject.subject_id, setLoading, setSnackBar);
 
       let newUserData = { ...userData };
       if (newUserData.subjects !== undefined) {
@@ -241,17 +241,31 @@ const DetailBar = ({
                 <Top>
                   <SubjectName font={19}>
                     {subject.과목명}{' '}
-                    <span style={{ fontSize: '13px' }}>
-                      [{subject.subject_id.substring(14, 15)}반]
-                    </span>
+                    {subject.subject_id.substring(13, 14) === '0' ? ( // 01?
+                      <span style={{ fontSize: '13px' }}>
+                        [{subject.subject_id.substring(14, 15)}반]
+                      </span>
+                    ) : (
+                      // 10?
+                      <span style={{ fontSize: '13px' }}>
+                        [{subject.subject_id.substring(13, 15)}반]
+                      </span>
+                    )}
                   </SubjectName>
                   <Tooltip title="즐겨찾기">
                     <BtnContainer>
-                      <StarBtn
-                        size={22}
-                        checkBookmark={checkBookmark}
-                        onClick={toFavorite}
-                      ></StarBtn>
+                      {!loading ? (
+                        <StarBtn
+                          size={22}
+                          checkBookmark={checkBookmark}
+                          onClick={toFavorite}
+                        ></StarBtn>
+                      ) : (
+                        <StarBtn
+                          size={22}
+                          checkBookmark={checkBookmark}
+                        ></StarBtn>
+                      )}
                     </BtnContainer>
                   </Tooltip>
                 </Top>

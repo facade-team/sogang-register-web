@@ -9,6 +9,7 @@ import Subject from '../../components/SubjectCard/SubjectCard';
 //context
 import { useAuthContext } from '../../contexts/AuthContext';
 import { useLoadingContext } from '../../contexts/LoadingContext';
+import { useSnackBarContext } from '../../contexts/SnackBarContext';
 import Tooltip from '@material-ui/core/Tooltip';
 
 //styled
@@ -25,6 +26,7 @@ import {
 const SubjectListComp = () => {
   const { userData, setUserData } = useAuthContext();
   const { setLoading } = useLoadingContext();
+  const { setSnackBar } = useSnackBarContext();
   const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
 
   const deleteInList = (e, key, latest) => {
@@ -34,7 +36,7 @@ const SubjectListComp = () => {
     list = list.filter((sub) => sub.subject_id !== key);
 
     setFavoriteList(list);
-    deleteFavorite(key, setLoading);
+    deleteFavorite(key, setLoading, setSnackBar);
 
     let newUserData = { ...userData };
     if (newUserData.subjects) {
@@ -51,7 +53,7 @@ const SubjectListComp = () => {
   const clearFavoriteList = (e) => {
     setFavoriteList([]);
 
-    deleteAllFavorite(setLoading);
+    deleteAllFavorite(setLoading, setSnackBar);
 
     const newUserData = { ...userData };
     if (newUserData.hasOwnProperty('subjects')) {

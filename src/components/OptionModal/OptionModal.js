@@ -260,7 +260,7 @@ export default function OptionModal({ open, setOpen, option }) {
                         value={classRoom}
                         onChange={onChangeKeyword}
                         autoFocus
-                        placeholder="ex) J, J관, J107..."
+                        placeholder="ex) J, J107..."
                       ></input>
                     ) : null}
                   </KeywordInputContainer>

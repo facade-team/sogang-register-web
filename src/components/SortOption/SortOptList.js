@@ -29,10 +29,10 @@ const SortOptList = () => {
     if (isSearchOption) {
       // 교수 필터옵션은 40명까지만 가능
       if (e.target.name === 'prof') {
-        if (profArr.length > 80) {
+        if (profArr.length > 60) {
           setSnackBar({
             type: 'error',
-            msg: '검색옵션을 더 골라주세요',
+            msg: '한 번에 최대 60명의 교수님만 지원합니다. 검색옵션을 통해 과목을 줄여주세요',
           });
         } else {
           setProfOption(!profOption);

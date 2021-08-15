@@ -221,7 +221,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard, submessage }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [updatedAt]);
+  }, []);
 
   return (
     <>
@@ -239,7 +239,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard, submessage }) => {
           {updatedAt && (
             <span
               style={{
-                fontSize: '8px',
+                fontSize: '10px',
                 margin: '8px 15px 8px 15px',
                 color: '#626262',
               }}

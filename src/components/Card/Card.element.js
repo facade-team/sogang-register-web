@@ -66,7 +66,7 @@ export const Tag = styled.div`
   font-weight: 800;
   color: white;
   border-radius: 8px;
-  font-size: 10px;
+  font-size: 11px;
   ${({ untact }) => untact && `background: #0B099B;`}
   ${({ ontact }) => ontact && `background: #ED6E69;`}
   ${({ eng }) => eng && `background: #60B9CB;`}
