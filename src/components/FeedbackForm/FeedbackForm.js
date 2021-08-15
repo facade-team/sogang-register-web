@@ -15,6 +15,7 @@ import {
   FormGroup,
   CustomGradationBtnComp,
 } from './Feedback.element';
+import { useState } from 'react';
 
 const LinkContainer = styled.div`
   display: flex;
@@ -63,29 +64,61 @@ const FeedbackForm = () => {
   const { setLoading } = useLoadingContext();
   const { setSnackBar } = useSnackBarContext();
 
+  const [bytes, setBytes] = useState(0)
+
+  //textarea 바이트 수 체크하는 함수
+  const fn_checkByte = (obj) => {
+    const maxByte = 500; //최대 100바이트
+    //const text_val = obj.value; //입력한 문자
+    const text_val = obj; //입력한 문자
+    const text_len = text_val.length; //입력한 문자수
+    
+    let totalByte=0;
+    for(let i=0; i<text_len; i++){
+      const each_char = text_val.charAt(i);
+        const uni_char = escape(each_char) //유니코드 형식으로 변환
+        if(uni_char.length>4){
+          // 한글 : 2Byte
+            totalByte += 2;
+        }else{
+          // 영문,숫자,특수문자 : 1Byte
+            totalByte += 1;
+        }
+    }
+
+    setBytes(totalByte)
+    }
+
+
   const handleSubmit = () => {
-    setLoading(true);
-    axios
-      .post('/user/reportemail', form)
-      .then((res) => {
-        setSnackBar({
-          msg: '소중한 피드백 감사합니다!',
-          type: 'success',
+    if ((email === '') || (title === '') || (script === '')) {
+      // snackbar 에러 문구
+      return 'o'
+    }
+    else {
+      setLoading(true);
+      axios
+        .post('/user/reportemail', form)
+        .then((res) => {
+          setSnackBar({
+            msg: '소중한 피드백 감사합니다!',
+            type: 'success',
+          });
+          setLoading(false);
+          setForm({
+            email: '',
+            title: '',
+            script: '',
+          });
+        })
+        .catch((err) => {
+          setLoading(false);
+          setSnackBar({
+            msg: '다시 시도해주십시오',
+            type: 'error',
+          });
         });
-        setLoading(false);
-        setForm({
-          email: '',
-          title: '',
-          script: '',
-        });
-      })
-      .catch((err) => {
-        setLoading(false);
-        setSnackBar({
-          msg: '다시 시도해주십시오',
-          type: 'error',
-        });
-      });
+    }
   };
 
   return (
@@ -133,7 +166,9 @@ const FeedbackForm = () => {
           value={script}
           onChange={onChangeForm}
           style={{ height: '200px' }}
+          onKeyUp={(x) =>fn_checkByte(script)}
         />
+        <span style={{fontSize:'8px', color:'#727272'}}>{bytes}/500bytes</span>
       </FormGroup>
       <CustomGradationBtnComp
         onClick={handleSubmit}
