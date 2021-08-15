@@ -57,7 +57,7 @@ const AuthCode = ({ openModal }) => {
           if (err.response.status === 401 || err.response.status === 402) {
             setSnackBar({
               type: 'error',
-              msg: '123',
+              msg: '인증에 실패했습니다.',
             });
           } else {
             setSnackBar({
