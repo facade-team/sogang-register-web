@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export const addFavorite = (subject, setLoading) => {
-  console.log(setLoading);
   setLoading(true);
   setTimeout(() => {
     setLoading(false);
