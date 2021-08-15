@@ -133,7 +133,7 @@ const JoinForm = () => {
       .then((res) => {
         if (res.status === 201) {
           setSnackBar({
-            msg: '인증코드가 이메일로 발송되었습니다.',
+            msg: '인증코드가 이메일로 발송되었습니다. 메일이 오지 않았다면 스팸메일함을 확인해주세요',
             type: 'success',
           });
           setLoading(false);
