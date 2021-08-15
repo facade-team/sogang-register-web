@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import { addFavorite, deleteFavorite } from '../../API/Favorite';
 
 import { useAuthContext } from '../../contexts/AuthContext';
-import { useLatestSubjectsContext } from '../../contexts/LatestSubjectsContext';
 import { useLoadingContext } from '../../contexts/LoadingContext';
+import { useSnackBarContext } from '../../contexts/SnackBarContext';
+import { useLatestSubjectsContext } from '../../contexts/LatestSubjectsContext';
 
 import StarBtn from '../DetailBar/StarBtn';
 import CloseIcon from '@material-ui/icons/Close';
@@ -24,8 +25,6 @@ import {
   TagContainer,
 } from './MobileDetailBar.element';
 
-import { useSnackBarContext } from '../../contexts/SnackBarContext';
-
 import { Tag } from '../Card/Card.element';
 
 const MobileDetailBar = ({ height, subject, onClose }) => {
@@ -33,6 +32,7 @@ const MobileDetailBar = ({ height, subject, onClose }) => {
   const { latestSubjects, setLatestSubjects } = useLatestSubjectsContext();
   const { loading, setLoading } = useLoadingContext();
   const { setSnackBar } = useSnackBarContext();
+  const { setLoading, loading } = useLoadingContext();
   const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
   const [checkBookmark, setCheckBookmark] = useState(false);
 
@@ -123,7 +123,7 @@ const MobileDetailBar = ({ height, subject, onClose }) => {
       }
 
       setFavoriteList(list);
-      addFavorite(subject.subject_id, setLoading);
+      addFavorite(subject.subject_id, setLoading, setSnackBar);
 
       let newUserData = {
         ...userData,
@@ -136,7 +136,7 @@ const MobileDetailBar = ({ height, subject, onClose }) => {
       const idx = favoriteList.indexOf(sub);
       if (idx > -1) list.splice(idx, 1);
       setFavoriteList(list);
-      deleteFavorite(subject.subject_id, setLoading);
+      deleteFavorite(subject.subject_id, setLoading, setSnackBar);
 
       let newUserData = { ...userData };
       if (newUserData.subjects !== undefined) {
@@ -173,10 +173,17 @@ const MobileDetailBar = ({ height, subject, onClose }) => {
               <Top>
                 <span style={{ display: 'flex' }}>
                   <SubjectName text={subject.과목명} font={20}>
-                    {subject.과목명}
-                    <span style={{ fontSize: '13px' }}>
-                      [{subject.subject_id.substring(14, 15)}반]
-                    </span>
+                    {subject.과목명}{' '}
+                    {subject.subject_id.substring(13, 14) === '0' ? ( // 01?
+                      <span style={{ fontSize: '13px' }}>
+                        [{subject.subject_id.substring(14, 15)}반]
+                      </span>
+                    ) : (
+                      // 10?
+                      <span style={{ fontSize: '13px' }}>
+                        [{subject.subject_id.substring(13, 15)}반]
+                      </span>
+                    )}
                   </SubjectName>
                   <BtnContainer>
                     <StarBtn

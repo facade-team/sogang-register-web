@@ -59,11 +59,27 @@ export const OptBtn = styled.button`
     `}
   @media screen and (max-width: 600px) {
     width: 100px;
-    margin: 6px 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
   }
   @media screen and (max-width: 900px) {
     width: 120px;
-    margin: 6px 5px;
+    // margin-left: 20px;
+    // margin-right: 20px;
+    // margin-bottom: 10px;
+  }
+  @media screen and (max-width: 360px) {
+    width: 120px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  @media screen and (max-width: 319px) {
+    width: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
   }
 `;
 

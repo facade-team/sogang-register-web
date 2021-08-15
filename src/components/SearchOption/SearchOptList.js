@@ -17,7 +17,7 @@ import { IoIosClose } from 'react-icons/io';
 import OptionModal from '../OptionModal/OptionModal';
 
 // 임시 데이터
-import { semesterData, gradeData, creditData } from './dummy';
+import { semesterData, gradeData, creditData, dayData } from './dummy';
 import { majorCode_2021_2 } from '../../utils/majorCode';
 
 const SearchOptList = () => {
@@ -32,9 +32,9 @@ const SearchOptList = () => {
     selected: '',
     code: '',
   });
-  const [timeOption, setTimeOption] = useState({
-    type: '시간',
-    data: ['test'],
+  const [dayOption, setDayOption] = useState({
+    type: '요일',
+    data: dayData,
     selected: '',
   });
   const [gradeOption, setGradeOption] = useState({
@@ -59,6 +59,7 @@ const SearchOptList = () => {
     year: '', // ex. '20','21' ..
     semester: '', // ex. '1','w' ..
     department: '',
+    day: [],
     credit: [],
     grade: [],
     searchby: '',
@@ -113,7 +114,7 @@ const SearchOptList = () => {
       if (opt === semesterOption) {
         setSemesterOption({ ...semesterOption, selected: '' });
         setMajorOption({ ...majorOption, selected: '' });
-        setTimeOption({ ...timeOption, selected: '' });
+        setDayOption({ ...dayOption, selected: '' });
         setGradeOption({ ...gradeOption, selected: '' });
         setCreditOption({ ...creditOption, selected: '' });
         setSearchKeywordOption({ ...searchKeywordOption, selected: '' });
@@ -335,6 +336,30 @@ const SearchOptList = () => {
     }
   }, [creditOption.selected]);
 
+  /*************요일 검색옵션 선택 시 ******************/
+  useEffect(() => {
+    if (isSearchOption) {
+      if (dayOption.selected) {
+        const cleanSaveOption = removeFalseMember({
+          ...saveOption,
+          // TODO: 학점도 다중선택가능하게끔 해야함
+          day: [dayOption.selected],
+        });
+        findSubjectByOption(cleanSaveOption);
+        setSaveOption(cleanSaveOption);
+      }
+      // 학년 검색옵션 태그 제거했을때
+      else {
+        const cleanSaveOption = removeFalseMember({
+          ...saveOption,
+          day: [],
+        });
+        findSubjectByOption(cleanSaveOption);
+        setSaveOption(cleanSaveOption);
+      }
+    }
+  }, [dayOption.selected]);
+
   /*************검색어 검색옵션 선택 시 ******************/
   useEffect(() => {
     if (isSearchOption) {
@@ -385,13 +410,6 @@ const SearchOptList = () => {
           </OptBtn>
         ) : null}
 
-        {/* <OptBtn
-          onClick={() => handleClickOpen(timeOption, setTimeOption)}
-          selected={timeOption.selected}
-          bgColor="#22a6b3"
-        >
-          시간
-        </OptBtn> */}
         <OptBtn
           onClick={() => handleClickOpen(gradeOption, setGradeOption)}
           selected={gradeOption.selected}
@@ -407,6 +425,14 @@ const SearchOptList = () => {
           disabled={loading}
         >
           학점
+        </OptBtn>
+        <OptBtn
+          onClick={() => handleClickOpen(dayOption, setDayOption)}
+          selected={dayOption.selected}
+          bgColor="#22a6b3"
+          disabled={loading}
+        >
+          요일
         </OptBtn>
         <OptBtn
           onClick={() =>
@@ -443,14 +469,14 @@ const SearchOptList = () => {
               <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
             </Tag2>
           ) : null}
-          {timeOption.selected ? (
+          {dayOption.selected ? (
             <Tag2
               fontSize="13"
               bgColor="#22a6b3"
-              onClick={() => handleTagRemove(timeOption, setTimeOption)}
+              onClick={() => handleTagRemove(dayOption, setDayOption)}
               disabled={loading}
             >
-              {timeOption.selected}
+              {dayOption.selected}요일
               <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
             </Tag2>
           ) : null}

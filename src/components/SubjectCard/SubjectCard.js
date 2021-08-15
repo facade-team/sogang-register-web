@@ -14,7 +14,19 @@ import Tooltip from '@material-ui/core/Tooltip';
 const SubjectCard = ({ subject, onClick, active, onDelete, latest }) => {
   return (
     <Subject onClick={() => (active ? onClick(subject.subject_id) : null)}>
-      <SubjectNameInList font={14}>{subject.과목명}</SubjectNameInList>
+      <SubjectNameInList font={14}>
+        {subject.과목명}{' '}
+        {subject.subject_id.substring(13, 14) === '0' ? ( // 01?
+          <span style={{ fontSize: '13px' }}>
+            [{subject.subject_id.substring(14, 15)}반]
+          </span>
+        ) : (
+          // 10?
+          <span style={{ fontSize: '13px' }}>
+            [{subject.subject_id.substring(13, 15)}반]
+          </span>
+        )}
+      </SubjectNameInList>
       <TagContainer>
         {subject.대면여부 === '비대면' ? <Tag untact>비대면</Tag> : null}
         {subject.대면여부 === '대면' ? <Tag ontact>대면</Tag> : null}

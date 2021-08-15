@@ -8,14 +8,21 @@ import {
   P,
 } from './Card.element';
 
-const Card = ({ subject, onClick }) => {
+const Card = ({ subject, onClick, subnum }) => {
   return (
     <CardContainer onClick={onClick}>
       <SubjectName text={subject.과목명}>
         {subject.과목명}{' '}
-        <span style={{ fontSize: '13px' }}>
-          [{subject.subject_id.substring(14, 15)}반]
-        </span>
+        {subject.subject_id.substring(13, 14) === '0' ? ( // 01?
+          <span style={{ fontSize: '13px' }}>
+            [{subject.subject_id.substring(14, 15)}반]
+          </span>
+        ) : (
+          // 10?
+          <span style={{ fontSize: '13px' }}>
+            [{subject.subject_id.substring(13, 15)}반]
+          </span>
+        )}
       </SubjectName>
       <TagContainer>
         {subject.대면여부 === '비대면' ? <Tag untact>비대면</Tag> : null}

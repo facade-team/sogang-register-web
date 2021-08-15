@@ -78,3 +78,5 @@ export const majorData = [
 export const gradeData = ['1학년', '2학년', '3학년', '4학년'];
 
 export const creditData = ['1학점', '2학점', '3학점'];
+
+export const dayData = ['월', '화', '수', '목', '금', '토', '일'];
