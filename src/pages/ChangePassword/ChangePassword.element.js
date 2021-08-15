@@ -54,7 +54,7 @@ export const Input = styled.input`
     }
   }
   @media screen and (max-width: 600px) {
-    font-size: 10px;
+    font-size: 12px;
     width: 70%;
     &:focus-within {
       padding: 12px 12px;
