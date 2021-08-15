@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './App';
@@ -13,11 +13,6 @@ import { LatestSubjectsProvider } from './contexts/LatestSubjectsContext';
 
 axios.defaults.baseURL = 'http://api.sogang-sincheong.com';
 // axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-setTimeout(() => {
-  axios.defaults.headers.common['Authorization'] =
-    localStorage.getItem('token');
-}, 0);
-// axios.defaults.timeout = 10000;
 
 ReactDOM.render(
   <LoadingProvider>

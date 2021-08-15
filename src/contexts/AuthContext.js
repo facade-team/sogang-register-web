@@ -46,6 +46,10 @@ const AuthProvider = ({ children }) => {
               };
             }
 
+            axios.defaults.headers.common['Authorization'] =
+              res.data.data.Authorization;
+            console.log('authcontext', res.data.data.Authorization);
+
             setUserData(ud);
 
             localStorage.setItem('userData', JSON.stringify(ud));

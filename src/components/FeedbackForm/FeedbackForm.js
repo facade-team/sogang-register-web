@@ -92,7 +92,7 @@ const FeedbackForm = () => {
     <FormContainer>
       <LinkContainer>
         <A
-          href="https://www.notion.so/sogang-sincheong/33a4fff98f414bbca2493ae77a962e6b"
+          href="https://sogang-sincheong.notion.site/sogang-sincheong/33a4fff98f414bbca2493ae77a962e6b"
           target="_blank"
           style={{ display: 'flex', alignItems: 'center' }}
         >

@@ -59,6 +59,7 @@ const SearchOptList = () => {
     year: '', // ex. '20','21' ..
     semester: '', // ex. '1','w' ..
     department: '',
+    day: [],
     credit: [],
     grade: [],
     searchby: '',
@@ -429,6 +430,7 @@ const SearchOptList = () => {
           onClick={() => handleClickOpen(dayOption, setDayOption)}
           selected={dayOption.selected}
           bgColor="#22a6b3"
+          disabled={loading}
         >
           요일
         </OptBtn>
@@ -474,7 +476,7 @@ const SearchOptList = () => {
               onClick={() => handleTagRemove(dayOption, setDayOption)}
               disabled={loading}
             >
-              {dayOption.selected}
+              {dayOption.selected}요일
               <IoIosClose size="16" style={{ marginLeft: '3px' }}></IoIosClose>
             </Tag2>
           ) : null}
