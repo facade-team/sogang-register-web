@@ -154,10 +154,17 @@ const MobileDetailBar = ({ height, subject, onClose }) => {
               <Top>
                 <span style={{ display: 'flex' }}>
                   <SubjectName text={subject.과목명} font={20}>
-                    {subject.과목명}
-                    <span style={{ fontSize: '13px' }}>
-                      [{subject.subject_id.substring(14, 15)}반]
-                    </span>
+                    {subject.과목명}{' '}
+                    {subject.subject_id.substring(13, 14) === '0' ? ( // 01?
+                      <span style={{ fontSize: '13px' }}>
+                        [{subject.subject_id.substring(14, 15)}반]
+                      </span>
+                    ) : (
+                      // 10?
+                      <span style={{ fontSize: '13px' }}>
+                        [{subject.subject_id.substring(13, 15)}반]
+                      </span>
+                    )}
                   </SubjectName>
                   <BtnContainer>
                     <StarBtn
