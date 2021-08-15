@@ -60,7 +60,7 @@ export const OptBtn = styled.button`
     @media screen and (max-width: 900px) {
     width: 120px;
   }
-  @media screen and (max-width: 600px) {
+  /* @media screen and (max-width: 600px) {
     width: 100px;
     margin-left: 20px;
     margin-right: 20px;
@@ -83,7 +83,7 @@ export const OptBtn = styled.button`
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
-  }
+  } */
 `;
 
 export const TagContainer2 = styled(TagContainer)`

@@ -129,7 +129,7 @@ export const TableHead = styled.th`
   padding-left: 5px;
   /* color: #6a31df; */
   color: #656e79;
-  font-weight: 900;
+  font-weight: 700;
 
   width: 80px;
   padding: 5px;
