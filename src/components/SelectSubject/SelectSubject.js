@@ -35,21 +35,6 @@ const SelectSubject = ({ number, subtitle, data, onClickCard, submessage }) => {
     contact: [],
   });
 
-  //작업중[분반 표시]
-  /*
-  const [classNum, setClassNum] = useState({
-    cls: [],
-    clsnum: [],
-  });
-  
-  const countClassNum = (data) => {
-    let cnt = 0;
-    let clsstr = data.substring(5, 12);
-
-
-  }
-  */
-
   const handleFilterClick = (e) => {
     const clickedFilter = e.target.innerText;
     const filterType = e.target.id;
@@ -172,6 +157,32 @@ const SelectSubject = ({ number, subtitle, data, onClickCard, submessage }) => {
 
     return true;
   };
+  /*
+  //분반 표시 (수정중)
+  const [classNum, setClassNum] = useState([]);
+
+  const countClassNum = (data) => {
+    const temp = [];
+    let l = data.length;
+    let BefObj = '';
+    let cntarr = 1;
+    for (let i = 0; i < l; i++) {
+      let NewObj = data[i].substring(5, 12);
+      if (NewObj === BefObj) {
+        cntarr++;
+      } else {
+        if (BefObj !== '') {
+          temp.push({ cls: BefObj, clsnum: cntarr });
+        }
+        BefObj = NewObj;
+        cntarr = 1;
+        // console.log(temp);
+      }
+    }
+    setClassNum({ ...classNum, temp });
+    // console.log(classNum);
+  };
+*/
 
   useEffect(() => {
     if (!profOption) {
@@ -194,7 +205,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard, submessage }) => {
     const tempArr = [...profObj];
     const sortedProfArr = tempArr.sort(hangulFirstCompare);
     setProfArr(sortedProfArr);
-    // const classObj = new Set(data.map((subject) => subject.subject_id));
+    // const classObj = data.map((subject) => subject.subject_id);
     // countClassNum(classObj);
   }, [data]);
 
@@ -243,6 +254,7 @@ const SelectSubject = ({ number, subtitle, data, onClickCard, submessage }) => {
               {data.map((subject) => (
                 <Card
                   key={subject.subject_id}
+                  // subnum={}
                   subject={subject}
                   onClick={() => onClickCard(subject.subject_id)}
                 ></Card>
