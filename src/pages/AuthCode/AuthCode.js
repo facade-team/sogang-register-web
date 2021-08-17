@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
@@ -21,17 +21,24 @@ import {
   Container,
   HomeContainer as MyPageContainer,
 } from '../../styles/HomeContainer';
-import { FormGroup, Input } from './AuthCode.element.js';
+
+import {
+  JoinFormContainer,
+  EmailCheckBtn,
+  Div,
+  FormGroup,
+} from '../../components/JoinForm/JoinForm.element';
+import { useLoadingContext } from '../../contexts/LoadingContext';
 
 const AuthCode = ({ openModal }) => {
   let history = useHistory();
   const { setSnackBar } = useSnackBarContext();
   const { isAuth, userData } = useAuthContext();
-  const [form, onChangeForm] = useInput({
-    code: '',
-  });
+  const [verifyCode, setVerifyCode] = useState('');
 
-  const { code } = form;
+  const onChangeVerifyCode = (e) => {
+    setVerifyCode(e.target.value);
+  };
 
   useEffect(() => {
     if (!isAuth) {
@@ -39,32 +46,32 @@ const AuthCode = ({ openModal }) => {
     }
   }, [isAuth]);
 
-  const onClick = (e) => {
+  const { setLoading } = useLoadingContext();
+
+  // 인증코드 발송함수
+  const sendVerifyCode = (e) => {
+    e.preventDefault();
     if (isAuth) {
+      setLoading(true);
       axios
-        .post('/user/confirmsecret', {
+        .post('/user/gensecret', {
           email: userData.email,
-          script: code,
         })
         .then((res) => {
-          history.push('/mypage');
-          setSnackBar({
-            type: 'success',
-            msg: '이메일 인증에 성공하였습니다.',
-          });
+          if (res.status === 201) {
+            setSnackBar({
+              msg: '인증코드가 이메일로 발송되었습니다. 메일이 오지 않았다면 스팸메일함을 확인해주세요',
+              type: 'success',
+            });
+            setLoading(false);
+          }
         })
         .catch((err) => {
-          if (err.response.status === 401 || err.response.status === 402) {
-            setSnackBar({
-              type: 'error',
-              msg: '123',
-            });
-          } else {
-            setSnackBar({
-              type: 'error',
-              msg: '인증에 실패했습니다.',
-            });
-          }
+          setLoading(false);
+          setSnackBar({
+            msg: '다시 시도해주십시오',
+            type: 'error',
+          });
         });
     } else {
       setSnackBar({
@@ -74,41 +81,81 @@ const AuthCode = ({ openModal }) => {
     }
   };
 
+  // 인증코드 일치확인 함수
+  const checkVerifyCode = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    axios
+      .post('/user/confirmsecret', {
+        email: userData.email,
+        script: verifyCode,
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          setSnackBar({
+            msg: '이메일 인증이 완료되었습니다.',
+            type: 'success',
+          });
+
+          history.push('/');
+
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        if (err.response.status === 401) {
+          setSnackBar({
+            msg: '인증코드가 불일치합니다.',
+            type: 'error',
+          });
+        } else if (err.response.status === 402) {
+          setSnackBar({
+            msg: '해당하는 이메일이 존재하지 않습니다.',
+            type: 'error',
+          });
+        }
+      });
+  };
+
   return (
     <Container>
       <MyPageContainer navigation="Mypage">
         <Title title="마이페이지/이메일 인증" openModal={openModal}></Title>
         {isAuth ? (
-          <ContainerBox>
-            <FormContainer>
-              <p>이메일 인증코드를 입력해주세요</p>
-              <br></br>
-              <FormGroup>
-                <Input
-                  tyle="email"
-                  value={userData.email}
-                  onChange={onChangeForm}
-                  readOnly
-                ></Input>
-              </FormGroup>
-              <FormGroup>
-                <Input
-                  value={code}
-                  placeholder="인증코드"
-                  onChange={onChangeForm}
-                />
-              </FormGroup>
-              <br></br>
-              <GradationBtn
-                width={200}
-                borderRadius={20}
-                active
-                onClick={onClick}
-              >
-                확인
-              </GradationBtn>
-            </FormContainer>
-          </ContainerBox>
+          <JoinFormContainer>
+            <FormGroup style={{ marginTop: '50px' }}>
+              <p style={{ textAlign: 'center', lineHeight: 1.5 }}>
+                가입하신 이메일 {userData.email} 로 <br />
+                인증코드를 발송합니다.
+              </p>
+            </FormGroup>
+            <EmailCheckBtn onClick={sendVerifyCode} bgColor="#9c88ff" mb="20">
+              인증코드 발송
+            </EmailCheckBtn>
+            <FormGroup>
+              <Div>
+                <label htmlFor="verifyCode">인증코드</label>
+                {verifyCode ? (
+                  <EmailCheckBtn onClick={checkVerifyCode} bgColor="#10ac84">
+                    인증코드 확인
+                  </EmailCheckBtn>
+                ) : (
+                  <EmailCheckBtn onClick={checkVerifyCode} bgColor="#838383">
+                    인증코드 확인
+                  </EmailCheckBtn>
+                )}
+              </Div>
+              <input
+                required
+                type="text"
+                id="verifyCode"
+                name="verifyCode"
+                value={verifyCode}
+                onChange={onChangeVerifyCode}
+              />
+            </FormGroup>
+          </JoinFormContainer>
         ) : null}
       </MyPageContainer>
     </Container>

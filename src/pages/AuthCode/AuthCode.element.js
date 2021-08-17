@@ -1,13 +1,5 @@
 import styled, { css } from 'styled-components';
 
-export const FormGroup = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 80%;
-  margin-bottom: 15px;
-`;
-
 export const Input = styled.input`
   ${({ type }) => {
     return css`

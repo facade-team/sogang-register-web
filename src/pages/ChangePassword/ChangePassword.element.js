@@ -79,14 +79,11 @@ export const Input = styled.input`
 // `;
 
 export const FormContainer = styled.div`
+  width: 60%;
+  max-width: 400px;
   @media screen and (max-width: 900px) {
-    //width: 40%;
-    //min-width: 200px;
   }
   @media screen and (max-width: 600px) {
-    position: relative;
-    top: 25%;
-    left: 0%;
   }
 `;
 

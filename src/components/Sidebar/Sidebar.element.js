@@ -47,8 +47,8 @@ export const SidebarContent = styled.div`
 export const ServiceName = styled.div`
   position: relative;
   top: 40px;
-  font-size: 1.5rem;
-  font-weight: 800;
+  font-size: 1.7rem;
+  font-weight: 600;
   transition: 0.3s;
   &:hover {
     transform: scale(1.05);

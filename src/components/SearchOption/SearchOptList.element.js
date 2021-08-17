@@ -60,14 +60,15 @@ export const OptBtn = styled.button`
         transform: unset;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       }
-    `}
-
+    `} /*
   @media screen and (max-width: 850px) {
     width: 140px;
     margin-bottom: 10px;
   }
-  @media screen and (max-width: 900px) {
-    width: 160px;
+   @media screen and (max-width: 600px) {
+    width: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
     margin-bottom: 10px;
   }
   @media screen and (max-width: 650px) {
@@ -81,7 +82,11 @@ export const OptBtn = styled.button`
   }
   @media screen and (max-width: 319px) {
     width: 100px;
-  }
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  } 
+  */
 `;
 
 export const TagContainer2 = styled(TagContainer)`

@@ -10,9 +10,15 @@ import { LoadingProvider } from './contexts/LoadingContext';
 import { SnackBarProvider } from './contexts/SnackBarContext';
 import { SubjectProvider } from './contexts/SubjectContext';
 import { LatestSubjectsProvider } from './contexts/LatestSubjectsContext';
+require('dotenv').config();
 
-axios.defaults.baseURL = 'http://api.sogang-sincheong.com';
-// axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+if (process.env.NODE_ENV === 'development') {
+  // yarn start (개발용 API 서버)
+  axios.defaults.baseURL = process.env.REACT_APP_API_URL_DEV;
+} else {
+  // yarn build (배포용 API 서버)
+  axios.defaults.baseURL = process.env.REACT_APP_API_URL_PROD;
+}
 
 ReactDOM.render(
   <LoadingProvider>

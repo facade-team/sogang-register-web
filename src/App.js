@@ -50,14 +50,6 @@ const Spinner = styled(CircularProgress)`
 `;
 
 const App = () => {
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     const temp = localStorage.getItem('token');
-  //     axios.defaults.headers.common['Authorization'] = temp;
-  //     console.log('app.js 토큰값', temp);
-  //   }, 0);
-  // });
-
   //모달
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');

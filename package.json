@@ -10,6 +10,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "dotenv": "^10.0.0",
     "framer-motion": "^4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -22,8 +23,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "NODE_ENV=development react-scripts start",
+    "build": "GENERATE_SOURCEMAP=false NODE_ENV=production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "aws s3 sync ./build s3://sogang-sincheong.com"
