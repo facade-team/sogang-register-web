@@ -16,6 +16,10 @@ export const OptionContainer = styled.div`
   width: 100%;
   margin-bottom: 15px;
   flex-wrap: wrap;
+  @media screen and (max-width: 900px) {
+    margin: 0 40px;
+    justify-content: space-between;
+  } ;
 `;
 
 export const OptBtn = styled.button`
@@ -57,32 +61,26 @@ export const OptBtn = styled.button`
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       }
     `}
-    @media screen and (max-width: 900px) {
-    width: 120px;
-  }
-  @media screen and (max-width: 600px) {
-    width: 100px;
-    margin-left: 20px;
-    margin-right: 20px;
+
+  @media screen and (max-width: 850px) {
+    width: 140px;
     margin-bottom: 10px;
+  }
+  @media screen and (max-width: 900px) {
+    width: 160px;
+    margin-bottom: 10px;
+  }
+  @media screen and (max-width: 650px) {
+    width: 120px;
   }
   @media screen and (max-width: 450px) {
     width: 100px;
-    margin-left: 40px;
-    margin-right: 0px;
-    margin-bottom: 10px;
   }
   @media screen and (max-width: 360px) {
     width: 100px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
   }
   @media screen and (max-width: 319px) {
     width: 100px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
   }
 `;
 
