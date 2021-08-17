@@ -30,6 +30,13 @@ export const SubjectNameInList = styled.div`
   height: fit-content;
   margin-bottom: 8px;
   font-weight: 600;
+
+  @media screen and (max-width: 600px) {
+    font-size: 15px;
+  }
+  @media screen and (max-width: 900px) {
+    font-size: 15px;
+  }
 `;
 
 export const Detail = styled.div`
@@ -45,6 +52,22 @@ export const P = styled.p`
   }}
   margin-bottom: 4px;
   margin-top: 4px;
+
+  @media screen and (max-width: 600px) {
+    font-size: 12px;
+  }
+  @media screen and (max-width: 900px) {
+    font-size: 12px;
+  }
+`;
+
+export const TimeText = styled.p`
+  @media screen and (max-width: 600px) {
+    font-size: 14px;
+  }
+  @media screen and (max-width: 900px) {
+    font-size: 14px;
+  }
 `;
 
 export const CloseBtn = styled(AiOutlineClose)`
@@ -55,9 +78,8 @@ export const CloseBtn = styled(AiOutlineClose)`
   }
 `;
 
-
 export const TooltipContainer = styled.div`
   position: relative;
   top: -45px;
   float: right;
-`
+`;

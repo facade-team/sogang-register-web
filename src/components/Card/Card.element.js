@@ -13,7 +13,7 @@ export const CardContainer = styled.div`
   margin: 12px 8px;
   padding: 20px 14px 20px 21px;
   color: #61527f;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.3px;
   cursor: pointer;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -63,7 +63,7 @@ export const Tag = styled.div`
   padding: 4px 10px;
   margin-right: 4px;
   border: none;
-  font-weight: 800;
+  font-weight: 600;
   color: white;
   border-radius: 8px;
   font-size: 11px;
@@ -80,7 +80,7 @@ export const Tag = styled.div`
   ${({ fontSize }) => fontSize && `font-size: ${fontSize}px;`}
   @media screen and (max-width: 600px) {
     margin-bottom: 3px;
-    font-size: 12px;
+    font-size: 10px;
   }
 `;
 

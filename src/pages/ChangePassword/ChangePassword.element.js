@@ -54,7 +54,7 @@ export const Input = styled.input`
     }
   }
   @media screen and (max-width: 600px) {
-    font-size: 10px;
+    font-size: 12px;
     width: 70%;
     &:focus-within {
       padding: 12px 12px;
@@ -79,14 +79,11 @@ export const Input = styled.input`
 // `;
 
 export const FormContainer = styled.div`
+  width: 60%;
+  max-width: 400px;
   @media screen and (max-width: 900px) {
-    //width: 40%;
-    //min-width: 200px;
   }
   @media screen and (max-width: 600px) {
-    position: relative;
-    top: 25%;
-    left: 0%;
   }
 `;
 
@@ -114,7 +111,7 @@ export const FormGroup = styled.div`
     font-size: 14px;
   }
   @media screen and (max-width: 600px) {
-    font-size: 10px;
+    font-size: 11px;
     width: 100%;
   }
 `;

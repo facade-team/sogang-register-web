@@ -57,20 +57,23 @@ export const OptBtn = styled.button`
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       }
     `}
-  @media screen and (max-width: 600px) {
+    @media screen and (max-width: 900px) {
+    width: 120px;
+  }
+  /* @media screen and (max-width: 600px) {
     width: 100px;
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 10px;
   }
-  @media screen and (max-width: 900px) {
-    width: 120px;
-    // margin-left: 20px;
-    // margin-right: 20px;
-    // margin-bottom: 10px;
+  @media screen and (max-width: 450px) {
+    width: 100px;
+    margin-left: 40px;
+    margin-right: 0px;
+    margin-bottom: 10px;
   }
   @media screen and (max-width: 360px) {
-    width: 120px;
+    width: 100px;
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -80,7 +83,7 @@ export const OptBtn = styled.button`
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
-  }
+  } */
 `;
 
 export const TagContainer2 = styled(TagContainer)`
