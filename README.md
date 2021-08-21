@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Meditact
 
 국군 장병을 위한 AI 기반 비대면 의료 서비스 [**_Meditact_**](http://35.224.66.230/)
@@ -460,3 +461,22 @@ $ yarn start ( or npm start )
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
 
 - [MIT LICENSE](https://github.com/osamhack2020/WEB_Meditact_Meditact/blob/main/LICENSE.md)
+=======
+# 서강신청
+
+---
+
+## 사용한 기술
+
+## 페이지 구성
+
+### 개설 교과목 검색 페이지
+
+### 마이페이지
+
+### 피드백/문의 페이지
+
+## 기술 스택 (Technique Used)
+
+## 팀 정보 (Team Information)
+>>>>>>> 009fd520108095fc33026aeabde9c3d7b1f6233c
