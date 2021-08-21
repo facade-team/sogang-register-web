@@ -107,7 +107,7 @@
 
 ## 팀 정보 (Team Information)
 
-- [최현수](https://github.com/Keep-Going-HyeonSoo) E-mail : [soul4927@sogang.ac.kr](mailto:soul4927@sogang.ac.kr)
+- [최현수](https://github.com/Keep-Going-HyeonSoo) E-mail : [chs98105@gmail.com](mailto:chs98105@gmail.com)
 
   - 개설교과목 조회,검색/필터링 기능 UI 개발
   - PC 버전 UI/UX 담당
