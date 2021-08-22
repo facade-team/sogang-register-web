@@ -2,7 +2,7 @@
 
 수강신청할땐? [**_서강신청!_**](http://sogang-sincheong.com)
 
-[![logo](src/assets/img/logo_widever.png)](http://sogang-sincheong.com)
+[![logo](src/assets/img/서강신청_배너.png)](http://sogang-sincheong.com)
 
 <p align="center">
 	<a href="https://github.com/facade-team/sogang-register-web/search?l=TSX&type=code"><img alt="GitHub language count" src="https://img.shields.io/github/languages/count/facade-team/sogang-register-web"></a>
@@ -45,11 +45,11 @@ _**"컴공까지 왔는데, 직접 해결도 해봐야지"**_
 
 <img src = "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F9d361c96-c595-46c8-a66c-2f0de2690ac2%2F%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2021-08-14_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_10.17.09.png?table=block&id=8c6cdd78-26fc-45e5-bf17-a5df3d0ebb43&spaceId=245b7cab-78ce-4eca-ad7c-a658eb996c42&width=2360&userId=de81cae8-d8ea-4da1-a571-2823f68a3d2d&cache=v2"/>
 
-## 사용한 기술
+## 주요 기술 스택
 
 ### React
 
-[<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K" width ="100">](https://reactjs.org/)
+[<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" width ="100">](https://reactjs.org/)
 
 - Component 단위 구조  
   전체적인 UI를 구성하는 하나하나의 블록 단위인 컴포넌트를 사용함으로써 재사용이 용이하다는 장점이 있다. 특히, 유지 보수를 하거나, 미디어 쿼리를 사용할 때 컴포넌트 단위로 수정을 하면 돼서 편리했다는 장점이 크게 다가왔다.
@@ -65,13 +65,11 @@ _**"컴공까지 왔는데, 직접 해결도 해봐야지"**_
 - 단점  
   f12 검사 탭을 통해 css를 수정하고자 할 때, id값이 임의로 설정된 난수값으로 나와서 해당 부분을 id를 보고 바로 찾아가기 힘든 점이 단점으로 다가왔다.
 
----
-
-## 주요 기술 스택
-
-### context api
+### Context api
 
 개발 초기 단계에서는 컴포넌트가 그렇게 많지 않아서 state 관리함에 있어서 큰 어려움이 없었지만, 컴포넌트가 많아지다보니 state를 넘겨줌에 있어서 depth 가 너무 깊어져서 불편함이 많았다. 사용자 로그인상태, 스낵바 경고창, 로딩상태 등 전역적인 state 관리가 필요한 경우에 context api 를 도입하여 개발을 하였다.
+
+---
 
 ## 페이지 구성
 
