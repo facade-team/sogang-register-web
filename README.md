@@ -2,7 +2,7 @@
 
 수강신청할땐? [**_서강신청!_**](http://sogang-sincheong.com)
 
-[![logo](https://github.com/facade-team/sogang-register-web/blob/master/src/assets/img/logo.png)](http://sogang-sincheong.com)
+[![logo](src/assets/img/logo_widever.png)](http://sogang-sincheong.com)
 
 <p align="center">
 	<a href="https://github.com/facade-team/sogang-register-web/search?l=TSX&type=code"><img alt="GitHub language count" src="https://img.shields.io/github/languages/count/facade-team/sogang-register-web"></a>
@@ -49,6 +49,8 @@ _**"컴공까지 왔는데, 직접 해결도 해봐야지"**_
 
 ### React
 
+[<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K" width ="100">](https://reactjs.org/)
+
 - Component 단위 구조  
   전체적인 UI를 구성하는 하나하나의 블록 단위인 컴포넌트를 사용함으로써 재사용이 용이하다는 장점이 있다. 특히, 유지 보수를 하거나, 미디어 쿼리를 사용할 때 컴포넌트 단위로 수정을 하면 돼서 편리했다는 장점이 크게 다가왔다.
 - JSX 문법  
@@ -56,7 +58,7 @@ _**"컴공까지 왔는데, 직접 해결도 해봐야지"**_
 
 ### Styled-component
 
-<img src="https://blog.kakaocdn.net/dn/AMVCv/btqGbqFAeG4/VL93Ekz0y1iyALV25fAcS1/img.png" width="100"/>
+[<img src="https://blog.kakaocdn.net/dn/AMVCv/btqGbqFAeG4/VL93Ekz0y1iyALV25fAcS1/img.png" width="100"/>](https://styled-components.com/)
 
 - 장점  
   style값만 모아놓은 파일을 파일명.element.js와 같은 형태로 따로 분리하여 사용할 수 있어 보다 깔끔한 코딩이 가능했다. 또한, Component를 재사용할 때, 혹은 미디어 쿼리를 사용할 때 간단한 방법으로 이를 처리할 수 있었다.
@@ -135,6 +137,8 @@ _**"컴공까지 왔는데, 직접 해결도 해봐야지"**_
   </tbody>
 </table>
 
+---
+
 ## 기술 스택 (Technique Used)
 
 <table>
@@ -162,6 +166,8 @@ _**"컴공까지 왔는데, 직접 해결도 해봐야지"**_
     </tr>
   </tbody>
 </table>
+
+---
 
 ## 팀 정보 (Team Information)
 
