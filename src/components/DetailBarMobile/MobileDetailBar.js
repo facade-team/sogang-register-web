@@ -30,6 +30,7 @@ import { Tag } from '../Card/Card.element';
 const MobileDetailBar = ({ height, subject, onClose }) => {
   const { isAuth, userData, setUserData } = useAuthContext();
   const { latestSubjects, setLatestSubjects } = useLatestSubjectsContext();
+  const { loading, setLoading } = useLoadingContext();
   const { setSnackBar } = useSnackBarContext();
   const { setLoading, loading } = useLoadingContext();
   const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
@@ -37,7 +38,17 @@ const MobileDetailBar = ({ height, subject, onClose }) => {
 
   useEffect(() => {
     if (latestSubjects.length !== 0) {
-      const list = [subject, ...latestSubjects];
+      const idx = latestSubjects.findIndex((sub) => {
+        return subject.subject_id === sub.subject_id;
+      });
+
+      let list;
+      if (idx === -1) {
+        list = [subject, ...latestSubjects];
+      } else {
+        list = [...latestSubjects];
+        list.unshift(list.splice(idx, 1)[0]);
+      }
 
       setLatestSubjects(list);
     }
@@ -83,6 +94,9 @@ const MobileDetailBar = ({ height, subject, onClose }) => {
   }, [subject]);
 
   const toFavorite = () => {
+    if (loading) {
+      return;
+    }
     if (!isAuth) {
       setSnackBar({
         type: 'error',
@@ -102,6 +116,10 @@ const MobileDetailBar = ({ height, subject, onClose }) => {
 
       if (list.length > 10) {
         list.pop();
+        setSnackBar({
+          type: 'error',
+          msg: '즐겨찾기는 10개까지 담을 수 있습니다.',
+        });
       }
 
       setFavoriteList(list);

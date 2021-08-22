@@ -122,6 +122,9 @@ const DetailBar = ({
 
   //
   const deleteInList = (e, key, latest) => {
+    if (loading) {
+      return;
+    }
     let list;
     if (latest) list = [...latestSubjects];
     else list = [...favoriteList];
@@ -148,6 +151,9 @@ const DetailBar = ({
   };
 
   const toFavorite = () => {
+    if (loading) {
+      return;
+    }
     if (!isAuth) {
       setSnackBar({
         type: 'error',
