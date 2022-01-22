@@ -32,7 +32,7 @@ const MobileDetailBar = ({ height, subject, onClose }) => {
   const { latestSubjects, setLatestSubjects } = useLatestSubjectsContext();
   const { loading, setLoading } = useLoadingContext();
   const { setSnackBar } = useSnackBarContext();
-  const { setLoading, loading } = useLoadingContext();
+  // const { setLoading, loading } = useLoadingContext();
   const [favoriteList, setFavoriteList] = useState(userData.subjects || []);
   const [checkBookmark, setCheckBookmark] = useState(false);
 

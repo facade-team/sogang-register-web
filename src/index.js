@@ -20,6 +20,8 @@ if (process.env.NODE_ENV === 'development') {
   axios.defaults.baseURL = process.env.REACT_APP_API_URL_PROD;
 }
 
+axios.defaults.timeout = 2500;
+
 ReactDOM.render(
   <LoadingProvider>
     <SnackBarProvider>

@@ -17,6 +17,8 @@ import {
 import Select from 'react-select';
 
 const Semester = [
+  '2022 1학기',
+  '2021 동계',
   '2021 2학기',
   '2021 하계',
   '2021 1학기',

@@ -64,7 +64,7 @@ const FeedbackForm = () => {
   const { setLoading } = useLoadingContext();
   const { setSnackBar } = useSnackBarContext();
 
-  const [bytes, setBytes] = useState(0)
+  const [bytes, setBytes] = useState(0);
 
   //textarea 바이트 수 체크하는 함수
   const fn_checkByte = (obj) => {
@@ -72,30 +72,28 @@ const FeedbackForm = () => {
     //const text_val = obj.value; //입력한 문자
     const text_val = obj; //입력한 문자
     const text_len = text_val.length; //입력한 문자수
-    
-    let totalByte=0;
-    for(let i=0; i<text_len; i++){
+
+    let totalByte = 0;
+    for (let i = 0; i < text_len; i++) {
       const each_char = text_val.charAt(i);
-        const uni_char = escape(each_char) //유니코드 형식으로 변환
-        if(uni_char.length>4){
-          // 한글 : 2Byte
-            totalByte += 2;
-        }else{
-          // 영문,숫자,특수문자 : 1Byte
-            totalByte += 1;
-        }
+      const uni_char = escape(each_char); //유니코드 형식으로 변환
+      if (uni_char.length > 4) {
+        // 한글 : 2Byte
+        totalByte += 2;
+      } else {
+        // 영문,숫자,특수문자 : 1Byte
+        totalByte += 1;
+      }
     }
 
-    setBytes(totalByte)
-    }
-
+    setBytes(totalByte);
+  };
 
   const handleSubmit = () => {
-    if ((email === '') || (title === '') || (script === '')) {
+    if (email === '' || title === '' || script === '') {
       // snackbar 에러 문구
-      return 'o'
-    }
-    else {
+      return 'o';
+    } else {
       setLoading(true);
       axios
         .post('/user/reportemail', form)
@@ -125,7 +123,7 @@ const FeedbackForm = () => {
     <FormContainer>
       <LinkContainer>
         <A
-          href="https://sogang-sincheong.notion.site/sogang-sincheong/33a4fff98f414bbca2493ae77a962e6b"
+          href="https://calmdown.notion.site/33a4fff98f414bbca2493ae77a962e6b"
           target="_blank"
           style={{ display: 'flex', alignItems: 'center' }}
         >
@@ -166,9 +164,11 @@ const FeedbackForm = () => {
           value={script}
           onChange={onChangeForm}
           style={{ height: '200px' }}
-          onKeyUp={(x) =>fn_checkByte(script)}
+          onKeyUp={(x) => fn_checkByte(script)}
         />
-        <span style={{fontSize:'8px', color:'#727272'}}>{bytes}/500bytes</span>
+        <span style={{ fontSize: '8px', color: '#727272' }}>
+          {bytes}/500bytes
+        </span>
       </FormGroup>
       <CustomGradationBtnComp
         onClick={handleSubmit}
