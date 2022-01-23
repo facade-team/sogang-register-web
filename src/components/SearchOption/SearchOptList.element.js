@@ -32,10 +32,6 @@ export const OptionContainer = styled.div`
     margin: 0 20px;
     justify-content: center;
   }
-  @media screen and (min-width: 768px) {
-    margin: 0 30px;
-    justify-content: space-between;
-  } ;
 `;
 
 export const OptBtn = styled.button`
