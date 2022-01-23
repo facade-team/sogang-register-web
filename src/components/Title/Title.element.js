@@ -16,9 +16,10 @@ export const TitleComp = styled.p`
   font-weight: 900;
   color: #61527f;
 
-  @media screen and (max-width: 900px){
+  @media screen and (max-width: 900px) {
     font-size: 20px;
     font-weight: 800;
+  }
   @media screen and (max-width: 600px) {
     font-size: 22px;
     font-weight: 800;
