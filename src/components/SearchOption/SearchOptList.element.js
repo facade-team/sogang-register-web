@@ -19,6 +19,22 @@ export const OptionContainer = styled.div`
   @media screen and (max-width: 900px) {
     margin: 0 40px;
     justify-content: space-between;
+  }
+  @media screen and (max-width: 850px) {
+    margin: 0 30px;
+    justify-content: space-between;
+  }
+  @media screen and (max-width: 750px) {
+    margin: 0 20px;
+    justify-content: space-between;
+  }
+  @media screen and (max-width: 300px) {
+    margin: 0 20px;
+    justify-content: center;
+  }
+  @media screen and (min-width: 768px) {
+    margin: 0 30px;
+    justify-content: space-between;
   } ;
 `;
 
@@ -87,6 +103,9 @@ export const OptBtn = styled.button`
     margin-bottom: 10px;
   } 
   */
+  @media screen and (min-width: 768px) {
+    margin: 6px 40px;
+  } ;
 `;
 
 export const TagContainer2 = styled(TagContainer)`

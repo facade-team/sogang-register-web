@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSnackBarContext } from '../../contexts/SnackBarContext';
 import { useLoadingContext } from '../../contexts/LoadingContext';
 import { useSubjectContext } from '../../contexts/SubjectContext';
+import { useAuthContext } from '../../contexts/AuthContext';
 import axios from 'axios';
 
 import {
@@ -73,6 +74,7 @@ const SearchOptList = () => {
 
   const { setSnackBar } = useSnackBarContext();
   const { loading, setLoading } = useLoadingContext();
+  const { isAuth, userData, setUserData } = useAuthContext();
 
   // api 요청으로 받아온 과목,학부 리스트를 전역 state 로 set
   const {
@@ -146,7 +148,7 @@ const SearchOptList = () => {
           })
           .then((res) => {
             setDepartments(res.data.data);
-            setMajorOption({ ...majorOption, data: res.data.data });
+            setMajorOption({ ...majorOption, data: res.data.data }); ///////// 여기서 수정하면 될듯
             // 2. 과목검색 시, option 을 넣어서 api 요청
             axios
               .post('subject/option', opt)
