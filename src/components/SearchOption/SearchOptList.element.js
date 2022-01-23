@@ -99,9 +99,6 @@ export const OptBtn = styled.button`
     margin-bottom: 10px;
   } 
   */
-  @media screen and (min-width: 768px) {
-    margin: 6px 40px;
-  } ;
 `;
 
 export const TagContainer2 = styled(TagContainer)`
