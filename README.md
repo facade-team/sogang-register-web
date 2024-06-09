@@ -169,7 +169,7 @@ _**"컴공까지 왔는데, 직접 해결도 해봐야지"**_
 
 ## 팀 정보 (Team Information)
 
-- [최현수](https://github.com/Keep-Going-HyeonSoo) E-mail : [chs98105@gmail.com](mailto:chs98105@gmail.com)
+- [최현수](https://github.com/itsme-shawn) E-mail : [chs98105@naver.com](mailto:chs98105@naver.com)
 
   - 개설교과목 조회,검색/필터링 기능 UI 개발
   - PC 버전 UI/UX 담당
